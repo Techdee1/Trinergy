@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The fluid sampled 2013-08-29 09:00 (well F1B, report 2013-08-30) had the higher density, 1.32 g/cm3, versus 1.28 g/cm3 for the fluid sampled 2013-05-28 03:00 (well F11B).\",\"cited_ids\":[\"F11B-20130529-FLUID-01\",\"F1B-20130830-FLUID-01\"],\"rationale\":\"Both density values are given directly in the drilling fluid records, and 1.32 g/cm3 exceeds 1.28 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The fluid sampled 2013-08-29 09:00 (well F1B, report 2013-08-30) had the higher density, 1.32 g/cm3, versus 1.28 g/cm3 for the fluid sampled 2013-05-28 03:00 (well F11B).",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "Both density values are given directly in the drilling fluid records, and 1.32 g/cm3 exceeds 1.28 g/cm3."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

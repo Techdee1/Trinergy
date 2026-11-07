@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"Sonic tool failure\",\"cited_ids\":[\"F1-20130824-FAIL-02\"],\"rationale\":\"The evidence lists the equipment failure but does not include any repair cost.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Sonic tool failure",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The evidence lists the equipment failure but does not include any repair cost."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

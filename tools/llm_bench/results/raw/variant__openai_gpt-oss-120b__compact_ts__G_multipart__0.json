@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"End depth was 12 m and the activity was completion -- bop/wellhead equipment.\",\n  \"cited_ids\": [\"F1C-20140326-ACT-01\"],\n  \"rationale\": \"The line provides end MD and activity for the specified time.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "End depth was 12 m and the activity was completion -- bop/wellhead equipment.",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The line provides end MD and activity for the specified time."
+ },
+ "provider": "Groq",
+ "finish_reason": "stop"
+}

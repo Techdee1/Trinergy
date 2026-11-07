@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"2065 m MD\",\"cited_ids\":[\"19A-19971110-ACT-04\"],\"rationale\":\"Record 19A-19971110-ACT-04 is a 'plug abandon -- other' activity from 1997-11-09 07:30-20:00 ending at MD 2065 m, matching the question's start time and report date.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2065 m MD",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "Record 19A-19971110-ACT-04 is a 'plug abandon -- other' activity from 1997-11-09 07:30-20:00 ending at MD 2065 m, matching the question's start time and report date."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

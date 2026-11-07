@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"partial\", \"answer\": \"On 2013-08-18, a Sonic tool failure was reported for well 15/9-F-1.\", \"cited_ids\": [\"F1-20130824-FAIL-02\"], \"rationale\": \"The equipment failure is documented, but the evidence does not contain any information regarding the cost of the repair.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "On 2013-08-18, a Sonic tool failure was reported for well 15/9-F-1.",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The equipment failure is documented, but the evidence does not contain any information regarding the cost of the repair."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"2602 m MD\",\"cited_ids\":[\"F1-20130824-ACT-01\"],\"rationale\":\"Activity F1-20130824-ACT-01 has a time window of 2013-08-23 00:00-01:30, and its end MD is 2602 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2602 m MD",
+  "cited_ids": [
+   "F1-20130824-ACT-01"
+  ],
+  "rationale": "Activity F1-20130824-ACT-01 has a time window of 2013-08-23 00:00-01:30, and its end MD is 2602 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

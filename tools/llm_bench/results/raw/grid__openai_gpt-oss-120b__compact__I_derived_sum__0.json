@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"25.94 m\",\"cited_ids\":[\"F1-20130812-CSG-01\",\"F1-20130812-CSG-02\"],\"rationale\":\"Summed lengths from the two casing entries with the specified top depths.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "25.94 m",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "Summed lengths from the two casing entries with the specified top depths."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

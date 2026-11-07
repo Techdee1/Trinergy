@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"18 m\",\n  \"cited_ids\": [\"F1-20130824-ACT-01\", \"F1-20130824-ACT-03\"],\n  \"rationale\": \"Calculated the difference between the two end MD values.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18 m",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "Calculated the difference between the two end MD values."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

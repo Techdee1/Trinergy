@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"answered\", \"answer\": \"2065 m\", \"cited_ids\": [\"19A-19971110-ACT-04\"], \"rationale\": \"The line for the plug abandon -- other activity starting 07:30 on 1997-11-09 in well 19A, report 1997-11-10, shows end MD 2065 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2065 m",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "The line for the plug abandon -- other activity starting 07:30 on 1997-11-09 in well 19A, report 1997-11-10, shows end MD 2065 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

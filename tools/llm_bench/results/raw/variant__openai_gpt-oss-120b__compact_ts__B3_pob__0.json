@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\n  \"status\": \"abstain\",\n  \"answer\": \"\",\n  \"cited_ids\": [],\n  \"rationale\": \"No evidence lines contain personnel count information.\"\n}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines contain personnel count information."
+ },
+ "provider": "Groq",
+ "finish_reason": "stop"
+}

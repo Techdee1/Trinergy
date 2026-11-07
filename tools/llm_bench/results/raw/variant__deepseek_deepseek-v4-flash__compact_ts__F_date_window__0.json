@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19970829-FLUID-01\"],\"rationale\":\"The line reports a drilling fluid density of 1.55 g/cm3 in the Active pit at 1997-08-28 23:59, which is the closest timestamp to the requested date and time.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "rationale": "The line reports a drilling fluid density of 1.55 g/cm3 in the Active pit at 1997-08-28 23:59, which is the closest timestamp to the requested date and time."
+ },
+ "provider": "Parasail",
+ "finish_reason": "stop"
+}

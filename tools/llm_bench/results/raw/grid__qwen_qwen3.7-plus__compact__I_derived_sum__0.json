@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"25.94 m\",\n\"cited_ids\": [\n\"F1-20130812-CSG-01\",\n\"F1-20130812-CSG-02\"\n],\n\"rationale\": \"The casing joint with top at 2581.81 m has a length of 13.6 m and the joint with top at 2569.46 m has a length of 12.34 m, summing to 25.94 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "25.94 m",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "The casing joint with top at 2581.81 m has a length of 13.6 m and the joint with top at 2569.46 m has a length of 12.34 m, summing to 25.94 m."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

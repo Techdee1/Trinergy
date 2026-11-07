@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"Sonic tool failure\",\"cited_ids\":[\"F1-20130824-FAIL-02\"],\"rationale\":\"The evidence line reports a sonic tool failure on 2013-08-18 but does not mention any cost of repair.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Sonic tool failure",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The evidence line reports a sonic tool failure on 2013-08-18 but does not mention any cost of repair."
+ },
+ "provider": "Baidu",
+ "finish_reason": "stop"
+}

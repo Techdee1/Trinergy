@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19970829-FLUID-01\"],\"rationale\":\"The FLUID-01 line reports the Active pit ULTIDRILL density as 1.55 g/cm3 with a sample timestamp of 1997-08-28 23:59, which falls the day before the 1997-08-29 report date and so belongs to that report.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "rationale": "The FLUID-01 line reports the Active pit ULTIDRILL density as 1.55 g/cm3 with a sample timestamp of 1997-08-28 23:59, which falls the day before the 1997-08-29 report date and so belongs to that report."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

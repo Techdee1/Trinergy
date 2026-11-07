@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"ABSENT-cost\"],\"rationale\":\"The search covered 32 reports and 459 records and found no cost field, so the daily cost for 15/9-F-11 T2 on 2013-05-15 cannot be given.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "The search covered 32 reports and 459 records and found no cost field, so the daily cost for 15/9-F-11 T2 on 2013-05-15 cannot be given."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

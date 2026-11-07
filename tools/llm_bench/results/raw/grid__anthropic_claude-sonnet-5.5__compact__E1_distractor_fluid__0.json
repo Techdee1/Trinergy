@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The Enviromul Yellow drilling fluid sampled from the Flowline had a density of 1.28 g/cm3 (MD 2828 m, sample 2013-05-28 03:00).\",\"cited_ids\":[\"F11B-20130529-FLUID-01\"],\"rationale\":\"The line F11B-20130529-FLUID-01 for the F-11 B report dated 2013-05-29 gives the Flowline density of 1.28 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The Enviromul Yellow drilling fluid sampled from the Flowline had a density of 1.28 g/cm3 (MD 2828 m, sample 2013-05-28 03:00).",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01"
+  ],
+  "rationale": "The line F11B-20130529-FLUID-01 for the F-11 B report dated 2013-05-29 gives the Flowline density of 1.28 g/cm3."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

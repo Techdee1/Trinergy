@@ -1,6 +1,7 @@
 # Only what the solution needs. Python 3.12.
 # No API keys or network access are required to run the notebook.
 pymupdf==2.1
+requests==2.34.2
 pandas==3.1.1
 pyarrow==26.0.1
 numpy==2.5.4

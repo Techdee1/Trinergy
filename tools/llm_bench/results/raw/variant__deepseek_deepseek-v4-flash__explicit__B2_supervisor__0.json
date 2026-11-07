@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"The evidence lines do not contain any information about a drilling supervisor for well 15/9-F-12 on 2008-01-15.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines do not contain any information about a drilling supervisor for well 15/9-F-12 on 2008-01-15."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

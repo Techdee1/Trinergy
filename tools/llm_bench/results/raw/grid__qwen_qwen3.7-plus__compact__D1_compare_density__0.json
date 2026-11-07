@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"1.32 g/cm3\",\n\"cited_ids\": [\n\"[F11B-20130529-FLUID-01]\",\n\"[F1B-20130830-FLUID-01]\"\n],\n\"rationale\": \"The density sampled on 2013-05-28 was 1.28 g/cm3, while the density sampled on 2013-08-29 was 1.32 g/cm3, making 1.32 g/cm3 the higher value.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.32 g/cm3",
+  "cited_ids": [
+   "[F11B-20130529-FLUID-01]",
+   "[F1B-20130830-FLUID-01]"
+  ],
+  "rationale": "The density sampled on 2013-05-28 was 1.28 g/cm3, while the density sampled on 2013-08-29 was 1.32 g/cm3, making 1.32 g/cm3 the higher value."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

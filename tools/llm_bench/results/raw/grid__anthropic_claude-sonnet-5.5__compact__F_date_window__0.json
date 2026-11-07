@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"19A-19970829-FLUID-01\"],\"rationale\":\"The only active pit fluid record for well 19A is sampled 1997-08-28 23:59 (1.55 g/cm3), not 1997-08-29 23:59, so the requested sample is not in the evidence.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "rationale": "The only active pit fluid record for well 19A is sampled 1997-08-28 23:59 (1.55 g/cm3), not 1997-08-29 23:59, so the requested sample is not in the evidence."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

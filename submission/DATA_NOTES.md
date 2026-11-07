@@ -15,6 +15,10 @@ Feeds the README "limitations" section. Everything here was checked against the 
 - Encoding: 28 XML files declare ISO-8859-1; the four 15/9-19-A files declare nothing and are
   plain ASCII. `ElementTree` on the raw bytes reads both correctly (e.g. "MÆRSK INSPIRER").
 
+- `metadata/document_manifest.csv` lists the 32 daily-report XML files correctly, but its `well_hint`
+  column is unreliable: the year leaks into some hints (`15_9_F_12_2007`, `15_9_F_1_2013`), so counting
+  distinct hints gives 11 "wells" instead of 8. We count wellbores from the file names instead.
+
 ## Dates
 - **A report dated D covers D-1 00:00 to D 00:00** (`period_start`/`period_end` on every record).
   Events "on D-1" are in the report dated D. In all four sample questions that name a sample time

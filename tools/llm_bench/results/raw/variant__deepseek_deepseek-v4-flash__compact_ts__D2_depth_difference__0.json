@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"18 m\",\n  \"cited_ids\": [\"F1-20130824-ACT-01\", \"F1-20130824-ACT-03\"],\n  \"rationale\": \"The activity ending at 01:30 had end MD 2602 m, and the activity ending at 05:00 had end MD 2620 m, giving an increase of 18 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18 m",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "The activity ending at 01:30 had end MD 2602 m, and the activity ending at 05:00 had end MD 2620 m, giving an increase of 18 m."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

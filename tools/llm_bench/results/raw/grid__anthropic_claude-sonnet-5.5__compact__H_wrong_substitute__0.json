@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"F1-20130824-STATUS-01\"],\"rationale\":\"The 2013-08-24 report status for F-1 names the operator (Statoil) and drilling contractor (Maersk Drilling) but no mud logging company.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "F1-20130824-STATUS-01"
+  ],
+  "rationale": "The 2013-08-24 report status for F-1 names the operator (Statoil) and drilling contractor (Maersk Drilling) but no mud logging company."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

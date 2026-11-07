@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The combined length is 25.94 m (13.6 m for the joint with top at 2581.81 m plus 12.34 m for the joint with top at 2569.46 m).\",\"cited_ids\":[\"F1-20130812-CSG-01\",\"F1-20130812-CSG-02\"],\"rationale\":\"CSG-01 has top 2581.81 m and length 13.6 m; CSG-02 has top 2569.46 m and length 12.34 m; the sum is 25.94 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The combined length is 25.94 m (13.6 m for the joint with top at 2581.81 m plus 12.34 m for the joint with top at 2569.46 m).",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "CSG-01 has top 2581.81 m and length 13.6 m; CSG-02 has top 2569.46 m and length 12.34 m; the sum is 25.94 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

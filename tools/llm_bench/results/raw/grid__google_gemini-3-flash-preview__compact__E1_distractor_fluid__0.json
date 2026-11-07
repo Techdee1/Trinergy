@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.28 g/cm3\",\"cited_ids\":[\"F11B-20130529-FLUID-01\"],\"rationale\":\"The evidence line for well F11B on 2013-05-29 specifies the density of the Enviromul Yellow fluid in the flowline.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.28 g/cm3",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01"
+  ],
+  "rationale": "The evidence line for well F11B on 2013-05-29 specifies the density of the Enviromul Yellow fluid in the flowline."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

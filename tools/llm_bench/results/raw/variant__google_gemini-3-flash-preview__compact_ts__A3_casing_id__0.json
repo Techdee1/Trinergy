@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The inner diameter of the casing joint with its top at 2556.86 m is 12.347 in.\",\"cited_ids\":[\"F1-20130812-CSG-03\"],\"rationale\":\"Line F1-20130812-CSG-03 specifies the ID for the casing joint starting at the requested depth.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The inner diameter of the casing joint with its top at 2556.86 m is 12.347 in.",
+  "cited_ids": [
+   "F1-20130812-CSG-03"
+  ],
+  "rationale": "Line F1-20130812-CSG-03 specifies the ID for the casing joint starting at the requested depth."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

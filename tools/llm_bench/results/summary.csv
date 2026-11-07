@@ -1,0 +1,9 @@
+model,in_$/M,out_$/M,avg_in_tok,avg_out_tok,avg_reason_tok,cost_per_call,p50_s,max_s,json_valid,status_acc,answer_acc,halluc_cites,empty,length_trunc,verifier_ok,det_raw_4,det_decision_4,provider,reasoning
+deepseek/deepseek-v4-flash,0.091,0.182,1293.0625,68.8125,0.0,0.00012274099725,1.276,2.71,1.0,1.0,0.875,0,0,0,1.0,,,"Baidu,DeepInfra,Parasail,Venice","{""effort"": ""none""}"
+openai/gpt-oss-120b,0.016,0.059,1304.3125,230.0,162.0625,0.0001304588125,0.8225,3.32,1.0,1.0,0.875,0,0,0,1.0,0/4,3/4,"AkashML,Crusoe,DekaLLM,Groq","{""effort"": ""minimal""}"
+meta-llama/llama-4-scout,0.09999999999999999,0.3,1230.0625,58.875,0.0,0.000211003125,2.817,6.953,1.0,0.6875,0.5625,0,0,0,0.9375,,,DeepInfra,
+anthropic/claude-haiku-5.5,0.09999999999999999,0.5,2020.1875,112.1875,0.0,0.00025811249999999997,1.209,1.708,1.0,1.0,1.0,0,0,0,1.0,0/4,4/4,Anthropic,"{""effort"": ""none""}"
+qwen/qwen3.7-plus,0.32,1.28,1531.5625,99.0,0.0,0.00061682,2.6965,5.188,1.0,0.875,0.75,0,0,0,1.0,,,Alibaba,"{""effort"": ""none""}"
+google/gemini-3-flash-preview,0.5,3.0,1670.6875,82.1875,0.0,0.00108190625,1.3359999999999999,3.687,1.0,0.9375,0.9375,0,0,0,1.0,1/4,4/4,Google,"{""effort"": ""none""}"
+anthropic/claude-sonnet-5.5,2.0,10.0,2021.1875,124.25,0.0,0.005284875,2.1215,2.884,1.0,0.9375,0.9375,0,0,0,1.0,,,Anthropic,"{""effort"": ""minimal""}"
+anthropic/claude-opus-5.5,4.0,20.0,1768.5,136.375,20.0625,0.009801500000000001,2.1624999999999996,4.211,1.0,0.9375,0.9375,0,0,0,1.0,,,Anthropic,"{""effort"": ""minimal""}"

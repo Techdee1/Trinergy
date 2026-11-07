@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"The evidence for report F1-20130824 gives the operator and drilling contractor but contains no field for a mud logging company.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence for report F1-20130824 gives the operator and drilling contractor but contains no field for a mud logging company."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

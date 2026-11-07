@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The provided evidence contains information about the operator and drilling contractor for well F12 on the specified date, but it does not mention the drilling supervisor.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The provided evidence contains information about the operator and drilling contractor for well F12 on the specified date, but it does not mention the drilling supervisor."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

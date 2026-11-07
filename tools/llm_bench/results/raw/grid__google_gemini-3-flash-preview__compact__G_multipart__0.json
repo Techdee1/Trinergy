@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"For the row ending at 03:30 on 2014-03-25, the end depth was 12 m and the activity was pulling the HPDR (High Pressure Drilling Riser) from 35 to 12 m.\",\"cited_ids\":[\"F1C-20140326-ACT-01\"],\"rationale\":\"The evidence line for well F1C on report date 2014-03-26 contains the specific time, depth, and activity description requested.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "For the row ending at 03:30 on 2014-03-25, the end depth was 12 m and the activity was pulling the HPDR (High Pressure Drilling Riser) from 35 to 12 m.",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The evidence line for well F1C on report date 2014-03-26 contains the specific time, depth, and activity description requested."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

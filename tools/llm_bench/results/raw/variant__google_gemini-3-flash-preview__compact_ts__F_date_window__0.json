@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence contains a fluid sample from 1997-08-28 23:59, but no data for 1997-08-29 23:59.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence contains a fluid sample from 1997-08-28 23:59, but no data for 1997-08-29 23:59."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The density of the fluid sampled 2013-08-29 09:00 was higher at 1.32 g/cm3.\",\"cited_ids\":[\"F11B-20130529-FLUID-01\",\"F1B-20130830-FLUID-01\"],\"rationale\":\"The fluid sampled on 2013-05-28 03:00 had a density of 1.28 g/cm3, while the fluid sampled on 2013-08-29 09:00 had a density of 1.32 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The density of the fluid sampled 2013-08-29 09:00 was higher at 1.32 g/cm3.",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "The fluid sampled on 2013-05-28 03:00 had a density of 1.28 g/cm3, while the fluid sampled on 2013-08-29 09:00 had a density of 1.32 g/cm3."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

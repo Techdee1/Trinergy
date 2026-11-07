@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"1.55 g/cm3\",\n  \"cited_ids\": [\"19A-19971110-FLUID-01\"],\n  \"rationale\": \"The fluid record lists the density.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The fluid record lists the density."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

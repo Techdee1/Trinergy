@@ -25,6 +25,13 @@ REPO_ROOT = SUBMISSION_DIR.parent
 INDEX_DIR = SUBMISSION_DIR / "indexes"
 RECORDS_PATH = INDEX_DIR / "records.parquet"
 ROUTING_REPORT_PATH = INDEX_DIR / "routing_report.csv"
+LLM_CACHE_PATH = INDEX_DIR / "llm_cache.json"          # committed: lets reviewers run offline
+COST_SUMMARY_PATH = INDEX_DIR / "cost_summary.csv"      # committed
+ANSWERS_PATH = INDEX_DIR / "answers.json"               # committed: cited ids, status, rationale
+PREDICTIONS_PATH = SUBMISSION_DIR / "predictions.csv"
+LOGS_DIR = REPO_ROOT / "logs"                           # git-ignored
+COST_LEDGER_PATH = LOGS_DIR / "cost_ledger.csv"
+CONTEXT_DUMP_DIR = LOGS_DIR / "context_dumps"
 
 MARKER = Path("metadata") / "document_manifest.csv"
 _EXTERNAL = Path("external") / "nape-aice-2026-hackathon" / "data" / "track_2"

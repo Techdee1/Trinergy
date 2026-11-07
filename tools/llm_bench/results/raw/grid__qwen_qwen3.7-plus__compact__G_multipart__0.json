@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"end depth: 12 m, activity: completion -- bop/wellhead equipment\",\n\"cited_ids\": [\n\"F1C-20140326-ACT-01\"\n],\n\"rationale\": \"The evidence line F1C-20140326-ACT-01 corresponds to the well prefix F1C (matching 15/9-F-1 C), the date range ending 2014-03-25 03:30, and lists the end MD as 12 m and activity as completion -- bop/wellhead equipment.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "end depth: 12 m, activity: completion -- bop/wellhead equipment",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The evidence line F1C-20140326-ACT-01 corresponds to the well prefix F1C (matching 15/9-F-1 C), the date range ending 2014-03-25 03:30, and lists the end MD as 12 m and activity as completion -- bop/wellhead equipment."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

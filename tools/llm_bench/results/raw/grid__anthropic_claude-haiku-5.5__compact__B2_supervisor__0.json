@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines for report F12-20080115-STATUS-01 give the report number, date, depths, water depth, operator and drilling contractor, but do not name a drilling supervisor.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines for report F12-20080115-STATUS-01 give the report number, date, depths, water depth, operator and drilling contractor, but do not name a drilling supervisor."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

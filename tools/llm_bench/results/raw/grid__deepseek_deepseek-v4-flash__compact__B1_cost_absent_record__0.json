@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No evidence lines contain cost data for any well, and the ABSENT-cost note confirms no cost field exists.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines contain cost data for any well, and the ABSENT-cost note confirms no cost field exists."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

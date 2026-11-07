@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"F12-20080115-STATUS-01\"],\"rationale\":\"The F12 2008-01-15 status line lists operator and drilling contractor but no drilling supervisor name.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "F12-20080115-STATUS-01"
+  ],
+  "rationale": "The F12 2008-01-15 status line lists operator and drilling contractor but no drilling supervisor name."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

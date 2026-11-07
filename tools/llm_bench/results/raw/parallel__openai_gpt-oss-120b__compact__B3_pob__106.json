@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No evidence lines provide personnel count for that date.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines provide personnel count for that date."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

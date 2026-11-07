@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"Equipment failure: Sonic tool failure\",\"cited_ids\":[\"F1-20130824-FAIL-02\"],\"rationale\":\"The evidence line F1-20130824-FAIL-02 mentions the equipment failure on 2013-08-18.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Equipment failure: Sonic tool failure",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The evidence line F1-20130824-FAIL-02 mentions the equipment failure on 2013-08-18."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

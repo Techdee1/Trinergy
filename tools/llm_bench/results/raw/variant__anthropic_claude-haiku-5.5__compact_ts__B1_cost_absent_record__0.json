@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"ABSENT-cost\"],\"rationale\":\"The evidence states that no cost field exists in any searched records, and no line covers well F-11 T2 on 2013-05-15.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "The evidence states that no cost field exists in any searched records, and no line covers well F-11 T2 on 2013-05-15."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

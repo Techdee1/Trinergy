@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines do not contain information about the mud logging company that served well 15/9-F-1 in the report dated 2013-08-24.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines do not contain information about the mud logging company that served well 15/9-F-1 in the report dated 2013-08-24."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

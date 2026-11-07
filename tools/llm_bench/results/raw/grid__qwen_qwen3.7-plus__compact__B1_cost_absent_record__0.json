@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The provided evidence does not contain cost information for well 15/9-F-11 T2 on 2013-05-15, and explicitly states that no cost field exists.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The provided evidence does not contain cost information for well 15/9-F-11 T2 on 2013-05-15, and explicitly states that no cost field exists."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"A sonic tool failure (equipment failure, service equipment -- special service equipment) was reported on 2013-08-18 at MD 0 m. The evidence gives no repair cost.\",\"cited_ids\":[\"F1-20130824-FAIL-02\"],\"rationale\":\"F1-20130824-FAIL-02 identifies the failure but contains no cost information.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "A sonic tool failure (equipment failure, service equipment -- special service equipment) was reported on 2013-08-18 at MD 0 m. The evidence gives no repair cost.",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "F1-20130824-FAIL-02 identifies the failure but contains no cost information."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

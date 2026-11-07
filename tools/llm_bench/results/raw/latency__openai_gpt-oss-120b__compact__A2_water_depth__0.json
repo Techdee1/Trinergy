@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"91 m\",\n  \"cited_ids\": [\"F1B-20130830-STATUS-01\"],\n  \"rationale\": \"The report line provides water depth as 91 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The report line provides water depth as 91 m."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

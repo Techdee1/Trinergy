@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19971110-FLUID-01\"],\"rationale\":\"The line reports a density of 1.55 g/cm3 for ULTIDRILL from the Active pit sampled at 06:00 on 1997-11-09.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The line reports a density of 1.55 g/cm3 for ULTIDRILL from the Active pit sampled at 06:00 on 1997-11-09."
+ },
+ "provider": "Parasail",
+ "finish_reason": "stop"
+}

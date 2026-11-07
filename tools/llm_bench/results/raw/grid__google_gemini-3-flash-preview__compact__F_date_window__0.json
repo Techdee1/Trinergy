@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence contains a fluid sample from 1997-08-28, but there is no information regarding the drilling fluid density on 1997-08-29.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence contains a fluid sample from 1997-08-28, but there is no information regarding the drilling fluid density on 1997-08-29."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

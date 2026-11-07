@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No evidence lines mention a mud logging company for 15/9-F-1 in the 2013-08-24 report.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines mention a mud logging company for 15/9-F-1 in the 2013-08-24 report."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

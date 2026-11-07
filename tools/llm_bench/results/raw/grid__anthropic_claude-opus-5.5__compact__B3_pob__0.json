@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The 2013-12-14 status report for F-15 D (report 34) gives depth, water depth, operator and contractor but no personnel-on-board count.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The 2013-12-14 status report for F-15 D (report 34) gives depth, water depth, operator and contractor but no personnel-on-board count."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"91 m\",\"cited_ids\":[\"F1B-20130830-STATUS-01\"],\"rationale\":\"The evidence line F1B-20130830-STATUS-01 explicitly states 'water depth 91 m' for well 15/9-F-1 B on the report date 2013-08-30.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The evidence line F1B-20130830-STATUS-01 explicitly states 'water depth 91 m' for well 15/9-F-1 B on the report date 2013-08-30."
+ },
+ "provider": "Baidu",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"partial\", \"answer\": \"Sonic tool failure\", \"cited_ids\": [\"F1-20130824-FAIL-02\"], \"rationale\": \"The equipment failure on 2013-08-18 for well F-1 (report 2013-08-24) is supported as a sonic tool failure, but the evidence contains no repair cost information.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Sonic tool failure",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The equipment failure on 2013-08-18 for well F-1 (report 2013-08-24) is supported as a sonic tool failure, but the evidence contains no repair cost information."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

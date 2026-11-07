@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"ABSENT-cost\"],\"rationale\":\"The evidence states that no cost field exists in the searched reports, so daily cost cannot be determined.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "The evidence states that no cost field exists in the searched reports, so daily cost cannot be determined."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines do not contain any information about a mud logging company for well 15/9-F-1.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines do not contain any information about a mud logging company for well 15/9-F-1."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

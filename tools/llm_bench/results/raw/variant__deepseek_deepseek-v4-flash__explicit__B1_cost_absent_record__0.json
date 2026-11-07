@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"No evidence lines provide cost information for well 15/9-F-11 T2 on 2013-05-15, and the ABSENT-cost line confirms no cost field exists in the data.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines provide cost information for well 15/9-F-11 T2 on 2013-05-15, and the ABSENT-cost line confirms no cost field exists in the data."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"partial\",\n  \"answer\": \"The equipment failure reported was a Sonic tool failure.\",\n  \"cited_ids\": [\"F1-20130824-FAIL-02\"],\n  \"rationale\": \"The line provides the failure type but no cost information.\"\n}",
+ "parsed": {
+  "status": "partial",
+  "answer": "The equipment failure reported was a Sonic tool failure.",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The line provides the failure type but no cost information."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

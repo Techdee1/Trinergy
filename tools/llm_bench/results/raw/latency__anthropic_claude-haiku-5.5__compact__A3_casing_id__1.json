@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"12.347 in\",\"cited_ids\":[\"F1-20130812-CSG-03\"],\"rationale\":\"Line CSG-03 has top at 2556.86 m and lists ID 12.347 in.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "12.347 in",
+  "cited_ids": [
+   "F1-20130812-CSG-03"
+  ],
+  "rationale": "Line CSG-03 has top at 2556.86 m and lists ID 12.347 in."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

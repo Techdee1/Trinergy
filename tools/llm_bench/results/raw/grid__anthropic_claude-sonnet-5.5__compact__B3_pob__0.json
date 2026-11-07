@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The F15D 2013-12-14 status line gives MD, TVD, water depth, operator and contractor but no personnel-on-board figure.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The F15D 2013-12-14 status line gives MD, TVD, water depth, operator and contractor but no personnel-on-board figure."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\": \"answered\", \"answer\": \"The measured depth increased by 18 m.\", \"cited_ids\": [\"F1-20130824-ACT-01\", \"F1-20130824-ACT-03\"], \"rationale\": \"The MD at 01:30 was 2602 m and the MD at 05:00 was 2620 m, resulting in an increase of 18 m (2620 m - 2602 m).\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The measured depth increased by 18 m.",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "The MD at 01:30 was 2602 m and the MD at 05:00 was 2620 m, resulting in an increase of 18 m (2620 m - 2602 m)."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\", \"answer\": \"12 m\", \"cited_ids\":[\"F1C-20140326-ACT-01\"], \"rationale\":\"The end depth and activity were found in the given log entry.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "12 m",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The end depth and activity were found in the given log entry."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

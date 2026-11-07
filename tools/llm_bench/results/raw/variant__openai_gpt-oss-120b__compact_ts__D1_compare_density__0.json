@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"1.32 g/cm3\",\n  \"cited_ids\": [\"F11B-20130529-FLUID-01\", \"F1B-20130830-FLUID-01\"],\n  \"rationale\": \"Compared the two reported densities and identified the higher value.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.32 g/cm3",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "Compared the two reported densities and identified the higher value."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

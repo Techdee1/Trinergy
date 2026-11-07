@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"1.55 g/cm3\",\n  \"cited_ids\": [\"19A-19970829-FLUID-01\"],\n  \"rationale\": \"The fluid line provides density 1.55 g/cm3 for the Active pit sample at 23:59 on 1997-08-28, which is the relevant date.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "rationale": "The fluid line provides density 1.55 g/cm3 for the Active pit sample at 23:59 on 1997-08-28, which is the relevant date."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

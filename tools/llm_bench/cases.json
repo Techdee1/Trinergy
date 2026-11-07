@@ -1,0 +1,645 @@
+[
+ {
+  "id": "A1_fluid_density",
+  "type": "A_lookup",
+  "question": "What was the density of the ULTIDRILL sampled from the Active pit at 06:00 on 1997-11-09 (well 15/9-19 A, report 1997-11-10)?",
+  "context": "[19A-19971110-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 2205 m | funnel viscosity 95 s | PV 47 mPa.s | YP 13.5 Pa | sample 1997-11-09 06:00\n[F1-20130730-ACT-08] Activity | fixed | drilling -- casing | ok | 2013-07-29 17:00-17:45 | end MD 176 m | Performed DROPS check of top drive.\n[F1-20130812-ACT-03] Activity | fixed | drilling -- casing | ok | 2013-08-11 03:00-03:30 | end MD 2448 m | Picked up and made up casing hanger.\n[F11T2-20130410-STATUS-01] Report status | report no 35 | date 2013-04-10 | MD 1365 m | TVD 1345.5 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F12-20080115-ACT-19] Activity | fixed | drilling -- casing | ok | 2008-01-14 16:15-16:45 | end MD 0 m | Closed shear rams and performed fingerprinting of trip tank : Added 20 l water above shear ram. Observed 20 l \n[F12-20161021-ACT-12] Activity | fixed | plug abandon -- other | ok | 2016-10-20 05:30-07:45 | end MD 0 m | Cleared WH decks for excess equipment. Meanwhile: Performed skidding checks.",
+  "context_ids": [
+   "19A-19971110-FLUID-01",
+   "F1-20130730-ACT-08",
+   "F1-20130812-ACT-03",
+   "F11T2-20130410-STATUS-01",
+   "F12-20080115-ACT-19",
+   "F12-20161021-ACT-12"
+  ],
+  "n_lines": 6,
+  "expected_status": "answered",
+  "gold_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "parts": [
+   {
+    "name": "density",
+    "kind": "num",
+    "value": 1.55,
+    "tol": 0.01,
+    "unit": "g\\s*/\\s*cm|g/cc|sg|specific gravity"
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "A2_water_depth",
+  "type": "A_lookup",
+  "question": "What water depth was reported for well 15/9-F-1 B in the report dated 2013-08-30?",
+  "context": "[19A-19971005-ACT-08] Activity | fixed | formation evaluation -- circulating conditioning | ok | 1997-10-04 23:30 to 1997-10-05 00:00 | end MD 2575 m | SLUGGED PIPE AND POOH TO 2575 M.\n[F1-20130812-CSG-04] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 2410.35 m | top 146.51 m | bottom 2556.86 m | 13 3/8\" casing run\n[F11B-20130529-ACT-02] Activity | fixed | drilling -- drill | ok | 2013-05-28 15:30 to 2013-05-29 00:00 | end MD 2787 m | Drilled and orientated 12 1/4\" hole from 2627 m MD to 2787 m MD with 3400-3800 liter/min, 170-279 bar, 240-270\n[F11B-20151028-ACT-09] Activity | wire line | workover -- wire line | ok | 2015-10-27 09:30-10:00 | end MD 540 m | Schlumberger performed communication check with toolstring.\n[F11T2-20130324-ACT-15] Activity | fixed | interruption -- other | ok | 2013-03-23 23:30 to 2013-03-24 00:00 | end MD 306 m | R/U wireline, RIH and took Gyro survey (305 m bit depth): Survey station (m) Inclination (deg) Azi (deg) 264.0\n[F15D-20131214-ACT-10] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 12:00-12:15 | end MD 0 m | Performed pre-job meeting.\n[F1B-20130830-ACT-02] Activity | fixed | drilling -- drill | ok | 2013-08-29 17:00-19:00 | end MD 2650 m | Drilled and oriented 12 1/4\" hole from 2627 m to 2650 m. Average ROP 11,5 m/hr. WOB 3 - 6 tonne. 3500 l/min/ 2\n[F1B-20130830-STATUS-01] Report status | report no 1 | date 2013-08-30 | MD 2763 m | TVD 2600.2 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F1B-20140129-ACT-09] Activity | wire line | workover -- wire line | ok | 2014-01-28 09:00-09:15 | end MD 160 m | Performed TBT for handling explosives and L/O toolstring. Made PA and erected barriers.\n[F1C-20141203-ACT-05] Activity | wire line | workover -- perforate | ok | 2014-12-02 02:35-03:15 | end MD 1500 m | Continued to RIH with BHA #2 tractor and perforating guns. Tried to increase speed to 35 m/min. Observed greas\n[F1C-20161022-ACT-13] Activity | fixed | plug abandon -- other | ok | 2016-10-21 10:45-11:00 | end MD 0 m | Pulled 20 ton overpull. R/U return hoses to WH, secured same.\n[F1C-20161022-ACT-16] Activity | fixed | plug abandon -- other | ok | 2016-10-21 12:30-13:00 | end MD 0 m | POOH with inner string and riser to drill floor. Disengaged Multibowl RT and R/B same in PRS.",
+  "context_ids": [
+   "19A-19971005-ACT-08",
+   "F1-20130812-CSG-04",
+   "F11B-20130529-ACT-02",
+   "F11B-20151028-ACT-09",
+   "F11T2-20130324-ACT-15",
+   "F15D-20131214-ACT-10",
+   "F1B-20130830-ACT-02",
+   "F1B-20130830-STATUS-01",
+   "F1B-20140129-ACT-09",
+   "F1C-20141203-ACT-05",
+   "F1C-20161022-ACT-13",
+   "F1C-20161022-ACT-16"
+  ],
+  "n_lines": 12,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "parts": [
+   {
+    "name": "water_depth",
+    "kind": "num",
+    "value": 91.0,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "A3_casing_id",
+  "type": "A_lookup",
+  "question": "What is the inner diameter of the casing joint whose top is at 2556.86 m (well 15/9-F-1, report 2013-08-12)?",
+  "context": "[19A-19971005-ACT-01] Activity | fixed | interruption -- other | ok | 1997-10-04 00:00-06:00 | end MD 0 m | OPERATION SUSPENDED DUE TO OFS STRIKE\n[F1-20130812-ACT-06] Activity | fixed | drilling -- casing | ok | 2013-08-11 04:00-04:15 | end MD 2448 m | Rigged up snatch block to align hanger and allow it to pass through rotary.\n[F1-20130812-CSG-01] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 13.6 m | top 2581.81 m | bottom 2595.41 m | 13 3/8\" casing run\n[F1-20130812-CSG-02] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 12.34 m | top 2569.46 m | bottom 2581.81 m | 13 3/8\" casing run\n[F1-20130812-CSG-03] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 12.6 m | top 2556.86 m | bottom 2569.46 m | 13 3/8\" casing run\n[F1-20130812-CSG-04] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 2410.35 m | top 146.51 m | bottom 2556.86 m | 13 3/8\" casing run\n[F1-20130812-CSG-05] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 6.12 m | top 140.39 m | bottom 146.51 m | 13 3/8\" casing run\n[F1-20130812-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 2602 m | PV 34 mPa.s | YP 11 Pa | sample 2013-08-11 20:00\n[F12-20070808-ACT-06] Activity | fixed | drilling -- trip | ok | 2007-08-07 23:30 to 2007-08-08 00:00 | end MD 9 m | Held tool box talk and started MU and RIH with 12 1/4\" BHA.\n[F12-20080115-ACT-02] Activity | fixed | drilling -- casing | ok | 2008-01-14 01:00-02:00 | end MD 0 m | Pressured up well in 50 bar increments: 50 bar / 415 liter - Presssure drop 0,97 bar / 5 min 100 bar / 775 lit\n[F12-20080115-ACT-22] Activity | fixed | drilling -- casing | ok | 2008-01-14 18:15-20:30 | end MD 0 m | Pressured up well to 345 bar every 15 min. Pressure dropped 0,5 bar/min. Measured a steady leakage rate of 4 l\n[F15D-20131111-ACT-03] Activity | fixed | drilling -- circulating conditioning | ok | 2013-11-10 23:45 to 2013-11-11 00:00 | end MD 1484 m | Recorded SCR`s.\n[F1B-20130924-ACT-12] Activity | fixed | drilling -- casing | ok | 2013-09-23 12:00-12:15 | end MD 0 m | Performed pre-job meeting prior to line up and pressure test.\n[F1B-20130924-ACT-21] Activity | fixed | completion -- completion string | ok | 2013-09-23 23:15 to 2013-09-24 00:00 | end MD 0 m | Cleaned and cleared rigfloor. Performed pre-job meeting prior to rig up tubing equipment.\n[F1C-20161022-ACT-26] Activity | fixed | plug abandon -- other | ok | 2016-10-21 20:00-20:30 | end MD 0 m | L/O riser joint (Lift #3). POOH with riser (Lift #4). Cleaned off marine growth on centralizer deck. Riser out",
+  "context_ids": [
+   "19A-19971005-ACT-01",
+   "F1-20130812-ACT-06",
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02",
+   "F1-20130812-CSG-03",
+   "F1-20130812-CSG-04",
+   "F1-20130812-CSG-05",
+   "F1-20130812-FLUID-01",
+   "F12-20070808-ACT-06",
+   "F12-20080115-ACT-02",
+   "F12-20080115-ACT-22",
+   "F15D-20131111-ACT-03",
+   "F1B-20130924-ACT-12",
+   "F1B-20130924-ACT-21",
+   "F1C-20161022-ACT-26"
+  ],
+  "n_lines": 15,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1-20130812-CSG-03"
+  ],
+  "parts": [
+   {
+    "name": "casing_id",
+    "kind": "num",
+    "value": 12.347,
+    "tol": 0.001,
+    "unit": "\\bin\\b|\\binch|\\\""
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "A4_activity_end_depth",
+  "type": "A_lookup",
+  "question": "At what measured depth did the activity that ended at 01:30 on 2013-08-23 end (well 15/9-F-1, report 2013-08-24)?",
+  "context": "[19A-19970829-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 4131 m | funnel viscosity 71 s | PV 45 mPa.s | YP 15 Pa | sample 1997-08-28 23:59\n[19A-19971110-ACT-04] Activity | fixed | plug abandon -- other | ok | 1997-11-09 07:30-20:00 | end MD 2065 m | MADE UP RTTS TOOL AND RIH. START TO GET RESISTANCE AT 2070M, PULLED BACK TO 2065M AND SET RTTS. TEST 9 5/8\" CS\n[F1-20071202-ACT-07] Activity | fixed | drilling -- drill | ok | 2007-12-01 10:15-10:45 | end MD 144 m | While observing with ROV, stabbed BHA into funnel at 140 m MD. Tagged seabed at 144,3 m with 5 MT WOB.\n[F1-20130730-ACT-06] Activity | fixed | drilling -- casing | ok | 2013-07-29 12:00-16:15 | end MD 138 m | Ran in hole with 20\" casing from 25m MD to 138m MD.\n[F1-20130812-ACT-06] Activity | fixed | drilling -- casing | ok | 2013-08-11 04:00-04:15 | end MD 2448 m | Rigged up snatch block to align hanger and allow it to pass through rotary.\n[F1-20130812-FLUID-02] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 2602 m | PV 33 mPa.s | YP 10.5 Pa | sample 2013-08-11 10:00\n[F1-20130824-ACT-01] Activity | fixed | drilling -- ream | ok | 2013-08-23 00:00-01:30 | end MD 2602 m | Worked string in steps through shoe from 2592 m to 2601 m with 2500 lpm, 161 bar, 120 rpm, 6-25 kNm. String at\n[F1-20130824-ACT-02] Activity | fixed | drilling -- drill | ok | 2013-08-23 01:30-03:00 | end MD 2610 m | Started to kick off from 2602 m. Send downlink to set tool in hold mode. Drilled from 2602 m to 2610 m, 2000 l\n[F1-20130824-ACT-03] Activity | fixed | drilling -- drill | ok | 2013-08-23 03:00-05:00 | end MD 2620 m | Sent downlink to increase build force. Drilled 8 1/2\" hole from 2610 m to 2620 m, WOB 4 tonne. 2000 l/min/ 116\n[F1-20130824-FAIL-01] Equipment failure | 2013-08-21 | MD 877 m | pipe handling equ syst -- drill floor tube handl syst | Stopped due to fault on iron roughneck. Repaired electical failure on iron roughneck.\n[F1-20130824-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2667 m | PV 30 mPa.s | YP 9.5 Pa | sample 2013-08-23 09:00\n[F11B-20130628-ACT-02] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-06-27 02:00-02:30 | end MD 0 m | Installed hatches around production riser. Meanwhile: Replacing annular preventer.\n[F11B-20130628-FLUID-01] Drilling fluid | NaCl brine | Flowline | density 1.03 g/cm3 | MD 4770 m | sample 2013-06-27 18:00\n[F11B-20151028-ACT-19] Activity | wire line | workover -- wire line | ok | 2015-10-27 21:30 to 2015-10-28 00:00 | end MD 4200 m | Powered up RST tool to perform first IC up pass at 0,5 m/min. Logged across interval 4254 to 4200 m. WHP 102 b\n[F11T2-20130324-ACT-11] Activity | fixed | interruption -- other | ok | 2013-03-23 20:30-21:00 | end MD 279 m | R/U wireline, RIH and took Gyro survey (277 m bit depth): Survey station (m) Inclination (deg) Azi (deg) 236.9\n[F11T2-20130428-ACT-05] Activity | fixed | interruption -- repair | ok | 2013-04-27 08:00-13:00 | end MD 7 m | Troubleshoot SoundTrack tool. POOH to 7 m and plugged into OnTrack tool, verified software communication.\n[F11T2-20130428-ACT-08] Activity | fixed | drilling -- trip | ok | 2013-04-27 16:30-17:30 | end MD 1010 m | Filled string with 1.28 sg OBM and shallow tested MWD tools.\n[F11T2-20130515-ACT-07] Activity | fixed | drilling -- drill | ok | 2013-05-14 11:00-12:00 | end MD 2586 m | Kicked off to F-11 A by drilling from 2578m MD to 2586m MDwith 1800 lpm, 120 bar and 60 rpm. 50% cement / form\n[F11T2-20130515-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2574 m | PV 31 mPa.s | YP 9.5 Pa | sample 2013-05-14 10:00\n[F12-20080115-ACT-19] Activity | fixed | drilling -- casing | ok | 2008-01-14 16:15-16:45 | end MD 0 m | Closed shear rams and performed fingerprinting of trip tank : Added 20 l water above shear ram. Observed 20 l \n[F12-20080115-ACT-20] Activity | fixed | drilling -- casing | ok | 2008-01-14 16:45-17:00 | end MD 0 m | Lined up to pump down well and re-test the complete tie-back string.\n[F12-20161021-ACT-13] Activity | fixed | plug abandon -- other | ok | 2016-10-20 07:45-08:15 | end MD 0 m | Installed hatch in moonpool **** END OF REPORT ****\n[F15D-20161019-ACT-16] Activity | fixed | plug abandon -- other | ok | 2016-10-18 10:15-11:00 | end MD 0 m | R/U cutting machine Cut riser R/D cutting machine Meanwhile: Performed TBT for installing hatches\n[F15D-20161019-ACT-18] Activity | fixed | plug abandon -- other | ok | 2016-10-18 11:30-11:45 | end MD 0 m | Installed hatches. Removed scaffolding **** END OF REPORT ****\n[F1B-20130924-ACT-02] Activity | fixed | drilling -- casing | ok | 2013-09-23 00:15-00:45 | end MD 0 m | Repositioned string at 28,3 meter. Applied 150 bar, picked up to 1 Ton and bled off pressure. Turned string 14\n[F1B-20130924-ACT-06] Activity | fixed | drilling -- casing | ok | 2013-09-23 03:15-04:30 | end MD 0 m | POOH with adjustable sub setting tool. Changed to 10 3/4\" handling equipment.\n[F1B-20130924-ACT-07] Activity | fixed | completion -- other | ok | 2013-09-23 04:30-05:15 | end MD 0 m | Made up swedge and hose, tested same. Pressure tested adjustable sub internal seal to 20 / 345 bar - 5 / 10 mi\n[F1B-20140129-ACT-01] Activity | wire line | interruption -- waiting on weather | ok | 2014-01-28 00:00-00:45 | end MD 0 m | WOW - ice lumps falling to rigfloor/cantilever due to strong wind. Meanwhile: Monitored F-1 B WHP. Performed d\n[F1B-20140129-ACT-08] Activity | wire line | workover -- wire line | ok | 2014-01-28 07:00-09:00 | end MD 160 m | POOH from 2942 m to 160 m. Average pulling speed 23 m/min.\n[F1B-20140129-ACT-11] Activity | wire line | workover -- wire line | ok | 2014-01-28 09:45-10:30 | end MD 0 m | Closed SV and HMV. WHP 32 bar. Closed DHSV and opened SV. Bled down pressure in riser through closed drain. Cl\n[F1B-20140222-FLUID-02] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 1348 m | PV 40 mPa.s | YP 8 Pa | sample 2014-02-21 09:00\n[F1C-20140222-ACT-02] Activity | fixed | drilling -- circulating conditioning | ok | 2014-02-21 18:45-20:15 | end MD 1482 m | Circulated btm's up prior to perform check trip to inside 20\" shoe with 4000 lpm, 230 bar, 130 rpm, 3-6 kNm. E\n[F1C-20140326-ACT-04] Activity | fixed | completion -- bop/wellhead equipment | ok | 2014-03-25 17:15-19:45 | end MD 0 m | Held TBT and installed Guide Funnel using Aft crane.\n[F1C-20140326-ACT-05] Activity | fixed | interruption -- repair | ok | 2014-03-25 19:45 to 2014-03-26 00:00 | end MD 0 m | Continued changing out pump on Port crane. Further cleaned oil system and changed oil. Meanwhile ROV cleaned a\n[F1C-20141203-ACT-05] Activity | wire line | workover -- perforate | ok | 2014-12-02 02:35-03:15 | end MD 1500 m | Continued to RIH with BHA #2 tractor and perforating guns. Tried to increase speed to 35 m/min. Observed greas\n[F1C-20141203-ACT-24] Activity | wire line | workover -- perforate | ok | 2014-12-02 23:30 to 2014-12-03 00:00 | end MD 500 m | Halliburton performed communication check and correlated depth in DHSV.\n[F1C-20161022-ACT-08] Activity | fixed | plug abandon -- other | ok | 2016-10-21 07:00-07:15 | end MD 0 m | Performed TBT to N/D tension system.\n[F1C-20161022-ACT-23] Activity | fixed | plug abandon -- other | ok | 2016-10-21 18:15-19:00 | end MD 0 m | M/U cutting machine Cut riser. Significant wave height 1,9 m. R/D cutting machine\n[F1C-20161022-ACT-31] Activity | fixed | plug abandon -- other | ok | 2016-10-21 22:15-22:30 | end MD 0 m | R/U cutting machine Cut riser. R/D cutting machine\n[F1C-20161022-ACT-34] Activity | fixed | plug abandon -- other | ok | 2016-10-21 23:15 to 2016-10-22 00:00 | end MD 0 m | Installed moon pool hatches and removed scaffolding. Meanwhile: Prepared to skid rig **** END OF REPORT ****",
+  "context_ids": [
+   "19A-19970829-FLUID-01",
+   "19A-19971110-ACT-04",
+   "F1-20071202-ACT-07",
+   "F1-20130730-ACT-06",
+   "F1-20130812-ACT-06",
+   "F1-20130812-FLUID-02",
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-02",
+   "F1-20130824-ACT-03",
+   "F1-20130824-FAIL-01",
+   "F1-20130824-FLUID-02",
+   "F11B-20130628-ACT-02",
+   "F11B-20130628-FLUID-01",
+   "F11B-20151028-ACT-19",
+   "F11T2-20130324-ACT-11",
+   "F11T2-20130428-ACT-05",
+   "F11T2-20130428-ACT-08",
+   "F11T2-20130515-ACT-07",
+   "F11T2-20130515-FLUID-02",
+   "F12-20080115-ACT-19",
+   "F12-20080115-ACT-20",
+   "F12-20161021-ACT-13",
+   "F15D-20161019-ACT-16",
+   "F15D-20161019-ACT-18",
+   "F1B-20130924-ACT-02",
+   "F1B-20130924-ACT-06",
+   "F1B-20130924-ACT-07",
+   "F1B-20140129-ACT-01",
+   "F1B-20140129-ACT-08",
+   "F1B-20140129-ACT-11",
+   "F1B-20140222-FLUID-02",
+   "F1C-20140222-ACT-02",
+   "F1C-20140326-ACT-04",
+   "F1C-20140326-ACT-05",
+   "F1C-20141203-ACT-05",
+   "F1C-20141203-ACT-24",
+   "F1C-20161022-ACT-08",
+   "F1C-20161022-ACT-23",
+   "F1C-20161022-ACT-31",
+   "F1C-20161022-ACT-34"
+  ],
+  "n_lines": 40,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1-20130824-ACT-01"
+  ],
+  "parts": [
+   {
+    "name": "end_md",
+    "kind": "num",
+    "value": 2602.0,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "B1_cost_absent_record",
+  "type": "B_unsupported",
+  "question": "What was the total daily cost of operations for well 15/9-F-11 T2 on 2013-05-15?",
+  "context": "[19A-19971005-ACT-01] Activity | fixed | interruption -- other | ok | 1997-10-04 00:00-06:00 | end MD 0 m | OPERATION SUSPENDED DUE TO OFS STRIKE\n[F1-20071202-ACT-03] Activity | fixed | moving -- skid | ok | 2007-12-01 06:00-08:15 | end MD 0 m | Skidded rig/cantilever forward to slot F-1. Picked up stabd of drillpipe and ran through F-1 slot. Checked all\n[F11B-20130628-ACT-02] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-06-27 02:00-02:30 | end MD 0 m | Installed hatches around production riser. Meanwhile: Replacing annular preventer.\n[F11B-20130628-ACT-07] Activity | fixed | interruption -- maintain | ok | 2013-06-27 09:30-18:00 | end MD 0 m | Replaced annular preventer. Function tested annular preventer twice prior to pressure test. Pressure tested an\n[F11T2-20130428-ACT-08] Activity | fixed | drilling -- trip | ok | 2013-04-27 16:30-17:30 | end MD 1010 m | Filled string with 1.28 sg OBM and shallow tested MWD tools.\n[F15D-20131214-ACT-07] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 09:15-10:15 | end MD 0 m | Bevelled production riser edge. Meanwhile picked up and prepared BOP riser joint.\n[F15D-20131214-ACT-16] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 19:15-23:45 | end MD 0 m | Moved BOP to well center and landed same onto riser. Made up NT2 connector. Picked up and ran slick joint, mad\n[F15D-20161019-ACT-01] Activity | fixed | plug abandon -- other | ok | 2016-10-18 00:00-02:15 | end MD 0 m | R/U cutting machine Cut Tensioner joint. Needed to change knifes due to jamming. Significant wave height betwe\n[F15D-20161019-ACT-12] Activity | fixed | plug abandon -- other | ok | 2016-10-18 08:00-08:30 | end MD 0 m | R/U cutting machine Cut riser R/D cutting machine\n[ABSENT-cost] Searched 32 reports and 459 records: no cost field exists.",
+  "context_ids": [
+   "19A-19971005-ACT-01",
+   "F1-20071202-ACT-03",
+   "F11B-20130628-ACT-02",
+   "F11B-20130628-ACT-07",
+   "F11T2-20130428-ACT-08",
+   "F15D-20131214-ACT-07",
+   "F15D-20131214-ACT-16",
+   "F15D-20161019-ACT-01",
+   "F15D-20161019-ACT-12",
+   "ABSENT-cost"
+  ],
+  "n_lines": 10,
+  "expected_status": "abstain",
+  "gold_ids": [],
+  "parts": [],
+  "forbidden": [
+   "\\$\\s*\\d",
+   "\\bUSD\\b",
+   "\\bNOK\\b"
+  ],
+  "allowed_extra_ids": [
+   "ABSENT-cost"
+  ]
+ },
+ {
+  "id": "B2_supervisor",
+  "type": "B_unsupported",
+  "question": "Who was the drilling supervisor on well 15/9-F-12 in the report dated 2008-01-15?",
+  "context": "[19A-19971110-ACT-02] Activity | fixed | plug abandon -- trip | ok | 1997-11-09 02:30-06:00 | end MD 0 m | LAID DOWN CMT STAND. RIH AND LAID DOWN 4 3/4\" DC. TOTAL 16 JT AT REPORT TIME.\n[F1-20130730-CSG-01] Casing | Top | OD 20 in | ID 18.73 in | N-80 | length 10.02 m | top 139.1 m | bottom 149.12 m | Run 20\" casing\n[F11T2-20130410-ACT-07] Activity | fixed | drilling -- bop/wellhead equipment | ok | 2013-04-09 17:00-18:00 | end MD 139 m | Held pre-job meeting prior to pressure test riser and 20\" casing. Rigged up cement hose and lo-torq valve on d\n[F12-20080115-STATUS-01] Report status | report no 112 | date 2008-01-15 | MD 3520 m | TVD 3107.4 m | water depth 91 m | operator StatoilHydro | drilling contractor Mærsk Contractors\n[F12-20161021-ACT-08] Activity | fixed | plug abandon -- other | ok | 2016-10-20 03:15-03:45 | end MD 0 m | L/O riser joint (Lift #5). Pulled riser (Lift #6), cleaned off marine growth on centralizer deck.\n[F15D-20150810-ACT-07] Activity | wire line | workover -- perforate | ok | 2015-08-09 06:00-07:00 | end MD 0 m | M/U BHA #2 for perf. run #1.\n[F1B-20140129-ACT-10] Activity | wire line | workover -- wire line | ok | 2014-01-28 09:15-09:45 | end MD 0 m | POOH from 160 m into tool catcher.\n[F1B-20140129-ACT-12] Activity | wire line | workover -- wire line | ok | 2014-01-28 10:30-10:45 | end MD 0 m | Inflow tested SV.\n[F1B-20140222-FLUID-02] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 1348 m | PV 40 mPa.s | YP 8 Pa | sample 2014-02-21 09:00\n[F1C-20161022-ACT-02] Activity | fixed | moving -- skid | ok | 2016-10-21 03:45-04:00 | end MD 0 m | Skidded cantilever to well F-1 C",
+  "context_ids": [
+   "19A-19971110-ACT-02",
+   "F1-20130730-CSG-01",
+   "F11T2-20130410-ACT-07",
+   "F12-20080115-STATUS-01",
+   "F12-20161021-ACT-08",
+   "F15D-20150810-ACT-07",
+   "F1B-20140129-ACT-10",
+   "F1B-20140129-ACT-12",
+   "F1B-20140222-FLUID-02",
+   "F1C-20161022-ACT-02"
+  ],
+  "n_lines": 10,
+  "expected_status": "abstain",
+  "gold_ids": [
+   "F12-20080115-STATUS-01"
+  ],
+  "parts": [],
+  "forbidden": [
+   "Mærsk\\ Contractors",
+   "StatoilHydro"
+  ]
+ },
+ {
+  "id": "B3_pob",
+  "type": "B_unsupported",
+  "question": "How many personnel were on board for well 15/9-F-15 D on 2013-12-14?",
+  "context": "[F11B-20130628-STATUS-01] Report status | report no 31 | date 2013-06-28 | MD 4770 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F11B-20151028-ACT-14] Activity | wire line | workover -- wire line | ok | 2015-10-27 13:00-14:35 | end MD 3570 m | RIH using tractor from 2800 m to 3570 m. Tractor software froze.\n[F15D-20131111-FLUID-01] Drilling fluid | Enviromul Yellow | Flowline | density 1.4 g/cm3 | MD 1539 m | PV 36 mPa.s | YP 9 Pa | sample 2013-11-10 03:00\n[F15D-20131214-STATUS-01] Report status | report no 34 | date 2013-12-14 | MD 4685 m | TVD 3212.3 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F1B-20130830-ACT-01] Activity | fixed | drilling -- drill | ok | 2013-08-29 15:30-17:00 | end MD 2627 m | Continued to kick off from F-1 A. Drilled 12 1/4\" hole from 2617 m to 2627 m as per Baker DD instructions. WOB\n[F1B-20130924-ACT-11] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-09-23 11:15-12:00 | end MD 0 m | Picked up bowl protector RT and made up to 5 1/2\" DP. RIH and installed bowl protector at 20,53 meter. POOH an\n[F1B-20130924-ACT-16] Activity | fixed | interruption -- other | ok | 2013-09-23 16:00-19:15 | end MD 0 m | Cleaned contaminated pit. Prepared new brine.\n[F1B-20140129-ACT-07] Activity | wire line | workover -- wire line | ok | 2014-01-28 06:45-07:00 | end MD 2942 m | Positioned puncher with top shot at 2942 m. WHP 30 bar/ Annulus pressure 0 bar. Punched interval 2942 - 2945 m",
+  "context_ids": [
+   "F11B-20130628-STATUS-01",
+   "F11B-20151028-ACT-14",
+   "F15D-20131111-FLUID-01",
+   "F15D-20131214-STATUS-01",
+   "F1B-20130830-ACT-01",
+   "F1B-20130924-ACT-11",
+   "F1B-20130924-ACT-16",
+   "F1B-20140129-ACT-07"
+  ],
+  "n_lines": 8,
+  "expected_status": "abstain",
+  "gold_ids": [
+   "F15D-20131214-STATUS-01"
+  ],
+  "parts": [],
+  "forbidden": [
+   "\\b\\d+\\s+(people|persons|personnel|POB)"
+  ]
+ },
+ {
+  "id": "C1_failure_cost_partial",
+  "type": "C_partial",
+  "question": "What equipment failure was reported on 2013-08-18 for well 15/9-F-1 (report 2013-08-24), and what was the cost of repairing it?",
+  "context": "[F1-20130824-FAIL-02] Equipment failure | 2013-08-18 | MD 0 m | service equ -- special service equ | Sonic tool failure\n[F11B-20130529-FLUID-04] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2625 m | PV 38 mPa.s | YP 11.5 Pa | sample 2013-05-28 15:00\n[F11B-20130628-ACT-01] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-06-27 00:00-02:00 | end MD 0 m | Energized multibowl slips. Performed 5 Ton overpull test, ok. Meanwhile: Pressure tested annular BOP to 20 / 3\n[F11T2-20130324-ACT-02] Activity | fixed | interruption -- repair | ok | 2013-03-23 10:30-11:00 | end MD 266 m | Attempted to take MWD Gyro trac survey, no-go.\n[F11T2-20130515-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.28 g/cm3 | MD 2569 m | PV 31 mPa.s | YP 8 Pa | sample 2013-05-14 15:00\n[F15D-20131214-ACT-05] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 07:15-08:30 | end MD 0 m | Waited on production to shut down. Meanwhile prepared to run Multibowl WH.\n[F15D-20161019-ACT-12] Activity | fixed | plug abandon -- other | ok | 2016-10-18 08:00-08:30 | end MD 0 m | R/U cutting machine Cut riser R/D cutting machine\n[F1C-20161022-ACT-29] Activity | fixed | plug abandon -- other | ok | 2016-10-21 21:15-21:45 | end MD 0 m | R/U cutting machine Cut riser. R/D cutting machine",
+  "context_ids": [
+   "F1-20130824-FAIL-02",
+   "F11B-20130529-FLUID-04",
+   "F11B-20130628-ACT-01",
+   "F11T2-20130324-ACT-02",
+   "F11T2-20130515-FLUID-01",
+   "F15D-20131214-ACT-05",
+   "F15D-20161019-ACT-12",
+   "F1C-20161022-ACT-29"
+  ],
+  "n_lines": 8,
+  "expected_status": "partial",
+  "gold_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "parts": [
+   {
+    "name": "failure_description",
+    "kind": "text",
+    "patterns": [
+     "Sonic"
+    ]
+   }
+  ],
+  "forbidden": [
+   "\\$\\s*\\d",
+   "\\bUSD\\b",
+   "\\bNOK\\b"
+  ]
+ },
+ {
+  "id": "D1_compare_density",
+  "type": "D_multi",
+  "question": "Which was higher: the density of the fluid sampled 2013-05-28 03:00 (report 2013-05-29, well 15/9-F-11 B) or the one sampled 2013-08-29 09:00 (report 2013-08-30, well 15/9-F-1 B)? Give the higher value.",
+  "context": "[19A-19970829-ACT-03] Activity | fixed | formation evaluation -- log | ok | 1997-08-28 12:00-14:30 | end MD 2168 m | R/U WIRELINE SIDE ENTRY SUB AND RIH WITH WET CONNECTOR. ENGAGED CONNECTOR. COMMUNICATION AND PULL TESTED OK.\n[F1-20071202-ACT-02] Activity | fixed | moving -- skid | ok | 2007-12-01 04:45-06:00 | end MD 0 m | Skidded rig port. Started to skid rig/cantilever forward.\n[F1-20130730-CSG-01] Casing | Top | OD 20 in | ID 18.73 in | N-80 | length 10.02 m | top 139.1 m | bottom 149.12 m | Run 20\" casing\n[F1-20130812-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 2602 m | PV 34 mPa.s | YP 11 Pa | sample 2013-08-11 20:00\n[F11B-20130529-FLUID-01] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2828 m | PV 34 mPa.s | YP 11 Pa | sample 2013-05-28 03:00\n[F11B-20130529-FLUID-02] Drilling fluid | Enviromul Yellow | Active pit | density 1.28 g/cm3 | MD 2917 m | PV 33 mPa.s | YP 13 Pa | sample 2013-05-28 20:30\n[F11B-20130529-FLUID-05] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2730 m | PV 35 mPa.s | YP 11 Pa | sample 2013-05-28 21:00\n[F11B-20151028-ACT-15] Activity | wire line | interruption -- other | ok | 2015-10-27 14:35-15:05 | end MD 3570 m | Restarted tractor software, OK.\n[F11T2-20130410-ACT-05] Activity | fixed | drilling -- bop/wellhead equipment | ok | 2013-04-09 14:00-16:00 | end MD 139 m | ROV installed hot stab into TBC and operated valves to lock position. Pressured up mini reel 3000 psi / 15 min\n[F11T2-20130428-ACT-07] Activity | fixed | drilling -- trip | ok | 2013-04-27 14:30-16:30 | end MD 1010 m | RIH 8 1/2\" steerable BHA on 5 1/2\" DP from 205 m to 1010 m.\n[F12-20080115-ACT-05] Activity | fixed | drilling -- casing | ok | 2008-01-14 03:15-03:30 | end MD 0 m | Bled back pressure on casing and B-annulus.\n[F15D-20131111-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.4 g/cm3 | MD 1426 m | PV 39 mPa.s | YP 10 Pa | sample 2013-11-10 20:00\n[F15D-20150810-ACT-17] Activity | wire line | interruption -- other | ok | 2015-08-09 14:50-15:35 | end MD 3355 m | Time out and evaluated situation. Aligned and secured Add-on drum.\n[F1B-20130830-FLUID-01] Drilling fluid | Enviromul Yellow | Flowline | density 1.32 g/cm3 | MD 2545 m | PV 35 mPa.s | YP 12 Pa | sample 2013-08-29 09:00\n[F1B-20130924-ACT-17] Activity | fixed | completion -- other | ok | 2013-09-23 19:15-19:30 | end MD 0 m | At 601 meter made up TDS and commenced circulation with 200 liter/min, 2,8 bar. Pulled back to 591 meter.\n[F1B-20140129-ACT-19] Activity | wire line | workover -- other | ok | 2014-01-28 17:00-17:30 | end MD 0 m | Stopped pumping and allowed 1,50 sg CaBr brine pill to settle into 7\" tubing/liner.\n[F1C-20140222-ACT-03] Activity | fixed | drilling -- trip | ok | 2014-02-21 20:15-20:30 | end MD 1482 m | Flow checked well for 15 min. Well static.\n[F1C-20140326-STATUS-01] Report status | report no 33 | date 2014-03-26 | MD 4094 m | TVD 3180.5 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F1C-20141203-ACT-06] Activity | wire line | workover -- perforate | ok | 2014-12-02 03:15-05:20 | end MD 3080 m | Continued to RIH from 1500 m to 3080 m. Observed high tension on surface. Max tension observed was 9000 lbs. R\n[F1C-20141203-ACT-07] Activity | wire line | workover -- perforate | ok | 2014-12-02 05:20-06:00 | end MD 3200 m | Started tractor and continued to RIH in 100 meters steps using tractor. Pick up weight at 3200 m was 8400 lbs.",
+  "context_ids": [
+   "19A-19970829-ACT-03",
+   "F1-20071202-ACT-02",
+   "F1-20130730-CSG-01",
+   "F1-20130812-FLUID-01",
+   "F11B-20130529-FLUID-01",
+   "F11B-20130529-FLUID-02",
+   "F11B-20130529-FLUID-05",
+   "F11B-20151028-ACT-15",
+   "F11T2-20130410-ACT-05",
+   "F11T2-20130428-ACT-07",
+   "F12-20080115-ACT-05",
+   "F15D-20131111-FLUID-02",
+   "F15D-20150810-ACT-17",
+   "F1B-20130830-FLUID-01",
+   "F1B-20130924-ACT-17",
+   "F1B-20140129-ACT-19",
+   "F1C-20140222-ACT-03",
+   "F1C-20140326-STATUS-01",
+   "F1C-20141203-ACT-06",
+   "F1C-20141203-ACT-07"
+  ],
+  "n_lines": 20,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "parts": [
+   {
+    "name": "higher_density",
+    "kind": "num",
+    "value": 1.32,
+    "tol": 0.01,
+    "unit": "g\\s*/\\s*cm|g/cc|sg|specific gravity"
+   },
+   {
+    "name": "which",
+    "kind": "text",
+    "patterns": [
+     "2013\\-08\\-29",
+     "20130830",
+     "F1B\\-20130830\\-FLUID\\-01",
+     "15/9\\-F\\-1\\ B"
+    ]
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "D2_depth_difference",
+  "type": "D_multi_derived",
+  "question": "By how many metres did the measured depth increase between the end of the activity ending 01:30 and the end of the activity ending 05:00 on 2013-08-23 (well 15/9-F-1, report 2013-08-24)?",
+  "context": "[19A-19970829-STATUS-01] Report status | report no 36 | date 1997-08-29 | MD 4131 m | TVD 3319 m | water depth 84 m | operator Statoil\n[19A-19971110-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 2205 m | funnel viscosity 95 s | PV 47 mPa.s | YP 13.5 Pa | sample 1997-11-09 06:00\n[F1-20071202-ACT-04] Activity | fixed | drilling -- trip | ok | 2007-12-01 08:15-08:30 | end MD 0 m | Held toolbox talk prior to picking up 36\" holeopener BHA.\n[F1-20130812-ACT-13] Activity | fixed | drilling -- other | ok | 2013-08-11 16:30-19:00 | end MD 2596 m | Established circulation and increased rate in steps to 2200 liter/min, 29 bar. Observed pack off at 2200 liter\n[F1-20130812-CSG-05] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 6.12 m | top 140.39 m | bottom 146.51 m | 13 3/8\" casing run\n[F1-20130824-ACT-01] Activity | fixed | drilling -- ream | ok | 2013-08-23 00:00-01:30 | end MD 2602 m | Worked string in steps through shoe from 2592 m to 2601 m with 2500 lpm, 161 bar, 120 rpm, 6-25 kNm. String at\n[F1-20130824-ACT-03] Activity | fixed | drilling -- drill | ok | 2013-08-23 03:00-05:00 | end MD 2620 m | Sent downlink to increase build force. Drilled 8 1/2\" hole from 2610 m to 2620 m, WOB 4 tonne. 2000 l/min/ 116\n[F1-20130824-FAIL-02] Equipment failure | 2013-08-18 | MD 0 m | service equ -- special service equ | Sonic tool failure\n[F1-20130824-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2667 m | PV 30 mPa.s | YP 9.5 Pa | sample 2013-08-23 09:00\n[F1-20130824-FLUID-03] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2934 m | PV 35 mPa.s | YP 9.5 Pa | sample 2013-08-23 20:45\n[F11T2-20130324-ACT-02] Activity | fixed | interruption -- repair | ok | 2013-03-23 10:30-11:00 | end MD 266 m | Attempted to take MWD Gyro trac survey, no-go.\n[F11T2-20130324-ACT-03] Activity | fixed | interruption -- other | ok | 2013-03-23 11:00-12:30 | end MD 266 m | Attempted to L/D single 5 1/2\" DP joint to prior to taking wirelien Gyro survey. P/U with 30 tons overpull and\n[F11T2-20130324-ACT-06] Activity | fixed | interruption -- other | ok | 2013-03-23 15:00-15:30 | end MD 238 m | R/U wireline, RIH and took Gyro survey (238 m bit depth): Survey station (m) Inclination (deg) Azi (deg) 196 0\n[F12-20070614-ACT-03] Activity | fixed | moving -- skid | ok | 2007-06-13 23:15 to 2007-06-14 00:00 | end MD 0 m | Skidded rig from F-4 to F-12.\n[F12-20080115-ACT-07] Activity | fixed | drilling -- bop activities | ok | 2008-01-14 04:00-06:00 | end MD 0 m | Tested 18 3/4\" surface BOP according to Mærsk procedure.\n[F12-20080115-STATUS-01] Report status | report no 112 | date 2008-01-15 | MD 3520 m | TVD 3107.4 m | water depth 91 m | operator StatoilHydro | drilling contractor Mærsk Contractors\n[F12-20161021-ACT-06] Activity | fixed | plug abandon -- other | ok | 2016-10-20 02:15-02:45 | end MD 0 m | L/O riser joint (Lift #4). Pulled riser (Lift #5), cleaned off marine growth on centralizer deck.\n[F12-20161021-ACT-10] Activity | fixed | plug abandon -- other | ok | 2016-10-20 04:30-05:15 | end MD 0 m | L/O riser joint (Lift #6). Pulled out with lower pup joint and stress joint (Lift #7). Installed master bushin\n[F15D-20131214-ACT-03] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 03:15-06:30 | end MD 0 m | Rigged up production riser cutting tool.\n[F15D-20131214-ACT-14] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 15:30-19:00 | end MD 0 m | Installed Multibowl annulus valves and tested same to 30 / 345 bar - 5 / 10 minutes. Meanwhile: Erected scaffo\n[F15D-20150810-ACT-04] Activity | wire line | interruption -- other | ok | 2015-08-09 02:20-04:00 | end MD 0 m | Schlumberger and Altus checked compatibility issue.\n[F1B-20130830-ACT-03] Activity | fixed | drilling -- drill | ok | 2013-08-29 19:00 to 2013-08-30 00:00 | end MD 2763 m | Drilled and oriented 12 1/4\" hole from 2650 m to 2763 m. Average ROP: 22,6 m/hr, WOB 2 - 6 tonne. 3500 l/min/ \n[F1B-20140222-ACT-03] Activity | fixed | plug abandon -- other | ok | 2014-02-21 02:15-02:45 | end MD 1293 m | Established circulation with 3500 lpm, 193 bar. Washed down from 1282 m to 1293 m. Tagged cement with 5 ton.\n[F1B-20140222-ACT-07] Activity | fixed | plug abandon -- other | ok | 2014-02-21 07:00-07:30 | end MD 1355 m | Drill/clean out rat hole from 1348 m to 1351 m with 3750 lpm, 210 bar, 60 rpm, 4-6 kNm, 5-9 ton WOB. Drilled i\n[F1C-20140222-ACT-06] Activity | fixed | drilling -- trip | ok | 2014-02-21 21:45-22:15 | end MD 1482 m | Established circulation with 3500 lpm, 180 bar. Washed down from 1442 m to 1482 m. No drag or fill observed. S\n[F1C-20140326-FLUID-01] Drilling fluid | NaCl brine | Active pit | density 1.03 g/cm3 | MD 4094 m | sample 2014-03-25 21:00\n[F1C-20141203-ACT-12] Activity | wire line | workover -- perforate | ok | 2014-12-02 09:55-12:30 | end MD 0 m | Continued POOH to surface.\n[F1C-20161022-ACT-01] Activity | fixed | moving -- skid | ok | 2016-10-21 03:30-03:45 | end MD 0 m | Performed TBT for skidding rig",
+  "context_ids": [
+   "19A-19970829-STATUS-01",
+   "19A-19971110-FLUID-01",
+   "F1-20071202-ACT-04",
+   "F1-20130812-ACT-13",
+   "F1-20130812-CSG-05",
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03",
+   "F1-20130824-FAIL-02",
+   "F1-20130824-FLUID-02",
+   "F1-20130824-FLUID-03",
+   "F11T2-20130324-ACT-02",
+   "F11T2-20130324-ACT-03",
+   "F11T2-20130324-ACT-06",
+   "F12-20070614-ACT-03",
+   "F12-20080115-ACT-07",
+   "F12-20080115-STATUS-01",
+   "F12-20161021-ACT-06",
+   "F12-20161021-ACT-10",
+   "F15D-20131214-ACT-03",
+   "F15D-20131214-ACT-14",
+   "F15D-20150810-ACT-04",
+   "F1B-20130830-ACT-03",
+   "F1B-20140222-ACT-03",
+   "F1B-20140222-ACT-07",
+   "F1C-20140222-ACT-06",
+   "F1C-20140326-FLUID-01",
+   "F1C-20141203-ACT-12",
+   "F1C-20161022-ACT-01"
+  ],
+  "n_lines": 28,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "parts": [
+   {
+    "name": "md_difference",
+    "kind": "num",
+    "value": 18.0,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   }
+  ],
+  "forbidden": [],
+  "derived": true
+ },
+ {
+  "id": "E1_distractor_fluid",
+  "type": "E_distractor",
+  "question": "What was the density of the Enviromul Yellow in the Flowline for well 15/9-F-11 B in the report dated 2013-05-29?",
+  "context": "[19A-19971005-ACT-01] Activity | fixed | interruption -- other | ok | 1997-10-04 00:00-06:00 | end MD 0 m | OPERATION SUSPENDED DUE TO OFS STRIKE\n[19A-19971005-ACT-06] Activity | fixed | drilling -- trip | ok | 1997-10-04 21:30-22:00 | end MD 2620 m | OPENED SHEARRAM. SCREWED INTO HANG-OFF TOOL. PULLED HANG-OFF TOOL OVER BOP.\n[F1-20130824-FAIL-02] Equipment failure | 2013-08-18 | MD 0 m | service equ -- special service equ | Sonic tool failure\n[F11B-20130529-FLUID-01] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2828 m | PV 34 mPa.s | YP 11 Pa | sample 2013-05-28 03:00\n[F11T2-20130515-ACT-03] Activity | fixed | drilling -- other | ok | 2013-05-14 04:45-06:00 | end MD 1609 m | Tested crownomatic. Serviced drilling equipment prior to run in hole and kicking off to F-11 A.\n[F11T2-20130515-ACT-07] Activity | fixed | drilling -- drill | ok | 2013-05-14 11:00-12:00 | end MD 2586 m | Kicked off to F-11 A by drilling from 2578m MD to 2586m MDwith 1800 lpm, 120 bar and 60 rpm. 50% cement / form\n[F12-20080115-ACT-14] Activity | fixed | drilling -- casing | ok | 2008-01-14 13:45-14:00 | end MD 132 m | RIH with 10 3/4\" cup tester on 5 1/2\" DP from 30,5 m to 132 m MD. Closed UPR.\n[F15D-20131111-FLUID-01] Drilling fluid | Enviromul Yellow | Flowline | density 1.4 g/cm3 | MD 1539 m | PV 36 mPa.s | YP 9 Pa | sample 2013-11-10 03:00\n[F15D-20131214-ACT-03] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 03:15-06:30 | end MD 0 m | Rigged up production riser cutting tool.\n[F15D-20161019-ACT-16] Activity | fixed | plug abandon -- other | ok | 2016-10-18 10:15-11:00 | end MD 0 m | R/U cutting machine Cut riser R/D cutting machine Meanwhile: Performed TBT for installing hatches\n[F1B-20140129-ACT-01] Activity | wire line | interruption -- waiting on weather | ok | 2014-01-28 00:00-00:45 | end MD 0 m | WOW - ice lumps falling to rigfloor/cantilever due to strong wind. Meanwhile: Monitored F-1 B WHP. Performed d\n[F1B-20140222-ACT-03] Activity | fixed | plug abandon -- other | ok | 2014-02-21 02:15-02:45 | end MD 1293 m | Established circulation with 3500 lpm, 193 bar. Washed down from 1282 m to 1293 m. Tagged cement with 5 ton.\n[F1B-20140222-ACT-10] Activity | fixed | plug abandon -- other | ok | 2014-02-21 09:45-10:00 | end MD 1355 m | Washed from 1320 m to 1355 m with 500 lpm, 2 bar.\n[F1C-20161022-ACT-20] Activity | fixed | plug abandon -- other | ok | 2016-10-21 14:45-17:00 | end MD 0 m | R/U cutting machine Cut riser. Significant wave height 1,8m. R/D cutting machine",
+  "context_ids": [
+   "19A-19971005-ACT-01",
+   "19A-19971005-ACT-06",
+   "F1-20130824-FAIL-02",
+   "F11B-20130529-FLUID-01",
+   "F11T2-20130515-ACT-03",
+   "F11T2-20130515-ACT-07",
+   "F12-20080115-ACT-14",
+   "F15D-20131111-FLUID-01",
+   "F15D-20131214-ACT-03",
+   "F15D-20161019-ACT-16",
+   "F1B-20140129-ACT-01",
+   "F1B-20140222-ACT-03",
+   "F1B-20140222-ACT-10",
+   "F1C-20161022-ACT-20"
+  ],
+  "n_lines": 14,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F11B-20130529-FLUID-01",
+   "F15D-20131111-FLUID-01"
+  ],
+  "parts": [
+   {
+    "name": "density",
+    "kind": "num",
+    "value": 1.28,
+    "tol": 0.01,
+    "unit": "g\\s*/\\s*cm|g/cc|sg|specific gravity"
+   }
+  ],
+  "forbidden": [],
+  "distractor_ids": [
+   "F15D-20131111-FLUID-01"
+  ]
+ },
+ {
+  "id": "E2_distractor_activity",
+  "type": "E_distractor",
+  "question": "At what measured depth did the 'plug abandon -- other' activity that started at 07:30 on 1997-11-09 end (well 15/9-19 A, report 1997-11-10)?",
+  "context": "[19A-19970829-ACT-03] Activity | fixed | formation evaluation -- log | ok | 1997-08-28 12:00-14:30 | end MD 2168 m | R/U WIRELINE SIDE ENTRY SUB AND RIH WITH WET CONNECTOR. ENGAGED CONNECTOR. COMMUNICATION AND PULL TESTED OK.\n[19A-19971110-ACT-01] Activity | fixed | plug abandon -- trip | ok | 1997-11-09 00:00-02:30 | end MD 0 m | CONTINUED LAY DOWN 3 1/2\" DP. TOTAL 147 JT. RIG DOWN 3 1/2\" HANDLING EQUIPMENT.\n[19A-19971110-ACT-04] Activity | fixed | plug abandon -- other | ok | 1997-11-09 07:30-20:00 | end MD 2065 m | MADE UP RTTS TOOL AND RIH. START TO GET RESISTANCE AT 2070M, PULLED BACK TO 2065M AND SET RTTS. TEST 9 5/8\" CS\n[19A-19971110-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 2205 m | funnel viscosity 95 s | PV 47 mPa.s | YP 13.5 Pa | sample 1997-11-09 06:00\n[F1-20071202-ACT-07] Activity | fixed | drilling -- drill | ok | 2007-12-01 10:15-10:45 | end MD 144 m | While observing with ROV, stabbed BHA into funnel at 140 m MD. Tagged seabed at 144,3 m with 5 MT WOB.\n[F1-20130730-STATUS-01] Report status | report no 13 | date 2013-07-30 | MD 1355 m | TVD 1343 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F1-20130812-ACT-03] Activity | fixed | drilling -- casing | ok | 2013-08-11 03:00-03:30 | end MD 2448 m | Picked up and made up casing hanger.\n[F1-20130812-ACT-08] Activity | fixed | drilling -- casing | ok | 2013-08-11 04:30-05:45 | end MD 2460 m | Rigged down 13 3/8\" casing tong.\n[F1-20130812-ACT-09] Activity | fixed | drilling -- casing | ok | 2013-08-11 05:45-07:15 | end MD 2570 m | RIH with 13 3/8\" casing on 5 1/2\" HWDP landing string from 2460 m to 2570 m. Experienced tight spot between 25\n[F1-20130812-CSG-02] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 12.34 m | top 2569.46 m | bottom 2581.81 m | 13 3/8\" casing run\n[F1-20130812-STATUS-01] Report status | report no 26 | date 2013-08-12 | MD 2602 m | TVD 2452.5 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F11B-20130628-FLUID-01] Drilling fluid | NaCl brine | Flowline | density 1.03 g/cm3 | MD 4770 m | sample 2013-06-27 18:00\n[F11B-20151028-STATUS-01] Report status | report no 4 | date 2015-10-28 | water depth 91 m | operator Statoil | drilling contractor Altus Intervention\n[F12-20080115-ACT-22] Activity | fixed | drilling -- casing | ok | 2008-01-14 18:15-20:30 | end MD 0 m | Pressured up well to 345 bar every 15 min. Pressure dropped 0,5 bar/min. Measured a steady leakage rate of 4 l\n[F15D-20131111-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.4 g/cm3 | MD 1426 m | PV 39 mPa.s | YP 10 Pa | sample 2013-11-10 20:00\n[F15D-20131111-STATUS-01] Report status | report no 1 | date 2013-11-11 | MD 1484 m | TVD 1448 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F15D-20131214-ACT-01] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 00:00-03:00 | end MD 0 m | Installed riser centralizers, tension ring and tension cylinders. Meanwhile pressure tested BOP on stump to 20\n[F15D-20150810-ACT-12] Activity | wire line | workover -- perforate | ok | 2015-08-09 12:50-12:55 | end MD 3565 m | Continued RIH w/ BHA #2 from 3521 m to 3565 m. Toolstring stopped.\n[F15D-20150810-ACT-14] Activity | wire line | interruption -- other | ok | 2015-08-09 13:10-14:00 | end MD 3592 m | Troubleshooted tractor. Not possible to activate tractor. Decided to POOH.\n[F1B-20130924-ACT-05] Activity | fixed | drilling -- casing | ok | 2013-09-23 01:45-03:15 | end MD 0 m | Applied 140 bar, picked up to 7 Ton and bleed off pressure. Turned string 14 turns and picked up to 35 ton ove\n[F1B-20140129-ACT-16] Activity | wire line | workover -- other | ok | 2014-01-28 13:00-13:30 | end MD 0 m | Performed TBT for the circulation operation with all involved parties.\n[F1B-20140129-ACT-17] Activity | wire line | workover -- other | ok | 2014-01-28 13:30-14:15 | end MD 0 m | Pressure tested surface line up to 20/200 bar 5/10 min.\n[F1B-20140222-ACT-08] Activity | fixed | plug abandon -- other | ok | 2014-02-21 07:30-08:15 | end MD 1355 m | Reamed from 1355 m to 1320 m two times with 3750 lpm, 210 bar.\n[F1C-20140222-ACT-04] Activity | fixed | drilling -- trip | ok | 2014-02-21 20:30-21:15 | end MD 1338 m | POOH with 17 1/2\" BHA on 5 1/2\" DP from 1482 m to 1338 m, 10 m inside 20\" shoe. No drag observed when entered \n[F1C-20140222-FLUID-03] Drilling fluid | Enviromul Yellow | Flowline | density 1.4 g/cm3 | MD 1486 m | PV 44 mPa.s | YP 13.5 Pa | sample 2014-02-21 22:15\n[F1C-20141203-ACT-03] Activity | wire line | workover -- perforate | ok | 2014-12-02 01:25-02:15 | end MD 500 m | RIH w/BHA #2 from surface to 500 m.\n[F1C-20141203-ACT-22] Activity | wire line | workover -- perforate | ok | 2014-12-02 21:40-23:10 | end MD 0 m | Connected tractor to perforation guns. Stabbed lubricator and leak tested lower QTS to 20/345 bar for 5/10 min\n[F1C-20141203-ACT-23] Activity | wire line | workover -- perforate | ok | 2014-12-02 23:10-23:30 | end MD 500 m | RIH with BHA #3 tractor and short perforation gun from surface to 500 meters.\n[F1C-20161022-ACT-13] Activity | fixed | plug abandon -- other | ok | 2016-10-21 10:45-11:00 | end MD 0 m | Pulled 20 ton overpull. R/U return hoses to WH, secured same.\n[F1C-20161022-ACT-20] Activity | fixed | plug abandon -- other | ok | 2016-10-21 14:45-17:00 | end MD 0 m | R/U cutting machine Cut riser. Significant wave height 1,8m. R/D cutting machine",
+  "context_ids": [
+   "19A-19970829-ACT-03",
+   "19A-19971110-ACT-01",
+   "19A-19971110-ACT-04",
+   "19A-19971110-FLUID-01",
+   "F1-20071202-ACT-07",
+   "F1-20130730-STATUS-01",
+   "F1-20130812-ACT-03",
+   "F1-20130812-ACT-08",
+   "F1-20130812-ACT-09",
+   "F1-20130812-CSG-02",
+   "F1-20130812-STATUS-01",
+   "F11B-20130628-FLUID-01",
+   "F11B-20151028-STATUS-01",
+   "F12-20080115-ACT-22",
+   "F15D-20131111-FLUID-02",
+   "F15D-20131111-STATUS-01",
+   "F15D-20131214-ACT-01",
+   "F15D-20150810-ACT-12",
+   "F15D-20150810-ACT-14",
+   "F1B-20130924-ACT-05",
+   "F1B-20140129-ACT-16",
+   "F1B-20140129-ACT-17",
+   "F1B-20140222-ACT-08",
+   "F1C-20140222-ACT-04",
+   "F1C-20140222-FLUID-03",
+   "F1C-20141203-ACT-03",
+   "F1C-20141203-ACT-22",
+   "F1C-20141203-ACT-23",
+   "F1C-20161022-ACT-13",
+   "F1C-20161022-ACT-20"
+  ],
+  "n_lines": 30,
+  "expected_status": "answered",
+  "gold_ids": [
+   "19A-19971110-ACT-04",
+   "F1B-20140222-ACT-08"
+  ],
+  "parts": [
+   {
+    "name": "end_md",
+    "kind": "num",
+    "value": 2065.0,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   }
+  ],
+  "forbidden": [],
+  "distractor_ids": [
+   "F1B-20140222-ACT-08"
+  ]
+ },
+ {
+  "id": "F_date_window",
+  "type": "F_datewindow",
+  "question": "What was the density of the drilling fluid in the Active pit at 23:59 on 1997-08-29 (well 15/9-19 A)?",
+  "context": "[19A-19970829-ACT-04] Activity | fixed | formation evaluation -- log | ok | 1997-08-28 14:30-21:30 | end MD 3640 m | RIH WITH LOGGING TOOLS ON DRILL PIPE TO 3640M.\n[19A-19970829-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 4131 m | funnel viscosity 71 s | PV 45 mPa.s | YP 15 Pa | sample 1997-08-28 23:59\n[19A-19971110-ACT-04] Activity | fixed | plug abandon -- other | ok | 1997-11-09 07:30-20:00 | end MD 2065 m | MADE UP RTTS TOOL AND RIH. START TO GET RESISTANCE AT 2070M, PULLED BACK TO 2065M AND SET RTTS. TEST 9 5/8\" CS\n[F1-20130730-ACT-09] Activity | fixed | drilling -- casing | ok | 2013-07-29 17:45 to 2013-07-30 00:00 | end MD 515 m | Ran 20\" casing from 176m MD to 515 m. Average running speed: 4.5 joints / hr. Observed 20MT weight at 504-510m\n[F1-20130812-CSG-04] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 2410.35 m | top 146.51 m | bottom 2556.86 m | 13 3/8\" casing run\n[F1C-20140222-ACT-05] Activity | fixed | drilling -- trip | ok | 2014-02-21 21:15-21:45 | end MD 1442 m | RIH with 17 1/2\" BHA on 5 1/2\" DP from 1338 m to 1442 m. No drag observed when entered open hole at 1348 m.",
+  "context_ids": [
+   "19A-19970829-ACT-04",
+   "19A-19970829-FLUID-01",
+   "19A-19971110-ACT-04",
+   "F1-20130730-ACT-09",
+   "F1-20130812-CSG-04",
+   "F1C-20140222-ACT-05"
+  ],
+  "n_lines": 6,
+  "expected_status": "answered",
+  "gold_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "parts": [
+   {
+    "name": "density",
+    "kind": "num",
+    "value": 1.55,
+    "tol": 0.01,
+    "unit": "g\\s*/\\s*cm|g/cc|sg|specific gravity"
+   },
+   {
+    "name": "mentions_timestamp",
+    "kind": "text",
+    "patterns": [
+     "1997\\-08\\-28",
+     "08\\-28"
+    ],
+    "in_rationale": true
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "G_multipart",
+  "type": "G_multipart",
+  "question": "For well 15/9-F-1 C, report 2014-03-26: what was the end depth, and what activity was being performed, for the row ending at 03:30 on 2014-03-25?",
+  "context": "[19A-19970829-FLUID-01] Drilling fluid | ULTIDRILL | Active pit | density 1.55 g/cm3 | MD 4131 m | funnel viscosity 71 s | PV 45 mPa.s | YP 15 Pa | sample 1997-08-28 23:59\n[F1-20130730-ACT-04] Activity | fixed | drilling -- casing | ok | 2013-07-29 11:30-11:45 | end MD 0 m | Performed prejob meeting prior to running 20\" casing.\n[F1-20130730-ACT-09] Activity | fixed | drilling -- casing | ok | 2013-07-29 17:45 to 2013-07-30 00:00 | end MD 515 m | Ran 20\" casing from 176m MD to 515 m. Average running speed: 4.5 joints / hr. Observed 20MT weight at 504-510m\n[F1-20130812-ACT-03] Activity | fixed | drilling -- casing | ok | 2013-08-11 03:00-03:30 | end MD 2448 m | Picked up and made up casing hanger.\n[F1-20130812-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 2602 m | PV 34 mPa.s | YP 11 Pa | sample 2013-08-11 20:00\n[F1-20130824-FAIL-04] Equipment failure | 2013-07-30 | MD 0 m | pipe handling equ syst -- elevator | Not able to function elevator to open position.\n[F11B-20130529-ACT-02] Activity | fixed | drilling -- drill | ok | 2013-05-28 15:30 to 2013-05-29 00:00 | end MD 2787 m | Drilled and orientated 12 1/4\" hole from 2627 m MD to 2787 m MD with 3400-3800 liter/min, 170-279 bar, 240-270\n[F12-20080115-ACT-11] Activity | fixed | drilling -- casing | ok | 2008-01-14 12:30-13:00 | end MD 0 m | Held toolbox talk prior to RIH with 10 3/4\" cup tester.\n[F12-20080115-ACT-14] Activity | fixed | drilling -- casing | ok | 2008-01-14 13:45-14:00 | end MD 132 m | RIH with 10 3/4\" cup tester on 5 1/2\" DP from 30,5 m to 132 m MD. Closed UPR.\n[F12-20080115-ACT-15] Activity | fixed | drilling -- casing | ok | 2008-01-14 14:00-14:45 | end MD 132 m | Pressure tested upper tie-back string against 10 3/4\" cup tester. Stepped up pressure in 50 bar increments fro\n[F15D-20150810-ACT-15] Activity | wire line | interruption -- other | ok | 2015-08-09 14:00-14:10 | end MD 3355 m | POOH from 3592 to 3355 m. Add-on drum turned and came out of position and damaged cable.\n[F15D-20150810-ACT-17] Activity | wire line | interruption -- other | ok | 2015-08-09 14:50-15:35 | end MD 3355 m | Time out and evaluated situation. Aligned and secured Add-on drum.\n[F1B-20140129-ACT-22] Activity | wire line | workover -- other | ok | 2014-01-28 21:30 to 2014-01-29 00:00 | end MD 0 m | Circulated B/U to condition mud. Increased rate in steps from 600 l/min to 1200 l/min, pump pressure 70 - 180 \n[F1B-20140129-FLUID-01] Drilling fluid | NaCl brine | Reserve pit | density 1.03 g/cm3 | MD 3465 m | sample 2014-01-28 20:00\n[F1B-20140222-ACT-10] Activity | fixed | plug abandon -- other | ok | 2014-02-21 09:45-10:00 | end MD 1355 m | Washed from 1320 m to 1355 m with 500 lpm, 2 bar.\n[F1C-20140326-ACT-01] Activity | fixed | completion -- bop/wellhead equipment | ok | 2014-03-25 00:00-03:30 | end MD 12 m | Continued pulling HPDR from 35 to 12 m.\n[F1C-20141203-ACT-20] Activity | wire line | workover -- perforate | ok | 2014-12-02 20:00-20:30 | end MD 0 m | Installed tractor and shorter perforation gun into lubricator. Filled riser with 120 litres og 50/50 MEG/RX-72\n[F1C-20161022-ACT-26] Activity | fixed | plug abandon -- other | ok | 2016-10-21 20:00-20:30 | end MD 0 m | L/O riser joint (Lift #3). POOH with riser (Lift #4). Cleaned off marine growth on centralizer deck. Riser out",
+  "context_ids": [
+   "19A-19970829-FLUID-01",
+   "F1-20130730-ACT-04",
+   "F1-20130730-ACT-09",
+   "F1-20130812-ACT-03",
+   "F1-20130812-FLUID-01",
+   "F1-20130824-FAIL-04",
+   "F11B-20130529-ACT-02",
+   "F12-20080115-ACT-11",
+   "F12-20080115-ACT-14",
+   "F12-20080115-ACT-15",
+   "F15D-20150810-ACT-15",
+   "F15D-20150810-ACT-17",
+   "F1B-20140129-ACT-22",
+   "F1B-20140129-FLUID-01",
+   "F1B-20140222-ACT-10",
+   "F1C-20140326-ACT-01",
+   "F1C-20141203-ACT-20",
+   "F1C-20161022-ACT-26"
+  ],
+  "n_lines": 18,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "parts": [
+   {
+    "name": "end_depth",
+    "kind": "num",
+    "value": 12.0,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   },
+   {
+    "name": "activity",
+    "kind": "text",
+    "patterns": [
+     "completion",
+     "wellhead",
+     "equipment",
+     "pulling",
+     "HPDR"
+    ]
+   }
+  ],
+  "forbidden": []
+ },
+ {
+  "id": "H_wrong_substitute",
+  "type": "H_trap",
+  "question": "Which mud logging company served well 15/9-F-1 in the report dated 2013-08-24?",
+  "context": "[F1-20071202-ACT-08] Activity | fixed | drilling -- drill | ok | 2007-12-01 10:45-11:00 | end MD 145 m | Washed down from 144 m to 145 m with 1000 lpm.\n[F1-20130824-FLUID-02] Drilling fluid | Enviromul Yellow | Flowline | density 1.28 g/cm3 | MD 2667 m | PV 30 mPa.s | YP 9.5 Pa | sample 2013-08-23 09:00\n[F1-20130824-STATUS-01] Report status | report no 38 | date 2013-08-24 | MD 2620 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F11T2-20130428-ACT-10] Activity | fixed | drilling -- trip | ok | 2013-04-27 18:30-23:00 | end MD 2142 m | RIH 8 1/2\" steerable BHA on 5 1/2\" DP singles from 1537 m to 2142 m, filled string every 1000 m.\n[F12-20080115-ACT-23] Activity | fixed | drilling -- casing | ok | 2008-01-14 20:30 to 2008-01-15 00:00 | end MD 0 m | Picked up and RIH with nominal bowl protector at 20,8 m MD. Set bowl protector and pulled stand.\n[F12-20080115-FLUID-01] Drilling fluid | Packer fluid | Reserve pit | density 1.03 g/cm3 | sample 2008-01-14 00:00\n[F15D-20131214-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.32 g/cm3 | MD 4685 m | PV 46 mPa.s | YP 11.5 Pa | sample 2013-12-13 21:00\n[F15D-20150810-STATUS-01] Report status | report no 5 | date 2015-08-10 | water depth 91 m | operator Statoil | drilling contractor Altus Intervention\n[F15D-20161019-ACT-09] Activity | fixed | plug abandon -- other | ok | 2016-10-18 06:15-06:45 | end MD 0 m | Pulled riser (Lift #3) Installed master bushing and elevator. Landed off riser onto elevator.\n[F1B-20130924-FLUID-01] Drilling fluid | NaCl brine | Active pit | density 1.03 g/cm3 | MD 3465 m | sample 2013-09-23 10:30",
+  "context_ids": [
+   "F1-20071202-ACT-08",
+   "F1-20130824-FLUID-02",
+   "F1-20130824-STATUS-01",
+   "F11T2-20130428-ACT-10",
+   "F12-20080115-ACT-23",
+   "F12-20080115-FLUID-01",
+   "F15D-20131214-FLUID-01",
+   "F15D-20150810-STATUS-01",
+   "F15D-20161019-ACT-09",
+   "F1B-20130924-FLUID-01"
+  ],
+  "n_lines": 10,
+  "expected_status": "abstain",
+  "gold_ids": [
+   "F1-20130824-STATUS-01"
+  ],
+  "parts": [],
+  "forbidden": [
+   "Maersk\\ Drilling"
+  ],
+  "accept_nonabstain_if_clean": true
+ },
+ {
+  "id": "I_derived_sum",
+  "type": "I_derived",
+  "question": "What is the combined length of the two casing joints with tops at 2581.81 m and 2569.46 m (well 15/9-F-1, report 2013-08-12)?",
+  "context": "[F1-20130812-CSG-01] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 13.6 m | top 2581.81 m | bottom 2595.41 m | 13 3/8\" casing run\n[F1-20130812-CSG-02] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 12.34 m | top 2569.46 m | bottom 2581.81 m | 13 3/8\" casing run\n[F1-20130812-CSG-03] Casing | Intermediate | OD 13.375 in | ID 12.347 in | Q-125 | length 12.6 m | top 2556.86 m | bottom 2569.46 m | 13 3/8\" casing run\n[F1-20130812-FLUID-01] Drilling fluid | Enviromul Yellow | Active pit | density 1.4 g/cm3 | MD 2602 m | PV 34 mPa.s | YP 11 Pa | sample 2013-08-11 20:00\n[F11B-20130529-STATUS-01] Report status | report no 1 | date 2013-05-29 | MD 2787 m | TVD 2590.1 m | water depth 91 m | operator Statoil | drilling contractor Maersk Drilling\n[F11B-20130628-ACT-07] Activity | fixed | interruption -- maintain | ok | 2013-06-27 09:30-18:00 | end MD 0 m | Replaced annular preventer. Function tested annular preventer twice prior to pressure test. Pressure tested an\n[F11B-20151028-ACT-01] Activity | wire line | workover -- wire line | ok | 2015-10-27 00:00-01:15 | end MD 0 m | Hooked up hoses for local control of DHSV and HMV and tested same.\n[F11B-20151028-ACT-16] Activity | wire line | workover -- wire line | ok | 2015-10-27 15:05-17:25 | end MD 4530 m | Continued to RIH using tractor from 3570 m to 4530 m. Stopped to perform first sigma logging pass. Depth PU 32\n[F11T2-20130324-ACT-06] Activity | fixed | interruption -- other | ok | 2013-03-23 15:00-15:30 | end MD 238 m | R/U wireline, RIH and took Gyro survey (238 m bit depth): Survey station (m) Inclination (deg) Azi (deg) 196 0\n[F12-20080115-ACT-03] Activity | fixed | drilling -- casing | ok | 2008-01-14 02:00-02:30 | end MD 0 m | Closed B-annulus valves. Observed wrong placement of pressure gauge and unsuited scale on same. Bled back pres\n[F15D-20131214-ACT-15] Activity | fixed | completion -- bop/wellhead equipment | ok | 2013-12-13 19:00-19:15 | end MD 0 m | Performed pre-job meeting prior to nipple BOP.\n[F1C-20161022-ACT-33] Activity | fixed | plug abandon -- other | ok | 2016-10-21 23:00-23:15 | end MD 0 m | Cleaned and cleared drill floor",
+  "context_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02",
+   "F1-20130812-CSG-03",
+   "F1-20130812-FLUID-01",
+   "F11B-20130529-STATUS-01",
+   "F11B-20130628-ACT-07",
+   "F11B-20151028-ACT-01",
+   "F11B-20151028-ACT-16",
+   "F11T2-20130324-ACT-06",
+   "F12-20080115-ACT-03",
+   "F15D-20131214-ACT-15",
+   "F1C-20161022-ACT-33"
+  ],
+  "n_lines": 12,
+  "expected_status": "answered",
+  "gold_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "parts": [
+   {
+    "name": "combined_length",
+    "kind": "num",
+    "value": 25.939999999999998,
+    "tol": 0.01,
+    "unit": "\\bm\\b|\\bmetres?\\b|\\bmeters?\\b|\\bmetre"
+   }
+  ],
+  "forbidden": [],
+  "derived": true
+ }
+]

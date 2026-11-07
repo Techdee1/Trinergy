@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The activity ended at a measured depth of 2065 m.\",\"cited_ids\":[\"19A-19971110-ACT-04\"],\"rationale\":\"The activity line for 1997-11-09 07:30-20:00 (plug abandon -- other) lists end MD 2065 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The activity ended at a measured depth of 2065 m.",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "The activity line for 1997-11-09 07:30-20:00 (plug abandon -- other) lists end MD 2065 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

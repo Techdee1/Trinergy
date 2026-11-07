@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\n  \"status\": \"abstain\",\n  \"answer\": \"\",\n  \"cited_ids\": [],\n  \"rationale\": \"No evidence lines provide the mud logging company for well 15/9-F-1 in the 2013-08-24 report.\"\n}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines provide the mud logging company for well 15/9-F-1 in the 2013-08-24 report."
+ },
+ "provider": "Groq",
+ "finish_reason": "stop"
+}

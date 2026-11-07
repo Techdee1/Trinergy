@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines contain no information about personnel counts on board for well 15/9-F-15 D on 2013-12-14.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines contain no information about personnel counts on board for well 15/9-F-15 D on 2013-12-14."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

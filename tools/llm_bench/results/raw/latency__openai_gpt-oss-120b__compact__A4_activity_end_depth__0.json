@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"2602 m\",\"cited_ids\":[\"[F1-20130824-ACT-01]\"],\"rationale\":\"The activity ending at 01:30 on 2013-08-23 has an end MD of 2602 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2602 m",
+  "cited_ids": [
+   "[F1-20130824-ACT-01]"
+  ],
+  "rationale": "The activity ending at 01:30 on 2013-08-23 has an end MD of 2602 m."
+ },
+ "provider": "DekaLLM",
+ "finish_reason": "stop"
+}

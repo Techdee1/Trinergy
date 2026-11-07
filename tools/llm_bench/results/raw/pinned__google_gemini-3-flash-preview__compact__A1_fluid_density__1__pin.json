@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19971110-FLUID-01\"],\"rationale\":\"The evidence line provides the density for the specified fluid, location, and timestamp.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The evidence line provides the density for the specified fluid, location, and timestamp."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

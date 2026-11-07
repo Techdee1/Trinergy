@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19971110-FLUID-01\"],\"rationale\":\"The evidence line explicitly states the density of the ULTIDRILL fluid sampled at the specified time and location.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The evidence line explicitly states the density of the ULTIDRILL fluid sampled at the specified time and location."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

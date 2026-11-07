@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"A sonic tool failure was reported on 2013-08-18 (MD 0 m, special service equipment). The evidence does not state the repair cost.\",\"cited_ids\":[\"F1-20130824-FAIL-02\"],\"rationale\":\"The failure line gives the event and date but contains no cost information.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "A sonic tool failure was reported on 2013-08-18 (MD 0 m, special service equipment). The evidence does not state the repair cost.",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The failure line gives the event and date but contains no cost information."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

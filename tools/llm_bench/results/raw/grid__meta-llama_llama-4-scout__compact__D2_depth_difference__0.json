@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"18\",\"cited_ids\":[\"F1-20130824-ACT-01\",\"F1-20130824-ACT-03\"],\"rationale\":\"Measured depth increased from 2602 m to 2620 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "Measured depth increased from 2602 m to 2620 m."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

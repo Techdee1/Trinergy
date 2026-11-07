@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The Enviromul Yellow in the Flowline had a density of 1.28 g/cm3 (sampled 2013-05-28 03:00 at MD 2828 m).\",\"cited_ids\":[\"F11B-20130529-FLUID-01\"],\"rationale\":\"The F11B fluid record from the 2013-05-29 report lists Enviromul Yellow in the Flowline with density 1.28 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The Enviromul Yellow in the Flowline had a density of 1.28 g/cm3 (sampled 2013-05-28 03:00 at MD 2828 m).",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01"
+  ],
+  "rationale": "The F11B fluid record from the 2013-05-29 report lists Enviromul Yellow in the Flowline with density 1.28 g/cm3."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

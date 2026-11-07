@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The 2013-08-29 09:00 sample from 15/9-F-1 B was higher, at 1.32 g/cm3. The 2013-05-28 03:00 sample from 15/9-F-11 B was 1.28 g/cm3.\",\"cited_ids\":[\"F11B-20130529-FLUID-01\",\"F1B-20130830-FLUID-01\"],\"rationale\":\"Comparing the two flowline densities, 1.32 g/cm3 is greater than 1.28 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The 2013-08-29 09:00 sample from 15/9-F-1 B was higher, at 1.32 g/cm3. The 2013-05-28 03:00 sample from 15/9-F-11 B was 1.28 g/cm3.",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "Comparing the two flowline densities, 1.32 g/cm3 is greater than 1.28 g/cm3."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

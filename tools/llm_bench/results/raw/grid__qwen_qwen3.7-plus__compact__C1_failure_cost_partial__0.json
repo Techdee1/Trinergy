@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\",\"answer\":\"Sonic tool failure\",\"cited_ids\":[\"[F1-20130824-FAIL-02]\"],\"rationale\":\"The evidence confirms the equipment failure was a Sonic tool failure, but does not provide the repair cost.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Sonic tool failure",
+  "cited_ids": [
+   "[F1-20130824-FAIL-02]"
+  ],
+  "rationale": "The evidence confirms the equipment failure was a Sonic tool failure, but does not provide the repair cost."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

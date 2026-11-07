@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm\u00b3\",\"cited_ids\":[\"19A-19971110-FLUID-01\"],\"rationale\":\"The fluid record lists density as 1.55 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm\u00b3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The fluid record lists density as 1.55 g/cm3."
+ },
+ "provider": "PrimeIntellect",
+ "finish_reason": "stop"
+}

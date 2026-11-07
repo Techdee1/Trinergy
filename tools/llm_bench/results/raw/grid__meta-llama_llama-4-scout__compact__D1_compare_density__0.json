@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.4 g/cm3\",\"cited_ids\":[\"F11B-20130529-FLUID-01\",\"F1B-20130830-FLUID-01\"],\"rationale\":\"The density of the fluid sampled 2013-05-28 03:00 is 1.28 g/cm3, and the density of the fluid sampled 2013-08-29 09:00 is 1.32 g/cm3. However, another fluid sampled on 2013-05-29 has 1.28 g/cm3 and on 2013-11-10 has 1.4 g/cm3. The highest density value is 1.4 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.4 g/cm3",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "The density of the fluid sampled 2013-05-28 03:00 is 1.28 g/cm3, and the density of the fluid sampled 2013-08-29 09:00 is 1.32 g/cm3. However, another fluid sampled on 2013-05-29 has 1.28 g/cm3 and on 2013-11-10 has 1.4 g/cm3. The highest density value is 1.4 g/cm3."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

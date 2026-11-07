@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"End MD 12 m; activity: completion -- bop/wellhead equipment, continued pulling HPDR from 35 to 12 m (status ok).\",\"cited_ids\":[\"F1C-20140326-ACT-01\"],\"rationale\":\"The row F1C-20140326-ACT-01 ends at 03:30 on 2014-03-25 with end MD 12 m and describes the BOP/wellhead completion activity of pulling HPDR.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "End MD 12 m; activity: completion -- bop/wellhead equipment, continued pulling HPDR from 35 to 12 m (status ok).",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The row F1C-20140326-ACT-01 ends at 03:30 on 2014-03-25 with end MD 12 m and describes the BOP/wellhead completion activity of pulling HPDR."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The 'plug abandon -- other' activity ended at a measured depth of 2065 m.\",\"cited_ids\":[\"19A-19971110-ACT-04\"],\"rationale\":\"The evidence line for the specified activity and time (1997-11-09 07:30) explicitly states the end MD was 2065 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The 'plug abandon -- other' activity ended at a measured depth of 2065 m.",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "The evidence line for the specified activity and time (1997-11-09 07:30) explicitly states the end MD was 2065 m."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

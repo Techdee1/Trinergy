@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The fluid sampled 2013-08-29 09:00 (well 15/9-F-1 B) had the higher density, at 1.32 g/cm3, versus 1.28 g/cm3 for the 2013-05-28 03:00 sample (well 15/9-F-11 B).\",\"cited_ids\":[\"F1B-20130830-FLUID-01\",\"F11B-20130529-FLUID-01\"],\"rationale\":\"Comparing the two flowline samples' densities: 1.32 g/cm3 exceeds 1.28 g/cm3.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The fluid sampled 2013-08-29 09:00 (well 15/9-F-1 B) had the higher density, at 1.32 g/cm3, versus 1.28 g/cm3 for the 2013-05-28 03:00 sample (well 15/9-F-11 B).",
+  "cited_ids": [
+   "F1B-20130830-FLUID-01",
+   "F11B-20130529-FLUID-01"
+  ],
+  "rationale": "Comparing the two flowline samples' densities: 1.32 g/cm3 exceeds 1.28 g/cm3."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

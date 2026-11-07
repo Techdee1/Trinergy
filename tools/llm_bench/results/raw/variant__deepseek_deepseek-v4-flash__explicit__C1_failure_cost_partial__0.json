@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"The evidence mentions a Sonic tool failure on 2013-08-18 for well 15/9-F-1, but no cost information is provided.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence mentions a Sonic tool failure on 2013-08-18 for well 15/9-F-1, but no cost information is provided."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

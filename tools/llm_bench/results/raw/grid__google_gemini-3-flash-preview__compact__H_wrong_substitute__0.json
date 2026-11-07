@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The provided evidence identifies the operator and drilling contractor for well 15/9-F-1 on 2013-08-24, but does not mention a mud logging company.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The provided evidence identifies the operator and drilling contractor for well 15/9-F-1 on 2013-08-24, but does not mention a mud logging company."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

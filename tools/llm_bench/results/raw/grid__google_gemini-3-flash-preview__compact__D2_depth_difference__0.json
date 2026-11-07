@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"18 m\",\"cited_ids\":[\"F1-20130824-ACT-01\",\"F1-20130824-ACT-03\"],\"rationale\":\"The measured depth increased from 2602 m at 01:30 to 2620 m at 05:00 on 2013-08-23.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18 m",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "The measured depth increased from 2602 m at 01:30 to 2620 m at 05:00 on 2013-08-23."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

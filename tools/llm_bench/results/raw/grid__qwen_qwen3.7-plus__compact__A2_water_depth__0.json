@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"91 m\",\n\"cited_ids\": [\n\"F1B-20130830-STATUS-01\"\n],\n\"rationale\": \"The status report for well F1B dated 2013-08-30 explicitly lists the water depth as 91 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The status report for well F1B dated 2013-08-30 explicitly lists the water depth as 91 m."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

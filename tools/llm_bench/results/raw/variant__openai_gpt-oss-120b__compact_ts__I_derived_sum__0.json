@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"25.94 m\",\n  \"cited_ids\": [\"F1-20130812-CSG-01\", \"F1-20130812-CSG-02\"],\n  \"rationale\": \"Summed the lengths of the two specified casing joints.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "25.94 m",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "Summed the lengths of the two specified casing joints."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

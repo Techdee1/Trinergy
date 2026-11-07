@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"end MD 12 m, activity: completion -- bop/wellhead equipment\",\"cited_ids\":[\"F1C-20140326-ACT-01\"],\"rationale\":\"The evidence line for 2014-03-25 00:00-03:30 shows end MD 12 m and activity 'completion -- bop/wellhead equipment'.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "end MD 12 m, activity: completion -- bop/wellhead equipment",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The evidence line for 2014-03-25 00:00-03:30 shows end MD 12 m and activity 'completion -- bop/wellhead equipment'."
+ },
+ "provider": "Baidu",
+ "finish_reason": "stop"
+}

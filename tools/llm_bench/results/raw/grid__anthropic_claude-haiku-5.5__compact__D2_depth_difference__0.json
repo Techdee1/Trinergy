@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"18 m (from 2602 m MD at 01:30 to 2620 m MD at 05:00 on 2013-08-23)\",\"cited_ids\":[\"F1-20130824-ACT-01\",\"F1-20130824-ACT-03\"],\"rationale\":\"The reaming activity ending 01:30 has end MD 2602 m and the drilling activity ending 05:00 has end MD 2620 m, a difference of 18 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18 m (from 2602 m MD at 01:30 to 2620 m MD at 05:00 on 2013-08-23)",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "The reaming activity ending 01:30 has end MD 2602 m and the drilling activity ending 05:00 has end MD 2620 m, a difference of 18 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

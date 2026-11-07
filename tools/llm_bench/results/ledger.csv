@@ -1,0 +1,441 @@
+timestamp,model,provider,input_tokens,output_tokens,reasoning_tokens,cost,cache_hit,latency,source
+2026-11-07T11:41:24+00:00,meta-llama/llama-4-scout,DeepInfra,44,44,0,0.00002640,False,2.080,smoke
+2026-11-07T11:44:46+00:00,openai/gpt-oss-120b,Crusoe,3182,137,58,0.00019335,False,0.629,bench:A4_activity_end_depth
+2026-11-07T11:44:46+00:00,openai/gpt-oss-120b,Crusoe,616,174,112,0.00007430,False,0.919,bench:A1_fluid_density
+2026-11-07T11:44:46+00:00,openai/gpt-oss-120b,AkashML,1096,113,40,0.00005401,False,1.076,bench:A2_water_depth
+2026-11-07T11:44:46+00:00,openai/gpt-oss-120b,Crusoe,1351,279,201,0.00013730,False,1.264,bench:A3_casing_id
+2026-11-07T11:44:46+00:00,openai/gpt-oss-120b,Crusoe,844,199,143,0.00009195,False,0.798,bench:B1_cost_absent_record
+2026-11-07T11:44:47+00:00,openai/gpt-oss-120b,Crusoe,777,135,85,0.00007260,False,0.626,bench:B3_pob
+2026-11-07T11:44:47+00:00,openai/gpt-oss-120b,Crusoe,862,201,161,0.00009335,False,0.935,bench:B2_supervisor
+2026-11-07T11:44:47+00:00,openai/gpt-oss-120b,Crusoe,1616,379,281,0.00017555,False,0.998,bench:D1_compare_density
+2026-11-07T11:44:48+00:00,openai/gpt-oss-120b,Groq,1218,255,179,0.00033570,False,0.712,bench:E1_distractor_fluid
+2026-11-07T11:44:48+00:00,openai/gpt-oss-120b,Crusoe,2192,312,233,0.00018760,False,1.102,bench:D2_depth_difference
+2026-11-07T11:44:48+00:00,openai/gpt-oss-120b,Crusoe,2298,254,199,0.00017840,False,0.880,bench:E2_distractor_activity
+2026-11-07T11:44:49+00:00,openai/gpt-oss-120b,DekaLLM,731,258,199,0.00006837,False,2.275,bench:C1_failure_cost_partial
+2026-11-07T11:44:49+00:00,openai/gpt-oss-120b,AkashML,705,180,111,0.00005481,False,1.389,bench:F_date_window
+2026-11-07T11:44:49+00:00,openai/gpt-oss-120b,Crusoe,846,189,131,0.00008955,False,0.847,bench:H_wrong_substitute
+2026-11-07T11:44:49+00:00,openai/gpt-oss-120b,Crusoe,1495,399,314,0.00017450,False,1.411,bench:G_multipart
+2026-11-07T11:44:49+00:00,openai/gpt-oss-120b,Crusoe,1040,216,146,0.00010600,False,0.696,bench:I_derived_sum
+2026-11-07T11:44:52+00:00,meta-llama/llama-4-scout,DeepInfra,1187,55,0,0.00020280,False,2.910,bench:A3_casing_id
+2026-11-07T11:44:52+00:00,meta-llama/llama-4-scout,DeepInfra,554,55,0,0.00010785,False,3.236,bench:A1_fluid_density
+2026-11-07T11:44:52+00:00,meta-llama/llama-4-scout,DeepInfra,1040,41,0,0.00017445,False,3.189,bench:A2_water_depth
+2026-11-07T11:44:53+00:00,meta-llama/llama-4-scout,DeepInfra,3020,59,0,0.00047955,False,3.718,bench:A4_activity_end_depth
+2026-11-07T11:44:54+00:00,meta-llama/llama-4-scout,DeepInfra,786,27,0,0.00013005,False,2.030,bench:B1_cost_absent_record
+2026-11-07T11:44:55+00:00,meta-llama/llama-4-scout,DeepInfra,800,49,0,0.00014205,False,2.673,bench:B2_supervisor
+2026-11-07T11:44:55+00:00,meta-llama/llama-4-scout,DeepInfra,717,50,0,0.00013005,False,3.001,bench:B3_pob
+2026-11-07T11:44:56+00:00,meta-llama/llama-4-scout,DeepInfra,673,60,0,0.00012795,False,2.785,bench:C1_failure_cost_partial
+2026-11-07T11:44:58+00:00,meta-llama/llama-4-scout,DeepInfra,2132,54,0,0.00034410,False,2.749,bench:D2_depth_difference
+2026-11-07T11:44:59+00:00,meta-llama/llama-4-scout,DeepInfra,2238,55,0,0.00036045,False,2.849,bench:E2_distractor_activity
+2026-11-07T11:44:59+00:00,meta-llama/llama-4-scout,DeepInfra,1133,70,0,0.00020145,False,3.636,bench:E1_distractor_fluid
+2026-11-07T11:45:00+00:00,meta-llama/llama-4-scout,DeepInfra,646,48,0,0.00011850,False,2.285,bench:F_date_window
+2026-11-07T11:45:01+00:00,meta-llama/llama-4-scout,DeepInfra,1433,48,0,0.00023655,False,2.385,bench:G_multipart
+2026-11-07T11:45:01+00:00,meta-llama/llama-4-scout,DeepInfra,1556,154,0,0.00030270,False,6.953,bench:D1_compare_density
+2026-11-07T11:45:01+00:00,meta-llama/llama-4-scout,DeepInfra,784,52,0,0.00014100,False,2.225,bench:H_wrong_substitute
+2026-11-07T11:45:02+00:00,deepseek/deepseek-v4-flash,Baidu,1265,65,0,0.00006171,False,1.334,bench:A2_water_depth
+2026-11-07T11:45:03+00:00,meta-llama/llama-4-scout,DeepInfra,982,65,0,0.00017655,False,2.783,bench:I_derived_sum
+2026-11-07T11:45:03+00:00,deepseek/deepseek-v4-flash,DeepInfra,1195,72,0,0.00012051,False,1.551,bench:A3_casing_id
+2026-11-07T11:45:04+00:00,deepseek/deepseek-v4-flash,Parasail,803,50,0,0.00012642,False,0.805,bench:B2_supervisor
+2026-11-07T11:45:04+00:00,deepseek/deepseek-v4-flash,Baidu,775,60,0,0.00003959,False,2.710,bench:A1_fluid_density
+2026-11-07T11:45:04+00:00,deepseek/deepseek-v4-flash,DeepInfra,789,42,0,0.00007857,False,1.113,bench:B1_cost_absent_record
+2026-11-07T11:45:04+00:00,deepseek/deepseek-v4-flash,DeepInfra,3050,70,0,0.00028710,False,1.584,bench:A4_activity_end_depth
+2026-11-07T11:45:04+00:00,deepseek/deepseek-v4-flash,Parasail,717,51,0,0.00011466,False,0.565,bench:B3_pob
+2026-11-07T11:45:05+00:00,deepseek/deepseek-v4-flash,Parasail,1138,80,0,0.00018172,False,0.896,bench:E1_distractor_fluid
+2026-11-07T11:45:05+00:00,deepseek/deepseek-v4-flash,DeepInfra,2160,81,0,0.00020898,False,1.035,bench:D2_depth_difference
+2026-11-07T11:45:05+00:00,deepseek/deepseek-v4-flash,Baidu,891,59,0,0.00003558,False,1.604,bench:C1_failure_cost_partial
+2026-11-07T11:45:05+00:00,deepseek/deepseek-v4-flash,DeepInfra,1563,116,0,0.00016155,False,1.502,bench:D1_compare_density
+2026-11-07T11:45:06+00:00,deepseek/deepseek-v4-flash,DeepInfra,2265,62,0,0.00021501,False,1.194,bench:E2_distractor_activity
+2026-11-07T11:45:06+00:00,deepseek/deepseek-v4-flash,Venice,785,43,0,0.00008411,False,0.936,bench:H_wrong_substitute
+2026-11-07T11:45:06+00:00,deepseek/deepseek-v4-flash,DeepInfra,642,66,0,0.00006966,False,1.218,bench:F_date_window
+2026-11-07T11:45:07+00:00,deepseek/deepseek-v4-flash,Baidu,1665,85,0,0.00007212,False,1.558,bench:G_multipart
+2026-11-07T11:45:07+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1413,78,0,0.00018030,False,0.845,bench:A2_water_depth
+2026-11-07T11:45:08+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,4256,91,0,0.00047110,False,0.949,bench:A4_activity_end_depth
+2026-11-07T11:45:08+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1632,289,0,0.00030770,False,1.603,bench:A3_casing_id
+2026-11-07T11:45:08+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1116,80,0,0.00015160,False,0.829,bench:B1_cost_absent_record
+2026-11-07T11:45:09+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1109,92,0,0.00015690,False,0.899,bench:B2_supervisor
+2026-11-07T11:45:09+00:00,deepseek/deepseek-v4-flash,DeepInfra,986,99,0,0.00010656,False,2.531,bench:I_derived_sum
+2026-11-07T11:45:09+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,949,104,0,0.00014690,False,0.857,bench:C1_failure_cost_partial
+2026-11-07T11:45:09+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,984,93,0,0.00014490,False,0.929,bench:B3_pob
+2026-11-07T11:45:10+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1598,105,0,0.00021230,False,0.824,bench:E1_distractor_fluid
+2026-11-07T11:45:10+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,2939,159,0,0.00037340,False,0.983,bench:D2_depth_difference
+2026-11-07T11:45:10+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,2164,208,0,0.00032040,False,1.204,bench:D1_compare_density
+2026-11-07T11:45:10+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,3131,97,0,0.00036160,False,1.035,bench:E2_distractor_activity
+2026-11-07T11:45:11+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,887,112,0,0.00014470,False,0.851,bench:F_date_window
+2026-11-07T11:45:11+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1084,77,0,0.00014690,False,0.941,bench:H_wrong_substitute
+2026-11-07T11:45:11+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1965,151,0,0.00027200,False,1.142,bench:G_multipart
+2026-11-07T11:45:11+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,1344,161,0,0.00021490,False,1.157,bench:I_derived_sum
+2026-11-07T11:45:12+00:00,google/gemini-3-flash-preview,Google,1441,88,0,0.00098450,False,1.081,bench:A2_water_depth
+2026-11-07T11:45:12+00:00,google/gemini-3-flash-preview,Google,1644,94,0,0.00110400,False,1.244,bench:A3_casing_id
+2026-11-07T11:45:13+00:00,google/gemini-3-flash-preview,Google,809,65,0,0.00059950,False,2.110,bench:A1_fluid_density
+2026-11-07T11:45:13+00:00,google/gemini-3-flash-preview,Google,3924,90,0,0.00223200,False,2.174,bench:A4_activity_end_depth
+2026-11-07T11:45:14+00:00,google/gemini-3-flash-preview,Google,1070,35,0,0.00064000,False,1.680,bench:B1_cost_absent_record
+2026-11-07T11:45:14+00:00,google/gemini-3-flash-preview,Google,1115,47,0,0.00069850,False,2.131,bench:B2_supervisor
+2026-11-07T11:45:14+00:00,google/gemini-3-flash-preview,Google,952,82,0,0.00072200,False,1.127,bench:C1_failure_cost_partial
+2026-11-07T11:45:14+00:00,google/gemini-3-flash-preview,Google,1010,50,0,0.00065500,False,1.746,bench:B3_pob
+2026-11-07T11:45:15+00:00,google/gemini-3-flash-preview,Google,2100,162,0,0.00153600,False,1.333,bench:D1_compare_density
+2026-11-07T11:45:15+00:00,google/gemini-3-flash-preview,Google,1536,80,0,0.00100800,False,1.069,bench:E1_distractor_fluid
+2026-11-07T11:45:16+00:00,google/gemini-3-flash-preview,Google,2943,61,0,0.00165450,False,1.214,bench:E2_distractor_activity
+2026-11-07T11:45:16+00:00,google/gemini-3-flash-preview,Google,2838,98,0,0.00171300,False,1.844,bench:D2_depth_difference
+2026-11-07T11:45:17+00:00,google/gemini-3-flash-preview,Google,1104,59,0,0.00072900,False,0.992,bench:H_wrong_substitute
+2026-11-07T11:45:17+00:00,google/gemini-3-flash-preview,Google,928,59,0,0.00064100,False,1.765,bench:F_date_window
+2026-11-07T11:45:18+00:00,google/gemini-3-flash-preview,Google,1358,120,0,0.00103900,False,1.414,bench:I_derived_sum
+2026-11-07T11:45:19+00:00,google/gemini-3-flash-preview,Google,1959,125,0,0.00135450,False,3.687,bench:G_multipart
+2026-11-07T11:45:19+00:00,qwen/qwen3.7-plus,Alibaba,681,69,0,0.00030624,False,2.581,bench:A1_fluid_density
+2026-11-07T11:45:19+00:00,qwen/qwen3.7-plus,Alibaba,1298,83,0,0.00052160,False,2.601,bench:A2_water_depth
+2026-11-07T11:45:21+00:00,qwen/qwen3.7-plus,Alibaba,1495,107,0,0.00061536,False,3.712,bench:A3_casing_id
+2026-11-07T11:45:22+00:00,qwen/qwen3.7-plus,Alibaba,947,61,0,0.00038112,False,2.288,bench:B1_cost_absent_record
+2026-11-07T11:45:22+00:00,qwen/qwen3.7-plus,Alibaba,982,46,0,0.00037312,False,2.481,bench:B2_supervisor
+2026-11-07T11:45:23+00:00,qwen/qwen3.7-plus,Alibaba,3769,107,0,0.00134304,False,3.716,bench:A4_activity_end_depth
+2026-11-07T11:45:24+00:00,qwen/qwen3.7-plus,Alibaba,876,58,0,0.00035456,False,2.471,bench:B3_pob
+2026-11-07T11:45:24+00:00,qwen/qwen3.7-plus,Alibaba,812,59,0,0.00033536,False,2.396,bench:C1_failure_cost_partial
+2026-11-07T11:45:26+00:00,qwen/qwen3.7-plus,Alibaba,1951,144,0,0.00080864,False,3.748,bench:D1_compare_density
+2026-11-07T11:45:27+00:00,qwen/qwen3.7-plus,Alibaba,1396,88,0,0.00055936,False,2.792,bench:E1_distractor_fluid
+2026-11-07T11:45:28+00:00,qwen/qwen3.7-plus,Alibaba,799,67,0,0.00034144,False,2.263,bench:F_date_window
+2026-11-07T11:45:28+00:00,qwen/qwen3.7-plus,Alibaba,2690,231,0,0.00115648,False,5.188,bench:D2_depth_difference
+2026-11-07T11:45:29+00:00,qwen/qwen3.7-plus,Alibaba,2804,118,0,0.00104832,False,5.018,bench:E2_distractor_activity
+2026-11-07T11:45:30+00:00,qwen/qwen3.7-plus,Alibaba,971,60,0,0.00038752,False,2.478,bench:H_wrong_substitute
+2026-11-07T11:45:30+00:00,qwen/qwen3.7-plus,Alibaba,1815,151,0,0.00077408,False,3.931,bench:G_multipart
+2026-11-07T11:45:31+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,777,103,0,0.00258400,False,1.432,bench:A1_fluid_density
+2026-11-07T11:45:32+00:00,qwen/qwen3.7-plus,Alibaba,1219,135,0,0.00056288,False,3.564,bench:I_derived_sum
+2026-11-07T11:45:32+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1414,76,0,0.00358800,False,1.395,bench:A2_water_depth
+2026-11-07T11:45:32+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,4257,137,0,0.00988400,False,1.807,bench:A4_activity_end_depth
+2026-11-07T11:45:33+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1633,197,0,0.00523600,False,2.139,bench:A3_casing_id
+2026-11-07T11:45:33+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1110,68,0,0.00290000,False,1.181,bench:B2_supervisor
+2026-11-07T11:45:33+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1117,72,0,0.00295400,False,1.315,bench:B1_cost_absent_record
+2026-11-07T11:45:34+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,985,79,0,0.00276000,False,1.253,bench:B3_pob
+2026-11-07T11:45:34+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,950,115,0,0.00305000,False,1.252,bench:C1_failure_cost_partial
+2026-11-07T11:45:35+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,2940,146,0,0.00734000,False,1.545,bench:D2_depth_difference
+2026-11-07T11:45:35+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,2165,178,0,0.00611000,False,1.851,bench:D1_compare_density
+2026-11-07T11:45:35+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,3132,93,0,0.00719400,False,1.463,bench:E2_distractor_activity
+2026-11-07T11:45:36+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1599,115,0,0.00434800,False,1.864,bench:E1_distractor_fluid
+2026-11-07T11:45:36+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,888,114,0,0.00291600,False,1.326,bench:F_date_window
+2026-11-07T11:45:37+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1085,83,0,0.00300000,False,1.331,bench:H_wrong_substitute
+2026-11-07T11:45:37+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1966,163,0,0.00556200,False,1.920,bench:G_multipart
+2026-11-07T11:45:37+00:00,anthropic/claude-sonnet-5.5,Claude Platform on AWS,1345,191,0,0.00460000,False,1.804,bench:I_derived_sum
+2026-11-07T11:45:38+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1414,80,0,0.00725600,False,1.704,bench:A2_water_depth
+2026-11-07T11:45:39+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,777,119,0,0.00548800,False,2.509,bench:A1_fluid_density
+2026-11-07T11:45:39+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1633,138,0,0.00929200,False,2.219,bench:A3_casing_id
+2026-11-07T11:45:39+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,4257,98,0,0.01898800,False,2.128,bench:A4_activity_end_depth
+2026-11-07T11:45:40+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1110,92,0,0.00628000,False,1.814,bench:B2_supervisor
+2026-11-07T11:45:41+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1117,85,0,0.00616800,False,2.155,bench:B1_cost_absent_record
+2026-11-07T11:45:41+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,985,78,0,0.00550000,False,2.021,bench:B3_pob
+2026-11-07T11:45:42+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,950,131,0,0.00642000,False,2.529,bench:C1_failure_cost_partial
+2026-11-07T11:45:43+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,2940,151,0,0.01478000,False,2.036,bench:D2_depth_difference
+2026-11-07T11:45:43+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,2165,182,0,0.01230000,False,2.792,bench:D1_compare_density
+2026-11-07T11:45:44+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1599,146,0,0.00931600,False,2.630,bench:E1_distractor_fluid
+2026-11-07T11:45:44+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,3132,149,0,0.01550800,False,2.445,bench:E2_distractor_activity
+2026-11-07T11:45:46+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1085,90,0,0.00614000,False,2.127,bench:H_wrong_substitute
+2026-11-07T11:45:46+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1966,153,0,0.01092400,False,2.532,bench:G_multipart
+2026-11-07T11:45:46+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,888,278,187,0.00911200,False,3.570,bench:F_date_window
+2026-11-07T11:45:47+00:00,anthropic/claude-opus-5.5,Claude Platform on AWS,1345,130,0,0.00798000,False,2.542,bench:I_derived_sum
+2026-11-07T11:46:20+00:00,anthropic/claude-haiku-5.5,Azure,366,74,0,0.00007360,False,1.528,probe
+2026-11-07T11:46:23+00:00,anthropic/claude-haiku-5.5,Anthropic,365,74,0,0.00007350,False,2.641,probe
+2026-11-07T11:46:25+00:00,anthropic/claude-haiku-5.5,Anthropic,366,75,0,0.00007410,False,2.518,probe
+2026-11-07T11:46:26+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,55,29,0,0.00002000,False,0.806,probe
+2026-11-07T11:46:27+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,54,31,0,0.00002090,False,0.948,probe
+2026-11-07T11:46:28+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,55,27,0,0.00001900,False,0.815,probe
+2026-11-07T11:46:29+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,55,28,0,0.00001950,False,0.952,probe
+2026-11-07T11:46:30+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,54,31,0,0.00002090,False,0.924,probe
+2026-11-07T11:46:31+00:00,anthropic/claude-haiku-5.5,Claude Platform on AWS,55,27,0,0.00001900,False,0.748,probe
+2026-11-07T11:46:52+00:00,anthropic/claude-haiku-5.5,Anthropic,366,75,0,0.00007410,False,1.315,probe
+2026-11-07T11:46:53+00:00,anthropic/claude-haiku-5.5,Anthropic,365,68,0,0.00007050,False,1.148,probe
+2026-11-07T11:46:54+00:00,anthropic/claude-haiku-5.5,Anthropic,366,75,0,0.00007410,False,1.079,probe
+2026-11-07T11:46:56+00:00,anthropic/claude-sonnet-5.5,Anthropic,366,98,0,0.00171200,False,2.563,probe
+2026-11-07T11:46:58+00:00,anthropic/claude-sonnet-5.5,Anthropic,366,97,0,0.00170200,False,2.116,probe
+2026-11-07T11:47:01+00:00,anthropic/claude-opus-5.5,Anthropic,366,95,0,0.00336400,False,2.814,probe
+2026-11-07T11:47:03+00:00,anthropic/claude-opus-5.5,Anthropic,366,83,0,0.00312400,False,2.051,probe
+2026-11-07T11:47:35+00:00,anthropic/claude-haiku-5.5,Anthropic,1087,99,0,0.00015820,False,1.532,bench:A1_fluid_density
+2026-11-07T11:47:35+00:00,anthropic/claude-haiku-5.5,Anthropic,1724,72,0,0.00020840,False,1.627,bench:A2_water_depth
+2026-11-07T11:47:35+00:00,anthropic/claude-haiku-5.5,Anthropic,1943,88,0,0.00023830,False,1.639,bench:A3_casing_id
+2026-11-07T11:47:35+00:00,anthropic/claude-haiku-5.5,Anthropic,4567,98,0,0.00050570,False,1.708,bench:A4_activity_end_depth
+2026-11-07T11:47:36+00:00,anthropic/claude-haiku-5.5,Anthropic,1427,80,0,0.00018270,False,1.016,bench:B1_cost_absent_record
+2026-11-07T11:47:36+00:00,anthropic/claude-haiku-5.5,Anthropic,1295,73,0,0.00016600,False,1.107,bench:B3_pob
+2026-11-07T11:47:36+00:00,anthropic/claude-haiku-5.5,Anthropic,1420,89,0,0.00018650,False,1.316,bench:B2_supervisor
+2026-11-07T11:47:36+00:00,anthropic/claude-haiku-5.5,Anthropic,1260,116,0,0.00018400,False,1.361,bench:C1_failure_cost_partial
+2026-11-07T11:47:37+00:00,anthropic/claude-haiku-5.5,Anthropic,2475,225,0,0.00036000,False,1.540,bench:D1_compare_density
+2026-11-07T11:47:37+00:00,anthropic/claude-haiku-5.5,Anthropic,1909,97,0,0.00023940,False,1.194,bench:E1_distractor_fluid
+2026-11-07T11:47:37+00:00,anthropic/claude-haiku-5.5,Anthropic,3250,151,0,0.00040050,False,1.570,bench:D2_depth_difference
+2026-11-07T11:47:38+00:00,anthropic/claude-haiku-5.5,Anthropic,3442,108,0,0.00039820,False,1.482,bench:E2_distractor_activity
+2026-11-07T11:47:38+00:00,anthropic/claude-haiku-5.5,Anthropic,1198,124,0,0.00018180,False,1.038,bench:F_date_window
+2026-11-07T11:47:38+00:00,anthropic/claude-haiku-5.5,Anthropic,2276,158,0,0.00030660,False,1.200,bench:G_multipart
+2026-11-07T11:47:39+00:00,anthropic/claude-haiku-5.5,Anthropic,1395,76,0,0.00017750,False,1.193,bench:H_wrong_substitute
+2026-11-07T11:47:39+00:00,anthropic/claude-haiku-5.5,Anthropic,1655,141,0,0.00023600,False,1.256,bench:I_derived_sum
+2026-11-07T11:47:40+00:00,anthropic/claude-sonnet-5.5,Anthropic,1725,85,0,0.00430000,False,1.691,bench:A2_water_depth
+2026-11-07T11:47:40+00:00,anthropic/claude-sonnet-5.5,Anthropic,1944,116,0,0.00504800,False,1.677,bench:A3_casing_id
+2026-11-07T11:47:41+00:00,anthropic/claude-sonnet-5.5,Anthropic,1088,149,0,0.00366600,False,2.435,bench:A1_fluid_density
+2026-11-07T11:47:41+00:00,anthropic/claude-sonnet-5.5,Anthropic,4568,113,0,0.01026600,False,2.093,bench:A4_activity_end_depth
+2026-11-07T11:47:42+00:00,anthropic/claude-sonnet-5.5,Anthropic,1428,71,0,0.00356600,False,2.021,bench:B1_cost_absent_record
+2026-11-07T11:47:42+00:00,anthropic/claude-sonnet-5.5,Anthropic,1421,80,0,0.00364200,False,1.860,bench:B2_supervisor
+2026-11-07T11:47:43+00:00,anthropic/claude-sonnet-5.5,Anthropic,1296,76,0,0.00335200,False,1.814,bench:B3_pob
+2026-11-07T11:47:43+00:00,anthropic/claude-sonnet-5.5,Anthropic,1261,109,0,0.00361200,False,1.975,bench:C1_failure_cost_partial
+2026-11-07T11:47:45+00:00,anthropic/claude-sonnet-5.5,Anthropic,2476,193,0,0.00688200,False,2.455,bench:D1_compare_density
+2026-11-07T11:47:45+00:00,anthropic/claude-sonnet-5.5,Anthropic,1910,163,0,0.00545000,False,2.251,bench:E1_distractor_fluid
+2026-11-07T11:47:45+00:00,anthropic/claude-sonnet-5.5,Anthropic,3443,103,0,0.00791600,False,1.979,bench:E2_distractor_activity
+2026-11-07T11:47:45+00:00,anthropic/claude-sonnet-5.5,Anthropic,3251,161,0,0.00811200,False,2.884,bench:D2_depth_difference
+2026-11-07T11:47:47+00:00,anthropic/claude-sonnet-5.5,Anthropic,1199,113,0,0.00352800,False,2.505,bench:F_date_window
+2026-11-07T11:47:47+00:00,anthropic/claude-sonnet-5.5,Anthropic,1656,169,0,0.00500200,False,2.150,bench:I_derived_sum
+2026-11-07T11:47:47+00:00,anthropic/claude-sonnet-5.5,Anthropic,1396,96,0,0.00375200,False,2.234,bench:H_wrong_substitute
+2026-11-07T11:47:48+00:00,anthropic/claude-sonnet-5.5,Anthropic,2277,191,0,0.00646400,False,2.746,bench:G_multipart
+2026-11-07T11:48:10+00:00,anthropic/claude-haiku-5.5,Anthropic,1087,99,0,0.00015820,False,1.161,bench:A1_fluid_density
+2026-11-07T11:48:11+00:00,anthropic/claude-haiku-5.5,Anthropic,1087,101,0,0.00015920,False,1.205,bench:A1_fluid_density
+2026-11-07T11:48:12+00:00,anthropic/claude-haiku-5.5,Anthropic,1087,99,0,0.00015820,False,1.019,bench:A1_fluid_density
+2026-11-07T11:48:13+00:00,anthropic/claude-haiku-5.5,Anthropic,1724,71,0,0.00020790,False,1.075,bench:A2_water_depth
+2026-11-07T11:48:14+00:00,anthropic/claude-haiku-5.5,Anthropic,1724,75,0,0.00020990,False,1.213,bench:A2_water_depth
+2026-11-07T11:48:15+00:00,anthropic/claude-haiku-5.5,Anthropic,1724,74,0,0.00020940,False,0.997,bench:A2_water_depth
+2026-11-07T11:48:16+00:00,anthropic/claude-haiku-5.5,Anthropic,1943,79,0,0.00023380,False,1.227,bench:A3_casing_id
+2026-11-07T11:48:18+00:00,anthropic/claude-haiku-5.5,Anthropic,1943,77,0,0.00023280,False,1.394,bench:A3_casing_id
+2026-11-07T11:48:19+00:00,anthropic/claude-haiku-5.5,Anthropic,1943,88,0,0.00023830,False,1.096,bench:A3_casing_id
+2026-11-07T11:48:20+00:00,anthropic/claude-haiku-5.5,Anthropic,4567,97,0,0.00050520,False,1.110,bench:A4_activity_end_depth
+2026-11-07T11:48:21+00:00,anthropic/claude-haiku-5.5,Anthropic,4567,88,0,0.00050070,False,1.144,bench:A4_activity_end_depth
+2026-11-07T11:48:22+00:00,anthropic/claude-haiku-5.5,Anthropic,4567,88,0,0.00050070,False,1.257,bench:A4_activity_end_depth
+2026-11-07T11:48:23+00:00,google/gemini-3-flash-preview,Google,809,65,0,0.00059950,False,1.161,bench:A1_fluid_density
+2026-11-07T11:48:24+00:00,google/gemini-3-flash-preview,Google,809,65,0,0.00059950,False,0.874,bench:A1_fluid_density
+2026-11-07T11:48:26+00:00,google/gemini-3-flash-preview,Google,809,66,0,0.00060250,False,1.174,bench:A1_fluid_density
+2026-11-07T11:48:27+00:00,google/gemini-3-flash-preview,Google,1441,63,0,0.00090950,False,1.339,bench:A2_water_depth
+2026-11-07T11:48:28+00:00,google/gemini-3-flash-preview,Google,1441,88,0,0.00098450,False,1.003,bench:A2_water_depth
+2026-11-07T11:48:29+00:00,google/gemini-3-flash-preview,Google,1441,88,0,0.00098450,False,1.218,bench:A2_water_depth
+2026-11-07T11:48:30+00:00,google/gemini-3-flash-preview,Google,1644,94,0,0.00110400,False,1.183,bench:A3_casing_id
+2026-11-07T11:48:32+00:00,google/gemini-3-flash-preview,Google,1644,94,0,0.00110400,False,1.824,bench:A3_casing_id
+2026-11-07T11:48:34+00:00,google/gemini-3-flash-preview,Google,1644,94,0,0.00110400,False,1.499,bench:A3_casing_id
+2026-11-07T11:48:35+00:00,google/gemini-3-flash-preview,Google,3924,90,0,0.00223200,False,1.438,bench:A4_activity_end_depth
+2026-11-07T11:48:36+00:00,google/gemini-3-flash-preview,Google,3924,94,0,0.00224400,False,1.371,bench:A4_activity_end_depth
+2026-11-07T11:48:38+00:00,google/gemini-3-flash-preview,Google,3924,90,0,0.00223200,False,1.213,bench:A4_activity_end_depth
+2026-11-07T11:48:38+00:00,openai/gpt-oss-120b,Groq,705,105,33,0.00016875,False,0.423,bench:A1_fluid_density
+2026-11-07T11:48:39+00:00,openai/gpt-oss-120b,Crusoe,721,99,33,0.00006080,False,0.511,bench:A1_fluid_density
+2026-11-07T11:48:42+00:00,openai/gpt-oss-120b,PrimeIntellect,616,94,32,0.00001642,False,3.320,bench:A1_fluid_density
+2026-11-07T11:48:42+00:00,openai/gpt-oss-120b,Crusoe,1201,110,44,0.00008755,False,0.505,bench:A2_water_depth
+2026-11-07T11:48:43+00:00,openai/gpt-oss-120b,Crusoe,1201,103,41,0.00008580,False,0.499,bench:A2_water_depth
+2026-11-07T11:48:43+00:00,openai/gpt-oss-120b,Crusoe,1201,104,41,0.00008605,False,0.412,bench:A2_water_depth
+2026-11-07T11:48:44+00:00,openai/gpt-oss-120b,Crusoe,1351,111,39,0.00009530,False,0.544,bench:A3_casing_id
+2026-11-07T11:48:44+00:00,openai/gpt-oss-120b,Crusoe,1351,118,46,0.00009705,False,0.523,bench:A3_casing_id
+2026-11-07T11:48:45+00:00,openai/gpt-oss-120b,AkashML,1246,114,46,0.00005870,False,0.931,bench:A3_casing_id
+2026-11-07T11:48:47+00:00,openai/gpt-oss-120b,DekaLLM,3077,133,62,0.00011625,False,1.347,bench:A4_activity_end_depth
+2026-11-07T11:48:47+00:00,openai/gpt-oss-120b,Crusoe,3182,139,60,0.00019385,False,0.537,bench:A4_activity_end_depth
+2026-11-07T11:48:48+00:00,openai/gpt-oss-120b,Crusoe,3182,138,59,0.00019360,False,0.720,bench:A4_activity_end_depth
+2026-11-07T11:48:58+00:00,anthropic/claude-haiku-5.5,Anthropic,776,103,0,0.00012910,False,0.902,bench:A1_fluid_density
+2026-11-07T11:48:59+00:00,anthropic/claude-haiku-5.5,Anthropic,776,103,0,0.00012910,False,0.843,bench:A1_fluid_density
+2026-11-07T11:49:00+00:00,anthropic/claude-haiku-5.5,Anthropic,776,100,0,0.00012760,False,0.947,bench:A1_fluid_density
+2026-11-07T11:49:01+00:00,anthropic/claude-haiku-5.5,Anthropic,1413,78,0,0.00018030,False,1.052,bench:A2_water_depth
+2026-11-07T11:49:02+00:00,anthropic/claude-haiku-5.5,Anthropic,1413,78,0,0.00018030,False,1.146,bench:A2_water_depth
+2026-11-07T11:49:03+00:00,anthropic/claude-haiku-5.5,Anthropic,1413,78,0,0.00018030,False,0.964,bench:A2_water_depth
+2026-11-07T11:49:04+00:00,anthropic/claude-haiku-5.5,Anthropic,1632,114,0,0.00022020,False,1.187,bench:A3_casing_id
+2026-11-07T11:49:05+00:00,anthropic/claude-haiku-5.5,Anthropic,1632,84,0,0.00020520,False,0.915,bench:A3_casing_id
+2026-11-07T11:49:06+00:00,anthropic/claude-haiku-5.5,Anthropic,1632,106,0,0.00021620,False,1.018,bench:A3_casing_id
+2026-11-07T11:49:07+00:00,anthropic/claude-haiku-5.5,Anthropic,4256,125,0,0.00048810,False,1.000,bench:A4_activity_end_depth
+2026-11-07T11:49:09+00:00,anthropic/claude-haiku-5.5,Anthropic,4256,98,0,0.00047460,False,1.543,bench:A4_activity_end_depth
+2026-11-07T11:49:09+00:00,anthropic/claude-haiku-5.5,Anthropic,4256,94,0,0.00047260,False,0.817,bench:A4_activity_end_depth
+2026-11-07T11:49:11+00:00,google/gemini-3-flash-preview,Google,809,60,0,0.00058450,False,1.629,bench:A1_fluid_density
+2026-11-07T11:49:13+00:00,google/gemini-3-flash-preview,Google,809,59,0,0.00058150,False,1.579,bench:A1_fluid_density
+2026-11-07T11:49:14+00:00,google/gemini-3-flash-preview,Google,809,66,0,0.00060250,False,1.650,bench:A1_fluid_density
+2026-11-07T11:49:16+00:00,google/gemini-3-flash-preview,Google,1441,62,0,0.00090650,False,1.610,bench:A2_water_depth
+2026-11-07T11:49:17+00:00,google/gemini-3-flash-preview,Google,1441,88,0,0.00098450,False,1.162,bench:A2_water_depth
+2026-11-07T11:49:19+00:00,google/gemini-3-flash-preview,Google,1441,68,0,0.00092450,False,1.754,bench:A2_water_depth
+2026-11-07T11:49:21+00:00,google/gemini-3-flash-preview,Google,1644,93,0,0.00110100,False,1.727,bench:A3_casing_id
+2026-11-07T11:49:22+00:00,google/gemini-3-flash-preview,Google,1644,74,0,0.00104400,False,1.637,bench:A3_casing_id
+2026-11-07T11:49:24+00:00,google/gemini-3-flash-preview,Google,1644,94,0,0.00110400,False,1.389,bench:A3_casing_id
+2026-11-07T11:49:25+00:00,google/gemini-3-flash-preview,Google,3924,94,0,0.00224400,False,1.553,bench:A4_activity_end_depth
+2026-11-07T11:49:27+00:00,google/gemini-3-flash-preview,Google,3924,90,0,0.00223200,False,1.467,bench:A4_activity_end_depth
+2026-11-07T11:49:28+00:00,google/gemini-3-flash-preview,Google,3924,90,0,0.00223200,False,1.617,bench:A4_activity_end_depth
+2026-11-07T11:49:29+00:00,openai/gpt-oss-120b,Crusoe,721,108,34,0.00006305,False,0.480,bench:A1_fluid_density
+2026-11-07T11:49:29+00:00,openai/gpt-oss-120b,Crusoe,721,99,33,0.00006080,False,0.471,bench:A1_fluid_density
+2026-11-07T11:49:30+00:00,openai/gpt-oss-120b,Crusoe,721,108,34,0.00006305,False,0.585,bench:A1_fluid_density
+2026-11-07T11:49:31+00:00,openai/gpt-oss-120b,Crusoe,1201,104,41,0.00008605,False,0.429,bench:A2_water_depth
+2026-11-07T11:49:31+00:00,openai/gpt-oss-120b,Crusoe,1201,104,41,0.00008605,False,0.507,bench:A2_water_depth
+2026-11-07T11:49:32+00:00,openai/gpt-oss-120b,Crusoe,1201,104,41,0.00008605,False,0.482,bench:A2_water_depth
+2026-11-07T11:49:32+00:00,openai/gpt-oss-120b,Crusoe,1351,118,46,0.00009705,False,0.583,bench:A3_casing_id
+2026-11-07T11:49:33+00:00,openai/gpt-oss-120b,Crusoe,1351,135,61,0.00010130,False,0.739,bench:A3_casing_id
+2026-11-07T11:49:34+00:00,openai/gpt-oss-120b,Crusoe,1351,139,61,0.00010230,False,0.658,bench:A3_casing_id
+2026-11-07T11:49:34+00:00,openai/gpt-oss-120b,Crusoe,3182,139,60,0.00019385,False,0.502,bench:A4_activity_end_depth
+2026-11-07T11:49:35+00:00,openai/gpt-oss-120b,Crusoe,3182,139,60,0.00019385,False,0.487,bench:A4_activity_end_depth
+2026-11-07T11:49:35+00:00,openai/gpt-oss-120b,Crusoe,3182,139,60,0.00019385,False,0.448,bench:A4_activity_end_depth
+2026-11-07T11:49:45+00:00,openai/gpt-oss-120b,Crusoe,836,69,17,0.00005905,False,0.473,bench:C1_failure_cost_partial
+2026-11-07T11:49:45+00:00,openai/gpt-oss-120b,Crusoe,1201,92,30,0.00008305,False,0.539,bench:A2_water_depth
+2026-11-07T11:49:45+00:00,openai/gpt-oss-120b,Groq,3214,352,282,0.00069330,False,1.007,bench:A4_activity_end_depth
+2026-11-07T11:49:45+00:00,openai/gpt-oss-120b,Crusoe,1246,224,157,0.00011830,False,1.137,bench:A3_casing_id
+2026-11-07T11:49:46+00:00,openai/gpt-oss-120b,Crusoe,777,292,251,0.00011185,False,1.215,bench:B3_pob
+2026-11-07T11:49:46+00:00,openai/gpt-oss-120b,Crusoe,844,175,133,0.00008595,False,0.828,bench:B1_cost_absent_record
+2026-11-07T11:49:46+00:00,openai/gpt-oss-120b,Groq,3077,210,141,0.00058755,False,0.862,bench:A4_activity_end_depth
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Groq,777,131,91,0.00019515,False,0.998,bench:B3_pob
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Crusoe,731,258,199,0.00010105,False,1.026,bench:C1_failure_cost_partial
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Crusoe,862,174,134,0.00008660,False,1.183,bench:B2_supervisor
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Crusoe,1096,162,99,0.00009530,False,1.201,bench:A2_water_depth
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Crusoe,616,253,174,0.00009405,False,1.356,bench:A1_fluid_density
+2026-11-07T11:49:47+00:00,openai/gpt-oss-120b,Crusoe,1246,218,148,0.00011680,False,1.365,bench:A3_casing_id
+2026-11-07T11:49:48+00:00,anthropic/claude-haiku-5.5,Anthropic,2195,85,0,0.00026200,False,1.056,bench:A2_water_depth
+2026-11-07T11:49:48+00:00,anthropic/claude-haiku-5.5,Anthropic,2414,95,0,0.00028890,False,1.113,bench:A3_casing_id
+2026-11-07T11:49:48+00:00,anthropic/claude-haiku-5.5,Anthropic,1558,119,0,0.00021530,False,1.156,bench:A1_fluid_density
+2026-11-07T11:49:48+00:00,anthropic/claude-haiku-5.5,Anthropic,5038,122,0,0.00056480,False,1.242,bench:A4_activity_end_depth
+2026-11-07T11:49:49+00:00,anthropic/claude-haiku-5.5,Anthropic,1898,96,0,0.00023780,False,1.223,bench:B1_cost_absent_record
+2026-11-07T11:49:49+00:00,anthropic/claude-haiku-5.5,Anthropic,1891,84,0,0.00023110,False,1.193,bench:B2_supervisor
+2026-11-07T11:49:49+00:00,anthropic/claude-haiku-5.5,Anthropic,1731,112,0,0.00022910,False,1.137,bench:C1_failure_cost_partial
+2026-11-07T11:49:50+00:00,anthropic/claude-haiku-5.5,Anthropic,1766,93,0,0.00022310,False,1.297,bench:B3_pob
+2026-11-07T11:49:51+00:00,anthropic/claude-haiku-5.5,Anthropic,3721,135,0,0.00043960,False,1.142,bench:D2_depth_difference
+2026-11-07T11:49:51+00:00,anthropic/claude-haiku-5.5,Anthropic,2380,101,0,0.00028850,False,1.250,bench:E1_distractor_fluid
+2026-11-07T11:49:51+00:00,anthropic/claude-haiku-5.5,Anthropic,3913,105,0,0.00044380,False,1.637,bench:E2_distractor_activity
+2026-11-07T11:49:51+00:00,anthropic/claude-haiku-5.5,Anthropic,2946,226,0,0.00040760,False,2.091,bench:D1_compare_density
+2026-11-07T11:49:52+00:00,anthropic/claude-haiku-5.5,Anthropic,1669,110,0,0.00022190,False,1.146,bench:F_date_window
+2026-11-07T11:49:52+00:00,anthropic/claude-haiku-5.5,Anthropic,2747,145,0,0.00034720,False,1.518,bench:G_multipart
+2026-11-07T11:49:52+00:00,anthropic/claude-haiku-5.5,Anthropic,1866,70,0,0.00022160,False,1.286,bench:H_wrong_substitute
+2026-11-07T11:49:53+00:00,google/gemini-3-flash-preview,Google,1163,80,0,0.00082150,False,0.943,bench:A1_fluid_density
+2026-11-07T11:49:53+00:00,anthropic/claude-haiku-5.5,Anthropic,2126,132,0,0.00027860,False,1.466,bench:I_derived_sum
+2026-11-07T11:49:54+00:00,google/gemini-3-flash-preview,Google,1795,75,0,0.00112250,False,1.616,bench:A2_water_depth
+2026-11-07T11:49:54+00:00,google/gemini-3-flash-preview,Google,1998,121,0,0.00136200,False,1.859,bench:A3_casing_id
+2026-11-07T11:49:55+00:00,google/gemini-3-flash-preview,Google,1424,41,0,0.00083500,False,1.744,bench:B1_cost_absent_record
+2026-11-07T11:49:55+00:00,google/gemini-3-flash-preview,Google,1469,51,0,0.00088750,False,0.906,bench:B2_supervisor
+2026-11-07T11:49:55+00:00,google/gemini-3-flash-preview,Google,4278,116,0,0.00248700,False,2.433,bench:A4_activity_end_depth
+2026-11-07T11:49:55+00:00,google/gemini-3-flash-preview,Google,1364,53,0,0.00084100,False,0.933,bench:B3_pob
+2026-11-07T11:49:56+00:00,google/gemini-3-flash-preview,Google,1306,91,0,0.00092600,False,0.951,bench:C1_failure_cost_partial
+2026-11-07T11:49:56+00:00,google/gemini-3-flash-preview,Google,2454,185,0,0.00178200,False,1.685,bench:D1_compare_density
+2026-11-07T11:49:57+00:00,google/gemini-3-flash-preview,Google,3192,124,0,0.00196800,False,1.922,bench:D2_depth_difference
+2026-11-07T11:49:57+00:00,google/gemini-3-flash-preview,Google,1890,90,0,0.00121500,False,1.871,bench:E1_distractor_fluid
+2026-11-07T11:49:58+00:00,google/gemini-3-flash-preview,Google,3297,116,0,0.00199650,False,2.287,bench:E2_distractor_activity
+2026-11-07T11:49:58+00:00,google/gemini-3-flash-preview,Google,1282,73,0,0.00086000,False,1.470,bench:F_date_window
+2026-11-07T11:49:59+00:00,google/gemini-3-flash-preview,Google,1458,52,0,0.00088500,False,1.638,bench:H_wrong_substitute
+2026-11-07T11:49:59+00:00,google/gemini-3-flash-preview,Google,2313,157,0,0.00162750,False,2.163,bench:G_multipart
+2026-11-07T11:49:59+00:00,google/gemini-3-flash-preview,Google,1712,137,0,0.00126700,False,1.275,bench:I_derived_sum
+2026-11-07T11:49:59+00:00,openai/gpt-oss-120b,Crusoe,1540,135,60,0.00011075,False,0.630,bench:A2_water_depth
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,PrimeIntellect,955,121,28,0.00002392,False,1.700,bench:A1_fluid_density
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,Crusoe,1288,73,18,0.00008265,False,0.523,bench:B1_cost_absent_record
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,Crusoe,1690,124,42,0.00011550,False,0.948,bench:A3_casing_id
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,Crusoe,3521,167,86,0.00021780,False,1.034,bench:A4_activity_end_depth
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,Crusoe,1306,65,16,0.00008155,False,0.529,bench:B2_supervisor
+2026-11-07T11:50:00+00:00,openai/gpt-oss-120b,Crusoe,1221,61,10,0.00007630,False,0.433,bench:B3_pob
+2026-11-07T11:50:01+00:00,openai/gpt-oss-120b,Crusoe,1175,115,44,0.00008750,False,0.641,bench:C1_failure_cost_partial
+2026-11-07T11:50:01+00:00,openai/gpt-oss-120b,Crusoe,2636,156,77,0.00017080,False,0.676,bench:D2_depth_difference
+2026-11-07T11:50:01+00:00,openai/gpt-oss-120b,Crusoe,2742,97,24,0.00016135,False,0.589,bench:E2_distractor_activity
+2026-11-07T11:50:02+00:00,openai/gpt-oss-120b,Crusoe,1149,131,35,0.00009020,False,0.733,bench:F_date_window
+2026-11-07T11:50:02+00:00,openai/gpt-oss-120b,AkashML,1955,211,93,0.00009811,False,1.580,bench:D1_compare_density
+2026-11-07T11:50:02+00:00,openai/gpt-oss-120b,Groq,1274,88,19,0.00024390,False,0.415,bench:H_wrong_substitute
+2026-11-07T11:50:03+00:00,openai/gpt-oss-120b,Crusoe,1939,243,152,0.00015770,False,1.182,bench:G_multipart
+2026-11-07T11:50:03+00:00,deepseek/deepseek-v4-flash,DeepInfra,890,98,0,0.00009774,False,1.228,bench:A1_fluid_density
+2026-11-07T11:50:03+00:00,openai/gpt-oss-120b,PrimeIntellect,1529,146,60,0.00003527,False,2.966,bench:E1_distractor_fluid
+2026-11-07T11:50:03+00:00,openai/gpt-oss-120b,DekaLLM,1379,181,93,0.00007395,False,1.574,bench:I_derived_sum
+2026-11-07T11:50:04+00:00,deepseek/deepseek-v4-flash,Baidu,1602,79,0,0.00007786,False,1.368,bench:A2_water_depth
+2026-11-07T11:50:05+00:00,deepseek/deepseek-v4-flash,Baidu,1754,67,0,0.00006540,False,1.531,bench:A3_casing_id
+2026-11-07T11:50:06+00:00,deepseek/deepseek-v4-flash,DeepInfra,1140,54,0,0.00009389,False,2.259,bench:B2_supervisor
+2026-11-07T11:50:06+00:00,deepseek/deepseek-v4-flash,DeepInfra,1054,55,0,0.00008633,False,1.363,bench:B3_pob
+2026-11-07T11:50:07+00:00,deepseek/deepseek-v4-flash,DeepInfra,1126,65,0,0.00009461,False,3.179,bench:B1_cost_absent_record
+2026-11-07T11:50:07+00:00,deepseek/deepseek-v4-flash,DeepInfra,3387,77,0,0.00030026,False,3.231,bench:A4_activity_end_depth
+2026-11-07T11:50:07+00:00,deepseek/deepseek-v4-flash,DeepInfra,1006,56,0,0.00008219,False,0.972,bench:C1_failure_cost_partial
+2026-11-07T11:50:07+00:00,deepseek/deepseek-v4-flash,Parasail,1475,100,0,0.00023450,False,0.810,bench:E1_distractor_fluid
+2026-11-07T11:50:07+00:00,deepseek/deepseek-v4-flash,Parasail,1900,138,0,0.00030464,False,1.175,bench:D1_compare_density
+2026-11-07T11:50:08+00:00,deepseek/deepseek-v4-flash,DeepInfra,2497,88,0,0.00022214,False,1.355,bench:D2_depth_difference
+2026-11-07T11:50:08+00:00,deepseek/deepseek-v4-flash,DeepInfra,2602,69,0,0.00022817,False,1.078,bench:E2_distractor_activity
+2026-11-07T11:50:09+00:00,deepseek/deepseek-v4-flash,DeepInfra,1122,51,0,0.00009173,False,0.773,bench:H_wrong_substitute
+2026-11-07T11:50:09+00:00,deepseek/deepseek-v4-flash,Venice,979,95,0,0.00009315,False,1.325,bench:F_date_window
+2026-11-07T11:50:09+00:00,deepseek/deepseek-v4-flash,Baidu,2002,116,0,0.00008071,False,1.698,bench:G_multipart
+2026-11-07T11:50:10+00:00,deepseek/deepseek-v4-flash,DeepInfra,1323,132,0,0.00012440,False,1.807,bench:I_derived_sum
+2026-11-07T11:50:35+00:00,openai/gpt-oss-120b,Crusoe,721,99,32,0.00006080,False,0.819,bench:A1_fluid_density
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Groq,866,63,14,0.00016770,False,0.317,bench:B3_pob
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Crusoe,836,67,17,0.00005855,False,0.569,bench:C1_failure_cost_partial
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Crusoe,949,59,10,0.00006220,False,0.652,bench:B1_cost_absent_record
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Crusoe,721,99,33,0.00006080,False,0.759,bench:A1_fluid_density
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Crusoe,967,65,15,0.00006460,False,0.736,bench:B2_supervisor
+2026-11-07T11:50:36+00:00,openai/gpt-oss-120b,Crusoe,1201,92,30,0.00008305,False,0.805,bench:A2_water_depth
+2026-11-07T11:50:37+00:00,openai/gpt-oss-120b,Crusoe,1351,106,34,0.00009405,False,1.380,bench:A3_casing_id
+2026-11-07T11:50:37+00:00,openai/gpt-oss-120b,AkashML,3077,133,61,0.00011718,False,1.498,bench:A4_activity_end_depth
+2026-11-07T11:50:37+00:00,openai/gpt-oss-120b,Crusoe,967,62,12,0.00006385,False,0.570,bench:B2_supervisor
+2026-11-07T11:50:37+00:00,openai/gpt-oss-120b,Groq,3166,142,62,0.00056010,False,0.583,bench:A4_activity_end_depth
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,Crusoe,882,66,18,0.00006060,False,0.658,bench:B3_pob
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,Crusoe,836,67,17,0.00005855,False,0.783,bench:C1_failure_cost_partial
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,AkashML,844,51,10,0.00003486,False,0.917,bench:B1_cost_absent_record
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,Crusoe,1201,95,30,0.00008380,False,1.061,bench:A2_water_depth
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,Crusoe,721,105,32,0.00006230,False,1.127,bench:A1_fluid_density
+2026-11-07T11:50:38+00:00,openai/gpt-oss-120b,Crusoe,1351,106,34,0.00009405,False,1.175,bench:A3_casing_id
+2026-11-07T11:50:39+00:00,anthropic/claude-haiku-5.5,Anthropic,1142,101,0,0.00016470,False,1.026,bench:A1_fluid_density
+2026-11-07T11:50:39+00:00,anthropic/claude-haiku-5.5,Anthropic,1998,89,0,0.00024430,False,1.031,bench:A3_casing_id
+2026-11-07T11:50:39+00:00,anthropic/claude-haiku-5.5,Anthropic,1779,77,0,0.00021640,False,1.181,bench:A2_water_depth
+2026-11-07T11:50:40+00:00,anthropic/claude-haiku-5.5,Anthropic,4622,108,0,0.00051620,False,1.528,bench:A4_activity_end_depth
+2026-11-07T11:50:40+00:00,anthropic/claude-haiku-5.5,Anthropic,1475,81,0,0.00018800,False,1.093,bench:B2_supervisor
+2026-11-07T11:50:41+00:00,anthropic/claude-haiku-5.5,Anthropic,1482,79,0,0.00018770,False,1.249,bench:B1_cost_absent_record
+2026-11-07T11:50:41+00:00,anthropic/claude-haiku-5.5,Anthropic,1350,69,0,0.00016950,False,1.252,bench:B3_pob
+2026-11-07T11:50:41+00:00,anthropic/claude-haiku-5.5,Anthropic,1315,129,0,0.00019600,False,1.351,bench:C1_failure_cost_partial
+2026-11-07T11:50:42+00:00,anthropic/claude-haiku-5.5,Anthropic,3497,118,0,0.00040870,False,1.114,bench:E2_distractor_activity
+2026-11-07T11:50:42+00:00,anthropic/claude-haiku-5.5,Anthropic,1964,104,0,0.00024840,False,1.581,bench:E1_distractor_fluid
+2026-11-07T11:50:43+00:00,anthropic/claude-haiku-5.5,Anthropic,3305,154,0,0.00040750,False,2.767,bench:D2_depth_difference
+2026-11-07T11:50:43+00:00,anthropic/claude-haiku-5.5,Anthropic,2530,194,0,0.00035000,False,2.921,bench:D1_compare_density
+2026-11-07T11:50:44+00:00,anthropic/claude-haiku-5.5,Anthropic,2331,176,0,0.00032110,False,1.493,bench:G_multipart
+2026-11-07T11:50:44+00:00,anthropic/claude-haiku-5.5,Anthropic,1253,136,0,0.00019330,False,1.593,bench:F_date_window
+2026-11-07T11:50:44+00:00,anthropic/claude-haiku-5.5,Anthropic,1450,65,0,0.00017750,False,1.134,bench:H_wrong_substitute
+2026-11-07T11:50:45+00:00,anthropic/claude-haiku-5.5,Anthropic,1710,134,0,0.00023800,False,1.210,bench:I_derived_sum
+2026-11-07T11:50:46+00:00,google/gemini-3-flash-preview,Google,848,95,0,0.00070900,False,1.745,bench:A1_fluid_density
+2026-11-07T11:50:46+00:00,google/gemini-3-flash-preview,Google,1480,75,0,0.00096500,False,2.239,bench:A2_water_depth
+2026-11-07T11:50:47+00:00,google/gemini-3-flash-preview,Google,3963,85,0,0.00223650,False,2.058,bench:A4_activity_end_depth
+2026-11-07T11:50:47+00:00,google/gemini-3-flash-preview,Google,1109,99,0,0.00085150,False,1.524,bench:B1_cost_absent_record
+2026-11-07T11:50:48+00:00,google/gemini-3-flash-preview,Google,1154,44,0,0.00070900,False,1.728,bench:B2_supervisor
+2026-11-07T11:50:48+00:00,google/gemini-3-flash-preview,Google,991,74,0,0.00071750,False,1.381,bench:C1_failure_cost_partial
+2026-11-07T11:50:48+00:00,google/gemini-3-flash-preview,Google,1049,50,0,0.00067450,False,1.831,bench:B3_pob
+2026-11-07T11:50:50+00:00,google/gemini-3-flash-preview,Google,1575,72,0,0.00100350,False,1.043,bench:E1_distractor_fluid
+2026-11-07T11:50:50+00:00,google/gemini-3-flash-preview,Google,2139,162,0,0.00155550,False,2.317,bench:D1_compare_density
+2026-11-07T11:50:51+00:00,google/gemini-3-flash-preview,Google,1683,95,0,0.00112650,False,6.247,bench:A3_casing_id
+2026-11-07T11:50:51+00:00,google/gemini-3-flash-preview,Google,2982,95,0,0.00177600,False,1.251,bench:E2_distractor_activity
+2026-11-07T11:50:51+00:00,google/gemini-3-flash-preview,Google,2877,150,0,0.00188850,False,2.851,bench:D2_depth_difference
+2026-11-07T11:50:52+00:00,google/gemini-3-flash-preview,Google,967,64,0,0.00067550,False,1.626,bench:F_date_window
+2026-11-07T11:50:52+00:00,google/gemini-3-flash-preview,Google,1998,116,0,0.00134700,False,1.466,bench:G_multipart
+2026-11-07T11:50:53+00:00,openai/gpt-oss-120b,Crusoe,758,105,32,0.00006415,False,0.805,bench:A1_fluid_density
+2026-11-07T11:50:53+00:00,google/gemini-3-flash-preview,Google,1397,120,0,0.00105850,False,1.366,bench:I_derived_sum
+2026-11-07T11:50:53+00:00,google/gemini-3-flash-preview,Google,1143,50,0,0.00072150,False,2.008,bench:H_wrong_substitute
+2026-11-07T11:50:53+00:00,openai/gpt-oss-120b,Crusoe,1238,115,44,0.00009065,False,0.957,bench:A2_water_depth
+2026-11-07T11:50:54+00:00,openai/gpt-oss-120b,Crusoe,1388,110,38,0.00009690,False,0.913,bench:A3_casing_id
+2026-11-07T11:50:54+00:00,openai/gpt-oss-120b,Crusoe,3219,137,59,0.00019520,False,0.941,bench:A4_activity_end_depth
+2026-11-07T11:50:54+00:00,openai/gpt-oss-120b,Crusoe,986,70,15,0.00006680,False,0.958,bench:B1_cost_absent_record
+2026-11-07T11:50:54+00:00,openai/gpt-oss-120b,Crusoe,1004,63,14,0.00006595,False,0.705,bench:B2_supervisor
+2026-11-07T11:50:54+00:00,openai/gpt-oss-120b,Groq,903,63,14,0.00017325,False,0.370,bench:B3_pob
+2026-11-07T11:50:55+00:00,openai/gpt-oss-120b,Crusoe,1758,177,92,0.00013215,False,1.295,bench:D1_compare_density
+2026-11-07T11:50:55+00:00,openai/gpt-oss-120b,Crusoe,873,113,41,0.00007190,False,1.435,bench:C1_failure_cost_partial
+2026-11-07T11:50:55+00:00,openai/gpt-oss-120b,Crusoe,2334,151,75,0.00015445,False,1.224,bench:D2_depth_difference
+2026-11-07T11:50:55+00:00,openai/gpt-oss-120b,Crusoe,1332,102,35,0.00009210,False,1.181,bench:E1_distractor_fluid
+2026-11-07T11:50:56+00:00,openai/gpt-oss-120b,Crusoe,2440,90,26,0.00014450,False,0.672,bench:E2_distractor_activity
+2026-11-07T11:50:56+00:00,openai/gpt-oss-120b,AkashML,883,68,20,0.00003921,False,0.730,bench:H_wrong_substitute
+2026-11-07T11:50:56+00:00,openai/gpt-oss-120b,Groq,1621,166,85,0.00032355,False,0.873,bench:G_multipart
+2026-11-07T11:50:56+00:00,openai/gpt-oss-120b,Crusoe,847,164,84,0.00008335,False,1.228,bench:F_date_window
+2026-11-07T11:50:57+00:00,openai/gpt-oss-120b,Crusoe,1182,146,67,0.00009560,False,0.863,bench:I_derived_sum
+2026-11-07T11:50:57+00:00,deepseek/deepseek-v4-flash,DeepInfra,1081,63,0,0.00010863,False,0.926,bench:A2_water_depth
+2026-11-07T11:50:58+00:00,deepseek/deepseek-v4-flash,DeepInfra,3088,70,0,0.00029052,False,1.236,bench:A4_activity_end_depth
+2026-11-07T11:50:58+00:00,deepseek/deepseek-v4-flash,Venice,1233,67,0,0.00013201,False,2.079,bench:A3_casing_id
+2026-11-07T11:50:59+00:00,deepseek/deepseek-v4-flash,Venice,827,46,0,0.00008874,False,1.594,bench:B1_cost_absent_record
+2026-11-07T11:50:59+00:00,deepseek/deepseek-v4-flash,Baidu,1063,42,0,0.00005074,False,1.089,bench:B2_supervisor
+2026-11-07T11:51:00+00:00,deepseek/deepseek-v4-flash,DeepInfra,707,78,0,0.00007767,False,1.327,bench:C1_failure_cost_partial
+2026-11-07T11:51:00+00:00,deepseek/deepseek-v4-flash,Baidu,977,51,0,0.00004773,False,1.573,bench:B3_pob
+2026-11-07T11:51:00+00:00,deepseek/deepseek-v4-flash,DeepInfra,1601,118,0,0.00016533,False,1.091,bench:D1_compare_density
+2026-11-07T11:51:01+00:00,deepseek/deepseek-v4-flash,Parasail,1176,77,0,0.00018620,False,0.751,bench:E1_distractor_fluid
+2026-11-07T11:51:01+00:00,deepseek/deepseek-v4-flash,DeepInfra,2198,94,0,0.00021474,False,1.041,bench:D2_depth_difference
+2026-11-07T11:51:01+00:00,deepseek/deepseek-v4-flash,DeepInfra,2303,74,0,0.00022059,False,1.265,bench:E2_distractor_activity
+2026-11-07T11:51:02+00:00,deepseek/deepseek-v4-flash,Parasail,591,74,0,0.00010346,False,5.674,bench:A1_fluid_density
+2026-11-07T11:51:02+00:00,deepseek/deepseek-v4-flash,Parasail,680,80,0,0.00011760,False,1.187,bench:F_date_window
+2026-11-07T11:51:02+00:00,deepseek/deepseek-v4-flash,DeepInfra,823,43,0,0.00008181,False,0.992,bench:H_wrong_substitute
+2026-11-07T11:51:02+00:00,deepseek/deepseek-v4-flash,DeepInfra,1481,102,0,0.00015165,False,1.455,bench:G_multipart
+2026-11-07T11:51:03+00:00,deepseek/deepseek-v4-flash,Parasail,1024,114,0,0.00017528,False,1.572,bench:I_derived_sum
+2026-11-07T11:51:13+00:00,anthropic/claude-opus-5.5,Anthropic,1944,77,0,0.00931600,False,1.845,bench:A3_casing_id
+2026-11-07T11:51:14+00:00,anthropic/claude-opus-5.5,Anthropic,1725,84,0,0.00858000,False,2.155,bench:A2_water_depth
+2026-11-07T11:51:14+00:00,anthropic/claude-opus-5.5,Anthropic,4257,138,0,0.01978800,False,2.218,bench:A4_activity_end_depth
+2026-11-07T11:51:14+00:00,anthropic/claude-opus-5.5,Anthropic,1088,104,0,0.00643200,False,2.781,bench:A1_fluid_density
+2026-11-07T11:51:15+00:00,anthropic/claude-opus-5.5,Anthropic,1117,95,0,0.00636800,False,1.768,bench:B1_cost_absent_record
+2026-11-07T11:51:15+00:00,anthropic/claude-opus-5.5,Anthropic,985,79,0,0.00552000,False,1.588,bench:B3_pob
+2026-11-07T11:51:16+00:00,anthropic/claude-opus-5.5,Anthropic,1110,187,96,0.00818000,False,2.319,bench:B2_supervisor
+2026-11-07T11:51:16+00:00,anthropic/claude-opus-5.5,Anthropic,950,131,0,0.00642000,False,2.170,bench:C1_failure_cost_partial
+2026-11-07T11:51:17+00:00,anthropic/claude-opus-5.5,Anthropic,2940,156,0,0.01488000,False,1.938,bench:D2_depth_difference
+2026-11-07T11:51:17+00:00,anthropic/claude-opus-5.5,Anthropic,2165,178,0,0.01222000,False,2.419,bench:D1_compare_density
+2026-11-07T11:51:18+00:00,anthropic/claude-opus-5.5,Anthropic,1599,150,0,0.00939600,False,2.309,bench:E1_distractor_fluid
+2026-11-07T11:51:19+00:00,anthropic/claude-opus-5.5,Anthropic,3132,98,0,0.01448800,False,2.116,bench:E2_distractor_activity
+2026-11-07T11:51:20+00:00,anthropic/claude-opus-5.5,Anthropic,1966,162,0,0.01110400,False,2.577,bench:G_multipart
+2026-11-07T11:51:20+00:00,anthropic/claude-opus-5.5,Anthropic,1345,129,0,0.00796000,False,1.674,bench:I_derived_sum
+2026-11-07T11:51:20+00:00,anthropic/claude-opus-5.5,Anthropic,1085,94,0,0.00622000,False,2.026,bench:H_wrong_substitute
+2026-11-07T11:51:21+00:00,anthropic/claude-opus-5.5,Anthropic,888,320,225,0.00995200,False,4.211,bench:F_date_window
+2026-11-07T11:51:43+00:00,openai/gpt-oss-120b,DekaLLM,253,58,0,0.00001803,False,0.000,tool_test
+2026-11-07T11:51:44+00:00,openai/gpt-oss-120b,AkashML,336,42,0,0.00001793,False,0.000,tool_test
+2026-11-07T11:51:44+00:00,openai/gpt-oss-120b,AkashML,451,84,0,0.00002924,False,0.000,tool_test
+2026-11-07T11:51:46+00:00,openai/gpt-oss-120b,PrimeIntellect,253,58,0,0.00000793,False,0.000,tool_test
+2026-11-07T11:51:47+00:00,openai/gpt-oss-120b,PrimeIntellect,336,42,0,0.00000832,False,0.000,tool_test
+2026-11-07T11:51:48+00:00,openai/gpt-oss-120b,PrimeIntellect,451,81,0,0.00001280,False,0.000,tool_test
+2026-11-07T11:51:49+00:00,openai/gpt-oss-120b,AkashML,253,58,0,0.00001844,False,0.000,tool_test
+2026-11-07T11:51:50+00:00,openai/gpt-oss-120b,PrimeIntellect,336,42,0,0.00000832,False,0.000,tool_test
+2026-11-07T11:51:52+00:00,openai/gpt-oss-120b,PrimeIntellect,451,81,0,0.00001253,False,0.000,tool_test
+2026-11-07T11:51:53+00:00,anthropic/claude-haiku-5.5,Anthropic,619,250,0,0.00018690,False,0.000,tool_test
+2026-11-07T11:51:54+00:00,anthropic/claude-haiku-5.5,Anthropic,958,116,0,0.00015380,False,0.000,tool_test
+2026-11-07T11:51:55+00:00,anthropic/claude-haiku-5.5,Anthropic,1344,179,0,0.00022390,False,0.000,tool_test
+2026-11-07T11:51:57+00:00,anthropic/claude-haiku-5.5,Anthropic,619,400,0,0.00026190,False,0.000,tool_test
+2026-11-07T11:51:58+00:00,anthropic/claude-haiku-5.5,Anthropic,1172,116,0,0.00017520,False,0.000,tool_test
+2026-11-07T11:51:59+00:00,anthropic/claude-haiku-5.5,Anthropic,1558,172,0,0.00024180,False,0.000,tool_test
+2026-11-07T11:52:01+00:00,anthropic/claude-haiku-5.5,Anthropic,619,243,0,0.00018340,False,0.000,tool_test
+2026-11-07T11:52:02+00:00,anthropic/claude-haiku-5.5,Anthropic,951,116,0,0.00015310,False,0.000,tool_test
+2026-11-07T11:52:03+00:00,anthropic/claude-haiku-5.5,Anthropic,1337,108,0,0.00018770,False,0.000,tool_test

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"2065 m\",\"cited_ids\":[\"19A-19971110-ACT-04\"],\"rationale\":\"The evidence line for the specified activity and time explicitly states the end MD was 2065 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2065 m",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "The evidence line for the specified activity and time explicitly states the end MD was 2065 m."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

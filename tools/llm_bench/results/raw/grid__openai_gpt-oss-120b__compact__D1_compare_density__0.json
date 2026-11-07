@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"1.32 g/cm3\",\n  \"cited_ids\": [\"F11B-20130529-FLUID-01\", \"F1B-20130830-FLUID-01\"],\n  \"rationale\": \"The 2013-08-29 sample has a higher density than the 2013-05-28 sample.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.32 g/cm3",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "The 2013-08-29 sample has a higher density than the 2013-05-28 sample."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

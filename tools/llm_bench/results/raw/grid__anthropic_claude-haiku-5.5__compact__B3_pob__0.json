@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines report well status, date, depth, and contractor for 2013-12-14 but contain no personnel or people-on-board count.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines report well status, date, depth, and contractor for 2013-12-14 but contain no personnel or people-on-board count."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"End depth was 12 m and the activity was completion -- bop/wellhead equipment.\",\n  \"cited_ids\": [\"F1C-20140326-ACT-01\"],\n  \"rationale\": \"The line for 2014-03-26 report shows end MD 12 m and activity type.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "End depth was 12 m and the activity was completion -- bop/wellhead equipment.",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The line for 2014-03-26 report shows end MD 12 m and activity type."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\", \"answer\":\"91 m\", \"cited_ids\":[\"F1B-20130830-STATUS-01\"], \"rationale\":\"The report provides water depth information.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The report provides water depth information."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

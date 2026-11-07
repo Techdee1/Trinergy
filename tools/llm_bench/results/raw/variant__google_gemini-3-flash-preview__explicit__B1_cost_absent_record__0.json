@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [\"ABSENT-cost\"], \"rationale\": \"The evidence explicitly states that no cost field exists in the reports.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "The evidence explicitly states that no cost field exists in the reports."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

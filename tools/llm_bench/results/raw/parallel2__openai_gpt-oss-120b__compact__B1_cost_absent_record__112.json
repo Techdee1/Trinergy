@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No cost information is present in the provided evidence.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No cost information is present in the provided evidence."
+ },
+ "provider": "AkashML",
+ "finish_reason": "stop"
+}

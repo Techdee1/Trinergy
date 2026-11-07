@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No evidence lines mention a mud logging company for 15/9-F-1.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines mention a mud logging company for 15/9-F-1."
+ },
+ "provider": "AkashML",
+ "finish_reason": "stop"
+}

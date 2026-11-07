@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"12.347 in\",\n  \"cited_ids\": [\"F1-20130812-CSG-04\"],\n  \"rationale\": \"The casing entry with bottom at 2556.86\u202fm lists the inner diameter.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "12.347 in",
+  "cited_ids": [
+   "F1-20130812-CSG-04"
+  ],
+  "rationale": "The casing entry with bottom at 2556.86\u202fm lists the inner diameter."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

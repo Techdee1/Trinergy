@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The 2013-08-24 status line for 15/9-F-1 gives only the operator (Statoil) and drilling contractor (Maersk Drilling); no evidence line names a mud logging company.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The 2013-08-24 status line for 15/9-F-1 gives only the operator (Statoil) and drilling contractor (Maersk Drilling); no evidence line names a mud logging company."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The only Active pit density reading (1.55 g/cm3) was sampled at 1997-08-28 23:59, not 1997-08-29 23:59, so the requested sample is not in the evidence.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The only Active pit density reading (1.55 g/cm3) was sampled at 1997-08-28 23:59, not 1997-08-29 23:59, so the requested sample is not in the evidence."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

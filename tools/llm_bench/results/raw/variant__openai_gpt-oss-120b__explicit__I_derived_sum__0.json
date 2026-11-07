@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"25.94 m\",\n  \"cited_ids\": [\"F1-20130812-CSG-01\", \"F1-20130812-CSG-02\"],\n  \"rationale\": \"Summed lengths 13.6 m and 12.34 m from the two casing joints.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "25.94 m",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "Summed lengths 13.6 m and 12.34 m from the two casing joints."
+ },
+ "provider": "DekaLLM",
+ "finish_reason": "stop"
+}

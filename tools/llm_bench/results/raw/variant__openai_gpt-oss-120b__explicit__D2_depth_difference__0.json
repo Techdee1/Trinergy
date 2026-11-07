@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"18 m\",\n  \"cited_ids\": [\"F1-20130824-ACT-01\", \"F1-20130824-ACT-03\"],\n  \"rationale\": \"Subtract MD 2602 m from MD 2620 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "18 m",
+  "cited_ids": [
+   "F1-20130824-ACT-01",
+   "F1-20130824-ACT-03"
+  ],
+  "rationale": "Subtract MD 2602 m from MD 2620 m."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

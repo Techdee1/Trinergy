@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\n\"status\": \"abstain\",\n\"answer\": \"\",\n\"cited_ids\": [],\n\"rationale\": \"The evidence provides drilling fluid density for 1997-08-28, but not for the requested date of 1997-08-29.\"\n}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence provides drilling fluid density for 1997-08-28, but not for the requested date of 1997-08-29."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

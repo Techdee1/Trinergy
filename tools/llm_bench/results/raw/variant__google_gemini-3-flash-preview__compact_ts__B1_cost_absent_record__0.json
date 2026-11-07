@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"I am unable to provide the total daily cost of operations for well 15/9-F-11 T2 on 2013-05-15 because the provided evidence does not contain cost information or records for that specific date.\",\"cited_ids\":[\"ABSENT-cost\"],\"rationale\":\"The evidence explicitly states that no cost field exists in the searched records and there are no activity logs for the requested date.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "I am unable to provide the total daily cost of operations for well 15/9-F-11 T2 on 2013-05-15 because the provided evidence does not contain cost information or records for that specific date.",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "The evidence explicitly states that no cost field exists in the searched records and there are no activity logs for the requested date."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

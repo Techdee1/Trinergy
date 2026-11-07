@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines for report F12-20080115 give status, MD, TVD, water depth, operator and contractor, but nothing naming a drilling supervisor.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines for report F12-20080115 give status, MD, TVD, water depth, operator and contractor, but nothing naming a drilling supervisor."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

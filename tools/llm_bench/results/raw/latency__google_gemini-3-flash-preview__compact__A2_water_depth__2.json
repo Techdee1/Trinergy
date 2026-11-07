@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The water depth reported for well 15/9-F-1 B on 2013-08-30 was 91 m.\",\"cited_ids\":[\"F1B-20130830-STATUS-01\"],\"rationale\":\"The report status for the specified date and well explicitly lists the water depth as 91 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The water depth reported for well 15/9-F-1 B on 2013-08-30 was 91 m.",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The report status for the specified date and well explicitly lists the water depth as 91 m."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"partial\", \"answer\":\"1.55 g/cm3\", \"cited_ids\":[\"19A-19970829-FLUID-01\"], \"rationale\":\"The density of the drilling fluid was directly reported.\"}",
+ "parsed": {
+  "status": "partial",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19970829-FLUID-01"
+  ],
+  "rationale": "The density of the drilling fluid was directly reported."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

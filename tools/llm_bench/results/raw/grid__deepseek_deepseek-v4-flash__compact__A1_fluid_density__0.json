@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"1.55 g/cm3\",\"cited_ids\":[\"19A-19971110-FLUID-01\"],\"rationale\":\"The evidence line directly states the density of ULTIDRILL from the Active pit at the specified time and date.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.55 g/cm3",
+  "cited_ids": [
+   "19A-19971110-FLUID-01"
+  ],
+  "rationale": "The evidence line directly states the density of ULTIDRILL from the Active pit at the specified time and date."
+ },
+ "provider": "Baidu",
+ "finish_reason": "stop"
+}

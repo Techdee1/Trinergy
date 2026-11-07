@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"The evidence for report F12-20080115 lists report status, MD, TVD, water depth, operator and drilling contractor, but contains no drilling supervisor field.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence for report F12-20080115 lists report status, MD, TVD, water depth, operator and drilling contractor, but contains no drilling supervisor field."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The 2008-01-15 F-12 status report lists the operator (StatoilHydro) and drilling contractor (M\u00e6rsk Contractors) but does not name a drilling supervisor.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The 2008-01-15 F-12 status report lists the operator (StatoilHydro) and drilling contractor (M\u00e6rsk Contractors) but does not name a drilling supervisor."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

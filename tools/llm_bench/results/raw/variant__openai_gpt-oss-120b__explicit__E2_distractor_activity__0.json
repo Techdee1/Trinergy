@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"The activity ended at a measured depth of 2065 m.\",\n  \"cited_ids\": [\"19A-19971110-ACT-04\"],\n  \"rationale\": \"Line provides end MD for the specified activity.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The activity ended at a measured depth of 2065 m.",
+  "cited_ids": [
+   "19A-19971110-ACT-04"
+  ],
+  "rationale": "Line provides end MD for the specified activity."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

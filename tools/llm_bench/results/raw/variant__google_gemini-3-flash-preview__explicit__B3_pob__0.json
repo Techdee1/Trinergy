@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\": \"abstain\", \"answer\": \"\", \"cited_ids\": [], \"rationale\": \"The evidence lines for well F15D on 2013-12-14 do not contain information regarding personnel on board.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines for well F15D on 2013-12-14 do not contain information regarding personnel on board."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

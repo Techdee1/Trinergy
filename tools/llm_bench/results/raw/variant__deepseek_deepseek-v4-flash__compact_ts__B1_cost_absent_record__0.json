@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"No evidence lines contain cost data for well 15/9-F-11 T2 on 2013-05-15.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence lines contain cost data for well 15/9-F-11 T2 on 2013-05-15."
+ },
+ "provider": "Venice",
+ "finish_reason": "stop"
+}

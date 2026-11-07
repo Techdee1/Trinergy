@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n  \"status\": \"partial\",\n  \"answer\": \"Sonic tool failure\",\n  \"cited_ids\": [\"F1-20130824-FAIL-02\"],\n  \"rationale\": \"The evidence line reports a sonic tool failure on 2013-08-18 for well 15/9-F-1, but no cost of repair is mentioned.\"\n}",
+ "parsed": {
+  "status": "partial",
+  "answer": "Sonic tool failure",
+  "cited_ids": [
+   "F1-20130824-FAIL-02"
+  ],
+  "rationale": "The evidence line reports a sonic tool failure on 2013-08-18 for well 15/9-F-1, but no cost of repair is mentioned."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

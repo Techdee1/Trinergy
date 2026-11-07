@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The casing joint whose top is at 2556.86 m has an inner diameter of 12.347 in (OD 13.375 in).\",\"cited_ids\":[\"F1-20130812-CSG-04\"],\"rationale\":\"The casing line with top 2556.86 m is CSG-04, which lists ID 12.347 in.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The casing joint whose top is at 2556.86 m has an inner diameter of 12.347 in (OD 13.375 in).",
+  "cited_ids": [
+   "F1-20130812-CSG-04"
+  ],
+  "rationale": "The casing line with top 2556.86 m is CSG-04, which lists ID 12.347 in."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

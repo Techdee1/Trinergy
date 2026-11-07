@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\n  \"status\": \"answered\",\n  \"answer\": \"1.32 g/cm3\",\n  \"cited_ids\": [\"F11B-20130529-FLUID-01\", \"F1B-20130830-FLUID-01\"],\n  \"rationale\": \"The fluid sampled 2013-05-28 03:00 has density 1.28 g/cm3, and the one sampled 2013-08-29 09:00 has density 1.32 g/cm3, so the latter is higher.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "1.32 g/cm3",
+  "cited_ids": [
+   "F11B-20130529-FLUID-01",
+   "F1B-20130830-FLUID-01"
+  ],
+  "rationale": "The fluid sampled 2013-05-28 03:00 has density 1.28 g/cm3, and the one sampled 2013-08-29 09:00 has density 1.32 g/cm3, so the latter is higher."
+ },
+ "provider": "DeepInfra",
+ "finish_reason": "stop"
+}

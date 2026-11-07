@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"2065 m\",\n\"cited_ids\": [\n\"[19A-19971110-ACT-04]\"\n],\n\"rationale\": \"The evidence line [19A-19971110-ACT-04] records a 'plug abandon -- other' activity starting at 07:30 on 1997-11-09 with an end MD of 2065 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2065 m",
+  "cited_ids": [
+   "[19A-19971110-ACT-04]"
+  ],
+  "rationale": "The evidence line [19A-19971110-ACT-04] records a 'plug abandon -- other' activity starting at 07:30 on 1997-11-09 with an end MD of 2065 m."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

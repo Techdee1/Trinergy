@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The evidence lines for the 2013-08-24 report (F1-20130824) do not name a mud logging company.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The evidence lines for the 2013-08-24 report (F1-20130824) do not name a mud logging company."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

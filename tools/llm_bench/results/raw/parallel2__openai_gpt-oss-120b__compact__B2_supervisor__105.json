@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\n  \"status\": \"abstain\",\n  \"answer\": \"\",\n  \"cited_ids\": [],\n  \"rationale\": \"No evidence provides the drilling supervisor name.\"\n}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "No evidence provides the drilling supervisor name."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

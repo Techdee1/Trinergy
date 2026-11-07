@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"91 m\",\"cited_ids\":[\"F1B-20130830-STATUS-01\"],\"rationale\":\"The report status for well 15/9-F-1 B on the specified date explicitly lists the water depth.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The report status for well 15/9-F-1 B on the specified date explicitly lists the water depth."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

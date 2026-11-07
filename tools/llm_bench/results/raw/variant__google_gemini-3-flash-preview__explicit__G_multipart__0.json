@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"answered\", \"answer\": \"For well 15/9-F-1 C on report 2014-03-26, the activity ending at 03:30 on 2014-03-25 had an end MD of 12 m and the activity was completion -- bop/wellhead equipment (specifically, pulling HPDR from 35 to 12 m).\", \"cited_ids\": [\"F1C-20140326-ACT-01\"], \"rationale\": \"The record for well F1C on report date 2014-03-26 contains the activity details for the specified time interval.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "For well 15/9-F-1 C on report 2014-03-26, the activity ending at 03:30 on 2014-03-25 had an end MD of 12 m and the activity was completion -- bop/wellhead equipment (specifically, pulling HPDR from 35 to 12 m).",
+  "cited_ids": [
+   "F1C-20140326-ACT-01"
+  ],
+  "rationale": "The record for well F1C on report date 2014-03-26 contains the activity details for the specified time interval."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

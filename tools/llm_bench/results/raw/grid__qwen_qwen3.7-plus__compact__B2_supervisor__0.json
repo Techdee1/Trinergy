@@ -1,0 +1,11 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[],\"rationale\":\"The provided evidence lines do not contain information about the drilling supervisor for well 15/9-F-12 on the specified date.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [],
+  "rationale": "The provided evidence lines do not contain information about the drilling supervisor for well 15/9-F-12 on the specified date."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

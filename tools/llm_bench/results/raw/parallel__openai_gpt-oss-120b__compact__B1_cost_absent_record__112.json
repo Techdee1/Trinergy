@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"abstain\",\"answer\":\"\",\"cited_ids\":[\"ABSENT-cost\"],\"rationale\":\"No cost information is present in the provided evidence.\"}",
+ "parsed": {
+  "status": "abstain",
+  "answer": "",
+  "cited_ids": [
+   "ABSENT-cost"
+  ],
+  "rationale": "No cost information is present in the provided evidence."
+ },
+ "provider": "Crusoe",
+ "finish_reason": "stop"
+}

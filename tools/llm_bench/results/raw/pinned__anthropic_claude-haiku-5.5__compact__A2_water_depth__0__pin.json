@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"91 m\",\"cited_ids\":[\"F1B-20130830-STATUS-01\"],\"rationale\":\"The status report dated 2013-08-30 for the F1B well lists water depth as 91 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "91 m",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The status report dated 2013-08-30 for the F1B well lists water depth as 91 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

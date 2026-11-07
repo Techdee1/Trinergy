@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"The reported water depth was 91 m.\",\"cited_ids\":[\"F1B-20130830-STATUS-01\"],\"rationale\":\"The report status line for F1B dated 2013-08-30 lists water depth 91 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The reported water depth was 91 m.",
+  "cited_ids": [
+   "F1B-20130830-STATUS-01"
+  ],
+  "rationale": "The report status line for F1B dated 2013-08-30 lists water depth 91 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}

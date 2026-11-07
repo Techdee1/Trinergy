@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\": \"answered\", \"answer\": \"The activity ended at a measured depth of 2602 m.\", \"cited_ids\": [\"F1-20130824-ACT-01\"], \"rationale\": \"The activity record for well F1 on the report date 2013-08-24 covering the time interval 00:00-01:30 on 2013-08-23 specifies an end MD of 2602 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The activity ended at a measured depth of 2602 m.",
+  "cited_ids": [
+   "F1-20130824-ACT-01"
+  ],
+  "rationale": "The activity record for well F1 on the report date 2013-08-24 covering the time interval 00:00-01:30 on 2013-08-23 specifies an end MD of 2602 m."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

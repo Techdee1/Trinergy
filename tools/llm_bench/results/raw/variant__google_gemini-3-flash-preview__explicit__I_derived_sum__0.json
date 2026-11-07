@@ -1,0 +1,14 @@
+{
+ "raw_text": "{\"status\": \"answered\", \"answer\": \"The combined length of the two casing joints is 25.94 m.\", \"cited_ids\": [\"F1-20130812-CSG-01\", \"F1-20130812-CSG-02\"], \"rationale\": \"The joint with top 2581.81 m has a length of 13.6 m, and the joint with top 2569.46 m has a length of 12.34 m; their sum is 25.94 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "The combined length of the two casing joints is 25.94 m.",
+  "cited_ids": [
+   "F1-20130812-CSG-01",
+   "F1-20130812-CSG-02"
+  ],
+  "rationale": "The joint with top 2581.81 m has a length of 13.6 m, and the joint with top 2569.46 m has a length of 12.34 m; their sum is 25.94 m."
+ },
+ "provider": "Google",
+ "finish_reason": "stop"
+}

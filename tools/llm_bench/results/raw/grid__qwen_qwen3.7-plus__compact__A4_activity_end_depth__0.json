@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\n\"status\": \"answered\",\n\"answer\": \"2602 m\",\n\"cited_ids\": [\n\"F1-20130824-ACT-01\"\n],\n\"rationale\": \"The evidence line F1-20130824-ACT-01 reports an activity ending at 01:30 on 2013-08-23 with an end MD of 2602 m.\"\n}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2602 m",
+  "cited_ids": [
+   "F1-20130824-ACT-01"
+  ],
+  "rationale": "The evidence line F1-20130824-ACT-01 reports an activity ending at 01:30 on 2013-08-23 with an end MD of 2602 m."
+ },
+ "provider": "Alibaba",
+ "finish_reason": "stop"
+}

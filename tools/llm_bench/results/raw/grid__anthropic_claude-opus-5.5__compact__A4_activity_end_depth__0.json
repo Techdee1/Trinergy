@@ -1,0 +1,13 @@
+{
+ "raw_text": "{\"status\":\"answered\",\"answer\":\"2602 m MD \u2014 the reaming activity (2013-08-23 00:00-01:30) ended at 2602 m measured depth.\",\"cited_ids\":[\"F1-20130824-ACT-01\"],\"rationale\":\"Line F1-20130824-ACT-01 is the 2013-08-23 00:00-01:30 ream activity, and it gives an end MD of 2602 m.\"}",
+ "parsed": {
+  "status": "answered",
+  "answer": "2602 m MD \u2014 the reaming activity (2013-08-23 00:00-01:30) ended at 2602 m measured depth.",
+  "cited_ids": [
+   "F1-20130824-ACT-01"
+  ],
+  "rationale": "Line F1-20130824-ACT-01 is the 2013-08-23 00:00-01:30 ream activity, and it gives an end MD of 2602 m."
+ },
+ "provider": "Anthropic",
+ "finish_reason": "stop"
+}
