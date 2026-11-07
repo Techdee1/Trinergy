@@ -9,3 +9,9 @@ submission/indexes/routing_report.csv
 
 logs/
 submission/eval/review/
+submission/indexes/llm_cache_runtime.json
+submission/predictions_*.csv
+submission/eval/generalisation/runtime_cache.json
+submission/eval/generalisation/results*.json
+submission/eval/generalisation/scores*.json
+submission/eval/generalisation/predictions.csv

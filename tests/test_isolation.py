@@ -102,9 +102,12 @@ def test_offline_cache_miss_surfaces_as_cachemiss_not_a_silent_abstain(tmp_path,
     llm = LLM(LLMConfig(primary="m1", escalation="m2", live=False), None, Cache(tmp_path / "empty.json"), tmp_path / "l.csv")
     q = "What was the density of the NaCl brine sampled from the active pit on well 15/9-F-1-C on 2014-03-26?"
     with pytest.raises(CacheMiss) as e:
-        A.answer_question("T2-016", q, located, reports, llm, dump=False)
+        A.answer_question("T2-016", q, located, reports, llm, dump=False, raise_on_miss=True)
     msg = str(e.value)
-    assert "T2-016" in msg and "Offline mode" in msg and "llm_cache.json" in msg and "LIVE = True" in msg
+    assert "T2-016" in msg and "No API key" in msg and "llm_cache.json" in msg and "OPENROUTER_KEY" in msg
+    # by default the miss becomes a NOT EVALUATED row, never a raise and never a silent abstain
+    ne = A.answer_question("T2-016", q, located, reports, llm, dump=False)
+    assert ne.status == "not_evaluated" and ne.answer == A.NOT_EVALUATED_NO_KEY and ne.confidence == 0
     # early abstains never need the cache, so they still work offline
     q2 = "What did the report for well 15/9-F-14 on 2013-06-10 say?"
     assert A.answer_question("T2-027", q2, located, reports, llm, dump=False).early_abstain

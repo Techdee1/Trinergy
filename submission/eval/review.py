@@ -125,6 +125,8 @@ def flags_for(a: dict) -> list[str]:
     # model happens to use ("matching", "escalated to") in its rationale cannot raise a flag
     notes = a.get("notes", "").split(" | rationale: ")[0]
     flags = []
+    if a.get("status") == "not_evaluated":
+        flags.append("NOT EVALUATED")
     if "escalated to" in notes:
         flags.append("ESCALATED")
     if "retried" in notes:

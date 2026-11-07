@@ -1,0 +1,530 @@
+{
+ "G-001": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "txt:statoil"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_06_28"
+  ],
+  "field": "operator"
+ },
+ "G-002": {
+  "category": "compare",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:3463.3",
+    "num:2595.4",
+    "well:f-1-b",
+    "num:867.9"
+   ]
+  },
+  "files": [
+   "15_9_F_1_B_2013_09_24",
+   "15_9_F_1_2013_08_12"
+  ],
+  "field": "mdCsgLast"
+ },
+ "G-003": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "no such report"
+  },
+  "files": [],
+  "field": "no_report"
+ },
+ "G-004": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:59.98"
+   ]
+  },
+  "files": [
+   "15_9_19_A_1980_01_01"
+  ],
+  "field": "incl"
+ },
+ "G-005": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:2570.7"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_05_29"
+  ],
+  "field": "mdCsgLast"
+ },
+ "G-006": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:2178"
+   ]
+  },
+  "files": [
+   "15_9_19_A_1997_10_05"
+  ],
+  "field": "mdKickoff"
+ },
+ "G-007": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:123"
+   ]
+  },
+  "files": [
+   "15_9_F_1_2007_12_02"
+  ],
+  "field": "visFunnel"
+ },
+ "G-008": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:13"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_05_29"
+  ],
+  "field": "yp"
+ },
+ "G-009": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "date:1997-07-25"
+   ]
+  },
+  "files": [
+   "15_9_19_A_1997_08_29"
+  ],
+  "field": "dTimSpud"
+ },
+ "G-010": {
+  "category": "compare",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:54.9",
+    "num:25",
+    "well:f-1-c"
+   ]
+  },
+  "files": [
+   "15_9_F_1_C_2016_10_22",
+   "15_9_19_A_1997_08_29"
+  ],
+  "field": "elevKelly"
+ },
+ "G-011": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "injur"
+  },
+  "files": [
+   "15_9_F_1_B_2013_08_30"
+  ],
+  "field": "injur"
+ },
+ "G-012": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "barite"
+  },
+  "files": [
+   "15_9_F_1_C_2014_03_26"
+  ],
+  "field": "barite"
+ },
+ "G-013": {
+  "category": "compare",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1.65",
+    "num:1.7",
+    "well:f-12"
+   ]
+  },
+  "files": [
+   "15_9_F_11_T2_2013_04_28",
+   "15_9_F_12_2007_08_08"
+  ],
+  "field": "strengthForm"
+ },
+ "G-014": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1368.4"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2013_11_11"
+  ],
+  "field": "mdCsgLast"
+ },
+ "G-015": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:54.9"
+   ]
+  },
+  "files": [
+   "15_9_F_12_2007_08_08"
+  ],
+  "field": "elevKelly"
+ },
+ "G-016": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1.32"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_06_28"
+  ],
+  "field": "density"
+ },
+ "G-017": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "date:2013-12-02"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2015_08_10"
+  ],
+  "field": "dateDrillComplete"
+ },
+ "G-018": {
+  "category": "archive",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:8"
+   ]
+  },
+  "files": [],
+  "field": "count_wellbores"
+ },
+ "G-019": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "txt:miscellaneous equ syst"
+   ]
+  },
+  "files": [
+   "15_9_F_11_T2_2013_05_15"
+  ],
+  "field": "equipClass"
+ },
+ "G-020": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1.28"
+   ]
+  },
+  "files": [
+   "15_9_F_11_T2_2013_04_28"
+  ],
+  "field": "density"
+ },
+ "G-021": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "helicopter"
+  },
+  "files": [
+   "15_9_F_1_B_2014_01_29"
+  ],
+  "field": "helicopter"
+ },
+ "G-022": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "day rate"
+  },
+  "files": [
+   "15_9_F_1_C_2016_10_22"
+  ],
+  "field": "day rate"
+ },
+ "G-023": {
+  "category": "archive",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:4768.7",
+    "date:2013-06-28"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_06_28"
+  ],
+  "field": "max_mdCsgLast"
+ },
+ "G-024": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "diesel"
+  },
+  "files": [
+   "15_9_F_11_B_2015_10_28"
+  ],
+  "field": "diesel"
+ },
+ "G-025": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:91"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2015_08_10"
+  ],
+  "field": "waterDepth"
+ },
+ "G-026": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2013_11_11"
+  ],
+  "field": "reportNo"
+ },
+ "G-027": {
+  "category": "archive",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:6"
+   ]
+  },
+  "files": [
+   "15_9_19_A_1997_08_29",
+   "15_9_F_11_B_2016_10_22",
+   "15_9_F_12_2007_08_08",
+   "15_9_F_12_2016_10_21",
+   "15_9_F_15_D_2016_10_19",
+   "15_9_F_1_C_2016_10_22"
+  ],
+  "field": "count_lot"
+ },
+ "G-028": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:35"
+   ]
+  },
+  "files": [
+   "15_9_F_11_T2_2013_04_10"
+  ],
+  "field": "reportNo"
+ },
+ "G-029": {
+  "category": "archive",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:4"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2013_11_11",
+   "15_9_F_15_D_2013_12_14",
+   "15_9_F_15_D_2015_08_10",
+   "15_9_F_15_D_2016_10_19"
+  ],
+  "field": "count_by_well"
+ },
+ "G-030": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "txt:formation integrity test"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2013_06_28"
+  ],
+  "field": "presTestType"
+ },
+ "G-031": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "date:2007-11-28"
+   ]
+  },
+  "files": [
+   "15_9_F_1_2013_07_30"
+  ],
+  "field": "dTimSpud"
+ },
+ "G-032": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:0.35"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2013_11_11"
+  ],
+  "field": "gasHigh"
+ },
+ "G-033": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "txt:maersk drilling"
+   ]
+  },
+  "files": [
+   "15_9_F_15_D_2013_11_11"
+  ],
+  "field": "drillContractor"
+ },
+ "G-034": {
+  "category": "compare",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:91",
+    "num:84",
+    "well:f-1-b"
+   ]
+  },
+  "files": [
+   "15_9_F_1_B_2013_09_24",
+   "15_9_19_A_1997_11_10"
+  ],
+  "field": "waterDepth"
+ },
+ "G-035": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:31"
+   ]
+  },
+  "files": [
+   "15_9_F_11_T2_2013_05_15"
+  ],
+  "field": "pv"
+ },
+ "G-036": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:91"
+   ]
+  },
+  "files": [
+   "15_9_F_1_C_2016_10_22"
+  ],
+  "field": "waterDepth"
+ },
+ "G-037": {
+  "category": "absent",
+  "kind": "abstain",
+  "expected": {
+   "absent_term": "pit volume"
+  },
+  "files": [
+   "15_9_F_1_B_2014_02_22"
+  ],
+  "field": "pit volume"
+ },
+ "G-038": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:1.65"
+   ]
+  },
+  "files": [
+   "15_9_F_11_B_2015_10_28"
+  ],
+  "field": "strengthForm"
+ },
+ "G-039": {
+  "category": "archive",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "num:84",
+    "num:4"
+   ]
+  },
+  "files": [
+   "15_9_19_A_1980_01_01",
+   "15_9_19_A_1997_08_29",
+   "15_9_19_A_1997_10_05",
+   "15_9_19_A_1997_11_10"
+  ],
+  "field": "min_waterDepth"
+ },
+ "G-040": {
+  "category": "single",
+  "kind": "value",
+  "expected": {
+   "all": [
+    "txt:hughes christensen"
+   ]
+  },
+  "files": [
+   "15_9_F_1_2013_08_24"
+  ],
+  "field": "manufacturer"
+ }
+}

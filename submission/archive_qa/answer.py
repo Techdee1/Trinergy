@@ -13,6 +13,7 @@ The committed answer is run 1 unless the verifier/escalation replaced it. Nothin
 from __future__ import annotations
 
 import csv
+import logging
 import re
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
@@ -22,7 +23,7 @@ import pandas as pd
 
 from . import config
 from .context import Context, build_context, dump_context
-from .llm import LLM, CacheMiss
+from .llm import LLM, BudgetExceeded, CacheMiss
 from .prompts import SYSTEM_PROMPT
 from .repair import repair_citations
 from .route import RouteResult, route_question
@@ -51,9 +52,13 @@ class Answer:
     llm_calls: int = 0
     cost_usd: float = 0.0
     disagree: bool = False        # the two primary runs differ in status or key numbers
+    live_calls: int = 0           # model calls actually made for this answer (0 = served entirely from the cache)
+    trace_mode: str = "normal"    # "second_pass" when the answer comes from the enriched second pass
 
     @property
     def needs_review(self) -> bool:
+        if self.status == "not_evaluated":
+            return True
         return (not self.early_abstain) and (not self.verified or self.confidence < 0.6 or self.disagree)
 
 
@@ -256,8 +261,54 @@ def _ask_with_retry(llm: LLM, ctx: Context, question: str, qid: str, model: str,
     return reply, calls, cost
 
 
+log = logging.getLogger("archive_qa.answer")
+NOT_EVALUATED_NO_KEY = "NOT EVALUATED: no API key and no cached answer"
+
+
+def not_evaluated(question_id: str, question: str, reason: str = NOT_EVALUATED_NO_KEY) -> Answer:
+    """A row for a question that could not be answered (no cached answer and no way to call the model). It is explicit,
+    with confidence 0 and no evidence: never an abstention, and listed in the run summary and the review queue."""
+    return Answer(question_id, question, "not_evaluated", reason, [], "", 0.0, [reason], "", [], "", False, [reason])
+
+
+class _Counting:
+    """Wraps the LLM for one question and counts the calls that were NOT served from the cache."""
+
+    def __init__(self, llm: LLM):
+        self._llm, self.live_calls = llm, 0
+
+    def __getattr__(self, name):
+        return getattr(self._llm, name)
+
+    def ask(self, *args, **kwargs):
+        reply = self._llm.ask(*args, **kwargs)
+        if not reply.cache_hit:
+            self.live_calls += 1
+        return reply
+
+
 def answer_question(question_id: str, question: str, records: pd.DataFrame, reports: list[Report],
-                    llm: LLM, dump: bool = True) -> Answer:
+                    llm: LLM, dump: bool = True, raise_on_miss: bool = False) -> Answer:
+    """Answer one question. A question that cannot be answered because there is no cached answer and no API key (or the
+    spend guard is reached) yields a NOT EVALUATED row instead of raising, unless raise_on_miss=True."""
+    counting = _Counting(llm)
+    try:
+        ans = _answer_question(question_id, question, records, reports, counting, dump)
+    except CacheMiss:
+        if raise_on_miss:
+            raise
+        reason = NOT_EVALUATED_NO_KEY if not llm.cfg.key_name else "NOT EVALUATED: live mode is off and there is no cached answer"
+        return not_evaluated(question_id, question, reason)
+    except BudgetExceeded:
+        if raise_on_miss:
+            raise
+        return not_evaluated(question_id, question, "NOT EVALUATED: the spend guard (LLM_BUDGET_USD) was reached")
+    ans.live_calls = counting.live_calls
+    return ans
+
+
+def _answer_question(question_id: str, question: str, records: pd.DataFrame, reports: list[Report],
+                     llm: LLM, dump: bool = True) -> Answer:
     route = route_question(question, reports)
     if route.early_abstain:
         return early_abstain_answer(question_id, question, route, reports)
@@ -354,10 +405,39 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
             notes.append(f"partial answer: escalated to {escalation} but its answer failed verification "
                          f"({'; '.join(part_result.failures)[:160]}); kept the partial answer")
 
+    # Second pass (multi-report / archive-wide only): the first pass abstained, was partial, or abstained although a matching
+    # line exists. ONE retry with an enriched context (computed aggregates, field catalogue, full records of the named wells).
+    trace = "normal"
+    fp = reply.parsed if isinstance(reply.parsed, dict) else {}
+    if route.mode in MULTI_MODES and not ctx.absent and (fp.get("status") in ("abstain", "partial") or result.flags
+                                                         or not isinstance(reply.parsed, dict)):
+        ctx2 = build_context(question_id, question, route, records, enrich_mode="full")
+        if dump:
+            dump_context(ctx2, route, question, config.CONTEXT_DUMP_DIR / "second_pass")
+        sp, c, k = _ask_with_retry(llm, ctx2, q_llm, question_id, primary, "primary_second_pass", "sp", notes, "second pass", cap)
+        calls, cost = calls + c, cost + k
+        sp_result = verify(sp.parsed, ctx2, records, question)
+        if sp_result.needs_escalation:
+            esc2 = _ask(llm, ctx2, q_llm, question_id, escalation, "escalation", feedback=sp_result.message)
+            calls, cost = calls + 1, cost + esc2.cost_usd
+            e2 = verify(esc2.parsed, ctx2, records, question)
+            if e2.ok or not sp_result.ok:
+                sp, sp_result = esc2, e2
+        rank = {"answered": 2, "partial": 1, "abstain": 0}
+        sp_status = sp.parsed.get("status") if isinstance(sp.parsed, dict) else None
+        if sp_result.ok and rank.get(sp_status, -1) > rank.get(fp.get("status"), -1):
+            notes.append(f"second pass: enriched context turned a {fp.get('status', 'failed')} first pass into {sp_status}")
+            reply, result, ctx, trace = sp, sp_result, ctx2, "second_pass"
+        else:
+            notes.append(f"second pass tried (status {sp_status}, verified={sp_result.ok}); the first pass is kept")
+
     p = reply.parsed if isinstance(reply.parsed, dict) else {}
     status = p.get("status") if p.get("status") in STATUSES else "abstain"
     cited = [c for c in (p.get("cited_ids") or []) if isinstance(c, str)] if isinstance(p.get("cited_ids"), list) else []
     cited = [c for c in dict.fromkeys(cited)]
+    agg_src = [s for c in cited if c in ctx.agg for s in ctx.agg[c]["sources"]]
+    if agg_src:    # a computed aggregate stands for the records it was computed from: those are what the evidence column cites
+        cited = [c for c in cited if c not in ctx.agg] + [s for s in dict.fromkeys(agg_src)]
     rationale = str(p.get("rationale") or "")
     if status == "abstain":
         # In code, not via the prompt: an abstention on a topic the archive has no field for cites that ABSENT record,
@@ -369,12 +449,12 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
                         f"no {meta['kind'].replace('_', ' ')} field exists.")
             if sentence not in rationale:
                 rationale = f"{rationale} {sentence}".strip()
-    real = [c for c in cited if c in ctx.ids and c not in ctx.absent]
+    real = [c for c in cited if (c in ctx.ids or c in agg_src) and c not in ctx.absent]
     absent_cited = [c for c in cited if c in ctx.absent]
     answer_text = p.get("answer") if isinstance(p.get("answer"), str) and p.get("answer").strip() else (
         abstain_text(str(p.get("rationale") or ""), {i: ctx.absent[i] for i in absent_cited}) if status == "abstain"
         else "(the model returned no usable answer)")
-    if status in ("answered", "partial") and real:
+    if status in ("answered", "partial") and real and not agg_src:
         new_cited, repair_notes = repair_citations(cited, answer_text, rationale, ctx, records, mode=route.mode, status=status)
         if new_cited != cited:
             check = verify({**p, "cited_ids": new_cited}, ctx, records, question)
@@ -392,9 +472,9 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
         notes.append("router used D+1 fallback")
     notes.append(f"model={reply.model}")
     return Answer(
-        question_id, question, status, answer_text, [c for c in cited if c in ctx.ids], rationale,
+        question_id, question, status, answer_text, [c for c in cited if c in ctx.ids or c in agg_src], rationale,
         conf, notes, route.mode, list(route.candidate_files), reply.model, result.ok, result.failures, False,
-        {i: ctx.absent[i] for i in absent_cited}, "", calls, cost, disagree)
+        {i: ctx.absent[i] for i in absent_cited}, "", calls, cost, disagree, trace_mode=trace)
 
 
 def uncached_questions(questions: pd.DataFrame, records: pd.DataFrame, reports: list[Report], llm: LLM) -> list[str]:
@@ -403,21 +483,31 @@ def uncached_questions(questions: pd.DataFrame, records: pd.DataFrame, reports: 
     missing = []
     for q in questions.itertuples(index=False):
         try:
-            answer_question(q.question_id, q.question_text, records, reports, llm, dump=False)
+            answer_question(q.question_id, q.question_text, records, reports, llm, dump=False, raise_on_miss=True)
         except CacheMiss:
             missing.append(q.question_id)
     return missing
 
 
 def answer_all(questions: pd.DataFrame, records: pd.DataFrame, reports: list[Report], llm: LLM,
-               ids: list[str] | None = None, dump: bool = True) -> list[Answer]:
-    """Answer questions (all, or only `ids`) in question order. LLM_CONCURRENCY workers."""
+               ids: list[str] | None = None, dump: bool = True, strict: bool = False) -> list[Answer]:
+    """Answer questions (all, or only `ids`) in question order, LLM_CONCURRENCY at a time.
+
+    One question failing never aborts the run: it becomes a NOT EVALUATED row saying why (no cached answer and no key,
+    spend guard, or the model call failed). With strict=True exceptions propagate instead."""
     rows = [q for q in questions.itertuples(index=False) if ids is None or q.question_id in ids]
 
     def one(q):
-        return answer_question(q.question_id, q.question_text, records, reports, llm, dump)
+        try:
+            return answer_question(q.question_id, q.question_text, records, reports, llm, dump, raise_on_miss=strict)
+        except Exception as e:  # noqa: BLE001 - reported per question, never hidden
+            if strict:
+                raise
+            msg = re.sub(r"\s+", " ", str(e))[:140]
+            log.warning("question %s not evaluated: %s: %s", q.question_id, type(e).__name__, msg)
+            return not_evaluated(q.question_id, q.question_text, f"NOT EVALUATED: the model call failed ({type(e).__name__})")
 
     if llm.cfg.concurrency <= 1 or len(rows) <= 1:
         return [one(q) for q in rows]
     with ThreadPoolExecutor(max_workers=llm.cfg.concurrency) as pool:
-        return list(pool.map(one, rows))  # map preserves order; the first exception propagates
+        return list(pool.map(one, rows))  # map preserves order

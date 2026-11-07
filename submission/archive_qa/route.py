@@ -66,7 +66,9 @@ _MONTHS.update({name.lower(): i for i, name in enumerate(calendar.month_abbr) if
 _MONTHS["sept"] = 9
 _MON = "|".join(sorted(_MONTHS, key=len, reverse=True))
 _ISO = re.compile(r"(?<![\d-])(\d{4})-(\d{2})-(\d{2})(?![\d-])")
-_DMY = re.compile(rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+({_MON})\.?,?\s+(\d{{4}})\b", re.IGNORECASE)
+_DMY = re.compile(rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+(?:of\s+)?({_MON})\.?,?\s+(\d{{4}})\b", re.IGNORECASE)
+# 14/03/2014 or 14.03.2014: day first (the archive is Norwegian); 03/14/2014 is read month-first because 14 cannot be a month
+_NUMDATE = re.compile(r"(?<![\d./-])(\d{1,2})[/.](\d{1,2})[/.](\d{4})(?![\d/])")
 _MDY = re.compile(rf"\b({_MON})\.?\s+(\d{{1,2}})(?:st|nd|rd|th)?,?\s+(\d{{4}})\b", re.IGNORECASE)
 _MY = re.compile(rf"\b({_MON})\.?,?\s+(\d{{4}})\b", re.IGNORECASE)
 # a 4-digit year, but not a depth such as "2000 mMD" or part of a decimal / range
@@ -119,6 +121,9 @@ def find_dates(text: str) -> list[DateMention]:
         add("day", _valid_day(int(m[1]), int(m[2]), int(m[3])), m)
     for m in _DMY.finditer(text):
         add("day", _valid_day(int(m[3]), _MONTHS[m[2].lower()], int(m[1])), m)
+    for m in _NUMDATE.finditer(text):
+        a, b, y = int(m[1]), int(m[2]), int(m[3])
+        add("day", _valid_day(y, b, a) if b <= 12 else _valid_day(y, a, b), m)
     for m in _MDY.finditer(text):
         add("day", _valid_day(int(m[3]), _MONTHS[m[1].lower()], int(m[2])), m)
     for m in _MY.finditer(text):
@@ -177,6 +182,9 @@ def _nearby(reports: list[Report], well: str, limit: int = 6) -> str:
     return ", ".join(dates)
 
 
+_REPORT_FOR = re.compile(r"[\s,)]*(?:(?:daily|drilling|morning)\s+)*reports?\s+(?:for|of|on)\s+(?:the\s+)?(?:well\s+)?", re.IGNORECASE)
+
+
 def route_question(question: str, reports: list[Report] | None = None) -> RouteResult:
     """Route one question. `reports` defaults to the archive on disk."""
     reports = reports if reports is not None else discover_reports(config.XML_DIR)
@@ -207,6 +215,11 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
 
     # --- pair each day with a well
     def well_for(d: DateMention) -> str | None:
+        # "<date> report for <well>": a well introduced by "report for/of/on" right after the date belongs to that date,
+        # even if another well was mentioned earlier ("the 24 Sept report for F-1B with that in the 2013-08-12 report for F-1")
+        nxt = next((m for m in wmentions if m.start >= d.end), None)
+        if nxt and _REPORT_FOR.fullmatch(question[d.end:nxt.start]):
+            return nxt.well
         before = [m for m in wmentions if m.end <= d.start]
         if before:
             return before[-1].well

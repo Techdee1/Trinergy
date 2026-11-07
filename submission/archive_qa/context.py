@@ -25,6 +25,7 @@ import pandas as pd
 
 from . import config
 from .discrepancy import NOTE_CONCEPTS, note_line
+from . import enrich
 from .match import QTokens, match_score, question_tokens
 from .route import RouteResult
 from .store import has_field
@@ -51,6 +52,8 @@ class Context:
     notes: list[str] = field(default_factory=list)          # what was truncated, for the debug dump
     n_lines: int = 0
     bodies: dict[str, str] = field(default_factory=dict)    # record id -> its key fields (no date suffix), for repair
+    agg: dict[str, dict] = field(default_factory=dict)      # computed aggregate id -> {"text", "sources": real record ids}
+    trace: str = "normal"                                   # "normal" | "second_pass"
 
     @property
     def est_tokens(self) -> int:
@@ -249,7 +252,11 @@ def recall(cand: pd.DataFrame, route: RouteResult, qt: QTokens) -> dict[str, int
 
 
 def build_context(question_id: str, question: str, route: RouteResult, records: pd.DataFrame,
-                  token_cap: int = TOKEN_CAP) -> Context:
+                  token_cap: int = TOKEN_CAP, enrich_mode: str = "auto") -> Context:
+    """enrich_mode: "auto" adds computed aggregates only for multi-report / archive-wide questions that ask for a count,
+    an extremum or a comparison, and a generic ABSENT-search record when no content term occurs in the candidate
+    records (nothing else changes); "full" (second pass) adds the aggregates unconditionally, a field catalogue and the
+    full records of the named wells; "off" is the plain context."""
     stems = set(route.candidate_files)
     cand = records[records["source_file"].isin({s + ".xml" for s in stems})]
     notes: list[str] = []
@@ -262,6 +269,8 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
             wanted.add("activity")  # let the model see what the narrative does and does not say
         if not topics and not absent_kinds:
             wanted.add("status")
+        if enrich_mode != "off":      # a field whose NAME matches the question brings its section in, wherever the field lives
+            wanted |= enrich.sections_of_matching_fields(question, cand)
     else:
         wanted = set(NARRATIVE) | set(topics)
     pool = cand[cand["section"].isin([s for s in SECTION_ORDER if s in wanted])]
@@ -337,15 +346,70 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
             ids.add(r["record_id"])
             bodies[r["record_id"]] = r["value"]
 
+    agg: dict[str, dict] = {}
+    if enrich_mode != "off":
+        multi = route.mode in ("multi_report", "archive_wide")
+        it = enrich.intents(question)
+        extra_lines: list[str] = []
+        table = enrich.Aggregates()
+        if enrich_mode == "full" or (multi and it):
+            table = enrich.field_table(question, cand)
+            if enrich_mode == "full" or "count" in it or route.mode == "archive_wide":
+                idx = enrich.archive_index(records, route.wells)
+                table.lines += idx.lines
+                table.agg.update(idx.agg)
+        if table.lines:
+            extra_lines.append("=== COMPUTED FROM THE EVIDENCE STORE (aggregates; the records they come from follow) ===")
+            extra_lines += table.lines
+            agg = dict(table.agg)
+            for rid in table.record_ids:
+                if rid not in ids:
+                    row = records[records["record_id"] == rid].iloc[0]
+                    extra_lines.append(format_line(row, notes))
+                    ids.add(rid)
+            for aid, meta in agg.items():
+                ids.add(aid)
+                bodies[aid] = meta["text"]
+            notes.append(f"AGGREGATES: {', '.join(agg)}")
+        if enrich_mode == "full":
+            extra_lines.append(enrich.field_catalogue(cand))
+            named = [w for w in route.wells if w in set(cand["well"])]
+            rest = cand[(cand["section"].isin(SECTION_ORDER)) & ~cand["record_id"].isin(ids)]
+            if named:
+                rest = rest[rest["well"].isin(named)]
+            used = sum(len(x) + 1 for x in out) + sum(len(x) + 1 for x in extra_lines)
+            room = token_cap * CHARS_PER_TOKEN - used
+            order = {s: i for i, s in enumerate(SECTION_ORDER)}
+            rest = rest.assign(_k=rest["section"].map(order)).sort_values(["_k", "source_file", "record_id"])
+            kept = 0
+            for _, r in rest.iterrows():
+                ln = format_line(r, notes)
+                if len(ln) + 1 > room:
+                    continue
+                extra_lines.append(ln)
+                ids.add(r["record_id"])
+                room -= len(ln) + 1
+                kept += 1
+            notes.append(f"FULL RECORDS: {kept} of {len(rest)} record(s) of the named well(s) added within the token budget")
+        out += extra_lines
+
     absent: dict[str, dict] = {}
     for kind in absent_kinds:
         rid, line, meta = _absent_record(kind, cand[cand["section"] != "note"])   # derived NOTE rows are not archive records
         out.append(line)
         ids.add(rid)
         absent[rid] = meta
+    if enrich_mode != "off" and not absent_kinds:
+        found = enrich.absent_search(question, cand[cand["section"] != "note"])
+        if found:
+            rid, line, meta = found
+            out.append(line)
+            ids.add(rid)
+            absent[rid] = meta
+            notes.append("ABSENT-search: none of the question's terms occurs in the candidate records")
 
     return Context(question_id, "\n".join(out), frozenset(ids), absent, truncated, notes, len(out),
-                   {rid: bodies[rid] for rid in ids if rid in bodies})
+                   {rid: bodies[rid] for rid in ids if rid in bodies}, agg, "second_pass" if enrich_mode == "full" else "normal")
 
 
 def dump_context(ctx: Context, route: RouteResult, question: str, directory: Path | None = None) -> Path | None:

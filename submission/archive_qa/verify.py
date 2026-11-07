@@ -371,16 +371,20 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
     unknown = [c for c in cited if c not in context.ids]
     if unknown:
         f.append(f"cited_ids not present in the evidence you were given (never invent IDs): {unknown}")
-    real = [c for c in cited if c in context.ids and c not in context.absent]
+    agg_ids = [c for c in cited if c in context.agg]          # computed aggregate lines (count / min / max)
+    real = [c for c in cited if c in context.ids and c not in context.absent and c not in context.agg]
     absent = [c for c in cited if c in context.absent]
-    if status in ("answered", "partial") and not real:
+    if status in ("answered", "partial") and not (real or agg_ids):
         f.append(f"status '{status}' must cite at least one evidence record ID (ABSENT-* does not support an answer).")
-    if status == "abstain" and real:
+    if status == "abstain" and (real or agg_ids):
+        real = real + agg_ids
         f.append(f"an abstention may cite only ABSENT-* records, but cited {real}.")
 
-    if status in ("answered", "partial") and real:
+    if status in ("answered", "partial") and (real or agg_ids):
         rows = records[records["record_id"].isin(real)]
         allowed: set[float] = set()
+        for a in agg_ids:        # numbers stated by a computed aggregate line are supported by it
+            allowed |= {round(c, 6) for tok in _NUM_RX.findall(context.agg[a]["text"]) for c in _candidates(tok)}
         units: dict[float, set[str]] = {}
         for _, r in rows.iterrows():
             allowed |= _row_numbers(r)
@@ -392,8 +396,8 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
         if sid:
             stripped = sid.sub(lambda m: " " * len(m.group(0)), stripped)   # "ACT-13" is a label, not the number 13
         stripped, temporal = mask_temporal(stripped)                       # dates/times are checked as whole tokens below
-        blob = _cited_blob(rows, question)
-        line_blob = _cited_blob(rows, question, window=False)
+        blob = _cited_blob(rows, question) + " " + " ".join(context.agg[a]["text"] for a in agg_ids)
+        line_blob = _cited_blob(rows, question, window=False) + " " + " ".join(context.agg[a]["text"] for a in agg_ids)
         bad_temporal = sorted({tok for tok in temporal if not temporal_supported(tok, blob, line_blob)})
         enum_spans = enumerator_spans(stripped)
         rationale = parsed.get("rationale") if isinstance(parsed.get("rationale"), str) else ""

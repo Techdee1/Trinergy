@@ -13,18 +13,18 @@ from pathlib import Path
 
 FIELD = "15/9"
 
-# Sidetrack suffix: a single letter A-D or T<digit>. Case-sensitive on purpose so
-# that "F-1 and ..." or "F-11 on ..." never reads "a"/"o" as a suffix.
-_SUFFIX = r"(?:[-_ /]?(?P<sfx>T\d|[A-D]))?"
+# Sidetrack suffix: a single letter A-D or T<digit>. An UPPERCASE suffix may follow any separator; a lowercase one only a
+# hyphen/underscore or nothing ("f-15-d", "f-1c"), so that "F-1 and ..." or "F-1 a lot" never read "a" as a suffix.
+_SUFFIX = r"(?:(?P<sep>[-_ /]?)(?P<sfx>T\d|[A-D]))?"
 _PREFIX = r"(?:15[/_ \-]9[-_ /]+)"
 
 # Wells like F-1, F-11, F-15 (platform slots) ...
 _F_WELL = re.compile(
-    rf"(?<![A-Za-z0-9]){_PREFIX}?F[-_ ]?(?P<num>\d{{1,2}})(?!\d){_SUFFIX}(?![A-Za-z0-9])"
+    rf"(?<![A-Za-z0-9]){_PREFIX}?F[-_ ]?(?P<num>\d{{1,2}})(?!\d){_SUFFIX}(?![A-Za-z0-9])", re.IGNORECASE
 )
 # ... and plain-numbered exploration wells like 15/9-19-A (prefix required).
 _NUM_WELL = re.compile(
-    rf"(?<![A-Za-z0-9]){_PREFIX}(?P<num>\d{{1,3}})(?!\d){_SUFFIX}(?![A-Za-z0-9])"
+    rf"(?<![A-Za-z0-9]){_PREFIX}(?P<num>\d{{1,3}})(?!\d){_SUFFIX}(?![A-Za-z0-9])", re.IGNORECASE
 )
 _NO_PREFIX = re.compile(r"^\s*NO[\s_\-]+", re.IGNORECASE)
 
@@ -46,7 +46,10 @@ def find_wells(text: str) -> list[WellMention]:
     hits: list[WellMention] = []
     for rx, prefix in ((_F_WELL, "F-"), (_NUM_WELL, "")):
         for m in rx.finditer(text):
-            hits.append(WellMention(_build(prefix, m["num"], m["sfx"]), m.start(), m.end()))
+            sfx, end = m["sfx"], m.end()
+            if sfx and sfx != sfx.upper() and m["sep"] in (" ", "/"):
+                sfx, end = None, m.start("sep")         # a lowercase letter after a space is a word ("F-1 a lot"), not a sidetrack
+            hits.append(WellMention(_build(prefix, m["num"], sfx.upper() if sfx else None), m.start(), end))
     hits.sort(key=lambda h: h.start)
     # drop overlaps (e.g. the "15/9-F-1" prefix being re-read as a numbered well)
     clean: list[WellMention] = []

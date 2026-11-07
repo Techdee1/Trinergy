@@ -26,6 +26,7 @@ INDEX_DIR = SUBMISSION_DIR / "indexes"
 RECORDS_PATH = INDEX_DIR / "records.parquet"
 ROUTING_REPORT_PATH = INDEX_DIR / "routing_report.csv"
 LLM_CACHE_PATH = INDEX_DIR / "llm_cache.json"          # committed: lets reviewers run offline
+RUNTIME_CACHE_PATH = INDEX_DIR / "llm_cache_runtime.json"   # git-ignored: answers for questions that are not in the committed cache
 COST_SUMMARY_PATH = INDEX_DIR / "cost_summary.csv"      # committed
 ANSWERS_PATH = INDEX_DIR / "answers.json"               # committed: cited ids, status, rationale
 PREDICTIONS_PATH = SUBMISSION_DIR / "predictions.csv"

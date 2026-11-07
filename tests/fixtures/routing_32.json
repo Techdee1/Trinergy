@@ -1,0 +1,683 @@
+{
+ "T2-001": {
+  "candidate_files": [
+   "15_9_19_A_1980_01_01"
+  ],
+  "date_range": null,
+  "dates": [
+   "1980-01-01"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-19-A on 1980-01-01 -> 15_9_19_A_1980_01_01",
+  "sections": [
+   "status",
+   "activity",
+   "wellbore"
+  ],
+  "wells": [
+   "15/9-19-A"
+  ]
+ },
+ "T2-002": {
+  "candidate_files": [
+   "15_9_19_A_1997_08_29"
+  ],
+  "date_range": null,
+  "dates": [
+   "1997-08-29"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-19-A on 1997-08-29 -> 15_9_19_A_1997_08_29",
+  "sections": [
+   "pore_pressure"
+  ],
+  "wells": [
+   "15/9-19-A"
+  ]
+ },
+ "T2-003": {
+  "candidate_files": [
+   "15_9_F_11_B_2013_05_29"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-05-29"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-11-B on 2013-05-29 -> 15_9_F_11_B_2013_05_29",
+  "sections": [
+   "survey",
+   "status",
+   "wellbore"
+  ],
+  "wells": [
+   "15/9-F-11-B"
+  ]
+ },
+ "T2-004": {
+  "candidate_files": [
+   "15_9_F_11_B_2013_06_28"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-06-28"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-11-B on 2013-06-28 -> 15_9_F_11_B_2013_06_28",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-11-B"
+  ]
+ },
+ "T2-005": {
+  "candidate_files": [
+   "15_9_F_11_T2_2013_03_24"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-03-24"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-11-T2 on 2013-03-24 -> 15_9_F_11_T2_2013_03_24",
+  "sections": [
+   "survey",
+   "log",
+   "activity",
+   "equip_failure"
+  ],
+  "wells": [
+   "15/9-F-11-T2"
+  ]
+ },
+ "T2-006": {
+  "candidate_files": [
+   "15_9_F_11_T2_2013_04_10"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-04-10"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-11-T2 on 2013-04-10 -> 15_9_F_11_T2_2013_04_10",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-11-T2"
+  ]
+ },
+ "T2-007": {
+  "candidate_files": [
+   "15_9_F_12_2007_06_14"
+  ],
+  "date_range": null,
+  "dates": [
+   "2007-06-14"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-12 on 2007-06-14 -> 15_9_F_12_2007_06_14",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-12"
+  ]
+ },
+ "T2-008": {
+  "candidate_files": [
+   "15_9_F_12_2007_08_08"
+  ],
+  "date_range": null,
+  "dates": [
+   "2007-08-08"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-12 on 2007-08-08 -> 15_9_F_12_2007_08_08",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-12"
+  ]
+ },
+ "T2-009": {
+  "candidate_files": [
+   "15_9_F_15_D_2013_11_11"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-11-11"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-15-D on 2013-11-11 -> 15_9_F_15_D_2013_11_11",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-010": {
+  "candidate_files": [
+   "15_9_F_15_D_2013_12_14"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-12-14"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-15-D on 2013-12-14 -> 15_9_F_15_D_2013_12_14",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-011": {
+  "candidate_files": [
+   "15_9_F_1_2007_12_02"
+  ],
+  "date_range": null,
+  "dates": [
+   "2007-12-02"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1 on 2007-12-02 -> 15_9_F_1_2007_12_02",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-1"
+  ]
+ },
+ "T2-012": {
+  "candidate_files": [
+   "15_9_F_1_2013_07_30"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-07-30"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1 on 2013-07-30 -> 15_9_F_1_2013_07_30",
+  "sections": [
+   "casing"
+  ],
+  "wells": [
+   "15/9-F-1"
+  ]
+ },
+ "T2-013": {
+  "candidate_files": [
+   "15_9_F_1_B_2013_08_30"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-08-30"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-B on 2013-08-30 -> 15_9_F_1_B_2013_08_30",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-1-B"
+  ]
+ },
+ "T2-014": {
+  "candidate_files": [
+   "15_9_F_1_B_2013_09_24"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-09-24"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-B on 2013-09-24 -> 15_9_F_1_B_2013_09_24",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-1-B"
+  ]
+ },
+ "T2-015": {
+  "candidate_files": [
+   "15_9_F_1_C_2014_02_22"
+  ],
+  "date_range": null,
+  "dates": [
+   "2014-02-22"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-C on 2014-02-22 -> 15_9_F_1_C_2014_02_22",
+  "sections": [
+   "casing",
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-1-C"
+  ]
+ },
+ "T2-016": {
+  "candidate_files": [
+   "15_9_F_1_C_2014_03_26"
+  ],
+  "date_range": null,
+  "dates": [
+   "2014-03-26"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-C on 2014-03-26 -> 15_9_F_1_C_2014_03_26",
+  "sections": [
+   "fluid"
+  ],
+  "wells": [
+   "15/9-F-1-C"
+  ]
+ },
+ "T2-017": {
+  "candidate_files": [
+   "15_9_F_1_C_2016_10_22",
+   "15_9_F_11_B_2016_10_22",
+   "15_9_F_12_2016_10_21",
+   "15_9_F_15_D_2016_10_19"
+  ],
+  "date_range": [
+   "2016-10-19",
+   "2016-10-22"
+  ],
+  "dates": [
+   "2016-10",
+   "2016-10-19",
+   "2016-10-22"
+  ],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "range 2016-10-19..2016-10-22: 4 report(s) for all wells (range spans wells)",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-15-D",
+   "15/9-F-1-C"
+  ]
+ },
+ "T2-018": {
+  "candidate_files": [
+   "15_9_19_A_1997_08_29",
+   "15_9_19_A_1997_10_05",
+   "15_9_19_A_1997_11_10"
+  ],
+  "date_range": null,
+  "dates": [
+   "1997"
+  ],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "well 15/9-19-A in 1997: 3 report(s)",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-19-A"
+  ]
+ },
+ "T2-019": {
+  "candidate_files": [
+   "15_9_F_1_2007_12_02",
+   "15_9_F_1_2013_07_30",
+   "15_9_F_1_2013_08_12",
+   "15_9_F_1_2013_08_24",
+   "15_9_F_1_B_2013_08_30",
+   "15_9_F_1_B_2013_09_24",
+   "15_9_F_1_B_2014_01_29",
+   "15_9_F_1_B_2014_02_22",
+   "15_9_F_11_T2_2013_03_24",
+   "15_9_F_11_T2_2013_04_10",
+   "15_9_F_11_T2_2013_04_28",
+   "15_9_F_11_T2_2013_05_15",
+   "15_9_F_15_D_2013_11_11",
+   "15_9_F_15_D_2013_12_14",
+   "15_9_F_15_D_2015_08_10",
+   "15_9_F_15_D_2016_10_19"
+  ],
+  "date_range": null,
+  "dates": [],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "well 15/9-F-11-T2: 4 report(s); well 15/9-F-1: 4 report(s); well 15/9-F-1-B: 4 report(s); well 15/9-F-15-D: 4 report(s)",
+  "sections": [
+   "status",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-11-T2",
+   "15/9-F-1",
+   "15/9-F-1-B",
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-020": {
+  "candidate_files": [
+   "15_9_19_A_1980_01_01",
+   "15_9_19_A_1997_08_29",
+   "15_9_19_A_1997_10_05",
+   "15_9_19_A_1997_11_10",
+   "15_9_F_1_2007_12_02",
+   "15_9_F_1_2013_07_30",
+   "15_9_F_1_2013_08_12",
+   "15_9_F_1_2013_08_24",
+   "15_9_F_1_B_2013_08_30",
+   "15_9_F_1_B_2013_09_24",
+   "15_9_F_1_B_2014_01_29",
+   "15_9_F_1_B_2014_02_22",
+   "15_9_F_1_C_2014_02_22",
+   "15_9_F_1_C_2014_03_26",
+   "15_9_F_1_C_2014_12_03",
+   "15_9_F_1_C_2016_10_22",
+   "15_9_F_11_B_2013_05_29",
+   "15_9_F_11_B_2013_06_28",
+   "15_9_F_11_B_2015_10_28",
+   "15_9_F_11_B_2016_10_22",
+   "15_9_F_11_T2_2013_03_24",
+   "15_9_F_11_T2_2013_04_10",
+   "15_9_F_11_T2_2013_04_28",
+   "15_9_F_11_T2_2013_05_15",
+   "15_9_F_12_2007_06_14",
+   "15_9_F_12_2007_08_08",
+   "15_9_F_12_2008_01_15",
+   "15_9_F_12_2016_10_21",
+   "15_9_F_15_D_2013_11_11",
+   "15_9_F_15_D_2013_12_14",
+   "15_9_F_15_D_2015_08_10",
+   "15_9_F_15_D_2016_10_19"
+  ],
+  "date_range": null,
+  "dates": [],
+  "early_abstain": false,
+  "mode": "archive_wide",
+  "reason": "no well or date named: whole archive (32 reports)",
+  "sections": [
+   "status",
+   "activity"
+  ],
+  "wells": []
+ },
+ "T2-021": {
+  "candidate_files": [
+   "15_9_F_11_B_2015_10_28",
+   "15_9_F_15_D_2015_08_10"
+  ],
+  "date_range": null,
+  "dates": [
+   "2015-10-28",
+   "2015-08-10"
+  ],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "exact: 15/9-F-11-B on 2015-10-28 -> 15_9_F_11_B_2015_10_28; exact: 15/9-F-15-D on 2015-08-10 -> 15_9_F_15_D_2015_08_10",
+  "sections": [
+   "log",
+   "activity",
+   "equip_failure",
+   "summary_24h"
+  ],
+  "wells": [
+   "15/9-F-11-B",
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-022": {
+  "candidate_files": [
+   "15_9_19_A_1980_01_01",
+   "15_9_19_A_1997_08_29",
+   "15_9_19_A_1997_10_05",
+   "15_9_19_A_1997_11_10",
+   "15_9_F_11_T2_2013_03_24",
+   "15_9_F_11_T2_2013_04_10",
+   "15_9_F_11_T2_2013_04_28",
+   "15_9_F_11_T2_2013_05_15"
+  ],
+  "date_range": null,
+  "dates": [],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "well 15/9-19-A: 4 report(s); well 15/9-F-11-T2: 4 report(s)",
+  "sections": [
+   "activity"
+  ],
+  "wells": [
+   "15/9-19-A",
+   "15/9-F-11-T2"
+  ]
+ },
+ "T2-023": {
+  "candidate_files": [
+   "15_9_F_1_2007_12_02",
+   "15_9_F_12_2007_06_14"
+  ],
+  "date_range": null,
+  "dates": [
+   "2007-06-14",
+   "2007-12-02"
+  ],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "exact: 15/9-F-12 on 2007-06-14 -> 15_9_F_12_2007_06_14; exact: 15/9-F-1 on 2007-12-02 -> 15_9_F_1_2007_12_02",
+  "sections": [
+   "status",
+   "wellbore",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-12",
+   "15/9-F-1"
+  ]
+ },
+ "T2-024": {
+  "candidate_files": [
+   "15_9_F_1_B_2013_08_30",
+   "15_9_F_11_B_2013_05_29"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-05-29",
+   "2013-08-30"
+  ],
+  "early_abstain": false,
+  "mode": "multi_report",
+  "reason": "exact: 15/9-F-11-B on 2013-05-29 -> 15_9_F_11_B_2013_05_29; exact: 15/9-F-1-B on 2013-08-30 -> 15_9_F_1_B_2013_08_30",
+  "sections": [
+   "bit",
+   "status",
+   "summary_24h",
+   "activity"
+  ],
+  "wells": [
+   "15/9-F-11-B",
+   "15/9-F-1-B"
+  ]
+ },
+ "T2-025": {
+  "candidate_files": [
+   "15_9_F_1_C_2014_03_26"
+  ],
+  "date_range": null,
+  "dates": [
+   "2014-03-26"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-C on 2014-03-26 -> 15_9_F_1_C_2014_03_26",
+  "sections": [
+   "cost"
+  ],
+  "wells": [
+   "15/9-F-1-C"
+  ]
+ },
+ "T2-026": {
+  "candidate_files": [
+   "15_9_F_12_2008_01_15"
+  ],
+  "date_range": null,
+  "dates": [
+   "2008-01-15"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-12 on 2008-01-15 -> 15_9_F_12_2008_01_15",
+  "sections": [
+   "supervisor"
+  ],
+  "wells": [
+   "15/9-F-12"
+  ]
+ },
+ "T2-027": {
+  "candidate_files": [],
+  "date_range": null,
+  "dates": [
+   "2013-06-10"
+  ],
+  "early_abstain": true,
+  "mode": "single_report",
+  "reason": "EARLY ABSTAIN: well 15/9-F-14 is not in the archive (no report for 15/9-F-14 on 2013-06-10)",
+  "sections": [
+   "activity",
+   "summary_24h"
+  ],
+  "wells": [
+   "15/9-F-14"
+  ]
+ },
+ "T2-028": {
+  "candidate_files": [
+   "15_9_F_11_T2_2013_05_15"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-05-15"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-11-T2 on 2013-05-15 -> 15_9_F_11_T2_2013_05_15",
+  "sections": [
+   "cost"
+  ],
+  "wells": [
+   "15/9-F-11-T2"
+  ]
+ },
+ "T2-029": {
+  "candidate_files": [],
+  "date_range": null,
+  "dates": [
+   "2013-12-15"
+  ],
+  "early_abstain": true,
+  "mode": "single_report",
+  "reason": "EARLY ABSTAIN: no report for 15/9-F-15-D on 2013-12-15 or 2013-12-16; reports for 15/9-F-15-D: 2013-11-11, 2013-12-14, 2015-08-10, 2016-10-19",
+  "sections": [
+   "weather"
+  ],
+  "wells": [
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-030": {
+  "candidate_files": [
+   "15_9_F_1_B_2013_09_24"
+  ],
+  "date_range": null,
+  "dates": [
+   "2013-09-24"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-1-B on 2013-09-24 -> 15_9_F_1_B_2013_09_24",
+  "sections": [
+   "status",
+   "wellbore",
+   "personnel"
+  ],
+  "wells": [
+   "15/9-F-1-B"
+  ]
+ },
+ "T2-031": {
+  "candidate_files": [
+   "15_9_F_15_D_2015_08_10"
+  ],
+  "date_range": null,
+  "dates": [
+   "2015-08-10"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-F-15-D on 2015-08-10 -> 15_9_F_15_D_2015_08_10",
+  "sections": [
+   "equip_failure",
+   "activity",
+   "cost"
+  ],
+  "wells": [
+   "15/9-F-15-D"
+  ]
+ },
+ "T2-032": {
+  "candidate_files": [
+   "15_9_19_A_1997_08_29"
+  ],
+  "date_range": null,
+  "dates": [
+   "1997-08-29"
+  ],
+  "early_abstain": false,
+  "mode": "single_report",
+  "reason": "exact: 15/9-19-A on 1997-08-29 -> 15_9_19_A_1997_08_29",
+  "sections": [
+   "mud_logging",
+   "gas",
+   "log",
+   "activity"
+  ],
+  "wells": [
+   "15/9-19-A"
+  ]
+ }
+}

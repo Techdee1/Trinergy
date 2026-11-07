@@ -1,7 +1,27 @@
-# Track 2 — Intelligent Well Archive (work in progress)
+# Track 2 — Intelligent Well Archive
 
-Status: batches 1-2 done (evidence store and question router). Answering, evidence formatting and
-`predictions.csv` generation come later. See [DATA_NOTES.md](DATA_NOTES.md) for data findings and limitations.
+## Quick start
+
+1. Create the environment (below) and open `submission/solution.ipynb` with the `nape` kernel.
+2. **Offline, no key:** run all cells. The 32 published questions are answered from the committed cache
+   `indexes/llm_cache.json` and `predictions.csv` is reproduced byte for byte (about 10 seconds, no network).
+3. **Your own key or your own questions:** put `OPENROUTER_KEY=<your key>` in a `.env` file (copy `.env.example`; spaces around
+   `=` are fine) or set the `OPENROUTER_KEY` environment variable. `OPENROUTER_API_KEY`, `OpenRouter_Key` and
+   `openrouter_api_key` are accepted as aliases. The notebook's first cell prints which variable it found (never its
+   value), or `no key found: live mode off, using cached answers`.
+4. For a different question set, set `QUESTIONS_CSV` in the second code cell (a CSV with an id column and a question column;
+   names such as `question_id`/`id` and `question_text`/`question`/`text`/`prompt`, any letter case). `OUTPUT_PATH` defaults
+   to `submission/predictions.csv` for the published questions and to a new `predictions_<file>.csv` for any other file, so a
+   different run never overwrites the committed `predictions.csv` unless `OUTPUT_PATH` names it.
+
+Behaviour is hybrid: a question already in the cache is answered from it, with or without a key; a question that is not
+cached is sent to the model if a key exists, and otherwise gets a row with the answer `NOT EVALUATED: no API key and no
+cached answer`, empty evidence and confidence 0 (a summary at the end of the run lists them). New answers are saved to
+`indexes/llm_cache_runtime.json` (git-ignored); the committed cache is never modified by a notebook run. If the pinned
+Anthropic provider is not available on your key, the run falls back to OpenRouter's default routing for the same model
+and logs a warning.
+
+See [DATA_NOTES.md](DATA_NOTES.md) for data findings and limitations.
 
 ## Setup (conda, Python 3.12)
 
@@ -11,7 +31,7 @@ conda activate nape
 python -m ipykernel install --user --name nape --display-name "Python (nape)"
 ```
 
-No API key and no network access are needed.
+No API key and no network access are needed for the 32 published questions.
 
 ## Data
 
@@ -73,8 +93,8 @@ field in the archive; the router does not abstain on topic, a later step decides
 
 ## LLM settings (only needed to regenerate the answer cache)
 
-The notebook replays `indexes/llm_cache.json` offline, so reviewers need none of this. To regenerate it
-(`LIVE = True`), set in `.env` or the environment (the API key goes in `OpenRouter_Key`, never in code). All values
+The notebook replays `indexes/llm_cache.json` offline, so reviewers need none of this. To answer other questions, set in `.env`
+or the environment (the API key goes in `OPENROUTER_KEY`, never in code). All values
 below are the defaults in `archive_qa/config.py`; see `.env.example`.
 
 | variable | meaning | default |

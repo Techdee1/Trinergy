@@ -50,6 +50,8 @@ def absent_evidence(rid: str, meta: dict) -> list[str]:
 def build_evidence(ans: Answer, records: pd.DataFrame) -> str:
     """Citations built only from records in the store. Per report: its PDF page references first (one per file+page,
     sections merged), then its XML record ids. Abstentions name the files searched."""
+    if ans.status == "not_evaluated":
+        return ""                                      # nothing was checked: no evidence is claimed
     if ans.early_abstain:
         return ans.evidence_extra
     known = set(records["record_id"])
@@ -191,24 +193,54 @@ def check_format(path: Path | None = None, expected_ids: list[str] | None = None
     return {"valid": not errors, "errors": errors, "warnings": warnings, "rows": len(rows)}
 
 
-def validate_predictions(submission_dir: Path | None = None) -> dict:
-    """Validate predictions.csv with the organiser's script when it is on disk, else with the built-in check, and say which.
-    Returns {"validator", "valid", "errors", "warnings", "rows"}."""
-    rep = run_validator(submission_dir)
-    if rep is not None:
-        return {"validator": "organiser validate_submission.py", "valid": rep["valid"],
-                "errors": rep["structure"]["errors"] + rep["csv"]["errors"], "warnings": rep["csv"]["warnings"],
-                "rows": rep["csv"]["rows"]}
-    c = check_format(Path(submission_dir) / "predictions.csv" if submission_dir else None)
-    return {"validator": "built-in format check (the organiser's validate_submission.py was not found next to the data)", **c}
+def validate_predictions(submission_dir: Path | None = None, predictions_path: Path | None = None,
+                         expected_ids: list[str] | None = None) -> dict:
+    """Validate a predictions file and say which validator ran. Returns {"validator","valid","errors","warnings","rows"}.
+
+    * Default run (the organiser's 32 questions, submission/predictions.csv): the organiser's validate_submission(),
+      or the built-in check when that script is not on disk.
+    * Any other question set or output path: the organiser's validate_csv() for columns and values (its id check is
+      against the PUBLISHED questions, so it is skipped) plus an id check against this run's own question ids.
+    """
+    custom = (predictions_path is not None and Path(predictions_path).resolve() != config.PREDICTIONS_PATH.resolve()) \
+        or expected_ids is not None
+    if not custom:
+        rep = run_validator(submission_dir)
+        if rep is not None:
+            return {"validator": "organiser validate_submission.py", "valid": rep["valid"],
+                    "errors": rep["structure"]["errors"] + rep["csv"]["errors"], "warnings": rep["csv"]["warnings"],
+                    "rows": rep["csv"]["rows"]}
+        c = check_format(Path(submission_dir) / "predictions.csv" if submission_dir else None)
+        return {"validator": "built-in format check (the organiser's validate_submission.py was not found next to the data)", **c}
+    path = Path(predictions_path or config.PREDICTIONS_PATH)
+    own = check_format(path, expected_ids)
+    mod = _load_organiser()
+    if mod is None:
+        return {"validator": "built-in format check (the organiser's validate_submission.py was not found next to the data)", **own}
+    theirs = mod.validate_csv(path, 2, None)
+    errors = list(dict.fromkeys(theirs["errors"] + own["errors"]))
+    warnings = list(dict.fromkeys(theirs["warnings"] + own["warnings"]))
+    return {"validator": "organiser validate_csv (columns and values) + id check against this run's question file",
+            "valid": not errors, "errors": errors, "warnings": warnings, "rows": own["rows"]}
 
 
-def run_validator(submission_dir: Path | None = None) -> dict | None:
-    """Run the organiser's validate_submission() on the submission folder. None if it is not on disk."""
-    vp = find_validator()
+def _load_organiser():
+    """The organiser's validate_submission module, or None if it is not on disk."""
+    try:
+        vp = find_validator()
+    except FileNotFoundError:
+        return None
     if vp is None:
         return None
     spec = importlib.util.spec_from_file_location("organiser_validate_submission", vp)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
+    return mod
+
+
+def run_validator(submission_dir: Path | None = None) -> dict | None:
+    """Run the organiser's validate_submission() on the submission folder. None if it is not on disk."""
+    mod = _load_organiser()
+    if mod is None:
+        return None
     return mod.validate_submission(Path(submission_dir or config.SUBMISSION_DIR), 2, config.DATA_ROOT)

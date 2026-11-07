@@ -140,7 +140,7 @@ def test_api_key_never_in_repr_or_describe(monkeypatch, tmp_path):
 
 def test_live_requires_a_key_and_defaults_to_the_recommended_models(monkeypatch, tmp_path):
     env = _clean_env(monkeypatch, tmp_path)
-    with pytest.raises(RuntimeError, match="OpenRouter_Key"):
+    with pytest.raises(RuntimeError, match="OPENROUTER_KEY"):
         load_config(live=True, dotenv_path=env)
     monkeypatch.setenv("OpenRouter_Key", "k")
     cfg = load_config(live=True, dotenv_path=env)

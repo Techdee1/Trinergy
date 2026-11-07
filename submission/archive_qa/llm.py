@@ -15,7 +15,8 @@ separate cache entry. Cache entries store the parsed response, model, usage and 
 Models and settings used are also saved in the cache's `_meta`, so an offline run reproduces the same keys
 without needing LLM_* in the environment.
 
-The API key is read from the environment variable `OpenRouter_Key` (or OPENROUTER_API_KEY) and is never
+The API key is read from OPENROUTER_KEY (aliases: OPENROUTER_API_KEY, OpenRouter_Key, openrouter_api_key), from the
+environment or a .env file, and is never
 printed, logged or stored.
 """
 
@@ -24,6 +25,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import logging
 import os
 import re
 import threading
@@ -36,7 +38,12 @@ from typing import Any, Callable, Protocol
 from . import config
 from .prompts import ANSWER_SCHEMA, prompt_sha
 
-KEY_ENV_NAMES = ("OpenRouter_Key", "OPENROUTER_API_KEY")
+# The API key may be given under any of these names (first one found wins). OPENROUTER_KEY is the documented one;
+# the others are silent aliases. Neither the name nor the value of the key is ever logged by the code below, except
+# that `describe_key()` reports WHICH variable was found (never its value).
+CANONICAL_KEY_NAME = "OPENROUTER_KEY"
+KEY_ENV_NAMES = ("OPENROUTER_KEY", "OPENROUTER_API_KEY", "OpenRouter_Key", "openrouter_api_key")
+log = logging.getLogger("archive_qa.llm")
 ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 DEFAULT_MAX_TOKENS = config.LLM_PRIMARY_MAX_TOKENS_DEFAULT
 REASONING_EFFORTS = ("none", "minimal", "low", "medium", "high", "xhigh")
@@ -55,11 +62,8 @@ class BudgetExceeded(RuntimeError):
 # ------------------------------------------------------------------ environment
 
 
-def load_env_file(path: Path) -> dict[str, str]:
-    """Tiny .env reader (no extra dependency). Returns the variables; never prints values."""
+def _parse_env_builtin(path: Path) -> dict[str, str]:
     out: dict[str, str] = {}
-    if not path.is_file():
-        return out
     for line in path.read_text(encoding="utf-8").splitlines():
         m = re.match(r"^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$", line)
         if not m or line.lstrip().startswith("#"):
@@ -71,9 +75,62 @@ def load_env_file(path: Path) -> dict[str, str]:
     return out
 
 
+def load_env_file(path: Path) -> dict[str, str]:
+    """Read one .env file (spaces around "=", quotes and "export" are fine). Uses python-dotenv when installed, else a
+    small built-in parser. Returns the variables; never prints values."""
+    path = Path(path)
+    if not path.is_file():
+        return {}
+    try:
+        from dotenv import dotenv_values
+
+        return {k: v for k, v in dotenv_values(path).items() if v is not None}
+    except ImportError:
+        return _parse_env_builtin(path)
+
+
+def env_files() -> list[Path]:
+    """.env files that exist, most specific first: the current directory, its parent, submission/, the repo root."""
+    cands = [Path.cwd() / ".env", Path.cwd().parent / ".env", config.SUBMISSION_DIR / ".env", config.REPO_ROOT / ".env"]
+    seen, out = set(), []
+    for c in cands:
+        r = c.resolve()
+        if r not in seen and c.is_file():
+            seen.add(r)
+            out.append(c)
+    return out
+
+
+def load_dotenv_all() -> dict[str, str]:
+    """Merge every .env found (earlier files win). Automatic: no call needed in the notebook."""
+    merged: dict[str, str] = {}
+    for f in reversed(env_files()):
+        merged.update(load_env_file(f))
+    return merged
+
+
+def find_key(dotenv: dict[str, str] | None = None) -> tuple[str | None, str | None]:
+    """(variable name, value) of the first key found, checking the environment then .env for each name in order."""
+    dotenv = load_dotenv_all() if dotenv is None else dotenv
+    for name in KEY_ENV_NAMES:
+        v = _env(name, dotenv)
+        if v:
+            return name, v
+    return None, None
+
+
+def describe_key(dotenv: dict[str, str] | None = None) -> str:
+    """One line for the notebook: WHICH variable holds the key (never its value)."""
+    name, _ = find_key(dotenv)
+    if name:
+        return (f"API key found in variable {name} (value never shown): live mode on - cached answers are used, "
+                "the model is called only for questions that are not cached")
+    return "no key found: live mode off, using cached answers"
+
+
 def env_names(path: Path | None = None) -> list[str]:
     """Variable NAMES present in .env (values are never exposed)."""
-    return sorted(load_env_file(path or (config.REPO_ROOT / ".env")))
+    return sorted(load_env_file(path) if path else load_dotenv_all())
 
 
 def _env(name: str, dotenv: dict[str, str]) -> str | None:
@@ -104,6 +161,7 @@ class LLMConfig:
     provider: tuple[str, ...] = (config.LLM_PROVIDER_DEFAULT,)               # provider.order pin; () = no pin
     temperature: float = 0.0
     live: bool = False
+    key_name: str | None = None                                # WHICH variable held the key (not the key)
     price_in_per_1m: float | None = None
     price_out_per_1m: float | None = None
 
@@ -126,7 +184,7 @@ class LLMConfig:
 
     def describe(self) -> dict:
         """Safe summary: names and booleans only."""
-        return {"mode": "live" if self.live else "offline", "key_present": bool(self.api_key),
+        return {"mode": "live" if self.live else "offline", "key_present": bool(self.api_key), "key_variable": self.key_name,
                 "primary": self.primary, "escalation": self.escalation, "fast": self.fast,
                 "max_tokens": self.max_tokens, "reasoning": self.reasoning,
                 "retry_max_tokens": self.retry_max_tokens, "multi_max_tokens": self.multi_max_tokens,
@@ -134,18 +192,20 @@ class LLMConfig:
                 "provider": list(self.provider), "budget_usd": self.budget_usd, "concurrency": self.concurrency}
 
 
-def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfig:
-    """Build the config. `live=False` (default) is offline: the key is ignored and only the cache is used.
+def load_config(live: bool | None = None, dotenv_path: Path | None = None) -> LLMConfig:
+    """Build the config. `live=None` (default) is hybrid: live iff an API key is found, and even then the cache is
+    read first. `live=False` forces offline (the key is ignored); `live=True` demands a key.
 
     Models, max_tokens, reasoning and provider: environment/.env first, else the values recorded in the cache
     `_meta` (so an offline replay rebuilds exactly the keys the live run wrote), else the code defaults.
     """
-    dotenv = load_env_file(dotenv_path or (config.REPO_ROOT / ".env"))
+    dotenv = load_env_file(dotenv_path) if dotenv_path else load_dotenv_all()
     cache_meta = Cache(config.LLM_CACHE_PATH).meta
     meta = cache_meta.get("models", {})
     rec = cache_meta.get("settings", {})
     rec_p, rec_e = rec.get("primary", {}), rec.get("escalation", {})
-    key = next((v for n in KEY_ENV_NAMES if (v := _env(n, dotenv))), None)
+    key_name, key = find_key(dotenv)
+    live = (key is not None) if live is None else live
 
     def pick(name: str, recorded, default):
         return _env(name, dotenv) or recorded or default
@@ -173,6 +233,7 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
         budget_usd=float(_env("LLM_BUDGET_USD", dotenv) or 3.00),
         concurrency=max(1, int(_env("LLM_CONCURRENCY", dotenv) or config.LLM_CONCURRENCY_DEFAULT)),
         live=bool(live and key),
+        key_name=key_name if live else None,
         price_in_per_1m=float(v) if (v := _env("LLM_PRICE_IN_PER_1M", dotenv)) else None,
         price_out_per_1m=float(v) if (v := _env("LLM_PRICE_OUT_PER_1M", dotenv)) else None,
     )
@@ -186,7 +247,7 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
     cfg.reasoning = cfg.reasoning.lower() if cfg.reasoning else None
     cfg.escalation_reasoning = cfg.escalation_reasoning.lower() if cfg.escalation_reasoning else None
     if live and not key:
-        raise RuntimeError(f"Live mode needs an API key in env var {KEY_ENV_NAMES[0]} (or {KEY_ENV_NAMES[1]}).")
+        raise RuntimeError(f"Live mode needs an API key in the environment variable {CANONICAL_KEY_NAME} (or in .env).")
     return cfg
 
 
@@ -209,6 +270,10 @@ class Backend(Protocol):
 
 class TransientError(RuntimeError):
     """429 or 5xx: worth retrying."""
+
+
+class ProviderUnavailable(RuntimeError):
+    """HTTP 404 while a provider pin was sent: the pinned provider has no endpoint for this key/model."""
 
 
 class OpenRouterBackend:
@@ -239,6 +304,8 @@ class OpenRouterBackend:
                           headers={"Authorization": f"Bearer {self._key}", "Content-Type": "application/json"})
         if r.status_code == 429 or r.status_code >= 500:
             raise TransientError(f"HTTP {r.status_code}: {self._scrub(r.text[:200])}")
+        if r.status_code == 404 and provider:
+            raise ProviderUnavailable(f"HTTP 404 with provider pin {provider.get('order')}: {self._scrub(r.text[:200])}")
         if r.status_code >= 400:
             raise RuntimeError(f"HTTP {r.status_code} from OpenRouter: {self._scrub(r.text[:300])}")
         data = r.json()
@@ -258,6 +325,21 @@ class OpenRouterBackend:
         )
 
     def chat(self, system, user, model, max_tokens, temperature=0.0, reasoning=None, provider=None) -> RawResponse:
+        """One call with retries on 429/5xx. If the pinned provider is unavailable on this key (HTTP 404), fall back to
+        default routing with the SAME model, log a warning, and stop sending the pin for the rest of the run."""
+        if getattr(self, "_pin_disabled", False):
+            provider = None
+        try:
+            return self._with_retries(system, user, model, max_tokens, temperature, reasoning, provider)
+        except ProviderUnavailable as e:
+            if not provider:
+                raise RuntimeError(str(e)) from e
+            log.warning("pinned provider %s is unavailable for this key (%s); falling back to default routing with the "
+                        "same model %s", provider.get("order"), str(e)[:120], model)
+            self._pin_disabled = True
+            return self._with_retries(system, user, model, max_tokens, temperature, reasoning, None)
+
+    def _with_retries(self, system, user, model, max_tokens, temperature, reasoning, provider) -> RawResponse:
         last: Exception | None = None
         for attempt in range(self.max_attempts):
             try:
@@ -329,6 +411,28 @@ class Cache:
             tmp.replace(self.path)
 
 
+class LayeredCache:
+    """Read-through cache: answers come from the committed cache first, then the runtime cache; new answers are written
+    ONLY to the runtime cache, so running a different question set never modifies the committed llm_cache.json."""
+
+    def __init__(self, base: Cache, overlay: Cache):
+        self.base, self.overlay = base, overlay
+
+    def get(self, key: str) -> dict | None:
+        return self.base.get(key) or self.overlay.get(key)
+
+    def put(self, key: str, entry: dict, meta: dict | None = None) -> None:
+        self.overlay.put(key, entry, meta)
+
+    @property
+    def entries(self) -> dict[str, dict]:
+        return {**self.overlay.entries, **self.base.entries}
+
+    @property
+    def meta(self) -> dict:
+        return {**self.overlay.meta, **self.base.meta}
+
+
 def cache_key(system: str, context: str, question: str, feedback: str, model: str, settings: dict,
               run: str = "") -> str:
     h = hashlib.sha256()
@@ -388,10 +492,16 @@ class LLM:
         self._lock = threading.Lock()
 
     @classmethod
-    def from_env(cls, live: bool = False) -> "LLM":
+    def from_env(cls, live: bool | None = None, update_committed_cache: bool = False,
+                 runtime_cache_path: Path | None = None) -> "LLM":
+        """Hybrid by default: cached answers are always used first; the model is called for a miss only if an API key is
+        found (live=None). New answers go to the runtime cache unless update_committed_cache=True (for regenerating
+        submission/indexes/llm_cache.json)."""
         cfg = load_config(live=live)
         backend = OpenRouterBackend(cfg.api_key) if cfg.live else None
-        return cls(cfg, backend)
+        base = Cache(config.LLM_CACHE_PATH)
+        cache = base if update_committed_cache else LayeredCache(base, Cache(runtime_cache_path or config.RUNTIME_CACHE_PATH))
+        return cls(cfg, backend, cache)
 
     def ask(self, system: str, context: str, question: str, model: str, *, feedback: str = "",
             question_id: str = "", role: str = "primary", run: str = "", max_tokens: int | None = None) -> Reply:
@@ -412,8 +522,8 @@ class LLM:
         if self.backend is None:
             raise CacheMiss(
                 f"No cached LLM answer for question {question_id or '?'} (role={role}, model={model}). "
-                "Offline mode only replays submission/indexes/llm_cache.json. To generate it, run the notebook "
-                "with LIVE = True and an API key in the OpenRouter_Key environment variable.")
+                f"No API key is set, so only cached answers (submission/indexes/llm_cache.json) can be used. To answer "
+                f"questions that are not cached, set the {CANONICAL_KEY_NAME} environment variable (or put it in .env).")
         with self._lock:
             if self.spent >= self.cfg.budget_usd:
                 raise BudgetExceeded(f"Spend guard: ${self.spent:.4f} >= LLM_BUDGET_USD ${self.cfg.budget_usd:.2f}")

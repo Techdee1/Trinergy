@@ -14,6 +14,15 @@ def _data_available() -> bool:
         return False
 
 
+@pytest.fixture(autouse=True)
+def _no_ambient_api_key(monkeypatch):
+    """Tests never see a developer's real key: no key variables, no .env files (tests that need either set them)."""
+    from submission.archive_qa import llm
+    for n in llm.KEY_ENV_NAMES:
+        monkeypatch.delenv(n, raising=False)
+    monkeypatch.setattr(llm, "env_files", lambda: [])
+
+
 needs_data = pytest.mark.skipif(
     not _data_available(), reason="organiser Track 2 data not found (set NAPE_DATA_ROOT)")
 
