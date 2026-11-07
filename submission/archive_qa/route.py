@@ -39,7 +39,8 @@ TOPICS: list[tuple[str, list[str]]] = [
     (r"survey|inclination|azimuth|deviation|gyro", ["survey"]),
     (r"casing|liner|\bshoe\b|inside diameter|outside diameter|\bn-80\b", ["casing"]),
     (r"\bbit\b|\brops?\b|rate of penetration|penetration rate", ["bit", "status"]),
-    (r"\bgas\b|methane|trip gas|mud logging|mudlogging", ["gas", "log"]),
+    (r"mud.?logg(ing|er)|mudlog", ["mud_logging", "gas", "log"]),
+    (r"\bgas\b|methane|trip gas", ["gas"]),
     (r"logging|log run|wireline|tractor|perforat", ["log", "activity"]),
     (r"lithology|\bshows?\b|claystone|sandstone", ["lithology"]),
     (r"formation top|stratigraph", ["strat"]),
@@ -77,6 +78,14 @@ _RANGE = re.compile(
     r"|\bbetween\b[^.?]*?(\d{4}-\d{2}-\d{2})[^.?]*?\band\b[^.?]*?(\d{4}-\d{2}-\d{2})",
     re.IGNORECASE,
 )
+
+
+_TIME = re.compile(r"(?<![\d:.])([01]?\d|2[0-3]):([0-5]\d)(?![\d:])")
+
+
+def find_times(text: str) -> list[str]:
+    """Clock times written in the question, as zero-padded HH:MM, in order, without duplicates."""
+    return list(dict.fromkeys(f"{int(h):02d}:{m}" for h, m in _TIME.findall(text)))
 
 
 @dataclass(frozen=True)
@@ -129,6 +138,7 @@ class RouteResult:
     candidate_files: list[str] = field(default_factory=list)  # report stems (XML names without .xml)
     mode: str = "archive_wide"                            # single_report | multi_report | archive_wide
     sections: list[str] = field(default_factory=list)
+    event_times: list[str] = field(default_factory=list)   # HH:MM mentioned in the question (date-window rule)
     early_abstain: bool = False
     reason: str = ""
     # (well or None, day or None, message) for each named target with no matching report
@@ -178,7 +188,8 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
     days = [d for d in dmentions if d.kind == "day"]
     periods = [d.iso for d in dmentions if d.kind in ("month", "year")]
 
-    res = RouteResult(wells=wells, dates=[d.iso for d in dmentions], sections=topic_sections(question))
+    res = RouteResult(wells=wells, dates=[d.iso for d in dmentions], sections=topic_sections(question),
+                      event_times=find_times(question))
     selected: dict[str, str] = {}   # stem -> why
     notes: list[str] = []
     unmatched: list[str] = []

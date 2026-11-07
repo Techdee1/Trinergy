@@ -18,6 +18,7 @@ import json
 import math
 import re
 from dataclasses import dataclass, field
+from datetime import date, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -29,7 +30,7 @@ from .store import has_field
 SECTION_ORDER = ["status", "wellbore", "summary_24h", "forecast_24h", "activity", "fluid", "survey",
                  "casing", "bit", "pore_pressure", "gas", "lithology", "strat", "log", "equip_failure"]
 NARRATIVE = ["summary_24h", "forecast_24h", "activity", "equip_failure"]
-ABSENT_KINDS = ("cost", "personnel", "supervisor", "weather")  # topics that may have no field (see has_field)
+ABSENT_KINDS = ("cost", "personnel", "supervisor", "weather", "mud_logging")  # topics that may have no field (see has_field)
 TOKEN_CAP = 12_000
 CHARS_PER_TOKEN = 4
 MAX_FIELD_CHARS = 1500
@@ -100,6 +101,23 @@ def format_line(row, notes: list[str]) -> str:
     return f"[{row['record_id']}] {row['section']} | {key_fields(row, notes)} | report {row['report_date']} | at {ts}"
 
 
+def window_note(rid: str, ts: str, report_date: str, period_start, period_end) -> str:
+    """Explicit date-window line: an event timestamped D-1 inside the report dated D (the report covers D-1 to D).
+    Without it models read 'at 21:00 on D' against a D-1 timestamp and abstain."""
+    t = f"{ts[11:16]}"
+    return (f"WINDOW NOTE: [{rid}] event timestamp {ts} lies inside report {report_date} "
+            f"(period {period_start} to {period_end}); it is the record for \"{t} on {report_date}\".")
+
+
+def in_date_window(ts, report_date: str, times: list[str], days: list[str]) -> bool:
+    """True when the question names a clock time and the report date, and this record's timestamp has that time
+    on the day before the report date."""
+    if not (isinstance(ts, str) and len(ts) >= 16 and times and report_date in days):
+        return False
+    prev = (date.fromisoformat(report_date) - timedelta(days=1)).isoformat()
+    return ts[:10] == prev and ts[11:16] in times
+
+
 def header_line(well: str, report_date: str, period_start, period_end, stem: str) -> str:
     return f"=== REPORT {well} | report date {report_date} | period {period_start} to {period_end} | file {stem} ==="
 
@@ -151,7 +169,7 @@ def _absent_record(kind: str, cand: pd.DataFrame) -> tuple[str, str, dict]:
     when = dates[0] if len(dates) == 1 else f"{len(dates)} reports"
     rid = f"ABSENT-{kind}"
     n_rep, n_rec = len(stems), len(cand)
-    line = (f"[{rid}] absent | Searched {n_rep} report(s) and {n_rec} record(s): no {kind} field exists "
+    line = (f"[{rid}] absent | Searched {n_rep} report(s) and {n_rec} record(s): no {kind.replace('_', ' ')} field exists "
             f"in any of them | report {when} | at -")
     return rid, line, {"kind": kind, "reports": n_rep, "records": n_rec, "files": stems}
 
@@ -223,6 +241,8 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
             for _, r in _sorted_section(part, sec).iterrows():
                 out.append(lines[r["record_id"]])
                 ids.add(r["record_id"])
+                if in_date_window(r["timestamp"], rdate, route.event_times, route.dates):
+                    out.append(window_note(r["record_id"], r["timestamp"], rdate, first["period_start"], first["period_end"]))
 
     absent: dict[str, dict] = {}
     for kind in absent_kinds:

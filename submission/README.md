@@ -70,3 +70,19 @@ python -m pytest -q
 
 See [DATA_NOTES.md](DATA_NOTES.md). Some question topics (cost, personnel, supervisor, weather) have no
 field in the archive; the router does not abstain on topic, a later step decides that using `has_field`.
+
+## LLM settings (only needed to regenerate the answer cache)
+
+The notebook replays `indexes/llm_cache.json` offline, so reviewers need none of this. To regenerate it
+(`LIVE = True`), set in `.env` or the environment (the API key goes in `OpenRouter_Key`, never in code):
+
+| variable | meaning | default |
+|---|---|---|
+| `LLM_MODEL_PRIMARY`, `LLM_MODEL_ESCALATION`, `LLM_MODEL_FAST` | OpenRouter model ids | required (fast optional) |
+| `LLM_MAX_TOKENS` | max output tokens per call | 1500 |
+| `LLM_REASONING` | reasoning effort (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); sent only when set | unset |
+| `LLM_BUDGET_USD` | spend guard per run | 3.00 |
+| `LLM_CONCURRENCY` | parallel questions | 4 |
+
+Model names, `max_tokens` and `reasoning` are recorded in the cache's `_meta`, so an offline replay rebuilds the
+same cache keys without any of these variables.

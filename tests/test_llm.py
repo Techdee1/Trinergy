@@ -118,7 +118,10 @@ def test_http_status_handling(monkeypatch):
     out = OpenRouterBackend("sk-secret")._once("s", "u", "mdl", 500, 0.0)
     assert (out.prompt_tokens, out.completion_tokens, out.cost_usd) == (7, 3, 0.0002)
     assert sent["json"]["temperature"] == 0 and sent["json"]["max_tokens"] == 500
-    assert sent["json"]["response_format"] == {"type": "json_object"}
+    rf = sent["json"]["response_format"]
+    assert rf["type"] == "json_schema" and rf["json_schema"]["strict"] is True
+    assert rf["json_schema"]["schema"]["required"] == ["status", "answer", "cited_ids", "rationale"]
+    assert "seed" not in sent["json"] and "provider" not in sent["json"] and "reasoning" not in sent["json"]
     monkeypatch.setattr(requests, "post", lambda *a, **k: R(429, {"error": "rate sk-secret"}))
     with pytest.raises(TransientError) as e:
         OpenRouterBackend("sk-secret")._once("s", "u", "m", 5, 0.0)
@@ -135,15 +138,14 @@ def test_api_key_never_in_repr_or_describe(monkeypatch, tmp_path):
     assert load_config(live=False, dotenv_path=tmp_path / "none.env").api_key is None  # offline ignores the key
 
 
-def test_live_requires_key_and_models(monkeypatch, tmp_path):
-    for n in ("OpenRouter_Key", "OPENROUTER_API_KEY", "LLM_MODEL_PRIMARY", "LLM_MODEL_ESCALATION"):
-        monkeypatch.delenv(n, raising=False)
-    monkeypatch.setattr(L.config, "LLM_CACHE_PATH", tmp_path / "none.json")
+def test_live_requires_a_key_and_defaults_to_the_recommended_models(monkeypatch, tmp_path):
+    env = _clean_env(monkeypatch, tmp_path)
     with pytest.raises(RuntimeError, match="OpenRouter_Key"):
-        load_config(live=True, dotenv_path=tmp_path / "none.env")
+        load_config(live=True, dotenv_path=env)
     monkeypatch.setenv("OpenRouter_Key", "k")
-    with pytest.raises(L.ModelsNotSet, match="LLM_MODEL_PRIMARY"):
-        load_config(live=True, dotenv_path=tmp_path / "none.env")
+    cfg = load_config(live=True, dotenv_path=env)
+    assert (cfg.primary, cfg.escalation) == ("anthropic/claude-haiku-5.5", "anthropic/claude-sonnet-5.5")
+    assert cfg.concurrency == 8 and cfg.temperature == 0.0
 
 
 def test_offline_models_come_from_cache_meta(monkeypatch, tmp_path):
@@ -180,3 +182,117 @@ def test_cost_summary(tmp_path):
     assert rows[0].startswith("question_id,calls,cache_hits") and len(rows) == 4
     assert rows[1].startswith("T2-001,2,0,") and rows[2].startswith("T2-002,1,0,")
     assert rows[3].startswith("TOTAL") and ",3,1,300,150,0.006000" in rows[3]
+
+
+# ---- per-role settings ---------------------------------------------------------------------------------
+
+
+def _clean_env(monkeypatch, tmp_path):
+    for n in ("OpenRouter_Key", "OPENROUTER_API_KEY", "LLM_MODEL_PRIMARY", "LLM_MODEL_ESCALATION", "LLM_MODEL_FAST",
+              "LLM_MAX_TOKENS", "LLM_REASONING", "LLM_ESCALATION_MAX_TOKENS", "LLM_ESCALATION_REASONING",
+              "LLM_PROVIDER", "LLM_CONCURRENCY"):
+        monkeypatch.delenv(n, raising=False)
+    monkeypatch.setattr(L.config, "LLM_CACHE_PATH", tmp_path / "none.json")
+    return tmp_path / "none.env"
+
+
+def test_recommended_settings_are_the_defaults(monkeypatch, tmp_path):
+    cfg = load_config(dotenv_path=_clean_env(monkeypatch, tmp_path))
+    p, e = cfg.role_settings("primary"), cfg.role_settings("escalation")
+    pin = {"order": ["Anthropic"], "allow_fallbacks": False, "require_parameters": False}
+    assert p == {"temperature": 0.0, "max_tokens": 400, "response_format": "json_schema", "reasoning": "none", "provider": pin}
+    assert e == {"temperature": 0.0, "max_tokens": 1500, "response_format": "json_schema", "reasoning": "minimal", "provider": pin}
+    assert cfg.settings == p and L.DEFAULT_MAX_TOKENS == 400
+    assert p["provider"]["require_parameters"] is False   # true makes every Claude request return HTTP 404
+
+
+def test_env_overrides_and_validation(monkeypatch, tmp_path):
+    env = _clean_env(monkeypatch, tmp_path)
+    monkeypatch.setenv("LLM_MAX_TOKENS", "2500")
+    monkeypatch.setenv("LLM_ESCALATION_MAX_TOKENS", "3000")
+    monkeypatch.setenv("LLM_REASONING", "LOW")
+    cfg = load_config(dotenv_path=env)
+    assert (cfg.max_tokens, cfg.reasoning, cfg.escalation_max_tokens) == (2500, "low", 3000)
+    assert cfg.describe()["max_tokens"] == 2500 and cfg.describe()["escalation_reasoning"] == "minimal"
+    unset = load_config(dotenv_path=_clean_env(monkeypatch, tmp_path))
+    assert cache_key("s", "c", "q", "", "m", unset.settings) != cache_key("s", "c", "q", "", "m", cfg.settings)
+    monkeypatch.setenv("LLM_MAX_TOKENS", "0")
+    with pytest.raises(ValueError, match="LLM_MAX_TOKENS"):
+        load_config(dotenv_path=env)
+    monkeypatch.setenv("LLM_MAX_TOKENS", "400")
+    monkeypatch.setenv("LLM_ESCALATION_REASONING", "turbo")
+    with pytest.raises(ValueError, match="LLM_ESCALATION_REASONING"):
+        load_config(dotenv_path=env)
+
+
+def test_provider_pin_can_be_changed_or_switched_off(monkeypatch, tmp_path):
+    env = _clean_env(monkeypatch, tmp_path)
+    monkeypatch.setenv("LLM_PROVIDER", "Google,Anthropic")
+    assert load_config(dotenv_path=env).role_settings("primary")["provider"]["order"] == ["Google", "Anthropic"]
+    monkeypatch.setenv("LLM_PROVIDER", "")
+    assert "provider" not in load_config(dotenv_path=env).role_settings("primary")
+
+
+def test_reasoning_and_provider_sent_to_api_only_when_set(monkeypatch):
+    import requests
+
+    bodies = []
+
+    class R:
+        status_code, text = 200, ""
+
+        def json(self):
+            return {"choices": [{"message": {"content": "{}"}}], "usage": {}}
+
+    monkeypatch.setattr(requests, "post", lambda url, json=None, **k: (bodies.append(json), R())[1])
+    be = OpenRouterBackend("k")
+    be._once("s", "u", "m", 400, 0.0)
+    pin = {"order": ["Anthropic"], "allow_fallbacks": False, "require_parameters": False}
+    be._once("s", "u", "m", 1500, 0.0, "minimal", pin)
+    assert "reasoning" not in bodies[0] and "provider" not in bodies[0] and bodies[0]["max_tokens"] == 400
+    assert bodies[1]["reasoning"] == {"effort": "minimal"} and bodies[1]["provider"] == pin
+
+
+def test_each_role_uses_its_own_settings_and_cache_keys(tmp_path):
+    fake = FakeLLM()
+    llm = make(tmp_path, fake)
+    ask(llm, role="primary")
+    ask(llm, model="m-escalation", role="escalation")
+    prim, esc = fake.calls
+    assert (prim["max_tokens"], prim["reasoning"]) == (400, "none") and prim["temperature"] == 0.0
+    assert (esc["max_tokens"], esc["reasoning"]) == (1500, "minimal")
+    assert prim["provider"] == esc["provider"] == {"order": ["Anthropic"], "allow_fallbacks": False, "require_parameters": False}
+
+
+def test_run_salt_gives_a_separate_cache_entry_with_identical_settings(tmp_path):
+    fake = FakeLLM()
+    llm = make(tmp_path, fake)
+    a, b, c = ask(llm), ask(llm, run="2"), ask(llm, run="2")
+    assert len(fake.calls) == 2 and not a.cache_hit and not b.cache_hit and c.cache_hit
+    assert fake.calls[0]["max_tokens"] == fake.calls[1]["max_tokens"] and fake.calls[0]["user"] == fake.calls[1]["user"]
+    s = {"max_tokens": 400}
+    assert cache_key("s", "c", "q", "", "m", s) == cache_key("s", "c", "q", "", "m", s, "")   # no salt: old keys unchanged
+    assert cache_key("s", "c", "q", "", "m", s, "2") != cache_key("s", "c", "q", "", "m", s)
+
+
+def test_prompt_hash_is_part_of_the_key_and_saved_in_meta(tmp_path):
+    from submission.archive_qa.prompts import prompt_sha
+    llm = make(tmp_path, FakeLLM())
+    llm.ask("PROMPT A", "c", "q", "m-primary")
+    llm.ask("PROMPT B", "c", "q", "m-primary")
+    assert len(llm.cache.entries) == 2
+    assert llm.cache.meta["prompt_sha"] == prompt_sha("PROMPT B")
+
+
+def test_offline_replay_takes_per_role_settings_from_cache_meta(monkeypatch, tmp_path):
+    env = _clean_env(monkeypatch, tmp_path)
+    cache = tmp_path / "c.json"
+    rec = {"primary": {"max_tokens": 2200, "reasoning": "low", "provider": {"order": ["Google"]}},
+           "escalation": {"max_tokens": 900, "reasoning": "high"}}
+    cache.write_text(json.dumps({"_meta": {"settings": rec, "models": {"primary": "p/1"}}, "entries": {}}))
+    monkeypatch.setattr(L.config, "LLM_CACHE_PATH", cache)
+    cfg = load_config(live=False, dotenv_path=env)
+    assert (cfg.primary, cfg.max_tokens, cfg.reasoning, cfg.provider) == ("p/1", 2200, "low", ("Google",))
+    assert (cfg.escalation_max_tokens, cfg.escalation_reasoning) == (900, "high")   # same keys as the live run
+    monkeypatch.setenv("LLM_MAX_TOKENS", "300")                                      # an explicit env value still wins
+    assert load_config(live=False, dotenv_path=env).max_tokens == 300

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -48,10 +49,12 @@ def get_store(rebuild: bool = False, verbose: bool = False) -> pd.DataFrame:
 
 # ------------------------------------------------------------------ has_field
 
-# kind -> (sections that hold it, regex over the record's field name / attrs keys).
+# kind -> (sections that hold it, regex over the record's field name / attrs keys[, regex over its VALUES]).
 # Kinds whose sections are () are looked for by field name only: these are things the
 # WITSML drillReport profile used here has no element for (cost, personnel, ...).
-KINDS: dict[str, tuple[tuple[str, ...], str | None]] = {
+# The optional third item also searches the values of records in `sections`, for things that can only be
+# recognised by what a company/tool field says (mud logging). A wireline run does not match it.
+KINDS: dict[str, tuple] = {
     "activity": (("activity",), None),
     "fluid": (("fluid",), None),
     "survey": (("survey",), None),
@@ -73,6 +76,11 @@ KINDS: dict[str, tuple[tuple[str, ...], str | None]] = {
     "personnel": ((), r"\bpob\b|personnel|crew|headcount|persons"),
     "supervisor": ((), r"supervisor|superintendent|toolpusher|\boim\b"),
     "weather": ((), r"weather|\bwind|wave|sea.?state|swell|visibility|baro"),
+    # A mud-logging service/engineer/unit. Gas readings alone do not count (the archive never says who
+    # recorded them), and logInfo entries such as a wireline run by Western Atlas do not match: neither the
+    # field names nor the values (tool string, company) mention mud logging.
+    "mud_logging": (("gas", "log"), r"mud.?log|mudlog|gas.?(company|engineer)|logging.?engineer",
+                    r"mud.?log|mudlog|geoservices|datalog|sperry.?sun mud"),
 }
 
 
@@ -93,7 +101,8 @@ def has_field(
     """
     if kind not in KINDS:
         raise ValueError(f"Unknown kind {kind!r}; known: {sorted(KINDS)}")
-    sections, pattern = KINDS[kind]
+    sections, pattern, *rest = KINDS[kind]
+    value_pattern = rest[0] if rest else None
     df = records
     if well:
         df = df[df["well"] == well]
@@ -108,6 +117,14 @@ def has_field(
         df = df[df["section"].isin(sections)]
     if df["field"].map(lambda f: bool(rx.search(f))).any():
         return True
+    if value_pattern:
+        vx = re.compile(value_pattern, re.IGNORECASE)
+        for _, r in df.iterrows():
+            texts = [r["value"]] if isinstance(r["value"], str) else []
+            if isinstance(r["attrs"], str):
+                texts += [str(e.get("value")) for e in json.loads(r["attrs"]).values() if e.get("value") is not None]
+            if any(vx.search(t) for t in texts):
+                return True
     # row records keep their other fields in attrs; check those keys too
     for a in df["attrs"].dropna():
         if any(rx.search(k) for k in _attr_keys(a)):
@@ -116,8 +133,6 @@ def has_field(
 
 
 def _attr_keys(attrs_json: str) -> list[str]:
-    import json
-
     return list(json.loads(attrs_json))
 
 

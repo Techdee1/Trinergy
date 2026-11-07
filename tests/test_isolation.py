@@ -52,3 +52,39 @@ def test_all_32_questions_are_in_the_cache(located):
         if cache.get(key) is None:
             missing.append(q.question_id)
     assert not missing, f"not in cache: {missing}"
+
+
+# ---- the committed cache must be committable and offline misses must be loud ------------------------------
+
+
+def test_llm_cache_is_not_gitignored():
+    import shutil
+    import subprocess
+
+    if shutil.which("git") is None:
+        pytest.skip("git not available")
+    rel = "submission/indexes/llm_cache.json"
+    r = subprocess.run(["git", "check-ignore", "-q", rel], cwd=config.REPO_ROOT)
+    assert r.returncode == 1, f"{rel} is gitignored (check-ignore exit {r.returncode}); reviewers need it committed"
+    # the other committed artefacts too; derived/raw-data files stay ignored
+    for ok in ("submission/indexes/answers.json", "submission/indexes/cost_summary.csv", "submission/predictions.csv"):
+        assert subprocess.run(["git", "check-ignore", "-q", ok], cwd=config.REPO_ROOT).returncode == 1, ok
+    for ignored in ("submission/indexes/records.parquet", "logs/cost_ledger.csv", ".env"):
+        assert subprocess.run(["git", "check-ignore", "-q", ignored], cwd=config.REPO_ROOT).returncode == 0, ignored
+
+
+@needs_data
+def test_offline_cache_miss_surfaces_as_cachemiss_not_a_silent_abstain(tmp_path, located):
+    from submission.archive_qa import answer as A
+    from submission.archive_qa.llm import LLM, CacheMiss, LLMConfig
+
+    reports = discover_reports(config.XML_DIR)
+    llm = LLM(LLMConfig(primary="m1", escalation="m2", live=False), None, Cache(tmp_path / "empty.json"), tmp_path / "l.csv")
+    q = "What was the density of the NaCl brine sampled from the active pit on well 15/9-F-1-C on 2014-03-26?"
+    with pytest.raises(CacheMiss) as e:
+        A.answer_question("T2-016", q, located, reports, llm, dump=False)
+    msg = str(e.value)
+    assert "T2-016" in msg and "Offline mode" in msg and "llm_cache.json" in msg and "LIVE = True" in msg
+    # early abstains never need the cache, so they still work offline
+    q2 = "What did the report for well 15/9-F-14 on 2013-06-10 say?"
+    assert A.answer_question("T2-027", q2, located, reports, llm, dump=False).early_abstain

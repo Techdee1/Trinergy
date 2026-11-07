@@ -34,7 +34,7 @@ def absent_evidence(rid: str, meta: dict) -> str:
     files = [f + ".xml" for f in meta["files"]]
     shown = ", ".join(files[:3]) + (f" (+{len(files) - 3} more)" if len(files) > 3 else "")
     return (f"{rid}: searched {meta['reports']} report(s), {meta['records']} record(s) [{shown}]; "
-            f"no {meta['kind']} field exists")
+            f"no {meta['kind'].replace('_', ' ')} field exists")
 
 
 def build_evidence(ans: Answer, records: pd.DataFrame) -> str:
@@ -100,7 +100,7 @@ def save_answers_json(answers: list[Answer], records: pd.DataFrame, path: Path |
         out.append({
             "question_id": a.question_id, "status": a.status, "answer": a.answer, "cited_ids": a.cited_ids,
             "confidence": a.confidence, "mode": a.mode, "candidates": a.candidates, "verified": a.verified,
-            "failures": a.failures, "early_abstain": a.early_abstain, "rationale": a.rationale,
+            "failures": a.failures, "early_abstain": a.early_abstain, "rationale": a.rationale, "disagree": a.disagree,
             "evidence": build_evidence(a, records), "notes": answer_notes(a), "absent": a.absent,
         })
     path.parent.mkdir(parents=True, exist_ok=True)

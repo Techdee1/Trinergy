@@ -70,3 +70,18 @@ def test_fallback_is_flagged_to_the_model(reports, located):
     r = route_question(q, reports)
     c = build_context("TX", q, r, located)
     assert c.text.startswith("ROUTING NOTE:") and "FALLBACK D+1" in c.text
+
+
+def test_mud_logging_question_gets_an_absent_record_and_keeps_the_wireline_line_visible(qtext, reports, located):
+    from submission.archive_qa.route import topic_sections
+
+    assert topic_sections("which mud logging service company recorded the gas readings")[0] == "mud_logging"
+    assert "gas" in topic_sections("mud logging service company recorded the gas readings")
+    c = ctx_for("T2-032", qtext, reports, located)
+    assert "ABSENT-mud_logging" in c.ids and c.absent["ABSENT-mud_logging"]["kind"] == "mud_logging"
+    absent = next(l for l in c.text.splitlines() if l.startswith("[ABSENT-mud_logging]"))
+    assert "no mud logging field exists" in absent
+    assert "serviceCompany=Western Atlas" in c.text      # the model sees it, and the ABSENT record says it is not mud logging
+    # an ordinary gas question does not get the pseudo-record
+    q = "What was the highest trip gas reading for well 15/9-19-A on 1997-08-29?"
+    assert "ABSENT-mud_logging" not in build_context("TX", q, route_question(q, reports), located).ids

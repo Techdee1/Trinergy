@@ -109,3 +109,38 @@ def test_located_page_actually_contains_the_value(located):
     row = located[located.record_id == "F1C-20140326-FLUID-01"].iloc[0]
     page = pymupdf.open(config.PDF_DIR / row.pdf_file)[int(row.pdf_page) - 1].get_text()
     assert "NaCl brine" in page and row.pdf_section == "Drilling Fluid"
+
+
+# ---- mud_logging kind ------------------------------------------------------------------------------------
+
+
+def _row(section, field, value=None, attrs=None, missing=False):
+    import json as _j
+    return {"well": "w", "report_date": "2000-01-01", "section": section, "field": field, "value": value,
+            "missing": missing, "attrs": _j.dumps(attrs) if attrs else None, "text": ""}
+
+
+def test_mud_logging_needs_a_mud_logging_record_not_a_wireline_one():
+    wireline = pd.DataFrame([
+        _row("log", "tool", "FMT - MAC - ZDL - HDIL - GR",
+             {"serviceCompany": {"value": "Western Atlas"}, "runNumber": {"value": 5}}),
+        _row("gas", "gasHigh", "4", {"readingType": {"value": "trip gas"}, "meth": {"value": 34000, "unit": "ppm"}}),
+    ])
+    assert not has_field(wireline, "mud_logging")                       # wireline contractor + gas readings: not mud logging
+    assert has_field(wireline, "log") and has_field(wireline, "gas")    # but those sections do exist
+
+    by_value = pd.DataFrame([_row("log", "tool", "Mud logging unit", {"serviceCompany": {"value": "Acme"}})])
+    by_company = pd.DataFrame([_row("log", "tool", "x", {"serviceCompany": {"value": "Geoservices"}})])
+    by_field = pd.DataFrame([_row("gas", "gasHigh", "4", {"mudLoggingEngineer": {"value": "N.N."}})])
+    assert has_field(by_value, "mud_logging") and has_field(by_company, "mud_logging") and has_field(by_field, "mud_logging")
+    # the same words outside log/gas sections (e.g. an activity remark) are narrative, not a field
+    narrative = pd.DataFrame([_row("activity", "comments", "mud logging unit rigged up")])
+    assert not has_field(narrative, "mud_logging")
+
+
+@needs_data
+def test_real_archive_has_no_mud_logging_record_and_western_atlas_does_not_count(located):
+    assert not has_field(located, "mud_logging")
+    sub = located[(located.well == "15/9-19-A") & (located.report_date == "1997-08-29") & (located.section == "log")]
+    assert sub["attrs"].str.contains("Western Atlas").any()                     # the wireline entry exists...
+    assert not has_field(located, "mud_logging", well="15/9-19-A", report_date="1997-08-29")  # ...and is not mud logging
