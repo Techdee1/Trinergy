@@ -1,0 +1,608 @@
+{
+ "id": "ASK-c4dc542b",
+ "set": "adhoc",
+ "question": "What happened?",
+ "status": "abstain",
+ "answer": "I could not tell what to look up: the question names no well, no report date and no field of the daily drilling reports (such as depth, casing, mud, survey, bit, activities or summaries). Name a well and a date, or a field, and ask again. For example: (1) For well 15/9-19-A in the 1980-01-01 report, what was the kick-off depth in mMD? (2) During the October 2016 plug and abandonment campaign, in what order did the rig move between wells while cutting and pulling production risers, from the 15/9-F-15-D report on 2016-10-19 to the 15/9-F-1-C report on 2016-10-22? (3) Who is listed as the operator in the report of 2013-06-28 for well F-11 B?",
+ "rationale": "NEEDS CLARIFICATION: no well or date named: whole archive (32 reports)",
+ "confidence": 0.9,
+ "verified": true,
+ "flags": [
+  "needs_clarification"
+ ],
+ "router_mode": "archive_wide",
+ "source": "none",
+ "evidence": "Nothing was looked up: the question names no well, date or field",
+ "cited_records": [],
+ "clarification": {
+  "message": "I could not tell what to look up: the question names no well, no report date and no field of the daily drilling reports (such as depth, casing, mud, survey, bit, activities or summaries). Name a well and a date, or a field, and ask again.",
+  "examples": [
+   "For well 15/9-19-A in the 1980-01-01 report, what was the kick-off depth in mMD?",
+   "During the October 2016 plug and abandonment campaign, in what order did the rig move between wells while cutting and pulling production risers, from the 15/9-F-15-D report on 2016-10-19 to the 15/9-F-1-C report on 2016-10-22?",
+   "Who is listed as the operator in the report of 2013-06-28 for well F-11 B?"
+  ]
+ },
+ "trace": {
+  "router": {
+   "mode": "archive_wide",
+   "confidence": {
+    "level": "low",
+    "basis": "no well, date or topic in the question could be mapped to the archive"
+   },
+   "reason": "no well or date named: whole archive (32 reports)",
+   "wells_named": [],
+   "dates_named": [],
+   "date_range": null,
+   "topics": [
+    "summary_24h",
+    "activity"
+   ],
+   "early_abstain": false,
+   "wells_considered": [
+    {
+     "well": "15/9-19-A",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-1",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-1-B",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-1-C",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-11-B",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-11-T2",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-12",
+     "in_archive": true,
+     "reports_available": 4
+    },
+    {
+     "well": "15/9-F-15-D",
+     "in_archive": true,
+     "reports_available": 4
+    }
+   ],
+   "reports_selected": [
+    {
+     "report": "15_9_19_A_1980_01_01",
+     "well": "15/9-19-A",
+     "date": "1980-01-01",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_19_A_1997_08_29",
+     "well": "15/9-19-A",
+     "date": "1997-08-29",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_19_A_1997_10_05",
+     "well": "15/9-19-A",
+     "date": "1997-10-05",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_19_A_1997_11_10",
+     "well": "15/9-19-A",
+     "date": "1997-11-10",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_2007_12_02",
+     "well": "15/9-F-1",
+     "date": "2007-12-02",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_2013_07_30",
+     "well": "15/9-F-1",
+     "date": "2013-07-30",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_2013_08_12",
+     "well": "15/9-F-1",
+     "date": "2013-08-12",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_2013_08_24",
+     "well": "15/9-F-1",
+     "date": "2013-08-24",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_B_2013_08_30",
+     "well": "15/9-F-1-B",
+     "date": "2013-08-30",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_B_2013_09_24",
+     "well": "15/9-F-1-B",
+     "date": "2013-09-24",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_B_2014_01_29",
+     "well": "15/9-F-1-B",
+     "date": "2014-01-29",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_B_2014_02_22",
+     "well": "15/9-F-1-B",
+     "date": "2014-02-22",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_C_2014_02_22",
+     "well": "15/9-F-1-C",
+     "date": "2014-02-22",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_C_2014_03_26",
+     "well": "15/9-F-1-C",
+     "date": "2014-03-26",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_C_2014_12_03",
+     "well": "15/9-F-1-C",
+     "date": "2014-12-03",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_1_C_2016_10_22",
+     "well": "15/9-F-1-C",
+     "date": "2016-10-22",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_B_2013_05_29",
+     "well": "15/9-F-11-B",
+     "date": "2013-05-29",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_B_2013_06_28",
+     "well": "15/9-F-11-B",
+     "date": "2013-06-28",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_B_2015_10_28",
+     "well": "15/9-F-11-B",
+     "date": "2015-10-28",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_B_2016_10_22",
+     "well": "15/9-F-11-B",
+     "date": "2016-10-22",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_T2_2013_03_24",
+     "well": "15/9-F-11-T2",
+     "date": "2013-03-24",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_T2_2013_04_10",
+     "well": "15/9-F-11-T2",
+     "date": "2013-04-10",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_T2_2013_04_28",
+     "well": "15/9-F-11-T2",
+     "date": "2013-04-28",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_11_T2_2013_05_15",
+     "well": "15/9-F-11-T2",
+     "date": "2013-05-15",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_12_2007_06_14",
+     "well": "15/9-F-12",
+     "date": "2007-06-14",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_12_2007_08_08",
+     "well": "15/9-F-12",
+     "date": "2007-08-08",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_12_2008_01_15",
+     "well": "15/9-F-12",
+     "date": "2008-01-15",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_12_2016_10_21",
+     "well": "15/9-F-12",
+     "date": "2016-10-21",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_15_D_2013_11_11",
+     "well": "15/9-F-15-D",
+     "date": "2013-11-11",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_15_D_2013_12_14",
+     "well": "15/9-F-15-D",
+     "date": "2013-12-14",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_15_D_2015_08_10",
+     "well": "15/9-F-15-D",
+     "date": "2015-08-10",
+     "reason": "whole archive (no well or date named)"
+    },
+    {
+     "report": "15_9_F_15_D_2016_10_19",
+     "well": "15/9-F-15-D",
+     "date": "2016-10-19",
+     "reason": "whole archive (no well or date named)"
+    }
+   ],
+   "unmatched": [],
+   "gate": "needs_clarification"
+  },
+  "contexts": [],
+  "model_calls": [],
+  "verifier": [],
+  "retries": [],
+  "escalations": [],
+  "second_pass": {
+   "ran": false,
+   "reason": null,
+   "used_for_answer": false,
+   "outcome": null
+  },
+  "arbitration": {
+   "ran": false,
+   "retried": false,
+   "calls": [],
+   "outcome": null
+  },
+  "cited": {
+   "model_cited": null,
+   "final": [],
+   "aggregates_cited": [],
+   "absent_cited": []
+  },
+  "decisions": [
+   "clarification gate: no recognisable well, date or field term and no cached answer; no model call"
+  ],
+  "warnings": [],
+  "totals": {
+   "model_calls": 0,
+   "live_calls": 0,
+   "cache_hits": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "calls_without_token_report": 0,
+   "generation_cost_usd": 0.0,
+   "incurred_cost_usd": 0.0,
+   "model_latency_ms": 0,
+   "wall_ms": 1325
+  },
+  "events": [
+   {
+    "seq": 1,
+    "stage": "route",
+    "t_ms": 1325,
+    "data": {
+     "mode": "archive_wide",
+     "confidence": {
+      "level": "low",
+      "basis": "no well or date named: the whole archive is the candidate set"
+     },
+     "reason": "no well or date named: whole archive (32 reports)",
+     "wells_named": [],
+     "dates_named": [],
+     "date_range": null,
+     "topics": [
+      "summary_24h",
+      "activity"
+     ],
+     "early_abstain": false,
+     "wells_considered": [
+      {
+       "well": "15/9-19-A",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-1",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-1-B",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-1-C",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-11-B",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-11-T2",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-12",
+       "in_archive": true,
+       "reports_available": 4
+      },
+      {
+       "well": "15/9-F-15-D",
+       "in_archive": true,
+       "reports_available": 4
+      }
+     ],
+     "reports_selected": [
+      {
+       "report": "15_9_19_A_1980_01_01",
+       "well": "15/9-19-A",
+       "date": "1980-01-01",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_19_A_1997_08_29",
+       "well": "15/9-19-A",
+       "date": "1997-08-29",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_19_A_1997_10_05",
+       "well": "15/9-19-A",
+       "date": "1997-10-05",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_19_A_1997_11_10",
+       "well": "15/9-19-A",
+       "date": "1997-11-10",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_2007_12_02",
+       "well": "15/9-F-1",
+       "date": "2007-12-02",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_2013_07_30",
+       "well": "15/9-F-1",
+       "date": "2013-07-30",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_2013_08_12",
+       "well": "15/9-F-1",
+       "date": "2013-08-12",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_2013_08_24",
+       "well": "15/9-F-1",
+       "date": "2013-08-24",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_B_2013_08_30",
+       "well": "15/9-F-1-B",
+       "date": "2013-08-30",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_B_2013_09_24",
+       "well": "15/9-F-1-B",
+       "date": "2013-09-24",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_B_2014_01_29",
+       "well": "15/9-F-1-B",
+       "date": "2014-01-29",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_B_2014_02_22",
+       "well": "15/9-F-1-B",
+       "date": "2014-02-22",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_C_2014_02_22",
+       "well": "15/9-F-1-C",
+       "date": "2014-02-22",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_C_2014_03_26",
+       "well": "15/9-F-1-C",
+       "date": "2014-03-26",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_C_2014_12_03",
+       "well": "15/9-F-1-C",
+       "date": "2014-12-03",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_1_C_2016_10_22",
+       "well": "15/9-F-1-C",
+       "date": "2016-10-22",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_B_2013_05_29",
+       "well": "15/9-F-11-B",
+       "date": "2013-05-29",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_B_2013_06_28",
+       "well": "15/9-F-11-B",
+       "date": "2013-06-28",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_B_2015_10_28",
+       "well": "15/9-F-11-B",
+       "date": "2015-10-28",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_B_2016_10_22",
+       "well": "15/9-F-11-B",
+       "date": "2016-10-22",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_T2_2013_03_24",
+       "well": "15/9-F-11-T2",
+       "date": "2013-03-24",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_T2_2013_04_10",
+       "well": "15/9-F-11-T2",
+       "date": "2013-04-10",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_T2_2013_04_28",
+       "well": "15/9-F-11-T2",
+       "date": "2013-04-28",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_11_T2_2013_05_15",
+       "well": "15/9-F-11-T2",
+       "date": "2013-05-15",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_12_2007_06_14",
+       "well": "15/9-F-12",
+       "date": "2007-06-14",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_12_2007_08_08",
+       "well": "15/9-F-12",
+       "date": "2007-08-08",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_12_2008_01_15",
+       "well": "15/9-F-12",
+       "date": "2008-01-15",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_12_2016_10_21",
+       "well": "15/9-F-12",
+       "date": "2016-10-21",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_15_D_2013_11_11",
+       "well": "15/9-F-15-D",
+       "date": "2013-11-11",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_15_D_2013_12_14",
+       "well": "15/9-F-15-D",
+       "date": "2013-12-14",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_15_D_2015_08_10",
+       "well": "15/9-F-15-D",
+       "date": "2015-08-10",
+       "reason": "whole archive (no well or date named)"
+      },
+      {
+       "report": "15_9_F_15_D_2016_10_19",
+       "well": "15/9-F-15-D",
+       "date": "2016-10-19",
+       "reason": "whole archive (no well or date named)"
+      }
+     ],
+     "unmatched": [],
+     "gate": null
+    }
+   },
+   {
+    "seq": 2,
+    "stage": "gate",
+    "t_ms": 1325,
+    "data": {
+     "gate": "needs_clarification",
+     "message": "I could not tell what to look up: the question names no well, no report date and no field of the daily drilling reports (such as depth, casing, mud, survey, bit, activities or summaries). Name a well and a date, or a field, and ask again.",
+     "examples": [
+      "For well 15/9-19-A in the 1980-01-01 report, what was the kick-off depth in mMD?",
+      "During the October 2016 plug and abandonment campaign, in what order did the rig move between wells while cutting and pulling production risers, from the 15/9-F-15-D report on 2016-10-19 to the 15/9-F-1-C report on 2016-10-22?",
+      "Who is listed as the operator in the report of 2013-06-28 for well F-11 B?"
+     ]
+    }
+   },
+   {
+    "seq": 3,
+    "stage": "result",
+    "t_ms": 1325,
+    "data": {
+     "status": "abstain",
+     "confidence": 0.9,
+     "source": "none",
+     "flags": [
+      "needs_clarification"
+     ]
+    }
+   }
+  ]
+ }
+}

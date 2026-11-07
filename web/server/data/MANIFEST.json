@@ -1,0 +1,23 @@
+{
+ "built": "2026-11-07",
+ "attribution": "Data: Equinor Volve dataset",
+ "records": 1783,
+ "reports": 32,
+ "pages": 54,
+ "page_zoom": 2.0,
+ "jpg_quality": 80,
+ "boxes": 1783,
+ "boxes_with_page": 1426,
+ "total_bytes": 7623535,
+ "pages_bytes": 6436447,
+ "sha256": {
+  "boxes.json": "eb59638e8a77aebf6b5334016a0c06e09636904e360e5468537939d1654cdb9e",
+  "catalog.json": "10e0197501791aa0357e468a3b3ec98ade258845de34e529e25a95b460a295a2",
+  "cost_summary.csv": "699f9afd7714bb372f016f3e1334904c46703ced5c0a23f6c69b73c0df92e88c",
+  "generalisation.json": "27f22cd32fc5741249f2dfa7b5baf1aa6ed96ae2792632f0fb3e33e90e852c47",
+  "generalisation_cache.json": "a97298785a6e0e38a045a7f52673388583aa72a4bb989dd74f88faba9f4b0eba",
+  "records.parquet": "2d4f5034be10ff029098861bf600fd936989784f8cd6b11b46dbb644a0fbd469",
+  "reports.json": "00ffd2bbb84275da6a7d90309fefce9b86e88bbfd48a54a7520d094dd1348093",
+  "track_2/metadata/document_manifest.csv": "77e2e7ca25eef2ceaa796354a42de6a082b1d3c48d00a2b03a0cb6416477e37a"
+ }
+}

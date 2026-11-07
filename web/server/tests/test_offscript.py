@@ -16,13 +16,13 @@ from . import conftest as C
 
 LONG = "What was the operator in the report for well F-11 B? " + "Please be extremely thorough and detailed. " * 12
 EARLY = "early"          # must abstain without any model call (the named well/date does not exist)
-UNMAPPED = "unmapped"    # nothing in the question maps to the archive: abstain, never an answer
+UNMAPPED = "unmapped"    # nothing in the question maps to the archive: a clarification, never an answer
 SPELL = "spelling"       # the router must still find the right well
 
 CASES = [
-    ("vague", "Tell me about the drilling.", None),
-    ("vague", "What happened?", None),
-    ("vague", "Is everything fine with the well?", None),
+    ("vague", "Tell me about the drilling.", UNMAPPED),
+    ("vague", "What happened?", UNMAPPED),
+    ("vague", "Is everything fine with the well?", UNMAPPED),
     ("nonexistent well", "What was the measured depth in the report for well F-99 on 2013-08-12?", EARLY),
     ("nonexistent well", "What mud density was used in the 15/9-F-77 report dated 2014-03-26?", EARLY),
     ("nonexistent date", "Who was the operator in the 15/9-F-1-C report dated 2031-01-01?", EARLY),
@@ -73,7 +73,7 @@ def test_twenty_off_script_questions(real_key_env):
                     assert d["status"] == "abstain" and d["trace"]["model_calls"] == [] and "early_abstain" in d["flags"], q
                 if expect == UNMAPPED:
                     assert d["status"] in ("abstain", "not_evaluated") and not real_cited, (q, d["status"])
-                    assert not d["trace"]["model_calls"] or live, q
+                    assert d["trace"]["model_calls"] == [] and "needs_clarification" in d["flags"], q      # no model call, ever
                 if expect == "inject":
                     assert d["status"] != "answered" or ("Statoil" in d["answer"] and "ABSENT-fake" not in json.dumps(d["trace"]["cited"])), d["answer"]
                 if isinstance(expect, tuple):

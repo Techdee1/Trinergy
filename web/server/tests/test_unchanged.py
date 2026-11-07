@@ -26,7 +26,7 @@ def test_predictions_byte_identical_through_the_traced_path(engine, tmp_path):
     import pandas as pd
     qdf = pd.DataFrame({"question_id": [c["id"] for c in questions], "question_text": [c["question"] for c in questions]})
     answers = qa.answer_all(qdf, engine.records, engine.reports, engine.replay_llm, dump=False, strict=True)    # wrappers are installed
-    out = write.write_predictions(answers, engine.records, tmp_path / "predictions.csv")
+    out = write.write_predictions(answers, engine.records, tmp_path / "predictions.csv", order=list(qdf["question_id"]))
     assert out.read_bytes() == config.PREDICTIONS_PATH.read_bytes()
 
 
@@ -64,7 +64,7 @@ def test_live_ask_changes_no_committed_file(fake_engine, fake_client):
     q1 = fake_client.get("/questions/T2-001").json()["question"]
     fake_client.post("/ask", json={"question": q1})                      # a cached question through the same path
     assert C.frozen_hashes() == before, "a committed file changed"
-    assert "missing" not in before.values() and len(before) == 4          # the four frozen files exist and are hashed
+    assert before["llm_cache.json"] != "missing" and before["predictions.csv"] != "missing"       # the tracked frozen files exist
     assert _snapshot() == snap, "a file under submission/ changed"
     assert ((ledger.stat().st_size, ledger.stat().st_mtime_ns) if ledger.exists() else None) == ledger_before   # logs/cost_ledger.csv untouched
     # the live answer went to the RUNTIME cache, in the server's own directory

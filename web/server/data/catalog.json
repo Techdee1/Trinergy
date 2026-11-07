@@ -1,0 +1,294 @@
+{
+ "challenge": [
+  {
+   "id": "T2-001",
+   "question": "For well 15/9-19-A in the 1980-01-01 report, what was the kick-off depth in mMD?"
+  },
+  {
+   "id": "T2-002",
+   "question": "On well 15/9-19-A, what was the estimated pore pressure equivalent mud weight at 3600 mMD in the 1997-08-29 daily report?"
+  },
+  {
+   "id": "T2-003",
+   "question": "What was the deepest survey station inclination recorded on well 15/9-F-11 B in the report for 2013-05-29, and at what depth?"
+  },
+  {
+   "id": "T2-004",
+   "question": "On well 15/9-F-11 B, what was the density of the NaCl brine sampled at the flowline at 18:00 on 2013-06-28?"
+  },
+  {
+   "id": "T2-005",
+   "question": "On well 15/9-F-11-T2 on 2013-03-24, what was the problem observed when attempting to lay down a 5 1/2\" DP joint before the wireline Gyro survey, and over what interval was the string then worked?"
+  },
+  {
+   "id": "T2-006",
+   "question": "What was the fluid density of the Enviromul Yellow sample taken from the reserve pit at 21:00 on well 15/9-F-11-T2 on 2013-04-10?"
+  },
+  {
+   "id": "T2-007",
+   "question": "On well 15/9-F-12 on 2007-06-14, to what depth was the 36\" hole opener BHA run in hole?"
+  },
+  {
+   "id": "T2-008",
+   "question": "What was the fluid density of the HPWBM sampled from the active pit at 22:00 on well 15/9-F-12 on 2007-08-08?"
+  },
+  {
+   "id": "T2-009",
+   "question": "On well 15/9-F-15-D, report dated 2013-11-11, what activity was carried out from 19:00 to 23:45 and to what depth did it reach?"
+  },
+  {
+   "id": "T2-010",
+   "question": "What was the drilling fluid density of the Enviromul Yellow sampled from the active pit at 21:00 on well 15/9-F-15-D on 2013-12-14?"
+  },
+  {
+   "id": "T2-011",
+   "question": "On well 15/9-F-1 on 2007-12-02, at what depth was the seabed tagged with the 36\" holeopener BHA, and what WOB was used?"
+  },
+  {
+   "id": "T2-012",
+   "question": "On well 15/9-F-1 for the report dated 2013-07-30, what is the inside diameter of the 20\" N-80 casing listed in the casing table?"
+  },
+  {
+   "id": "T2-013",
+   "question": "On well 15/9-F-1-B, what was the end depth reached at midnight on 2013-08-30 while drilling the 12 1/4\" hole, and what activity was being performed?"
+  },
+  {
+   "id": "T2-014",
+   "question": "What was the density of the NaCl brine sampled from the active pit on well 15/9-F-1-B on 2013-09-24?"
+  },
+  {
+   "id": "T2-015",
+   "question": "On well 15/9-F-1-C on 2014-02-22, to what depth was the 17 1/2\" BHA pulled during the check trip, and where was this relative to the 20\" shoe?"
+  },
+  {
+   "id": "T2-016",
+   "question": "What was the density of the NaCl brine sampled from the active pit on well 15/9-F-1-C on 2014-03-26?"
+  },
+  {
+   "id": "T2-017",
+   "question": "During the October 2016 plug and abandonment campaign, in what order did the rig move between wells while cutting and pulling production risers, from the 15/9-F-15-D report on 2016-10-19 to the 15/9-F-1-C report on 2016-10-22?"
+  },
+  {
+   "id": "T2-018",
+   "question": "On which report dates in 1997 were operations on well 15/9-19-A suspended by labour disputes, and what was the rig doing during each suspension?"
+  },
+  {
+   "id": "T2-019",
+   "question": "Across the F-11-T2, F-1, F-1-B and F-15-D sidetracks, at what depths was 50% formation in returns confirmed during kick-off?"
+  },
+  {
+   "id": "T2-020",
+   "question": "On which completion days did the crew land the BOP onto the surface riser and make up the NT2 connector, and what BOP pressure tests were done on those days?"
+  },
+  {
+   "id": "T2-021",
+   "question": "What wireline tractor problems were reported on the F-11-B logging run (2015-10-28) and the F-15-D perforation run (2015-08-10)?"
+  },
+  {
+   "id": "T2-022",
+   "question": "On which report days was the drilling line slipped and cut on wells 15/9-19-A and 15/9-F-11-T2?"
+  },
+  {
+   "id": "T2-023",
+   "question": "Which slots was the rig skidded from when it moved to start the 36\" sections on F-12 (2007-06-14) and F-1 (2007-12-02)?"
+  },
+  {
+   "id": "T2-024",
+   "question": "Compare the average ROPs reported while drilling 12 1/4\" hole on F-11-B (2013-05-29) and F-1-B (2013-08-30)."
+  },
+  {
+   "id": "T2-025",
+   "question": "What was the total daily spread cost for well 15/9-F-1-C on 2014-03-26?"
+  },
+  {
+   "id": "T2-026",
+   "question": "Who was the drilling supervisor on duty for well 15/9-F-12 on 2008-01-15?"
+  },
+  {
+   "id": "T2-027",
+   "question": "What did the daily drilling report for well 15/9-F-14 on 2013-06-10 say about operations?"
+  },
+  {
+   "id": "T2-028",
+   "question": "What was the cumulative AFE versus actual well cost for 15/9-F-11-T2 at the end of 2013-05-15?"
+  },
+  {
+   "id": "T2-029",
+   "question": "What weather and sea state were recorded for well 15/9-F-15-D on 2013-12-15?"
+  },
+  {
+   "id": "T2-030",
+   "question": "How many personnel were on board the rig for well 15/9-F-1-B on 2013-09-24?"
+  },
+  {
+   "id": "T2-031",
+   "question": "What was the cost of the replacement parts for the equipment failure logged on well 15/9-F-15-D on 2015-08-10?"
+  },
+  {
+   "id": "T2-032",
+   "question": "Which mud logging service company and individual engineer recorded the gas readings on well 15/9-19-A on 1997-08-29?"
+  }
+ ],
+ "unseen": [
+  {
+   "id": "G-001",
+   "question": "Who is listed as the operator in the report of 2013-06-28 for well F-11 B?"
+  },
+  {
+   "id": "G-002",
+   "question": "Compare the last casing depth in the 24 September 2013 report for F-1B with that in the 2013-08-12 report for F-1: which was deeper, and by how much?"
+  },
+  {
+   "id": "G-003",
+   "question": "What was the water depth for well F-1C in the report dated 6 December 2014?"
+  },
+  {
+   "id": "G-004",
+   "question": "What is the largest inclination among the survey stations in the 1 January 1980 report for well 15/9-19-A?"
+  },
+  {
+   "id": "G-005",
+   "question": "On well F-11B, what measured depth was the last casing set at, as stated in the report for 29 May 2013?"
+  },
+  {
+   "id": "G-006",
+   "question": "What was the kick-off depth recorded for 15/9-19-A in the report dated 1997-10-05?"
+  },
+  {
+   "id": "G-007",
+   "question": "What was the funnel viscosity of the Spud Mud sampled from the reserve pit on F-1, report of 02/12/2007?"
+  },
+  {
+   "id": "G-008",
+   "question": "What was the yield point of the Enviromul Yellow sampled from the active pit on F-11-B, report of 2013-05-29?"
+  },
+  {
+   "id": "G-009",
+   "question": "On what date was well 15/9-19-A spudded, according to the 29 August 1997 report?"
+  },
+  {
+   "id": "G-010",
+   "question": "Was the Kelly elevation higher in the 2016-10-22 report for F-1-C or the 29 August 1997 report for 15/9-19-A? State both values."
+  },
+  {
+   "id": "G-011",
+   "question": "How many lost-time injuries were recorded for well F-1 B on 2013-08-30?"
+  },
+  {
+   "id": "G-012",
+   "question": "What was the barite stock on board for well F-1C on 26 Mar 2014?"
+  },
+  {
+   "id": "G-013",
+   "question": "Which had the higher formation strength, 15/9-F-11-T2 in the report of 28 April 2013 or 15/9-F-12 in the report of August 8th, 2007? Give both values."
+  },
+  {
+   "id": "G-014",
+   "question": "On well F-15-D, what measured depth was the last casing set at, as stated in the report for November 11th, 2013?"
+  },
+  {
+   "id": "G-015",
+   "question": "In the August 8th, 2007 report for well NO 15/9-F-12, what was the Kelly bushing elevation?"
+  },
+  {
+   "id": "G-016",
+   "question": "What was the density of the Enviromul Yellow sampled from the reserve pit on NO 15/9-F-11 B, report of 28 Jun 2013?"
+  },
+  {
+   "id": "G-017",
+   "question": "According to the report of 2015-08-10 for well 15/9-F-15 D, what was the date drilling was completed?"
+  },
+  {
+   "id": "G-018",
+   "question": "How many different wellbores have daily drilling reports in the archive?"
+  },
+  {
+   "id": "G-019",
+   "question": "What equipment class was affected by the equipment failure logged for F-11-T2 in the 15 May 2013 report?"
+  },
+  {
+   "id": "G-020",
+   "question": "What was the density of the Enviromul Yellow sampled from the active pit on F-11 T2, report of 28 Apr 2013?"
+  },
+  {
+   "id": "G-021",
+   "question": "How many helicopter flights were made to the rig for well 15/9-F-1-B on January 29th, 2014?"
+  },
+  {
+   "id": "G-022",
+   "question": "What was the rig day rate for well 15/9-F-1 C in the report dated October 22nd, 2016?"
+  },
+  {
+   "id": "G-023",
+   "question": "Across all reports in the archive, what is the deepest last-casing measured depth, and for which well and date?"
+  },
+  {
+   "id": "G-024",
+   "question": "How much diesel fuel was consumed on well NO 15/9-F-11 B in the report of 28 Oct 2015?"
+  },
+  {
+   "id": "G-025",
+   "question": "What was the water depth for well F-15-D in the report dated 2015-08-10?"
+  },
+  {
+   "id": "G-026",
+   "question": "What was the report number of the 11 November 2013 daily drilling report for 15/9-F-15-D?"
+  },
+  {
+   "id": "G-027",
+   "question": "In how many reports of the archive is a leak-off test given as the formation pressure test type?"
+  },
+  {
+   "id": "G-028",
+   "question": "What was the report number of the 10/04/2013 daily drilling report for F-11-T2?"
+  },
+  {
+   "id": "G-029",
+   "question": "How many daily drilling reports does the archive hold for well NO 15/9-F-15 D?"
+  },
+  {
+   "id": "G-030",
+   "question": "What kind of formation pressure test was reported for 15/9-F-11 B on 28/06/2013?"
+  },
+  {
+   "id": "G-031",
+   "question": "On what date was well 15/9-F-1 spudded, according to the 30/07/2013 report?"
+  },
+  {
+   "id": "G-032",
+   "question": "What was the highest gas reading (in %) for well F-15-D in the report for 2013-11-11?"
+  },
+  {
+   "id": "G-033",
+   "question": "Which drilling contractor is named in the daily report for NO 15/9-F-15 D on 2013-11-11?"
+  },
+  {
+   "id": "G-034",
+   "question": "Which was in deeper water: well 15/9-F-1-B (report 24 September 2013) or well 15/9-19 A (report November 10th, 1997)? Give both water depths."
+  },
+  {
+   "id": "G-035",
+   "question": "What was the plastic viscosity of the Enviromul Yellow sampled from the active pit on 15/9-F-11 T2, report of 15/05/2013?"
+  },
+  {
+   "id": "G-036",
+   "question": "What was the water depth for well F-1C in the report dated 2016-10-22?"
+  },
+  {
+   "id": "G-037",
+   "question": "What was the total mud pit volume for well 15/9-F-1-B in the 22/02/2014 report?"
+  },
+  {
+   "id": "G-038",
+   "question": "In the report for F-11-B dated 28/10/2015, what formation strength (leak-off or test density) was recorded?"
+  },
+  {
+   "id": "G-039",
+   "question": "What is the smallest water depth recorded anywhere in the archive, and how many reports state that depth?"
+  },
+  {
+   "id": "G-040",
+   "question": "Which manufacturer made the bit recorded on NO 15/9-F-1 on 24/08/2013?"
+  }
+ ]
+}

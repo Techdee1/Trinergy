@@ -1,0 +1,1003 @@
+{
+ "available": true,
+ "message": null,
+ "summary": {
+  "questions": 40,
+  "mean_score": 1.0,
+  "baseline_mean_score": 0.775,
+  "by_category": {
+   "absent": {
+    "n": 7,
+    "mean_score": 1.0
+   },
+   "archive": {
+    "n": 5,
+    "mean_score": 1.0
+   },
+   "compare": {
+    "n": 4,
+    "mean_score": 1.0
+   },
+   "single": {
+    "n": 24,
+    "mean_score": 1.0
+   }
+  },
+  "status_counts": {
+   "answered": 33,
+   "abstain": 7
+  },
+  "cost_usd": 0.060687,
+  "scoring": "1 = the answer contains every expected item and cites every expected report (or abstains when an absence was expected); expected values are computed independently from the XML (see score.py)"
+ },
+ "questions": [
+  {
+   "id": "G-001",
+   "question": "Who is listed as the operator in the report of 2013-06-28 for well F-11 B?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "txt:statoil"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_06_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000552,
+   "answer": "Statoil",
+   "evidence": "15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-WELL-OPERATOR",
+   "detail_url": "/questions/G-001"
+  },
+  {
+   "id": "G-002",
+   "question": "Compare the last casing depth in the 24 September 2013 report for F-1B with that in the 2013-08-12 report for F-1: which was deeper, and by how much?",
+   "category": "compare",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:3463.3",
+     "num:2595.4",
+     "well:f-1-b",
+     "num:867.9"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_B_2013_09_24",
+    "15_9_F_1_2013_08_12"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "multi_report",
+   "confidence": 0.8,
+   "verified": true,
+   "cost_usd": 0.002144,
+   "answer": "The F-1B report of 2013-09-24 has the deeper last casing depth: mdCsgLast 3463.3 m versus 2595.4 m in the F-1 report of 2013-08-12, a difference of 867.9 m (MD).",
+   "evidence": "15_9_F_1_2013_08_12.pdf p.1 (Summary report); 15_9_F_1_2013_08_12.xml F1-20130812-STATUS-MDCSGLAST; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-MDCSGLAST",
+   "detail_url": "/questions/G-002"
+  },
+  {
+   "id": "G-003",
+   "question": "What was the water depth for well F-1C in the report dated 6 December 2014?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "no such report"
+   },
+   "expected_reports": [],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.9,
+   "verified": true,
+   "cost_usd": 0.0,
+   "answer": "Not answerable from the archive. The archive has no daily drilling report for 15/9-F-1-C dated 2014-12-06 (nor 2014-12-07); the nearest report for that well is dated 2014-12-03 (3 day(s) away). The archive contains 32 daily drilling reports for 8 wellbores (15/9-19-A, 15/9-F-1, 15/9-F-1-B, 15/9-F-1-C, 15/9-F-11-B, 15/9-F-11-T2, 15/9-F-12, 15/9-F-15-D), so there is no report on which to base an answer.",
+   "evidence": "Checked document_manifest.csv: 32 daily reports, 8 wellbores; reports for 15/9-F-1-C: 2014-02-22, 2014-03-26, 2014-12-03, 2016-10-22",
+   "detail_url": "/questions/G-003"
+  },
+  {
+   "id": "G-004",
+   "question": "What is the largest inclination among the survey stations in the 1 January 1980 report for well 15/9-19-A?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:59.98"
+    ]
+   },
+   "expected_reports": [
+    "15_9_19_A_1980_01_01"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.8,
+   "verified": true,
+   "cost_usd": 0.00035800000000000003,
+   "answer": "59.98 dega",
+   "evidence": "15_9_19_A_1980_01_01.pdf p.1 (Survey Station); 15_9_19_A_1980_01_01.xml 19A-19800101-SURVEY-01; 15_9_19_A_1980_01_01.xml 19A-19800101-SURVEY-02",
+   "detail_url": "/questions/G-004"
+  },
+  {
+   "id": "G-005",
+   "question": "On well F-11B, what measured depth was the last casing set at, as stated in the report for 29 May 2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:2570.7"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_05_29"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000583,
+   "answer": "2570.7 m MD (mdCsgLast)",
+   "evidence": "15_9_F_11_B_2013_05_29.pdf p.1 (Summary report); 15_9_F_11_B_2013_05_29.xml F11B-20130529-STATUS-MDCSGLAST",
+   "detail_url": "/questions/G-005"
+  },
+  {
+   "id": "G-006",
+   "question": "What was the kick-off depth recorded for 15/9-19-A in the report dated 1997-10-05?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:2178"
+    ]
+   },
+   "expected_reports": [
+    "15_9_19_A_1997_10_05"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000758,
+   "answer": "mdKickoff = 2178 m",
+   "evidence": "15_9_19_A_1997_10_05.pdf p.1 (Summary report); 15_9_19_A_1997_10_05.xml 19A-19971005-STATUS-MDKICKOFF",
+   "detail_url": "/questions/G-006"
+  },
+  {
+   "id": "G-007",
+   "question": "What was the funnel viscosity of the Spud Mud sampled from the reserve pit on F-1, report of 02/12/2007?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:123"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_2007_12_02"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000619,
+   "answer": "123 s (funnel viscosity)",
+   "evidence": "15_9_F_1_2007_12_02.pdf p.1 (Drilling Fluid); 15_9_F_1_2007_12_02.xml F1-20071202-FLUID-01",
+   "detail_url": "/questions/G-007"
+  },
+  {
+   "id": "G-008",
+   "question": "What was the yield point of the Enviromul Yellow sampled from the active pit on F-11-B, report of 2013-05-29?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:13"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_05_29"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000416,
+   "answer": "13 Pa",
+   "evidence": "15_9_F_11_B_2013_05_29.pdf p.1 (Drilling Fluid); 15_9_F_11_B_2013_05_29.xml F11B-20130529-FLUID-02",
+   "detail_url": "/questions/G-008"
+  },
+  {
+   "id": "G-009",
+   "question": "On what date was well 15/9-19-A spudded, according to the 29 August 1997 report?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "date:1997-07-25"
+    ]
+   },
+   "expected_reports": [
+    "15_9_19_A_1997_08_29"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.007237,
+   "answer": "Well 15/9-19-A was spudded on 25 July 1997 (dTimSpud=1997-07-25T00:00:00).",
+   "evidence": "15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-WELL-DTIMSPUD",
+   "detail_url": "/questions/G-009"
+  },
+  {
+   "id": "G-010",
+   "question": "Was the Kelly elevation higher in the 2016-10-22 report for F-1-C or the 29 August 1997 report for 15/9-19-A? State both values.",
+   "category": "compare",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:54.9",
+     "num:25",
+     "well:f-1-c"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_C_2016_10_22",
+    "15_9_19_A_1997_08_29"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "multi_report",
+   "confidence": 0.8,
+   "verified": true,
+   "cost_usd": 0.001673,
+   "answer": "The Kelly elevation was higher in the 2016-10-22 report for 15/9-F-1-C (54.9 m) than in the 1997-08-29 report for 15/9-19-A (25 m).",
+   "evidence": "15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-STATUS-ELEVKELLY; 15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-ELEVKELLY",
+   "detail_url": "/questions/G-010"
+  },
+  {
+   "id": "G-011",
+   "question": "How many lost-time injuries were recorded for well F-1 B on 2013-08-30?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "injur"
+   },
+   "expected_reports": [
+    "15_9_F_1_B_2013_08_30"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.75,
+   "verified": true,
+   "cost_usd": 0.000455,
+   "answer": "Not answerable from the archive. The evidence lines contain no information about injuries or lost-time incidents for well 15/9-F-1-B.",
+   "evidence": "15_9_F_1_B_2013_08_30.pdf: all sections checked, no matching record",
+   "detail_url": "/questions/G-011"
+  },
+  {
+   "id": "G-012",
+   "question": "What was the barite stock on board for well F-1C on 26 Mar 2014?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "barite"
+   },
+   "expected_reports": [
+    "15_9_F_1_C_2014_03_26"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.85,
+   "verified": true,
+   "cost_usd": 0.000464,
+   "answer": "Not answerable from the archive. No barite, stock, board field exists (searched 1 report(s), 45 record(s)). The evidence contains no barite stock or stock-on-board field; the search for barite, stock, and board found none in the records.",
+   "evidence": "15_9_F_1_C_2014_03_26.pdf: all sections checked, no barite, stock, board field",
+   "detail_url": "/questions/G-012"
+  },
+  {
+   "id": "G-013",
+   "question": "Which had the higher formation strength, 15/9-F-11-T2 in the report of 28 April 2013 or 15/9-F-12 in the report of August 8th, 2007? Give both values.",
+   "category": "compare",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1.65",
+     "num:1.7",
+     "well:f-12"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_T2_2013_04_28",
+    "15_9_F_12_2007_08_08"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "multi_report",
+   "confidence": 0.7,
+   "verified": true,
+   "cost_usd": 0.0012239999999999998,
+   "answer": "15/9-F-12 (report of 2007-08-08) had the higher formation strength at 1.7 g/cm3; 15/9-F-11-T2 (report of 2013-04-28) was 1.65 g/cm3.",
+   "evidence": "15_9_F_11_T2_2013_04_28.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-STATUS-STRENGTHFORM; 15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-STRENGTHFORM",
+   "detail_url": "/questions/G-013"
+  },
+  {
+   "id": "G-014",
+   "question": "On well F-15-D, what measured depth was the last casing set at, as stated in the report for November 11th, 2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1368.4"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2013_11_11"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000562,
+   "answer": "mdCsgLast = 1368.4 m (measured depth of the last casing shoe)",
+   "evidence": "15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-MDCSGLAST",
+   "detail_url": "/questions/G-014"
+  },
+  {
+   "id": "G-015",
+   "question": "In the August 8th, 2007 report for well NO 15/9-F-12, what was the Kelly bushing elevation?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:54.9"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_12_2007_08_08"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000498,
+   "answer": "54.9 m",
+   "evidence": "15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-ELEVKELLY",
+   "detail_url": "/questions/G-015"
+  },
+  {
+   "id": "G-016",
+   "question": "What was the density of the Enviromul Yellow sampled from the reserve pit on NO 15/9-F-11 B, report of 28 Jun 2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1.32"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_06_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.0005345,
+   "answer": "1.32 g/cm3",
+   "evidence": "15_9_F_11_B_2013_06_28.pdf p.1 (Drilling Fluid); 15_9_F_11_B_2013_06_28.xml F11B-20130628-FLUID-02",
+   "detail_url": "/questions/G-016"
+  },
+  {
+   "id": "G-017",
+   "question": "According to the report of 2015-08-10 for well 15/9-F-15 D, what was the date drilling was completed?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "date:2013-12-02"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2015_08_10"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.0005454,
+   "answer": "2013-12-02",
+   "evidence": "15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-WELL-DATEDRILLCOMPLETE",
+   "detail_url": "/questions/G-017"
+  },
+  {
+   "id": "G-018",
+   "question": "How many different wellbores have daily drilling reports in the archive?",
+   "category": "archive",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:8"
+    ]
+   },
+   "expected_reports": [],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "archive_wide",
+   "confidence": 0.65,
+   "verified": true,
+   "cost_usd": 0.004768,
+   "answer": "8 wellbores",
+   "evidence": "15_9_19_A_1980_01_01.pdf p.1 (Summary report); 15_9_19_A_1980_01_01.xml 19A-19800101-STATUS-REPORTNO; 15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-STATUS-REPORTNO; 15_9_19_A_1997_10_05.pdf p.1 (Summary report); 15_9_19_A_1997_10_05.xml 19A-19971005-STATUS-REPORTNO; 15_9_19_A_1997_11_10.pdf p.1 (Summary report); 15_9_19_A_1997_11_10.xml 19A-19971110-STATUS-REPORTNO; 15_9_F_1_2007_12_02.pdf p.1 (Summary report); 15_9_F_1_2007_12_02.xml F1-20071202-STATUS-REPORTNO; 15_9_F_1_2013_07_30.pdf p.1 (Summary report); 15_9_F_1_2013_07_30.xml F1-20130730-STATUS-REPORTNO; 15_9_F_1_2013_08_12.pdf p.1 (Summary report); 15_9_F_1_2013_08_12.xml F1-20130812-STATUS-REPORTNO; 15_9_F_1_2013_08_24.pdf p.1 (Summary report); 15_9_F_1_2013_08_24.xml F1-20130824-STATUS-REPORTNO; 15_9_F_1_B_2013_08_30.pdf p.1 (Summary report); 15_9_F_1_B_2013_08_30.xml F1B-20130830-STATUS-REPORTNO; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-REPORTNO; 15_9_F_1_B_2014_01_29.pdf p.1 (Summary report); 15_9_F_1_B_2014_01_29.xml F1B-20140129-STATUS-REPORTNO; 15_9_F_1_B_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_B_2014_02_22.xml F1B-20140222-STATUS-REPORTNO; 15_9_F_1_C_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_C_2014_02_22.xml F1C-20140222-STATUS-REPORTNO; 15_9_F_1_C_2014_03_26.pdf p.1 (Summary report); 15_9_F_1_C_2014_03_26.xml F1C-20140326-STATUS-REPORTNO; 15_9_F_1_C_2014_12_03.pdf p.1 (Summary report); 15_9_F_1_C_2014_12_03.xml F1C-20141203-STATUS-REPORTNO; 15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-REPORTNO; 15_9_F_11_B_2013_05_29.pdf p.1 (Summary report); 15_9_F_11_B_2013_05_29.xml F11B-20130529-STATUS-REPORTNO; 15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-REPORTNO; 15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-REPORTNO; 15_9_F_11_B_2016_10_22.pdf p.1 (Summary report); 15_9_F_11_B_2016_10_22.xml F11B-20161022-STATUS-REPORTNO; 15_9_F_11_T2_2013_03_24.pdf p.1 (Summary report); 15_9_F_11_T2_2013_03_24.xml F11T2-20130324-STATUS-REPORTNO; 15_9_F_11_T2_2013_04_10.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_10.xml F11T2-20130410-STATUS-REPORTNO; 15_9_F_11_T2_2013_04_28.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-STATUS-REPORTNO; 15_9_F_11_T2_2013_05_15.pdf p.1 (Summary report); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-STATUS-REPORTNO; 15_9_F_12_2007_06_14.pdf p.1 (Summary report); 15_9_F_12_2007_06_14.xml F12-20070614-STATUS-REPORTNO; 15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-REPORTNO; 15_9_F_12_2008_01_15.pdf p.1 (Summary report); 15_9_F_12_2008_01_15.xml F12-20080115-STATUS-REPORTNO; 15_9_F_12_2016_10_21.pdf p.1 (Summary report); 15_9_F_12_2016_10_21.xml F12-20161021-STATUS-REPORTNO; 15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-REPORTNO; 15_9_F_15_D_2013_12_14.pdf p.1 (Summary report); 15_9_F_15_D_2013_12_14.xml F15D-20131214-STATUS-REPORTNO; 15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-STATUS-REPORTNO; 15_9_F_15_D_2016_10_19.pdf p.1 (Summary report); 15_9_F_15_D_2016_10_19.xml F15D-20161019-STATUS-REPORTNO",
+   "detail_url": "/questions/G-018"
+  },
+  {
+   "id": "G-019",
+   "question": "What equipment class was affected by the equipment failure logged for F-11-T2 in the 15 May 2013 report?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "txt:miscellaneous equ syst"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_T2_2013_05_15"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000542,
+   "answer": "miscellaneous equ syst -- other (miscellaneous equipment system)",
+   "evidence": "15_9_F_11_T2_2013_05_15.pdf p.1 (Equipment Failure Information); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-FAIL-01",
+   "detail_url": "/questions/G-019"
+  },
+  {
+   "id": "G-020",
+   "question": "What was the density of the Enviromul Yellow sampled from the active pit on F-11 T2, report of 28 Apr 2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1.28"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_T2_2013_04_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000315,
+   "answer": "1.28 g/cm3",
+   "evidence": "15_9_F_11_T2_2013_04_28.pdf p.1 (Drilling Fluid); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-FLUID-01",
+   "detail_url": "/questions/G-020"
+  },
+  {
+   "id": "G-021",
+   "question": "How many helicopter flights were made to the rig for well 15/9-F-1-B on January 29th, 2014?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "helicopter"
+   },
+   "expected_reports": [
+    "15_9_F_1_B_2014_01_29"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.85,
+   "verified": true,
+   "cost_usd": 0.000561,
+   "answer": "Not answerable from the archive. No helicopter, flight field exists (searched 1 report(s), 61 record(s)). The evidence contains no field or record about helicopter flights; the search for helicopter/flight terms found none.",
+   "evidence": "15_9_F_1_B_2014_01_29.pdf: all sections checked, no helicopter, flight field",
+   "detail_url": "/questions/G-021"
+  },
+  {
+   "id": "G-022",
+   "question": "What was the rig day rate for well 15/9-F-1 C in the report dated October 22nd, 2016?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "day rate"
+   },
+   "expected_reports": [
+    "15_9_F_1_C_2016_10_22"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.75,
+   "verified": true,
+   "cost_usd": 0.000509,
+   "answer": "Not answerable from the archive. The evidence lines contain no day rate or cost information for the rig.",
+   "evidence": "15_9_F_1_C_2016_10_22.pdf: all sections checked, no matching record",
+   "detail_url": "/questions/G-022"
+  },
+  {
+   "id": "G-023",
+   "question": "Across all reports in the archive, what is the deepest last-casing measured depth, and for which well and date?",
+   "category": "archive",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:4768.7",
+     "date:2013-06-28"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_06_28"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "archive_wide",
+   "confidence": 0.65,
+   "verified": true,
+   "cost_usd": 0.005605000000000001,
+   "answer": "The deepest last-casing measured depth is 4768.7 m MD, recorded for well 15/9-F-11-B on report dates 2013-06-28, 2015-10-28, and 2016-10-22.",
+   "evidence": "15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-MDCSGLAST; 15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-MDCSGLAST; 15_9_F_11_B_2016_10_22.pdf p.1 (Summary report); 15_9_F_11_B_2016_10_22.xml F11B-20161022-STATUS-MDCSGLAST; 15_9_F_11_T2_2013_03_24.pdf p.1 (Summary report); 15_9_F_11_T2_2013_03_24.xml F11T2-20130324-STATUS-MDCSGLAST",
+   "detail_url": "/questions/G-023"
+  },
+  {
+   "id": "G-024",
+   "question": "How much diesel fuel was consumed on well NO 15/9-F-11 B in the report of 28 Oct 2015?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "diesel"
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2015_10_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.85,
+   "verified": true,
+   "cost_usd": 0.00046100000000000004,
+   "answer": "Not answerable from the archive. No diesel, fuel, consumed field exists (searched 1 report(s), 56 record(s)). The evidence contains no diesel or fuel consumption field; the only search over the report's records found no mention of diesel, fuel, or consumed.",
+   "evidence": "15_9_F_11_B_2015_10_28.pdf: all sections checked, no diesel, fuel, consumed field",
+   "detail_url": "/questions/G-024"
+  },
+  {
+   "id": "G-025",
+   "question": "What was the water depth for well F-15-D in the report dated 2015-08-10?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:91"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2015_08_10"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000526,
+   "answer": "91 m",
+   "evidence": "15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-STATUS-WATERDEPTH",
+   "detail_url": "/questions/G-025"
+  },
+  {
+   "id": "G-026",
+   "question": "What was the report number of the 11 November 2013 daily drilling report for 15/9-F-15-D?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2013_11_11"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.0005250000000000001,
+   "answer": "1",
+   "evidence": "15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-REPORTNO",
+   "detail_url": "/questions/G-026"
+  },
+  {
+   "id": "G-027",
+   "question": "In how many reports of the archive is a leak-off test given as the formation pressure test type?",
+   "category": "archive",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:6"
+    ]
+   },
+   "expected_reports": [
+    "15_9_19_A_1997_08_29",
+    "15_9_F_11_B_2016_10_22",
+    "15_9_F_12_2007_08_08",
+    "15_9_F_12_2016_10_21",
+    "15_9_F_15_D_2016_10_19",
+    "15_9_F_1_C_2016_10_22"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "archive_wide",
+   "confidence": 0.65,
+   "verified": true,
+   "cost_usd": 0.004785,
+   "answer": "6 reports (leak off test) out of 23 routed reports",
+   "evidence": "15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-STATUS-PRESTESTTYPE; 15_9_F_1_2013_08_12.pdf p.1 (Summary report); 15_9_F_1_2013_08_12.xml F1-20130812-STATUS-PRESTESTTYPE; 15_9_F_1_2013_08_24.pdf p.1 (Summary report); 15_9_F_1_2013_08_24.xml F1-20130824-STATUS-PRESTESTTYPE; 15_9_F_1_B_2013_08_30.pdf p.1 (Summary report); 15_9_F_1_B_2013_08_30.xml F1B-20130830-STATUS-PRESTESTTYPE; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-PRESTESTTYPE; 15_9_F_1_B_2014_01_29.pdf p.1 (Summary report); 15_9_F_1_B_2014_01_29.xml F1B-20140129-STATUS-PRESTESTTYPE; 15_9_F_1_B_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_B_2014_02_22.xml F1B-20140222-STATUS-PRESTESTTYPE; 15_9_F_1_C_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_C_2014_02_22.xml F1C-20140222-STATUS-PRESTESTTYPE; 15_9_F_1_C_2014_03_26.pdf p.1 (Summary report); 15_9_F_1_C_2014_03_26.xml F1C-20140326-STATUS-PRESTESTTYPE; 15_9_F_1_C_2014_12_03.pdf p.1 (Summary report); 15_9_F_1_C_2014_12_03.xml F1C-20141203-STATUS-PRESTESTTYPE; 15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-PRESTESTTYPE; 15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-PRESTESTTYPE; 15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-PRESTESTTYPE; 15_9_F_11_B_2016_10_22.pdf p.1 (Summary report); 15_9_F_11_B_2016_10_22.xml F11B-20161022-STATUS-PRESTESTTYPE; 15_9_F_11_T2_2013_04_28.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-STATUS-PRESTESTTYPE; 15_9_F_11_T2_2013_05_15.pdf p.1 (Summary report); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-STATUS-PRESTESTTYPE; 15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-PRESTESTTYPE; 15_9_F_12_2008_01_15.pdf p.1 (Summary report); 15_9_F_12_2008_01_15.xml F12-20080115-STATUS-PRESTESTTYPE; 15_9_F_12_2016_10_21.pdf p.1 (Summary report); 15_9_F_12_2016_10_21.xml F12-20161021-STATUS-PRESTESTTYPE; 15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-PRESTESTTYPE; 15_9_F_15_D_2013_12_14.pdf p.1 (Summary report); 15_9_F_15_D_2013_12_14.xml F15D-20131214-STATUS-PRESTESTTYPE; 15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-STATUS-PRESTESTTYPE; 15_9_F_15_D_2016_10_19.pdf p.1 (Summary report); 15_9_F_15_D_2016_10_19.xml F15D-20161019-STATUS-PRESTESTTYPE",
+   "detail_url": "/questions/G-027"
+  },
+  {
+   "id": "G-028",
+   "question": "What was the report number of the 10/04/2013 daily drilling report for F-11-T2?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:35"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_T2_2013_04_10"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.0005690000000000001,
+   "answer": "35",
+   "evidence": "15_9_F_11_T2_2013_04_10.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_10.xml F11T2-20130410-STATUS-REPORTNO",
+   "detail_url": "/questions/G-028"
+  },
+  {
+   "id": "G-029",
+   "question": "How many daily drilling reports does the archive hold for well NO 15/9-F-15 D?",
+   "category": "archive",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:4"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2013_11_11",
+    "15_9_F_15_D_2013_12_14",
+    "15_9_F_15_D_2015_08_10",
+    "15_9_F_15_D_2016_10_19"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "multi_report",
+   "confidence": 0.7,
+   "verified": true,
+   "cost_usd": 0.002409,
+   "answer": "4 daily reports (report dates 2013-11-11, 2013-12-14, 2015-08-10, 2016-10-19)",
+   "evidence": "15_9_19_A_1980_01_01.pdf p.1 (Summary report); 15_9_19_A_1980_01_01.xml 19A-19800101-STATUS-REPORTNO; 15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-STATUS-REPORTNO; 15_9_19_A_1997_10_05.pdf p.1 (Summary report); 15_9_19_A_1997_10_05.xml 19A-19971005-STATUS-REPORTNO; 15_9_19_A_1997_11_10.pdf p.1 (Summary report); 15_9_19_A_1997_11_10.xml 19A-19971110-STATUS-REPORTNO; 15_9_F_1_2007_12_02.pdf p.1 (Summary report); 15_9_F_1_2007_12_02.xml F1-20071202-STATUS-REPORTNO; 15_9_F_1_2013_07_30.pdf p.1 (Summary report); 15_9_F_1_2013_07_30.xml F1-20130730-STATUS-REPORTNO; 15_9_F_1_2013_08_12.pdf p.1 (Summary report); 15_9_F_1_2013_08_12.xml F1-20130812-STATUS-REPORTNO; 15_9_F_1_2013_08_24.pdf p.1 (Summary report); 15_9_F_1_2013_08_24.xml F1-20130824-STATUS-REPORTNO; 15_9_F_1_B_2013_08_30.pdf p.1 (Summary report); 15_9_F_1_B_2013_08_30.xml F1B-20130830-STATUS-REPORTNO; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-REPORTNO; 15_9_F_1_B_2014_01_29.pdf p.1 (Summary report); 15_9_F_1_B_2014_01_29.xml F1B-20140129-STATUS-REPORTNO; 15_9_F_1_B_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_B_2014_02_22.xml F1B-20140222-STATUS-REPORTNO; 15_9_F_1_C_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_C_2014_02_22.xml F1C-20140222-STATUS-REPORTNO; 15_9_F_1_C_2014_03_26.pdf p.1 (Summary report); 15_9_F_1_C_2014_03_26.xml F1C-20140326-STATUS-REPORTNO; 15_9_F_1_C_2014_12_03.pdf p.1 (Summary report); 15_9_F_1_C_2014_12_03.xml F1C-20141203-STATUS-REPORTNO; 15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-REPORTNO; 15_9_F_11_B_2013_05_29.pdf p.1 (Summary report); 15_9_F_11_B_2013_05_29.xml F11B-20130529-STATUS-REPORTNO; 15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-REPORTNO; 15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-REPORTNO; 15_9_F_11_B_2016_10_22.pdf p.1 (Summary report); 15_9_F_11_B_2016_10_22.xml F11B-20161022-STATUS-REPORTNO; 15_9_F_11_T2_2013_03_24.pdf p.1 (Summary report); 15_9_F_11_T2_2013_03_24.xml F11T2-20130324-STATUS-REPORTNO; 15_9_F_11_T2_2013_04_10.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_10.xml F11T2-20130410-STATUS-REPORTNO; 15_9_F_11_T2_2013_04_28.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-STATUS-REPORTNO; 15_9_F_11_T2_2013_05_15.pdf p.1 (Summary report); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-STATUS-REPORTNO; 15_9_F_12_2007_06_14.pdf p.1 (Summary report); 15_9_F_12_2007_06_14.xml F12-20070614-STATUS-REPORTNO; 15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-REPORTNO; 15_9_F_12_2008_01_15.pdf p.1 (Summary report); 15_9_F_12_2008_01_15.xml F12-20080115-STATUS-REPORTNO; 15_9_F_12_2016_10_21.pdf p.1 (Summary report); 15_9_F_12_2016_10_21.xml F12-20161021-STATUS-REPORTNO; 15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-REPORTNO; 15_9_F_15_D_2013_12_14.pdf p.1 (Summary report); 15_9_F_15_D_2013_12_14.xml F15D-20131214-STATUS-REPORTNO; 15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-STATUS-REPORTNO; 15_9_F_15_D_2016_10_19.pdf p.1 (Summary report); 15_9_F_15_D_2016_10_19.xml F15D-20161019-STATUS-REPORTNO",
+   "detail_url": "/questions/G-029"
+  },
+  {
+   "id": "G-030",
+   "question": "What kind of formation pressure test was reported for 15/9-F-11 B on 28/06/2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "txt:formation integrity test"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2013_06_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000759,
+   "answer": "formation integrity test",
+   "evidence": "15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-PRESTESTTYPE",
+   "detail_url": "/questions/G-030"
+  },
+  {
+   "id": "G-031",
+   "question": "On what date was well 15/9-F-1 spudded, according to the 30/07/2013 report?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "date:2007-11-28"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_2013_07_30"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.0006219999999999999,
+   "answer": "Well 15/9-F-1 was spudded on 2007-11-28 (dTimSpud=2007-11-28T00:00:00).",
+   "evidence": "15_9_F_1_2013_07_30.pdf p.1 (Summary report); 15_9_F_1_2013_07_30.xml F1-20130730-WELL-DTIMSPUD",
+   "detail_url": "/questions/G-031"
+  },
+  {
+   "id": "G-032",
+   "question": "What was the highest gas reading (in %) for well F-15-D in the report for 2013-11-11?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:0.35"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2013_11_11"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.00027800000000000004,
+   "answer": "0.35 %",
+   "evidence": "15_9_F_15_D_2013_11_11.pdf p.2 (Gas Reading Information); 15_9_F_15_D_2013_11_11.xml F15D-20131111-GAS-01",
+   "detail_url": "/questions/G-032"
+  },
+  {
+   "id": "G-033",
+   "question": "Which drilling contractor is named in the daily report for NO 15/9-F-15 D on 2013-11-11?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "txt:maersk drilling"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_15_D_2013_11_11"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000665,
+   "answer": "Maersk Drilling",
+   "evidence": "15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-WELL-DRILLCONTRACTOR",
+   "detail_url": "/questions/G-033"
+  },
+  {
+   "id": "G-034",
+   "question": "Which was in deeper water: well 15/9-F-1-B (report 24 September 2013) or well 15/9-19 A (report November 10th, 1997)? Give both water depths.",
+   "category": "compare",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:91",
+     "num:84",
+     "well:f-1-b"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_B_2013_09_24",
+    "15_9_19_A_1997_11_10"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "multi_report",
+   "confidence": 0.7,
+   "verified": true,
+   "cost_usd": 0.001553,
+   "answer": "Well 15/9-F-1-B was in deeper water, at 91 m, compared with 84 m for well 15/9-19 A.",
+   "evidence": "15_9_19_A_1997_11_10.pdf p.1 (Summary report); 15_9_19_A_1997_11_10.xml 19A-19971110-STATUS-WATERDEPTH; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-WATERDEPTH",
+   "detail_url": "/questions/G-034"
+  },
+  {
+   "id": "G-035",
+   "question": "What was the plastic viscosity of the Enviromul Yellow sampled from the active pit on 15/9-F-11 T2, report of 15/05/2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:31"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_T2_2013_05_15"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.004899,
+   "answer": "The plastic viscosity was 31 mPa.s for the Enviromul Yellow sampled from the active pit (MD 2569 m), with a sample timestamp of 2013-05-14T15:00:00, which belongs to the 2013-05-15 report.",
+   "evidence": "15_9_F_11_T2_2013_05_15.pdf p.1 (Drilling Fluid); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-FLUID-01",
+   "detail_url": "/questions/G-035"
+  },
+  {
+   "id": "G-036",
+   "question": "What was the water depth for well F-1C in the report dated 2016-10-22?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:91"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_C_2016_10_22"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.000529,
+   "answer": "91 m",
+   "evidence": "15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-WATERDEPTH",
+   "detail_url": "/questions/G-036"
+  },
+  {
+   "id": "G-037",
+   "question": "What was the total mud pit volume for well 15/9-F-1-B in the 22/02/2014 report?",
+   "category": "absent",
+   "kind": "abstain",
+   "expected": {
+    "absent_term": "pit volume"
+   },
+   "expected_reports": [
+    "15_9_F_1_B_2014_02_22"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "abstain",
+   "mode": "single_report",
+   "confidence": 0.85,
+   "verified": true,
+   "cost_usd": 0.004231,
+   "answer": "Not answerable from the archive. No volume field exists (searched 1 report(s), 50 record(s)). The fluid lines for the 22/02/2014 report give density, type, PV, YP and other properties but no pit volume field, and the search found no 'volume' term.",
+   "evidence": "15_9_F_1_B_2014_02_22.pdf: all sections checked, no volume field",
+   "detail_url": "/questions/G-037"
+  },
+  {
+   "id": "G-038",
+   "question": "In the report for F-11-B dated 28/10/2015, what formation strength (leak-off or test density) was recorded?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:1.65"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_11_B_2015_10_28"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.7,
+   "verified": true,
+   "cost_usd": 0.0012009999999999998,
+   "answer": "Strength formation test density (strengthForm) = 1.65 g/cm3, at tvdStrengthForm = 2780 m (mdStrengthForm = 3192 m); presTestType = formation integrity test.",
+   "evidence": "15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-MDSTRENGTHFORM; 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-PRESTESTTYPE; 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-STRENGTHFORM; 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-TVDSTRENGTHFORM",
+   "detail_url": "/questions/G-038"
+  },
+  {
+   "id": "G-039",
+   "question": "What is the smallest water depth recorded anywhere in the archive, and how many reports state that depth?",
+   "category": "archive",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "num:84",
+     "num:4"
+    ]
+   },
+   "expected_reports": [
+    "15_9_19_A_1980_01_01",
+    "15_9_19_A_1997_08_29",
+    "15_9_19_A_1997_10_05",
+    "15_9_19_A_1997_11_10"
+   ],
+   "score": 1,
+   "baseline_score": 0,
+   "status": "answered",
+   "mode": "archive_wide",
+   "confidence": 0.65,
+   "verified": true,
+   "cost_usd": 0.005280999999999999,
+   "answer": "The smallest water depth recorded anywhere in the archive is 84 m, stated in 4 reports.",
+   "evidence": "15_9_19_A_1980_01_01.pdf p.1 (Summary report); 15_9_19_A_1980_01_01.xml 19A-19800101-STATUS-WATERDEPTH; 15_9_19_A_1997_08_29.pdf p.1 (Summary report); 15_9_19_A_1997_08_29.xml 19A-19970829-STATUS-WATERDEPTH; 15_9_19_A_1997_10_05.pdf p.1 (Summary report); 15_9_19_A_1997_10_05.xml 19A-19971005-STATUS-WATERDEPTH; 15_9_19_A_1997_11_10.pdf p.1 (Summary report); 15_9_19_A_1997_11_10.xml 19A-19971110-STATUS-WATERDEPTH; 15_9_F_1_2007_12_02.pdf p.1 (Summary report); 15_9_F_1_2007_12_02.xml F1-20071202-STATUS-WATERDEPTH; 15_9_F_1_2013_07_30.pdf p.1 (Summary report); 15_9_F_1_2013_07_30.xml F1-20130730-STATUS-WATERDEPTH; 15_9_F_1_2013_08_12.pdf p.1 (Summary report); 15_9_F_1_2013_08_12.xml F1-20130812-STATUS-WATERDEPTH; 15_9_F_1_2013_08_24.pdf p.1 (Summary report); 15_9_F_1_2013_08_24.xml F1-20130824-STATUS-WATERDEPTH; 15_9_F_1_B_2013_08_30.pdf p.1 (Summary report); 15_9_F_1_B_2013_08_30.xml F1B-20130830-STATUS-WATERDEPTH; 15_9_F_1_B_2013_09_24.pdf p.1 (Summary report); 15_9_F_1_B_2013_09_24.xml F1B-20130924-STATUS-WATERDEPTH; 15_9_F_1_B_2014_01_29.pdf p.1 (Summary report); 15_9_F_1_B_2014_01_29.xml F1B-20140129-STATUS-WATERDEPTH; 15_9_F_1_B_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_B_2014_02_22.xml F1B-20140222-STATUS-WATERDEPTH; 15_9_F_1_C_2014_02_22.pdf p.1 (Summary report); 15_9_F_1_C_2014_02_22.xml F1C-20140222-STATUS-WATERDEPTH; 15_9_F_1_C_2014_03_26.pdf p.1 (Summary report); 15_9_F_1_C_2014_03_26.xml F1C-20140326-STATUS-WATERDEPTH; 15_9_F_1_C_2014_12_03.pdf p.1 (Summary report); 15_9_F_1_C_2014_12_03.xml F1C-20141203-STATUS-WATERDEPTH; 15_9_F_1_C_2016_10_22.pdf p.1 (Summary report); 15_9_F_1_C_2016_10_22.xml F1C-20161022-STATUS-WATERDEPTH; 15_9_F_11_B_2013_05_29.pdf p.1 (Summary report); 15_9_F_11_B_2013_05_29.xml F11B-20130529-STATUS-WATERDEPTH; 15_9_F_11_B_2013_06_28.pdf p.1 (Summary report); 15_9_F_11_B_2013_06_28.xml F11B-20130628-STATUS-WATERDEPTH; 15_9_F_11_B_2015_10_28.pdf p.1 (Summary report); 15_9_F_11_B_2015_10_28.xml F11B-20151028-STATUS-WATERDEPTH; 15_9_F_11_B_2016_10_22.pdf p.1 (Summary report); 15_9_F_11_B_2016_10_22.xml F11B-20161022-STATUS-WATERDEPTH; 15_9_F_11_T2_2013_03_24.pdf p.1 (Summary report); 15_9_F_11_T2_2013_03_24.xml F11T2-20130324-STATUS-WATERDEPTH; 15_9_F_11_T2_2013_04_10.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_10.xml F11T2-20130410-STATUS-WATERDEPTH; 15_9_F_11_T2_2013_04_28.pdf p.1 (Summary report); 15_9_F_11_T2_2013_04_28.xml F11T2-20130428-STATUS-WATERDEPTH; 15_9_F_11_T2_2013_05_15.pdf p.1 (Summary report); 15_9_F_11_T2_2013_05_15.xml F11T2-20130515-STATUS-WATERDEPTH; 15_9_F_12_2007_06_14.pdf p.1 (Summary report); 15_9_F_12_2007_06_14.xml F12-20070614-STATUS-WATERDEPTH; 15_9_F_12_2007_08_08.pdf p.1 (Summary report); 15_9_F_12_2007_08_08.xml F12-20070808-STATUS-WATERDEPTH; 15_9_F_12_2008_01_15.pdf p.1 (Summary report); 15_9_F_12_2008_01_15.xml F12-20080115-STATUS-WATERDEPTH; 15_9_F_12_2016_10_21.pdf p.1 (Summary report); 15_9_F_12_2016_10_21.xml F12-20161021-STATUS-WATERDEPTH; 15_9_F_15_D_2013_11_11.pdf p.1 (Summary report); 15_9_F_15_D_2013_11_11.xml F15D-20131111-STATUS-WATERDEPTH; 15_9_F_15_D_2013_12_14.pdf p.1 (Summary report); 15_9_F_15_D_2013_12_14.xml F15D-20131214-STATUS-WATERDEPTH; 15_9_F_15_D_2015_08_10.pdf p.1 (Summary report); 15_9_F_15_D_2015_08_10.xml F15D-20150810-STATUS-WATERDEPTH; 15_9_F_15_D_2016_10_19.pdf p.1 (Summary report); 15_9_F_15_D_2016_10_19.xml F15D-20161019-STATUS-WATERDEPTH",
+   "detail_url": "/questions/G-039"
+  },
+  {
+   "id": "G-040",
+   "question": "Which manufacturer made the bit recorded on NO 15/9-F-1 on 24/08/2013?",
+   "category": "single",
+   "kind": "value",
+   "expected": {
+    "all": [
+     "txt:hughes christensen"
+    ]
+   },
+   "expected_reports": [
+    "15_9_F_1_2013_08_24"
+   ],
+   "score": 1,
+   "baseline_score": 1,
+   "status": "answered",
+   "mode": "single_report",
+   "confidence": 0.95,
+   "verified": true,
+   "cost_usd": 0.00047099999999999996,
+   "answer": "Hughes Christensen",
+   "evidence": "15_9_F_1_2013_08_24.pdf p.1 (Bit Record); 15_9_F_1_2013_08_24.xml F1-20130824-BIT-01",
+   "detail_url": "/questions/G-040"
+  }
+ ]
+}

@@ -1,5 +1,9 @@
-# Extra packages for the local API (web/server). The submission's own requirements.txt is untouched.
-# Everything else (pandas, pymupdf, requests, pydantic via fastapi, pytest, httpx) is already in the nape env.
+# Runtime packages for the API (what a deployment installs). Pins match submission/requirements.txt where they overlap.
 fastapi==0.162.2
 uvicorn==0.54.0
-httpx==0.28.1      # FastAPI TestClient
+pandas==3.1.1
+pyarrow==26.0.1
+numpy==2.5.4
+pymupdf==2.1            # composes the highlighted page PNGs; no PDF is opened at run time
+requests==2.34.2        # the pipeline's OpenRouter client
+python-dotenv==1.2.4

@@ -19,9 +19,11 @@ from fastapi.responses import JSONResponse, Response, StreamingResponse
 from submission.archive_qa import config
 
 from . import archive_view, costs_view
-from .engine import GEN_DIR, AskDisabled, Engine, clean_question
+from .datapack import ATTRIBUTION
+from .engine import AskDisabled, Engine, clean_question
 from .guards import RateLimited, RateLimiter
-from .pages import PageError, PageService
+from .highlight import PageError
+from .pages import PageService
 from .safety import install_log_redaction, redact
 from .schemas import AskRequest, Health, QuestionDetail
 from .settings import VERSION, Settings
@@ -42,7 +44,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
         install_log_redaction()
         eng = engine or Engine(settings)
         app.state.engine = eng
-        app.state.pages = PageService(eng.records, config.PDF_DIR, settings.runtime_dir)
+        app.state.pages = PageService(eng.pack, settings.runtime_dir)
         app.state.sem = asyncio.Semaphore(settings.max_concurrent_asks)
         if settings.warm_on_start:
             threading.Thread(target=eng.warm, daemon=True, name="warm").start()
@@ -56,6 +58,12 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
                     "Every answer carries a full trace of what the pipeline did. Contract notes: web/server/API.md.")
     app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins, allow_methods=["GET", "POST", "OPTIONS"],
                        allow_headers=["*"], expose_headers=["Retry-After"])
+
+    @app.middleware("http")
+    async def attribution_header(request: Request, call_next):
+        resp = await call_next(request)
+        resp.headers["X-Data-Attribution"] = ATTRIBUTION
+        return resp
 
     def eng(request: Request) -> Engine:
         return request.app.state.engine
@@ -79,10 +87,10 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     @app.get("/health", response_model=Health, tags=["meta"])
     def health(request: Request):
         e = eng(request)
-        return Health(status="ok", live_mode=e.live_mode, models=e.models(), version=VERSION,
+        return Health(status="ok", live_mode=e.live_mode, models=e.models(), version=VERSION, attribution=ATTRIBUTION,
                       budget_remaining_usd=round(e.spend.remaining, 6),
                       details={"records": len(e.records), "reports": len(e.reports), "catalog_questions": len(e.catalog),
-                               "warm_seconds": e.warm_seconds, "provider_fallback_active": e.provider_fallback_active,
+                               "warm_seconds": e.warm_seconds, "data_pack": {k: e.pack.manifest.get(k) for k in ("built", "records", "reports", "pages", "total_bytes")}, "provider_fallback_active": e.provider_fallback_active,
                                "server_budget_usd": e.s.server_budget_usd, "max_question_chars": e.s.max_question_chars,
                                "rate_limit": {"per_minute": e.s.rate_per_min, "per_day": e.s.rate_per_day},
                                "key_configured": e.key_present})
@@ -215,7 +223,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     @app.get("/archive", tags=["archive"])
     def archive(request: Request):
         e, pages = eng(request), request.app.state.pages
-        return archive_view.archive_summary(e.reports, e.records, lambda f: pages.page_count(f))
+        return {**archive_view.archive_summary(e.reports, e.records, lambda f: pages.page_count(f)), "attribution": ATTRIBUTION}
 
     @app.get("/trajectories", tags=["archive"])
     def trajectories(request: Request):
@@ -227,12 +235,12 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     def costs(request: Request):
         e = eng(request)
         sets = {c["id"]: c["set"] for c in e.catalog}
-        return costs_view.costs(config.LLM_CACHE_PATH, config.COST_SUMMARY_PATH, e.runtime_cache.path,
-                                sorted(GEN_DIR.glob("runtime_cache*.json")), e.spend, e.stats, sets)
+        return costs_view.costs(config.LLM_CACHE_PATH, e.pack.cost_csv, e.runtime_cache.path, [e.pack.gen_cache], e.spend, e.stats, sets)
 
     @app.get("/generalisation", tags=["meta"])
-    def generalisation():
-        return costs_view.generalisation(GEN_DIR)
+    def generalisation(request: Request):
+        """The unseen-set results, read from the data pack (built once from the evaluation outputs)."""
+        return {**eng(request).pack.generalisation(), "attribution": ATTRIBUTION}
 
     return app
 

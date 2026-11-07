@@ -28,6 +28,7 @@ def _i(name: str, default: int) -> int:
 @dataclass
 class Settings:
     runtime_dir: Path = field(default_factory=lambda: Path(os.environ.get("RUNTIME_CACHE_DIR") or REPO_ROOT / "web" / "server" / ".runtime"))
+    data_dir: Path = field(default_factory=lambda: Path(os.environ.get("SERVER_DATA_DIR") or REPO_ROOT / "web" / "server" / "data"))
     server_budget_usd: float = field(default_factory=lambda: _f("SERVER_BUDGET_USD", 2.00))
     allowed_origins: list[str] = field(default_factory=lambda: [
         o.strip() for o in (os.environ.get("ALLOWED_ORIGINS") or "http://localhost:3000,http://localhost:5173").split(",") if o.strip()])

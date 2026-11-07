@@ -250,7 +250,8 @@ class TracedLLM:
                                   role=role, run=run, max_tokens=max_tokens)
         except (CacheMiss, BudgetExceeded, Exception) as e:  # noqa: BLE001 - recorded, then re-raised unchanged
             outcome = "cache_miss_offline" if isinstance(e, CacheMiss) else "budget_blocked" if isinstance(e, BudgetExceeded) else "error"
-            rec = {**base, "outcome": outcome, "cache_hit": False, "prompt_tokens": 0, "completion_tokens": 0,
+            rec = {**base, "outcome": outcome, "cache_hit": False, "prompt_tokens": None, "completion_tokens": None,
+                   "tokens_source": "no_call", "context_tokens_estimate": -(-len(context) // 4),
                    "latency_ms": int((time.perf_counter() - t0) * 1000), "cost_usd": 0.0, "incurred_usd": 0.0,
                    "finish_reason": None, "reply_status": None, "reply_cited": [],
                    "error": redact(f"{type(e).__name__}: {e}")[:300]}
@@ -258,8 +259,12 @@ class TracedLLM:
             t.emit("model_call", **{k: v for k, v in rec.items() if not k.startswith("_")})
             raise
         p = reply.parsed if isinstance(reply.parsed, dict) else {}
+        reported = bool(reply.prompt_tokens or reply.completion_tokens)      # the provider's own `usage`; 0/0 = it sent none
         rec = {**base, "outcome": "cache_hit" if reply.cache_hit else "live", "cache_hit": bool(reply.cache_hit),
-               "prompt_tokens": int(reply.prompt_tokens), "completion_tokens": int(reply.completion_tokens),
+               "prompt_tokens": int(reply.prompt_tokens) if reported else None,
+               "completion_tokens": int(reply.completion_tokens) if reported else None,
+               "tokens_source": ("provider_reported_cached" if reply.cache_hit else "provider_reported") if reported else "not_reported",
+               "context_tokens_estimate": -(-len(context) // 4),
                "latency_ms": int((time.perf_counter() - t0) * 1000), "cost_usd": float(reply.cost_usd or 0.0),
                "incurred_usd": 0.0 if reply.cache_hit else float(reply.cost_usd or 0.0),
                "finish_reason": reply.finish_reason,

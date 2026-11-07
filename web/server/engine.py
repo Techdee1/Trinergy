@@ -1,7 +1,8 @@
 """The engine: loads the archive once, runs a question through the SAME function the notebook uses
 (`archive_qa.answer.answer_question`), and turns the result plus the captured events into the API response.
 
-Caches: answers are read from the committed cache, then the read-only generalisation caches, then the server's runtime
+Data: ONLY the data pack (web/server/data) is read; no organiser XML/PDF file is opened (see build_data.py).
+Caches: answers are read from the committed cache, then the pack's read-only unseen-set cache, then the server's runtime
 cache; new answers are written ONLY to the runtime cache (RUNTIME_CACHE_DIR). Nothing under submission/ is written.
 """
 
@@ -10,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import re
 import threading
 import time
@@ -17,20 +19,21 @@ from pathlib import Path
 
 import pandas as pd
 
-from submission.archive_qa import answer as qa, config, llm as qllm, pipeline, store, write
-from submission.archive_qa.route import discover_reports
+from submission.archive_qa import answer as qa, config, enrich, llm as qllm, write
 from submission.archive_qa.verify import confidence
 from submission.archive_qa.xmlonly import xml_only_paths
 
 from . import trace as tr
 from . import tracebuild as tb
+from .datapack import ATTRIBUTION, DataPack
 from .guards import SpendLedger
 from .safety import redact, register_secret
 from .schemas import QuestionDetail
 from .settings import Settings
 
 log = logging.getLogger("web.server.engine")
-GEN_DIR = config.SUBMISSION_DIR / "eval" / "generalisation"
+ARCHIVE_TERMS = {enrich._stem(w) for w in ("wellbore", "wellbores", "archive")}      # questions about the archive itself
+GENERIC_TOPICS = {"summary_24h", "activity", "forecast_24h"}     # router topics that name no specific field ("what happened")
 _CONTROL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 
 
@@ -79,6 +82,21 @@ class ReplayLLM(qllm.LLM):
         return None
 
 
+def _pin_data_root(root: Path) -> None:
+    """Point the pipeline's `config.DATA_ROOT` at the pack's manifest-only root. The only raw-data read left in the answering path is
+    `answer.manifest_summary` (the early-abstain text quotes document_manifest.csv); the pack carries that one file."""
+    old = os.environ.get("NAPE_DATA_ROOT")
+    os.environ["NAPE_DATA_ROOT"] = str(root)
+    try:
+        config._cache.pop("root", None)
+        _ = config.DATA_ROOT
+    finally:
+        if old is None:
+            os.environ.pop("NAPE_DATA_ROOT", None)
+        else:
+            os.environ["NAPE_DATA_ROOT"] = old
+
+
 def clean_question(text: str) -> str:
     return _CONTROL.sub(" ", text).strip()
 
@@ -88,8 +106,11 @@ class Engine:
         self.s = settings or Settings()
         self.s.runtime_dir.mkdir(parents=True, exist_ok=True)
         tr.install()
-        self.records = self._load_records()
-        self.reports = discover_reports(config.XML_DIR)
+        self.pack = DataPack(self.s.data_dir)
+        _pin_data_root(self.pack.manifest_root)
+        self.records = self.pack.records
+        self.reports = self.pack.reports
+        self.field_names = self._field_names()
         self.rec_index = {r: (s, f) for r, s, f in zip(self.records["record_id"], self.records["section"], self.records["source_file"])}
         self.by_id = self.records.set_index("record_id", drop=False)
         # --- LLM: hybrid (live iff a key exists); cache layers; ledger in the runtime dir, not in logs/
@@ -99,7 +120,7 @@ class Engine:
         self.cfg = qllm.load_config()
         self.spend = SpendLedger(self.s.runtime_dir / "spend.json", self.s.server_budget_usd)
         self.cfg.budget_usd = max(0.0, self.spend.remaining)          # the pipeline's own guard, aligned with ours
-        ro = [qllm.Cache(p) for p in sorted(GEN_DIR.glob("runtime_cache*.json"))]
+        ro = [qllm.Cache(self.pack.gen_cache)] if self.pack.gen_cache.is_file() else []
         self.runtime_cache = qllm.Cache(self.s.runtime_dir / "llm_cache_runtime.json")
         self.cache = StackedCache(qllm.Cache(config.LLM_CACHE_PATH), ro, self.runtime_cache)
         ledger = self.s.runtime_dir / "ledger.csv"
@@ -111,7 +132,8 @@ class Engine:
             backend = qllm.OpenRouterBackend(self.cfg.api_key)
         self.llm = qllm.LLM(self.cfg, backend, self.cache, ledger_path=ledger) if backend is not None else self.replay_llm
         # --- catalog + memo
-        self.catalog = self._load_catalog()
+        self.catalog = self.pack.catalog
+        self._examples: list[str] | None = None
         self.text_to_id = {c["question"].strip(): c["id"] for c in self.catalog}
         self.memo: dict[str, QuestionDetail] = {}
         self.stats = {k: {"requests": 0, "model_calls": 0, "cache_hits": 0, "live_calls": 0} for k in ("replay", "ask")}
@@ -120,22 +142,9 @@ class Engine:
         self.warm_seconds: float | None = None
 
     # ------------------------------------------------------------------ loading
-    def _load_records(self) -> pd.DataFrame:
-        if config.RECORDS_PATH.exists():
-            return store.load_store()
-        p = self.s.runtime_dir / "records.parquet"      # never written under submission/
-        if not p.exists():
-            store.build_store(out_path=p, verbose=False)
-        return store.load_store(p)
-
-    def _load_catalog(self) -> list[dict]:
-        out = [{"id": q.question_id, "set": "challenge", "question": q.question_text}
-               for q in pipeline.read_questions().itertuples(index=False)]
-        gen = GEN_DIR / "questions.csv"
-        if gen.exists():
-            out += [{"id": q.question_id, "set": "unseen", "question": q.question_text}
-                    for q in pipeline.read_questions(gen).itertuples(index=False)]
-        return out
+    def _field_names(self) -> list[str]:
+        """Every field name the archive has (record fields and row attributes), for the vagueness check."""
+        return sorted(set(self.records["field"]) | {k for a in self.records["attrs"].dropna() for k in json.loads(a)})
 
     def warm(self) -> None:
         """Replay every catalog question offline (no key, no spend) so /questions is instant."""
@@ -164,32 +173,55 @@ class Engine:
         self.memo[qid] = d
         return d
 
+    def _is_vague(self, question: str, res) -> bool:
+        """No recognisable well, date or field term: the router found no well/date/period, its topics are at most the generic
+        narrative ones ("what happened"), no archive field name is covered by the question and it does not ask about the archive itself
+        (wellbores / archive). (Cached questions are exempt, see _gate.)"""
+        if res.mode != "archive_wide" or res.early_abstain or res.wells or res.dates or set(res.sections) - GENERIC_TOPICS:
+            return False
+        if any(enrich.field_matches(n, question) for n in self.field_names):
+            return False
+        return not (set(enrich.content_terms(question)) & ARCHIVE_TERMS)
+
     def _gate(self, qid: str, question: str):
-        """Server-side honesty gate: the router finds no well, no date, no period AND no topic the archive records, AND the
-        question has no cached answer. The pipeline would otherwise hand the WHOLE archive to a model (cost, and a guess).
-        A cached answer always wins: the gate never overrides an answer that is already in a cache (e.g. an archive-wide
-        meta question). The probe runs un-traced and offline, so it emits no events and spends nothing."""
+        """Clarification gate: a vague question WITHOUT a cached answer gets a friendly clarification and no model call
+        (the pipeline would otherwise hand the whole archive to a model: cost, and a guess). A cached answer always wins: the
+        probe is un-traced and offline, so it emits no events and spends nothing."""
         res = tr.original("route_question")(question, self.reports)
-        if not (res.mode == "archive_wide" and not res.early_abstain and not res.sections and not res.wells and not res.dates):
+        if not self._is_vague(question, res):
             return None
         probe = qa.answer_question(qid, question, self.records, self.reports, self.replay_llm, dump=False)
         return res if probe.status == "not_evaluated" else None
 
+    def clarification_examples(self) -> list[str]:
+        """Three real, answered and verified questions of the catalog (one per kind), so the examples are always answerable."""
+        if self._examples is None:
+            picks: list[str] = []
+            want = [("challenge", ("single_report",)), ("challenge", ("multi_report", "archive_wide")), ("unseen", ("single_report",))]
+            for qset, modes in want:
+                for c in self.catalog:
+                    d = self.replayed(c["id"]) if c["set"] == qset else None
+                    if d and d.status == "answered" and d.verified and d.router_mode in modes and c["question"] not in picks:
+                        picks.append(c["question"])
+                        break
+            self._examples = picks
+        return self._examples
+
     def _gate_answer(self, qid: str, question: str, res, tracer: tr.Tracer) -> qa.Answer:
-        n_rep, n_well, _ = qa.manifest_summary(self.reports)
-        wells = sorted({r.well for r in self.reports})
-        msg = ("The router could not map this question to anything in the archive: it names no well, no report date and "
-               "no topic the daily drilling reports record (depths, surveys, fluids, casing, bits, activities, summaries, "
-               "equipment failures, logs, gas, lithology, formation tops).")
+        examples = self.clarification_examples()
+        msg = ("I could not tell what to look up: the question names no well, no report date and no field of the daily drilling "
+               "reports (such as depth, casing, mud, survey, bit, activities or summaries). Name a well and a date, or a field, "
+               "and ask again.")
         tracer.on_route(res, self.reports)
-        tracer.emit("gate", gate="router_unmapped", message=msg)
-        text = (f"Not answerable from the archive. {msg} The archive contains {n_rep} daily drilling reports for {n_well} "
-                f"wellbores ({', '.join(wells)}); name a well and a report date, or a topic they cover, and ask again.")
-        return qa.Answer(qid, question, "abstain", text, [], "ROUTER UNMAPPED: " + res.reason,
-                         confidence("abstain", 0, "archive_wide", True, early_abstain=True),
-                         notes=["server gate: router could not map the question; no model call"], mode="archive_wide",
-                         verified=True, early_abstain=True,
-                         evidence_extra=f"Checked the report files: {n_rep} daily reports, {n_well} wellbores; none matches the question")
+        tracer.emit("gate", gate="needs_clarification", message=msg, examples=examples)
+        text = msg + (" For example: " + " ".join(f"({i}) {e}" for i, e in enumerate(examples, 1)) if examples else "")
+        a = qa.Answer(qid, question, "abstain", text, [], "NEEDS CLARIFICATION: " + res.reason,
+                      confidence("abstain", 0, "archive_wide", True, early_abstain=True),
+                      notes=["clarification gate: no recognisable well, date or field term and no cached answer; no model call"],
+                      mode="archive_wide", verified=True, early_abstain=True,
+                      evidence_extra="Nothing was looked up: the question names no well, date or field")
+        a.clarification_examples = examples          # picked up by _detail
+        return a
 
     def run(self, qid: str, question: str, qset: str, *, live: bool, sink=None) -> QuestionDetail:
         tracer = tr.Tracer(self.rec_index, sink)
@@ -199,7 +231,7 @@ class Engine:
         with tr.activate(tracer):
             if res is not None:
                 ans = self._gate_answer(qid, question, res, tracer)
-                gate = "router_unmapped"
+                gate = "needs_clarification"
             else:
                 try:
                     ans = qa.answer_question(qid, question, self.records, self.reports, tr.TracedLLM(client, tracer), dump=False)
@@ -295,7 +327,8 @@ class Engine:
         live_n = sum(1 for c in calls if c["outcome"] == "live")
         hit_n = sum(1 for c in calls if c["outcome"] == "cache_hit")
         totals = {"model_calls": len(calls), "live_calls": live_n, "cache_hits": hit_n,
-                  "prompt_tokens": sum(c["prompt_tokens"] for c in calls), "completion_tokens": sum(c["completion_tokens"] for c in calls),
+                  "prompt_tokens": sum(c["prompt_tokens"] or 0 for c in calls), "completion_tokens": sum(c["completion_tokens"] or 0 for c in calls),
+                  "calls_without_token_report": sum(1 for c in calls if c["tokens_source"] != "provider_reported" and c["outcome"] in ("live", "cache_hit")),
                   "generation_cost_usd": round(sum(c["cost_usd"] for c in calls), 6),
                   "incurred_cost_usd": round(sum(c["incurred_usd"] for c in calls), 6),
                   "model_latency_ms": sum(c["latency_ms"] for c in calls), "wall_ms": t.now_ms()}
@@ -358,7 +391,9 @@ class Engine:
             "id": qid, "set": qset, "question": question, "status": ans.status, "answer": ans.answer,
             "rationale": re.sub(r"^EARLY ABSTAIN:\s*", "", ans.rationale or "").strip(), "confidence": float(ans.confidence),
             "verified": bool(ans.verified), "flags": flags, "router_mode": trace["router"]["mode"], "source": source,
-            "evidence": write.build_evidence(ans, self.records), "cited_records": cited_records, "trace": trace})
+            "evidence": write.build_evidence(ans, self.records), "cited_records": cited_records, "trace": trace,
+            "clarification": ({"message": ans.answer.split(" For example:")[0], "examples": ans.clarification_examples}
+                              if gate and hasattr(ans, "clarification_examples") else None)})
 
     @staticmethod
     def _flags(ans: qa.Answer, trace: dict, cited: list[dict], gate: str | None, final_ctx) -> list[str]:
@@ -366,7 +401,7 @@ class Engine:
         if ans.status == "not_evaluated":
             f.add("not_evaluated")
         if gate:
-            f.add("router_unmapped")
+            f.add("needs_clarification")
         elif ans.early_abstain:
             f.add("early_abstain")
         if ans.status != "not_evaluated" and not ans.verified:

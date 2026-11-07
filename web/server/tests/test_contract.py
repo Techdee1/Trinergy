@@ -14,7 +14,8 @@ TRACE_KEYS = {"router", "contexts", "model_calls", "verifier", "retries", "escal
 def test_health_shape_and_no_key(client):
     h = client.get("/health").json()
     Health.model_validate(h)
-    assert set(h) == {"status", "live_mode", "models", "version", "budget_remaining_usd", "details"}
+    assert set(h) == {"status", "live_mode", "models", "version", "attribution", "budget_remaining_usd", "details"}
+    assert h["attribution"] == "Data: Equinor Volve dataset"
     assert h["live_mode"] is False and h["budget_remaining_usd"] == 2.0 and set(h["models"]) == {"primary", "escalation"}
     assert "key" not in json.dumps(h).replace("key_configured", "")
 
@@ -28,14 +29,16 @@ def test_questions_list(client):
     assert len(client.get("/questions?set=challenge").json()["questions"]) == 32
 
 
-def test_question_detail_matches_committed_answers(client):
-    committed = {a["question_id"]: a for a in json.loads(config.ANSWERS_PATH.read_text(encoding="utf-8"))}
+def test_question_detail_matches_committed_predictions(client):
+    import csv
+    with config.PREDICTIONS_PATH.open(encoding="utf-8", newline="") as f:
+        committed = {r["question_id"]: r for r in csv.DictReader(f)}
+    assert len(committed) == 32
     for qid, a in committed.items():
         d = client.get(f"/questions/{qid}").json()
         QuestionDetail.model_validate(d)
         assert set(d["trace"]) == TRACE_KEYS
-        assert (d["status"], d["answer"], d["confidence"], d["evidence"]) == (a["status"], a["answer"], a["confidence"], a["evidence"]), qid
-        assert [c["id"] for c in d["cited_records"]] == a["cited_ids"], qid
+        assert (d["answer"], f"{d['confidence']:.2f}", d["evidence"]) == (a["answer"], a["confidence"], a["evidence"]), qid
         assert d["source"] in ("cache", "none")
 
 
@@ -89,7 +92,7 @@ def test_costs(client):
 
 def test_generalisation_present_or_clear_message(client):
     g = client.get("/generalisation").json()
-    assert set(g) == {"available", "message", "summary", "questions"}
+    assert set(g) == {"available", "message", "summary", "questions", "attribution"}
     if g["available"]:
         assert g["summary"]["questions"] == len(g["questions"]) == 40
     else:
@@ -100,6 +103,11 @@ def test_generalisation_absent(tmp_path):
     from web.server.costs_view import generalisation
     g = generalisation(tmp_path)
     assert g["available"] is False and "results.json" in g["message"] and g["questions"] == []
+
+
+def test_attribution_everywhere(client):
+    assert client.get("/health").headers["x-data-attribution"] == "Data: Equinor Volve dataset"
+    assert client.get("/archive").json()["attribution"] == "Data: Equinor Volve dataset"
 
 
 def test_openapi_and_docs(client):

@@ -1,0 +1,37 @@
+# Render Blueprint for the Intelligent Well Archive API. NOT deployed by this file's existence: nothing runs until someone creates the
+# service in Render. Contains no secret: the OpenRouter key is `sync: false` (typed into the dashboard, never in git).
+# The file lives in web/ (this repo's rule is to commit web/ only): point the Blueprint at web/render.yaml, or create the service by hand
+# with the same values (see web/DEPLOY.md).
+services:
+  - type: web
+    name: well-archive-api
+    runtime: python
+    plan: free                      # free instances sleep after ~15 min idle (cold start ~1 min); use `starter` on presentation day
+    region: frankfurt
+    branch: main
+    autoDeploy: false               # deploy on purpose, not on every push
+    buildCommand: pip install -r web/server/requirements.txt
+    startCommand: uvicorn web.server.app:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8               # pin; use a 3.12.x that Render lists if this exact patch version is not offered
+      - key: OPENROUTER_KEY
+        sync: false                 # create a SEPARATE key with a ~$3 credit limit; paste it in the dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false                 # the frontend's origin(s), comma separated, no trailing slash, e.g. https://your-frontend.example
+      - key: SERVER_BUDGET_USD
+        value: "2.00"               # the server stops calling the model after this much live spend (see DEPLOY.md: resets if the disk is ephemeral)
+      - key: RUNTIME_CACHE_DIR
+        value: /tmp/well-archive-runtime   # free plan: ephemeral. On a paid plan with a disk, use the disk's mount path (see below)
+      - key: TRUST_PROXY
+        value: "1"                  # Render terminates TLS in front of the app: take the client IP from X-Forwarded-For for the rate limit
+      - key: RATE_LIMIT_PER_MIN
+        value: "6"
+      - key: RATE_LIMIT_PER_DAY
+        value: "40"
+    # Paid plans only: a persistent disk keeps the spend counter and the runtime cache across restarts. Then set RUNTIME_CACHE_DIR to /var/data/runtime.
+    # disk:
+    #   name: runtime
+    #   mountPath: /var/data
+    #   sizeGB: 1

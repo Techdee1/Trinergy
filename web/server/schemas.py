@@ -59,8 +59,7 @@ class RouterTrace(BaseModel):
     wells_considered: list[WellConsidered]
     reports_selected: list[ReportSelected]
     unmatched: list[RouterUnmatched]
-    gate: str | None = Field(None, description="set when the server stopped the question before the pipeline "
-                                              "(router could not map it to any well, date or topic)")
+    gate: str | None = Field(None, description="`needs_clarification` when the server stopped a vague, uncached question before any model call")
 
 
 class ContextRecord(BaseModel):
@@ -86,7 +85,7 @@ class AbsentTrace(BaseModel):
 class ContextTrace(BaseModel):
     pass_name: Literal["first_pass", "second_pass"]
     final: bool = Field(description="True when this is the context the committed answer was produced from")
-    est_tokens: int
+    est_tokens: int = Field(description="ESTIMATE: characters/4 of the context text")
     lines: int
     truncated: bool
     notes: list[str]
@@ -104,8 +103,13 @@ class ModelCall(BaseModel):
     context_pass: Literal["first_pass", "second_pass"] | None
     outcome: Literal["cache_hit", "live", "cache_miss_offline", "budget_blocked", "error"]
     cache_hit: bool
-    prompt_tokens: int
-    completion_tokens: int
+    prompt_tokens: int | None = Field(description="as reported by the provider (OpenRouter `usage`); null when no call was made or the provider sent no usage. Never estimated.")
+    completion_tokens: int | None = Field(description="as reported by the provider; null as above")
+    tokens_source: Literal["provider_reported", "provider_reported_cached", "not_reported", "no_call"] = Field(
+        description="provider_reported = this live call; provider_reported_cached = the provider's numbers stored with the cached answer "
+                    "(from when it was generated); not_reported = a call whose reply carried no usage; no_call = lookup missed, nothing was sent")
+    context_tokens_estimate: int | None = Field(None, description="ESTIMATE ONLY: characters/4 of the evidence text sent (excludes the system prompt "
+                                                                  "and the question). Compare with prompt_tokens for a sanity check; never use it as a bill.")
     latency_ms: int
     cost_usd: float = Field(description="what this call cost when it was generated (the cached value for a cache hit)")
     incurred_usd: float = Field(description="charged now: 0 for a cache hit")
@@ -140,8 +144,9 @@ class Totals(BaseModel):
     model_calls: int
     live_calls: int
     cache_hits: int
-    prompt_tokens: int
+    prompt_tokens: int = Field(description="sum of the provider-reported prompt tokens (calls without a report count as 0, see calls_without_token_report)")
     completion_tokens: int
+    calls_without_token_report: int
     generation_cost_usd: float
     incurred_cost_usd: float
     model_latency_ms: int
@@ -196,6 +201,11 @@ class CitedRecord(BaseModel):
     evidence: Evidence
 
 
+class Clarification(BaseModel):
+    message: str
+    examples: list[str] = Field(description="real answered questions of the catalog, so each example can be asked as is")
+
+
 class QuestionSummary(BaseModel):
     id: str
     set: QuestionSet
@@ -221,6 +231,7 @@ class QuestionDetail(BaseModel):
         description="cache = every model call was a cache hit; live = at least one call was made; none = no model call (early abstain)")
     evidence: str = Field(description="the predictions.csv-style evidence string")
     cited_records: list[CitedRecord]
+    clarification: Clarification | None = Field(None, description="set only when the question was too vague to look up (flag needs_clarification)")
     trace: Trace
 
 
@@ -233,5 +244,6 @@ class Health(BaseModel):
     live_mode: bool
     models: dict[str, str | None]
     version: str
+    attribution: str
     budget_remaining_usd: float
     details: dict[str, Any] = Field(default_factory=dict)
