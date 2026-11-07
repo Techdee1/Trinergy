@@ -6,3 +6,6 @@ __pycache__/
 .pytest_cache/
 submission/indexes/records.parquet
 submission/indexes/routing_report.csv
+
+logs/
+submission/eval/review/

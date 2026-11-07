@@ -52,7 +52,7 @@ TOPICS: list[tuple[str, list[str]]] = [
     (r"summary|say about|what happened|reported", ["summary_24h", "activity"]),
     (r"forecast|planned", ["forecast_24h"]),
     (r"\bcosts?\b|\bafe\b|spread cost|price|expens", ["cost"]),
-    (r"personnel|\bpob\b|people on board|crew|headcount", ["personnel"]),
+    (r"personnel|\bpob\b|people on board|headcount|crew (size|count|member|number)|number of crew|crew on board", ["personnel"]),
     (r"supervisor|superintendent|toolpusher|\boim\b|engineer on duty", ["supervisor"]),
     (r"weather|sea state|\bwaves?\b|\bwind\b|swell", ["weather"]),
 ]
@@ -131,6 +131,8 @@ class RouteResult:
     sections: list[str] = field(default_factory=list)
     early_abstain: bool = False
     reason: str = ""
+    # (well or None, day or None, message) for each named target with no matching report
+    unmatched: list[tuple[str | None, str | None, str]] = field(default_factory=list)
 
     def as_row(self) -> dict:
         return {
@@ -180,6 +182,7 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
     selected: dict[str, str] = {}   # stem -> why
     notes: list[str] = []
     unmatched: list[str] = []
+    unmatched_t: list[tuple[str | None, str | None, str]] = []
     targets = 0
 
     # --- date range ("from X to Y" / "between X and Y"), only with ISO dates
@@ -231,6 +234,7 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
             notes.append(f"range {a}..{b}: {len(hits)} report(s) for {where}")
         else:
             unmatched.append(f"no report in range {a}..{b} for {where}")
+            unmatched_t.append((scope[0] if scope else None, None, unmatched[-1]))
 
     # --- (well, day) targets
     for w, day in pairs:
@@ -257,6 +261,7 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
             unmatched.append(f"no report for {label} or {d1}; reports for {w}: {_nearby(reports, w)}")
         else:
             unmatched.append(f"no report dated {day} or {d1} for any well")
+        unmatched_t.append((w, day, unmatched[-1]))
 
     # --- wells without a date of their own: all their reports, narrowed by month/year if given
     for w in wells:
@@ -271,8 +276,10 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
             notes.append(f"well {w}{span}: {len(hits)} report(s)")
         elif w not in archive_wells:
             unmatched.append(f"well {w} is not in the archive")
+            unmatched_t.append((w, None, unmatched[-1]))
         else:
             unmatched.append(f"no report for well {w}{span}; reports: {_nearby(reports, w)}")
+            unmatched_t.append((w, None, unmatched[-1]))
 
     # --- no well at all, no day, no range: periods (all wells) or the whole archive
     if not wells and not days and not res.date_range:
@@ -285,6 +292,7 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
                 notes.append(f"period {', '.join(periods)}: {len(hits)} report(s), all wells")
             else:
                 unmatched.append(f"no report in {', '.join(periods)}")
+                unmatched_t.append((None, None, unmatched[-1]))
         else:
             res.mode = "archive_wide"
             res.candidate_files = [r.stem for r in reports]
@@ -294,6 +302,7 @@ def route_question(question: str, reports: list[Report] | None = None) -> RouteR
     # --- assemble
     order = {r.stem: (r.well, r.report_date) for r in reports}
     res.candidate_files = sorted(selected, key=lambda s: order[s])
+    res.unmatched = unmatched_t
     if not res.candidate_files:
         res.early_abstain = True
         res.mode = "single_report" if targets <= 1 else "multi_report"
