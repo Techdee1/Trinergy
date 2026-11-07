@@ -1,24 +1,34 @@
+"""Shared fixtures. Tests that need the organiser data skip when it is not on disk."""
+
 import pytest
 
-from src import llm
+from submission.archive_qa import config
+from submission.archive_qa.locate import locate_all
+from submission.archive_qa.parse import parse_all
+from submission.archive_qa.wells import discover_reports
+
+def _data_available() -> bool:
+    try:
+        return config.XML_DIR.exists() and config.PDF_DIR.exists()
+    except FileNotFoundError:
+        return False
 
 
-@pytest.fixture(autouse=True)
-def isolated_env(tmp_path, monkeypatch):
-    """Point all data/ledger paths at tmp and use known prices. Blocks real API clients."""
-    monkeypatch.setenv("DATA_DIR", str(tmp_path / "data"))
-    monkeypatch.setenv("LEDGER_PATH", str(tmp_path / "cost_ledger.csv"))
-    monkeypatch.setenv("LLM_PROVIDER", "openai")
-    monkeypatch.setenv("LLM_API_KEY", "test-key")
-    monkeypatch.setenv("LLM_MODEL", "test-model")
-    monkeypatch.setenv("LLM_BASE_URL", "")
-    monkeypatch.setenv("LLM_PRICE_INPUT_PER_1M", "2.0")
-    monkeypatch.setenv("LLM_PRICE_OUTPUT_PER_1M", "8.0")
-    monkeypatch.setenv("LLM_MAX_ATTEMPTS", "3")
-    monkeypatch.setenv("LLM_RETRY_MAX_WAIT", "0")
+needs_data = pytest.mark.skipif(
+    not _data_available(), reason="organiser Track 2 data not found (set NAPE_DATA_ROOT)")
 
-    def no_real_clients(*args, **kwargs):
-        raise AssertionError("Tests must not create real LLM clients")
 
-    monkeypatch.setattr(llm, "_get_client", no_real_clients)
-    return tmp_path
+@pytest.fixture(scope="session")
+def reports():
+    return discover_reports(config.XML_DIR)
+
+
+@pytest.fixture(scope="session")
+def parsed():
+    df, stats = parse_all(config.XML_DIR)
+    return df, stats
+
+
+@pytest.fixture(scope="session")
+def located(parsed):
+    return locate_all(parsed[0], config.PDF_DIR)

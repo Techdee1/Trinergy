@@ -1,8 +1,8 @@
-.venv/
+external/
+.vscode/
 .env
-data/
 __pycache__/
 .ipynb_checkpoints/
-cost_ledger.csv
 .pytest_cache/
-external/
+submission/indexes/records.parquet
+submission/indexes/routing_report.csv
