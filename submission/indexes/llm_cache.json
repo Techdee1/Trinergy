@@ -1,0 +1,2760 @@
+{
+ "_meta": {
+  "models": {
+   "escalation": "anthropic/claude-sonnet-5.5",
+   "primary": "anthropic/claude-haiku-5.5"
+  },
+  "prompt_sha": "1628ad33a872932a",
+  "settings": {
+   "escalation": {
+    "max_tokens": 1500,
+    "provider": {
+     "allow_fallbacks": false,
+     "order": [
+      "Anthropic"
+     ],
+     "require_parameters": false
+    },
+    "reasoning": "minimal",
+    "response_format": "json_schema",
+    "temperature": 0.0
+   },
+   "multi": {
+    "max_tokens": 3000
+   },
+   "primary": {
+    "max_tokens": 400,
+    "provider": {
+     "allow_fallbacks": false,
+     "order": [
+      "Anthropic"
+     ],
+     "require_parameters": false
+    },
+    "reasoning": "none",
+    "response_format": "json_schema",
+    "temperature": 0.0
+   },
+   "retry": {
+    "max_tokens": 1500
+   }
+  }
+ },
+ "entries": {
+  "0324237ce4960dac59249a726ddb4c4872846a5511c5194267ee139a7f737689": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "50% formation in returns was confirmed at 2586 m MD for F-11-T2 (kick-off to F-11 A). For F-1 (kick-off to F-1 A), the evidence contains no 50% formation confirmation during kick-off; the 50% formation at 2620 m is noted during drilling of 8 1/2\" hole, not kick-off confirmation. For F-1-B, no 50% formation confirmation during kick-off is recorded. For F-15-D, no kick-off 50% formation confirmation is recorded. Note: F-1-A and F-1 C references in F-1 reports relate to the F-1 sidetrack program.",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07"
+    ],
+    "rationale": "Only the F-11-T2 kick-off line explicitly records 50% formation in returns (at 2586 m MD, 2013-05-14), while the other sidetracks lack an explicit kick-off confirmation in the evidence.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 328,
+    "cost_usd": 0.00258,
+    "prompt_tokens": 24158
+   }
+  },
+  "05d0da46a8ade039dd8b1eb5b518b31a5d7338aef26b209fb9c709e06ae64fed": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-032",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "19A-19970829-ABSENT-mud_logging"
+    ],
+    "rationale": "The evidence contains no mud logging company or engineer field; the gas readings name no recorder, and the only service company listed (Western Atlas) is a downhole logging company, not a mud logging service.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 110,
+    "cost_usd": 0.000286,
+    "prompt_tokens": 2307
+   }
+  },
+  "0673b05e47d87e50487de97e5d9ec777d1540b811daa7edfa6f77c5e5b51670e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (report 2013-05-29): average ROP 19 m/hr (19 meter/hour) while drilling 12 1/4\" hole from 2627 m to 2787 m MD. F-1-B (report 2013-08-30): average ROP 22.6 m/hr while drilling 12 1/4\" hole from 2650 m to 2763 m. F-1-B's average ROP was about 3.6 m/hr higher than F-11-B's.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "Both reports explicitly state the average ROP for their 12 1/4\" drilling intervals, so the two values can be directly compared.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 249,
+    "cost_usd": 0.000382,
+    "prompt_tokens": 2578
+   }
+  },
+  "07b8117be21cb939eecf8340234ccdd796dad96401dae8e740371b5dce238c18": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "The rig's sequence of well moves, from the 15/9-F-15-D report (2016-10-19) to the 15/9-F-1-C report (2016-10-22), was: F-14 (skidded to from F-15 D, with riser cut and pulled at F-15 D), then F-12, then F-11 B (skidded to from F-12), then F-1 C (skidded to from F-11 B, with riser pulled at F-1 C), and finally F-7 (forecast next, after F-1 C).",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-07",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "The 24-hour summaries and forecasts of each report name the sequence of skids: F-15 D to F-14, F-14 to F-12, F-12 to F-11 B, F-11 B to F-1 C, then F-1 C to F-7.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.001474,
+    "prompt_tokens": 12736
+   }
+  },
+  "0ccac0111089219a8f02cf974bff2ad83fc7d78d8e0bae05eb8379a8467a4971": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (activity 19A-19971110-ACT-05, ending 1997-11-09T22:00:00, and summary of report 1997-11-10); Well 15/9-F-11-T2: 2013-04-27 to 2013-04-28 (activity F11T2-20130428-ACT-12, ending 2013-04-28T00:00:00, starting 2013-04-27T23:30:00) and 2013-05-14 (activity F11T2-20130515-ACT-01, ending 2013-05-14T04:00:00, reported in the 2013-05-15 report).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "The evidence lines record drilling line slip and cut activities on those dates for each well, with the actual timestamps given.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 349,
+    "cost_usd": 0.001498,
+    "prompt_tokens": 13231
+   }
+  },
+  "0cd94a915f78f63c7840e272124f9039f18b085f6c8d224f3d356be7afc10c99": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (report 2013-05-29): average ROP 19 m/hr for 12 1/4\" hole drilled from 2627 m to 2787 m MD. F-1-B (report 2013-08-30): average ROP 11.5 m/hr for 2627-2650 m and 22.6 m/hr for 2650-2763 m. The latest F-1-B figure (22.6 m/hr) is about 3.6 m/hr higher than F-11-B's 19 m/hr, while the earlier F-1-B interval (11.5 m/hr) is lower.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "Each report gives average ROP values in activity comments; F-1-B has two intervals, so both are compared against F-11-B's single value.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 300,
+    "cost_usd": 0.009094,
+    "prompt_tokens": 3047
+   }
+  },
+  "0d79e93e1f4f4c0aa7b0654683dcb2fea9b2da9d1d0de6714fd696d894c2997c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-009",
+   "response": {
+    "answer": "Drilling (drill phase, state ok): drilled from 1403 m to 1484 m MD, ending at 23:45 on 2013-11-11 record timestamp 2013-11-10T23:45:00; activity started at 2013-11-10T19:00:00 (the 19:00 record). Final depth reached: 1484 m MD.",
+    "cited_ids": [
+     "F15D-20131111-ACT-02",
+     "F15D-20131111-ACT-03"
+    ],
+    "rationale": "ACT-02 records drilling from 1403 m to 1484 m starting at 19:00, and ACT-03 marks the end of that period at 23:45 with MD 1484 m.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 226,
+    "cost_usd": 0.00042,
+    "prompt_tokens": 3070
+   }
+  },
+  "0de96d028c76daf86f47ac345bc3ffc8040bd66fe67f83748c5ef7070fb94667": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-031",
+   "response": {
+    "answer": "",
+    "cited_ids": [],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so the replacement parts cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 65,
+    "cost_usd": 0.000438,
+    "prompt_tokens": 4057
+   }
+  },
+  "0e7fcf03bffaecbaf9e4c6acae20570c701b339698838d217ce161fcfd9b8fe2": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "F-11-T2 (F-11 A kick-off): 50% cement/formation in returns verified at 2586 m MD. F-1 (F-1 A kick-off): 50% formation at 2620 m. F-1-B: no 50% formation confirmation found in evidence. F-15-D: no 50% formation confirmation during kick-off found in evidence.",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07",
+     "F1-20130824-ACT-03"
+    ],
+    "rationale": "Only the F-11-T2 and F-1 lines explicitly state 50% formation in returns during kick-off; F-1-B and F-15-D lines do not confirm it during kick-off.\"}",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 238,
+    "cost_usd": 0.002535,
+    "prompt_tokens": 24158
+   }
+  },
+  "0e85a685cf0ddad4bd4cd3dbc66a030ccf5804356597473f59a8753682814684": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Drilling line slip and cut: well 15/9-19-A, report 1997-11-10 (slip and cut at 1997-11-09T20:00:00 to 22:00:00). Well 15/9-F-11-T2, report 2013-04-28 (slipped and cut at 2013-04-27T23:30:00 to 2013-04-28T00:00:00) and report 2013-05-15 (slip and cut at 2013-05-14T00:00:00 to 04:00:00).",
+    "cited_ids": [
+     "19A-19971110-SUM-SUM24HR",
+     "19A-19971110-ACT-05",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130515-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01"
+    ],
+    "rationale": "Activity and summary lines in these three reports mention slipping and cutting the drill line; no other report does.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 321,
+    "cost_usd": 0.029876,
+    "prompt_tokens": 13333
+   }
+  },
+  "1580f58755f0c2b571e4fe76b69bcbd90e9ff32e26f139e5272bbe5f3d7e5c8c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Drilling line was slipped and cut on report days 1997-11-10 for well 15/9-19-A (done on 1997-11-09 between 20:00 and 22:00), and on 2013-04-28 and 2013-05-15 for well 15/9-F-11-T2 (done on 2013-04-27 at 23:30-00:00 and on 2013-05-14 ending 04:00 respectively).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "Slip and cut of drill line appears in activity and summary records of these three reports only.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 288,
+    "cost_usd": 0.029534,
+    "prompt_tokens": 13327
+   }
+  },
+  "17e765ed6a356bbdb8a0827c7f4cf6ea2df67febc3e665e996c6649be8f225ed": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "F-11-B (report 2015-10-28): no wireline tractor problem is recorded in the evidence; the tractor was switched to tractor mode at 2800 m and used to RIH to 3570 m, and the only tractor-related event was 'Tractor software froze' during RIH from 2800 m to 3570 m, cleared by restarting tractor software (OK) at 15:05. F-15-D (report 2015-08-10): communication was lost with the tractor at 3592 m during RIH (13:10 on 2015-08-09); troubleshooting found it not possible to activate the tractor, so the run was aborted and POOH began.",
+    "cited_ids": [
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14"
+    ],
+    "rationale": "Tractor problems are stated in the activity lines for both runs: a software freeze on F-11-B and lost communication with the tractor on F-15-D.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 338,
+    "cost_usd": 0.000888,
+    "prompt_tokens": 7186
+   }
+  },
+  "18cec28d3f2085230dd6918262d2d26ec4a52ba52ac724b36bacdb432d26c2e3": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-011",
+   "response": {
+    "answer": "Seabed was tagged at 144,3 m MD with 5 MT WOB.",
+    "cited_ids": [
+     "F1-20071202-ACT-07"
+    ],
+    "rationale": "Part (1) depth: the seabed was tagged at 144,3 m (MD); Part (2) WOB: 5 MT was used at the tag, as stated in the same activity line (report 2007-12-02, activity timestamp 2007-12-01T10:15:00).",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 157,
+    "cost_usd": 0.000555,
+    "prompt_tokens": 4769
+   }
+  },
+  "192218e4f3fa3c26fdd02b9b7b5174ba9bdf988a8cc208befe062315e4147625": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-026",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-supervisor"
+    ],
+    "rationale": "The evidence states that no supervisor field exists in any of the searched reports, so the drilling supervisor cannot be identified.",
+    "status": "abstain"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 81,
+    "cost_usd": 0.01158,
+    "prompt_tokens": 5385
+   }
+  },
+  "197b4e73fd1900a8012ba20d8581bbf4f0b7a0970e9ebfa8190472d478d3bc43": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-016",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F1C-20140326-FLUID-01"
+    ],
+    "rationale": "The fluid record for the active pit sample lists NaCl brine density as 1.03 g/cm3, sampled at 2014-03-25T21:00:00.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 104,
+    "cost_usd": 0.000149,
+    "prompt_tokens": 973
+   }
+  },
+  "1acbd7bd0ddc01de37fb837034fbc2f60422005856a9e2d3313b0b0c88749563": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-014",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F1B-20130924-FLUID-01"
+    ],
+    "rationale": "The fluid record for the NaCl brine sampled from the active pit gives density=1.03 g/cm3 at 2013-09-23T10:30:00 on the 2013-09-24 report.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 115,
+    "cost_usd": 0.000156,
+    "prompt_tokens": 983
+   }
+  },
+  "1fbe4cc9b972e17e8474b34401fc852e595bb4381b4b8253c9c27c274ca5e23d": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-004",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F11B-20130628-FLUID-01"
+    ],
+    "rationale": "Record FLUID-01 is the NaCl brine sampled at the flowline with timestamp 2013-06-27T18:00:00, which falls within the 2013-06-28 report and corresponds to 18:00 on 2013-06-28, with density 1.03 g/cm3.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 144,
+    "cost_usd": 0.000193,
+    "prompt_tokens": 1211
+   }
+  },
+  "22b49b1ecfbd6915de2097098b1092572c02de14f6dbcf8394faedc4ce72954f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "F-11-B (report 2015-10-28): the tool stopped by gravity at 2800 m (PU weight 3850 lbs), so the tractor had to be started and the string switched to tractor mode. While tractoring from 2800 m to 3570 m, the tractor software froze (2015-10-27T14:35). It was restarted and was OK by 2015-10-27T15:05. F-15-D (report 2015-08-10): while running in with the tractor activated from 3565 m to 3592 m, communication with the tractor was lost (2015-08-09, ending 13:10). Troubleshooting showed the tractor could not be activated, so the crew decided to POOH. During POOH the add-on drum came out of position and damaged the cable, and BHA #2 was laid down.",
+    "cited_ids": [
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14",
+     "F15D-20150810-ACT-15",
+     "F15D-20150810-SUM-SUM24HR"
+    ],
+    "rationale": "Both runs' activity and summary lines describe the tractor issues: a software freeze on F-11-B and lost communication on F-15-D.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 442,
+    "cost_usd": 0.018978,
+    "prompt_tokens": 7279
+   }
+  },
+  "2a882c3091b0a47ba57015b7e1eff730131b5c406266bdc8e235b331f8bf93da": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-001",
+   "response": {
+    "answer": "2178 m (mMD)",
+    "cited_ids": [
+     "19A-19800101-STATUS-MDKICKOFF"
+    ],
+    "rationale": "The status line for the 1980-01-01 report gives mdKickoff as 2178 m, which is the kick-off depth in mMD.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 102,
+    "cost_usd": 0.000189,
+    "prompt_tokens": 1381
+   }
+  },
+  "2c666a135d7431464c483b3d4b581c83c6bcbe9659b2f5272b37c7fe05e35f7e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-015",
+   "response": {
+    "answer": "The 17 1/2\" BHA was pulled to 1338 m MD, which is 10 m inside the 20\" shoe (the 20\" shoe is at about 1348 m MD, per the no-drag observation at 1348 m).",
+    "cited_ids": [
+     "F1C-20140222-ACT-04",
+     "F1C-20140222-SUM-SUM24HR"
+    ],
+    "rationale": "Part (1): the BHA was pulled to 1338 m MD; Part (2): this was 10 m inside the 20\" shoe, as stated in the activity and summary lines.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 195,
+    "cost_usd": 0.000485,
+    "prompt_tokens": 3875
+   }
+  },
+  "2d1f8e9f359ddb575adf56ca06aa8160f65336a249c917a597ba2853f194a244": {
+   "finish_reason": "length",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "__unparsed__": "{\"status\":\"answered\",\"answer\":\"Part 1: Landing the BOP onto the surface riser and making up the NT2 connector occurred on 2013-06-28 (report 15/9-F-11-B; activity at 2013-06-27T18:00:00 onward, \\\"Moved BOP to well center and landed same onto riser. Made up NT2 connector.\\\") and on 2013-12-14 (report 15/9-F-15-D; activity at 2013-12-13T23:45:00, \\\"Moved BOP to well center and landed same onto riser. Made up NT2 connector.\\\"). Part 2: On 2013-06-27 the annular BOP was pressure tested to 30 / 345 bar for 5 / 10 minutes (test ok, after replacing the annular preventer); on 2013-12-13 the BOP was pressure tested on stump to 20 / 345 bar for 5 / 10 minutes, and again to 20 / 345 bar for 5 / 10 minutes during the multibowl seal work before nipple-up. The 2013-06-28 report does not record a BOP pressure test after the landing itself.\",\"cited_ids\":[\"F11B-20130628-ACT-07\",\"F11B-20130628-ACT-08"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.002423,
+    "prompt_tokens": 22227
+   }
+  },
+  "2d6e6f0f1acbe5feb97b13845336610384caef8f669fdd7ad770fe1f07b5362a": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-016",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F1C-20140326-FLUID-01"
+    ],
+    "rationale": "The fluid record for the NaCl brine sampled from the active pit gives density=1.03 g/cm3, sampled at 2014-03-25T21:00:00 and belonging to the 2014-03-26 report.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 122,
+    "cost_usd": 0.000158,
+    "prompt_tokens": 973
+   }
+  },
+  "2f8c1a4df555f49e1f1ad1f9dd80c40b72bf847ae60199490a984b4aef0e1bb7": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "The rig moved from well 15/9-F-15-D (its 2016-10-19 report: cut and pulled production riser, skidded rig to F-14) to F-14, then to F-12 (cut and pulled riser on F-12 per forecast), then to F-11 B (skidded rig to F-11 B per F-12 report of 2016-10-21), then to F-1 C (skidded to F-1 C per F-11 B and F-1 C reports on 2016-10-22), with the forecast for the 2016-10-22 F-1 C report stating the next moves are to F-7 and then F-9 A.",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-07",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "The F-15-D, F-12, and F-1 C summaries and forecasts give the sequence F-15-D → F-14 → F-12 → F-11 B → F-1 C, with F-11 B and F-1 C activity lines confirming the F-11 B and F-1 C work.",
+    "status": "answered"
+   },
+   "role": "primary_retry",
+   "usage": {
+    "completion_tokens": 446,
+    "cost_usd": 0.001497,
+    "prompt_tokens": 12736
+   }
+  },
+  "2fba216e4c13efb9d76cebe069427b7361b56e67db71cbff9280dc57bda6956e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (report 2007-06-14) the rig was skidded from slot F-4 (skid at 2007-06-13T23:15:00 to 2007-06-14T00:00:00). For F-1 (report 2007-12-02) the rig was skidded from F-9 (toolbox talk and skid starting 2007-12-01T04:30:00).",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "Both skid activity comments explicitly name the origin slots, F-4 to F-12 and F-9 to F-1, so the question is fully supported.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 218,
+    "cost_usd": 0.011544,
+    "prompt_tokens": 4682
+   }
+  },
+  "32031f804bdbfd3774463b6bb3dcb3295fb44f9a94534523d2ba532e856997bb": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "Part 1: Landing the BOP onto the surface riser and making up the NT2 connector occurred on 2013-06-28 (report 15/9-F-11-B, activity ACT-08, ended 2013-06-28T00:00:00, BOP moved to well center, landed onto riser, NT2 connector made up) and on 2013-12-14 (report 15/9-F-15-D, activity ACT-16, ended 2013-12-13T23:45:00, BOP moved to well center and landed onto riser, NT2 connector made up). Part 2: On 2013-06-28 the annular preventer was function tested twice and pressure tested to 30 / 345 bar for 5 / 10 minutes (ACT-07, ended 2013-06-27T18:00:00), with an earlier stump test of the annular BOP to 20 / 345 bar that could not be obtained (ACT-01). On 2013-12-14 the BOP was pressure tested on stump to 20 / 345 bar for 5 / 10 minutes (ACT-01, ended 2013-12-13T03:00:00) and again to 20 / 345 bar for 5 / 10 minutes during the multibowl test (ACT-11, ended 2013-12-13T14:30:00).",
+    "cited_ids": [
+     "F11B-20130628-ACT-08",
+     "F11B-20130628-ACT-07",
+     "F11B-20130628-ACT-01",
+     "F15D-20131214-ACT-16",
+     "F15D-20131214-ACT-01",
+     "F15D-20131214-ACT-11"
+    ],
+    "rationale": "Part 1 (landing BOP and NT2 connector) is answered from the ACT-08 line on 2013-06-28 and ACT-16 line on 2013-12-14; Part 2 (BOP pressure tests) is answered from the ACT-01/ACT-07 lines for 2013-06-28 and ACT-01/ACT-11 lines for 2013-12-14, with test pressures in bar.",
+    "status": "answered"
+   },
+   "role": "primary_run2_retry",
+   "usage": {
+    "completion_tokens": 655,
+    "cost_usd": 0.00255,
+    "prompt_tokens": 22227
+   }
+  },
+  "3260744cc7d8b63a073a7e244fda701cd6107c8f766e3c493e44dbef4aaf5824": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-028",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence states no cost field exists in any record, so AFE versus actual well cost cannot be answered.",
+    "status": "abstain"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 73,
+    "cost_usd": 0.004932,
+    "prompt_tokens": 2101
+   }
+  },
+  "36e3614ef3a2c43a476d0ff9bc7c8403df7742364112759c0134200985edb96e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-032",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "19A-19970829-GAS-01",
+     "19A-19970829-GAS-02",
+     "ABSENT-mud_logging"
+    ],
+    "rationale": "The evidence records gas readings but contains no mud logging service company or engineer name; the mud logging field is explicitly absent from all records.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 110,
+    "cost_usd": 0.000273,
+    "prompt_tokens": 2181
+   }
+  },
+  "38bba37856a823fc9a056db45ee931a0e97ded0eebfa86b0fa3a4720776d0a4d": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (2013-05-29) reported one average ROP of 19 m/hr for 12 1/4\" hole from 2627 m to 2787 m MD. F-1-B (2013-08-30) reported two interval averages: 11.5 m/hr (2627 m to 2650 m) and 22.6 m/hr (2650 m to 2763 m). F-1-B's later interval at 22.6 m/hr was higher than F-11-B's 19 m/hr (by 3.6 m/hr), while its earlier interval at 11.5 m/hr was lower (by 7.5 m/hr). No single overall F-1-B average is reported, so a single comparison figure is not supported.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "F-11-B gives one average ROP, F-1-B gives two interval averages, so the comparison is made per interval without computing an unreported overall average.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 344,
+    "cost_usd": 0.009578,
+    "prompt_tokens": 3069
+   }
+  },
+  "3b2198227a80e14805eacec1dc613fbcfd09948c6b461147dfb7712f23ccf87f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "The BOP was landed onto the riser and the NT2 connector made up on two days. (1) On 2013-06-27 (well 15/9-F-11-B, report 2013-06-28), the BOP was moved to well center, landed onto the riser and the NT2 connector made up, between 18:00 and 24:00. (2) On 2013-12-13 (well 15/9-F-15-D, report 2013-12-14), the BOP was moved to well center, landed onto the riser and the NT2 connector made up, between 19:15 and 23:45. BOP pressure tests on 2013-06-27: the annular BOP was tested to 20 / 345 bar on stump but no test was obtained, so the annular element was replaced. The replacement annular preventer was function tested twice and then pressure tested to 30 / 345 bar for 5 / 10 minutes, and the test was ok. BOP pressure tests on 2013-12-13: the BOP was pressure tested on stump to 20 / 345 bar for 5 / 10 minutes. The BOP was tested again to 20 / 345 bar for 5 / 10 minutes while the Multibowl BT and FS seals were tested. The Multibowl annulus valves were also tested to 30 / 345 bar for 5 / 10 minutes.",
+    "cited_ids": [
+     "F11B-20130628-ACT-01",
+     "F11B-20130628-ACT-07",
+     "F11B-20130628-ACT-08",
+     "F15D-20131214-ACT-01",
+     "F15D-20131214-ACT-11",
+     "F15D-20131214-ACT-14",
+     "F15D-20131214-ACT-16"
+    ],
+    "rationale": "Part 1: the landing and NT2 make-up days are 2013-06-27 and 2013-12-13; part 2: the BOP pressure tests on those days are listed per day.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 605,
+    "cost_usd": 0.050696,
+    "prompt_tokens": 22323
+   }
+  },
+  "3f8fc9ec008b372b73ce0cb6c9fd81826d1a5c5bc13c9a98da4b6ea2d971c1d8": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-025",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence states that no cost field exists in any searched report, so the daily spread cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 73,
+    "cost_usd": 0.004536,
+    "prompt_tokens": 1903
+   }
+  },
+  "403eaa950421d372c177702c4f1812b8e7ddc814f58d7a04eb566a09039e9096": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (report 2013-05-29): average ROP 19 m/hr (19 meter/hour) over 2627 m to 2787 m MD. F-1-B (report 2013-08-30): average ROP 22.6 m/hr over 2650 m to 2763 m MD for the main interval, with 11.5 m/hr average for 2627 m to 2650 m. F-1-B's average is higher by 3.6 m/hr.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "Both reports state an average ROP for 12 1/4\" drilling, so the figures can be compared directly.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 248,
+    "cost_usd": 0.000382,
+    "prompt_tokens": 2578
+   }
+  },
+  "420b3a04e4946ddb41645c3710639f66749112d9b5d5d294c11f55fe13c483ef": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "50% formation in returns was confirmed at: 15/9-F-1 at 2620 m MD (report 2013-08-24, drilled 2610-2620 m, timestamp 2013-08-23T03:00:00 to 05:00:00); 15/9-F-1-B at 1364 m MD (report 2014-02-22, at 14:30 on 2014-02-21); 15/9-F-11-T2 at 2586 m MD (report 2013-05-15, kick-off to F-11 A); 15/9-F-15-D at 1380 m (report 2013-11-11, 50 % return of formation while drilling 1373-1403 m).",
+    "cited_ids": [
+     "F1-20130824-ACT-03",
+     "F1B-20140222-ACT-13",
+     "F11T2-20130515-ACT-07",
+     "F15D-20131111-ACT-01"
+    ],
+    "rationale": "Each cited activity line states a 50% formation/cement-formation return depth for its well.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 323,
+    "cost_usd": 0.051736,
+    "prompt_tokens": 24253
+   }
+  },
+  "436cefc6e93d770428be53de7ba4ca543a7256dc9e8ce275417e0750b009b26f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "F-11-B (report 2015-10-28): while running in by gravity the tool stopped at 2800 m (PU weight 3850 lbs) and the tractor had to be started, so the crew switched to tractor mode. Later, while running in with the tractor from 2800 m to 3570 m, the tractor software froze. It was restarted and worked OK, and tractoring continued to 4530 m. F-15-D (report 2015-08-10): the toolstring stopped at 3565 m while running in by gravity. With the tractor activated from 3565 m to 3592 m, communication with the tractor was lost. Troubleshooting could not activate the tractor, so the crew decided to POOH. The cable was then damaged when the add-on drum came out of position, and BHA #2 was laid down.",
+    "cited_ids": [
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F11B-20151028-ACT-16",
+     "F15D-20150810-ACT-12",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14",
+     "F15D-20150810-ACT-15"
+    ],
+    "rationale": "Activity lines from both reports describe the tractor start, software freeze, lost communication and failure to activate.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 443,
+    "cost_usd": 0.019016,
+    "prompt_tokens": 7293
+   }
+  },
+  "4466da13cff369d29623980b767b8a66152856d01e60fea149ac4052d3a40cb7": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-008",
+   "response": {
+    "answer": "1.36 g/cm3 (equivalent to 1.36 sg)",
+    "cited_ids": [
+     "F12-20070808-FLUID-01"
+    ],
+    "rationale": "The fluid record sampled from the active pit at 2007-08-07T22:00:00, which falls within the 2007-08-08 report period, gives density=1.36 g/cm3 for the HPWBM.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 133,
+    "cost_usd": 0.00019,
+    "prompt_tokens": 1236
+   }
+  },
+  "44d41a9c02e486996bbd28d82d0db0259d855cf24a2b2862575334838fa5e158": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-013",
+   "response": {
+    "answer": "End depth at midnight on 2013-08-30 was 2763 m MD (md=2763 m). The activity being performed was drilling and orienting the 12 1/4\" hole (drilling -- drill, state ok, success), averaging 22.6 m/hr ROP with 3500 l/min flow, 215-220 bar, 80 rpm, and LCM premix bleed-in to maintain particle concentration.",
+    "cited_ids": [
+     "F1B-20130830-ACT-03",
+     "F1B-20130830-STATUS-MD",
+     "F1B-20130830-SUM-SUM24HR"
+    ],
+    "rationale": "Part (1) end depth 2763 m MD is from ACT-03 ending at 2013-08-30T00:00:00 and the status md field; part (2) activity is drilling and orienting the 12 1/4\" hole per ACT-03 and the 24h summary.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 298,
+    "cost_usd": 0.000484,
+    "prompt_tokens": 3347
+   }
+  },
+  "477a4977a533f50b9ad8ede4c6279db3af45daa0f125adb702bab129e6ecb2a4": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (2013-05-29) reported an average ROP of 19 m/hr while drilling 12 1/4\" hole from 2627 m to 2787 m MD. F-1-B (2013-08-30) reported average ROPs of 11.5 m/hr (2627 m to 2650 m) and 22.6 m/hr (2650 m to 2763 m). F-1-B's 22.6 m/hr was higher than F-11-B's 19 m/hr, while its 11.5 m/hr interval was lower.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "The ROP values are stated directly in the activity comments for each report's 12 1/4\" drilling intervals.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 277,
+    "cost_usd": 0.000396,
+    "prompt_tokens": 2578
+   }
+  },
+  "4c56ff43f2e8ee92757b69221fc44b07fdf77364673074cd02908b944857f03f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-003",
+   "response": {
+    "answer": "The deepest survey station (md=2764.7 m) recorded an inclination of 54.97 deg.",
+    "cited_ids": [
+     "F11B-20130529-SURVEY-05"
+    ],
+    "rationale": "Survey station 05 is the deepest listed (md 2764.7 m) and carries inclination 54.97 deg, the highest in the set.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 123,
+    "cost_usd": 0.000345,
+    "prompt_tokens": 2838
+   }
+  },
+  "4c59772318a6dd409a7ba89ffe4e37784003d7e4b534b73c7d9bc4dfd71fc624": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-002",
+   "response": {
+    "answer": "1.22 g/cm3 (estimated pore pressure equivalent mud weight at 3600 m MD)",
+    "cited_ids": [
+     "19A-19970829-PORE-01"
+    ],
+    "rationale": "Record 19A-19970829-PORE-01 gives an estimated equivalentMudWeight of 1.22 g/cm3 at md=3600 m in the 1997-08-29 report.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 140,
+    "cost_usd": 0.000179,
+    "prompt_tokens": 1089
+   }
+  },
+  "4f5ef8354a297ecf5d6d1b768d25eeeffb524e55dd3f17cf503979d1bfe1e893": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "The rig started at F-15-D (riser cut and pulled, then skidded to F-14 per the 2016-10-19 report). The F-15-D forecast then planned to cut and pull the riser on F-14, skid to F-12 and pull the riser there. The 2016-10-21 F-12 report shows the riser cut and pulled and the rig skidded to F-11 B. The F-11 B riser was pulled on 2016-10-21 (the activities run from 00:00 to 03:30 that day). The F-12 forecast then planned to skid to F-1 C. The 2016-10-22 F-1 C report shows the rig skidded to F-1 C and the riser cut and pulled, with preparations to skid to F-7. The F-1 C forecast then planned to skid to F-7, pull the riser there, and skid to F-9 A. Order: F-15-D, F-14, F-12, F-11 B, F-1 C, then planned F-7 and F-9 A. The F-14 pull is only planned in the evidence, with no F-14 report included.",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-01",
+     "F11B-20161022-ACT-07",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "Sequence is assembled from the summaries and forecasts of the F-15-D, F-12, F-11 B and F-1 C reports; F-14 and the F-7 and F-9 A moves are forecast only.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 585,
+    "cost_usd": 0.031508,
+    "prompt_tokens": 12829
+   }
+  },
+  "524408ed6bbe16034a9ffa5e22b93951b206ad9994b257914300d7abb8b5af1e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "The rig moved in this order: 15/9-F-15-D (report 2016-10-19, skidding to F-14, then planned F-12) → 15/9-F-14 (forecast on F-15-D report, not in the evidence as a completed report) → 15/9-F-12 (report 2016-10-21, skidded to F-11 B) → 15/9-F-11 B (report 2016-10-22, cutting/pulling riser, then planned skid to F-1 C) → 15/9-F-1 C (report 2016-10-22, skidded to well F-1 C, pulled riser, then planned skid to F-7 and then F-9 A).",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-07",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "Ordered by report dates and the summary and forecast lines describing skids between F-15 D, F-12, F-11 B, and F-1 C, though F-14 is only mentioned as a skid target without its own report.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 435,
+    "cost_usd": 0.001491,
+    "prompt_tokens": 12736
+   }
+  },
+  "56a1672382f89cd0b25dafd8d045073db8f338fe644afabbe1abd77627d1ad5a": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-030",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1B-20130924-STATUS-REPORTNO"
+    ],
+    "rationale": "The evidence explicitly states that no personnel field exists in any record, so the number of people on board cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 85,
+    "cost_usd": 0.00067,
+    "prompt_tokens": 6274
+   }
+  },
+  "58dc26fd54e9273c6b13685a9811fee003c2938d112c3a74e8155c936d5a2ec5": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-010",
+   "response": {
+    "answer": "1.32 g/cm3",
+    "cited_ids": [
+     "F15D-20131214-FLUID-01"
+    ],
+    "rationale": "The fluid record sampled from the active pit at 2013-12-13T21:00:00, within the 2013-12-14 report window, gives density 1.32 g/cm3 for Enviromul Yellow.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 119,
+    "cost_usd": 0.000176,
+    "prompt_tokens": 1161
+   }
+  },
+  "5a638d28ff70b8d03a14c2de85dae3fff02dd62e168ceb0d0cf648229cf6413c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-002",
+   "response": {
+    "answer": "1.22 g/cm3 (estimated pore pressure equivalent mud weight at 3600 mMD)",
+    "cited_ids": [
+     "19A-19970829-PORE-01"
+    ],
+    "rationale": "Line 19A-19970829-PORE-01 gives equivalentMudWeight=1.22 g/cm3, readingKind=estimated at md=3600 m.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 132,
+    "cost_usd": 0.000175,
+    "prompt_tokens": 1089
+   }
+  },
+  "5ed4471efbdfd18f13fd10af23db7bba82c52794b848273bbe8779c9938e57cc": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-015",
+   "response": {
+    "answer": "The 17 1/2\" BHA was pulled to 1338 m MD, which is 10 m inside the 20\" shoe (the 20\" shoe is at about 1348 m MD, per the no-drag observation on entry at 1348 m).",
+    "cited_ids": [
+     "F1C-20140222-ACT-04",
+     "F1C-20140222-ACT-05",
+     "F1C-20140222-SUM-SUM24HR"
+    ],
+    "rationale": "Part (1): the BHA was pulled to 1338 m MD (ACT-04); Part (2): that depth is 10 m inside the 20\" shoe, as stated in ACT-04 and the summary.}",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 224,
+    "cost_usd": 0.0005,
+    "prompt_tokens": 3875
+   }
+  },
+  "61be5de59d1253090b79df0c81b7126b5aba6168e911fa0df6a70b6d79c0dea3": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-026",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F12-20080115-ABSENT-supervisor"
+    ],
+    "rationale": "The evidence explicitly states no supervisor field exists in any of the report records, so the drilling supervisor cannot be identified.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 88,
+    "cost_usd": 0.000575,
+    "prompt_tokens": 5313
+   }
+  },
+  "638bf01f60ccc161173c755d8f52ecadc7865cef490694207398801737760ace": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14), the rig skidded from F-4. For F-1 (2007-12-02), the evidence shows the rig skidded from F-9 to F-1.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "Both the F-12 skid activity (from F-4) and the F-1 pre-skid toolbox talk (from F-9) are stated in the evidence, though the F-1 line only mentions F-9 as the origin without a completed-skid record.",
+    "status": "partial"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 191,
+    "cost_usd": 0.00054,
+    "prompt_tokens": 4443
+   }
+  },
+  "6650bb43793919137d8d4376d8cd41702b70a6a682e7ea9862a64912fc167a96": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-005",
+   "response": {
+    "answer": "Observed 30 tons overpull when attempting to lay down the single 5 1/2\" DP joint before the wireline Gyro survey; the pipe was pulled free with 30 tons overpull, and the string was then worked over the interval 237 m to 244 m.",
+    "cited_ids": [
+     "F11T2-20130324-SUM-SUM24HR",
+     "F11T2-20130324-ACT-03"
+    ],
+    "rationale": "ACT-03 describes the lay-down attempt, the 30 tons overpull, and working the string over 237 m to 244 m, which is corroborated by the 24h summary's overpull observation.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 211,
+    "cost_usd": 0.00051,
+    "prompt_tokens": 4050
+   }
+  },
+  "6953babb49be4de6c6d9c0402f19ba0b51fc17e4b0be27ec03bd37500ceb92ad": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-025",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1C-20140326-SUM-SUM24HR",
+     "F1C-20140326-FCST-FORECAST24HR",
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence contains no cost field, so the daily spread cost cannot be determined from the lines provided.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 111,
+    "cost_usd": 0.000236,
+    "prompt_tokens": 1809
+   }
+  },
+  "6a2567a8612dc117473dd3b028000f1e85fa1bb7e3efd8fac77cec0e4fee3373": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-026",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F12-20080115-ABSENT-supervisor"
+    ],
+    "rationale": "The evidence explicitly states no supervisor field exists in any record, and only companies (Mærsk Contractors, StatoilHydro) are named, not a supervisor.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 102,
+    "cost_usd": 0.000592,
+    "prompt_tokens": 5413
+   }
+  },
+  "6b7c023886c6ef577bd44fd7214af4e583bc9c2d97afa07a04f9e6cf80b664f7": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (line slipped and cut at 22:00 on 1997-11-09, reported 1997-11-10). Well 15/9-F-11-T2: 2013-04-27 (slip and cut at 23:30 on 2013-04-27, reported 2013-04-28) and 2013-05-14 (slip & cut completed by 04:00 on 2013-05-14, reported 2013-05-15).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "The activity lines and 24h summaries for each well record slip and cut drilling line operations on those dates.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 309,
+    "cost_usd": 0.001478,
+    "prompt_tokens": 13231
+   }
+  },
+  "6e66f6a23b7784f5d46c5f47913067c54e4f7fb74ace548f0e5d06996cd5b134": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-028",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so AFE versus actual cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 75,
+    "cost_usd": 0.00024,
+    "prompt_tokens": 2030
+   }
+  },
+  "732ccbd20d3aeb676f3440b2b6eaa7661ec5bee0a328187bb2fdac499bf0f557": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "Part 1: The BOP was landed onto the surface riser and the NT2 connector made up on two completion days: 2013-06-28 (report 15/9-F-11-B, activity ACT-08, the activity ending 2013-06-28T00:00:00 with the work starting 2013-06-27T18:00:00) and 2013-12-14 (report 15/9-F-15-D, activity ACT-16, ending 2013-12-13T23:45:00). Part 2: BOP pressure tests on those days: on 2013-06-28, the annular preventer was pressure tested to 30 / 345 bar for 5 / 10 minutes (ACT-07, 2013-06-27T18:00:00, test ok), with an earlier stump test attempt that could not obtain a test (ACT-01); on 2013-12-14, the BOP was pressure tested to 20 / 345 bar for 5 / 10 minutes (ACT-11, 2013-12-13T14:30:00), and also on stump to 20 / 345 bar (ACT-01, 2013-12-13T03:00:00).",
+    "cited_ids": [
+     "F11B-20130628-ACT-07",
+     "F11B-20130628-ACT-08",
+     "F11B-20130628-ACT-01",
+     "F15D-20131214-ACT-16",
+     "F15D-20131214-ACT-11",
+     "F15D-20131214-ACT-01"
+    ],
+    "rationale": "Part 1 (landing BOP and making up NT2 connector) is answered from the ACT-08 and ACT-16 lines; Part 2 (BOP pressure tests) is answered from the test activities on those same days, and both parts are addressed.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 547,
+    "cost_usd": 0.002496,
+    "prompt_tokens": 22227
+   }
+  },
+  "771bc8911b121dcf0d61e2cc038364ca3641ba92f68a110a0fff29bb01c73caa": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-031",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence states no cost field exists in any record, so the replacement parts cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 70,
+    "cost_usd": 0.000441,
+    "prompt_tokens": 4057
+   }
+  },
+  "781b5a2c19295b854b1d9737f668a0bd95dbcff70e3968e32dd3af405630a57e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-003",
+   "response": {
+    "answer": "The deepest survey station (md 2764.7 m) recorded an inclination of 54.97 degrees.",
+    "cited_ids": [
+     "F11B-20130529-SURVEY-05"
+    ],
+    "rationale": "Survey 05 is the deepest station at 2764.7 m MD with the highest inclination of 54.97 deg among the listed surveys.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 124,
+    "cost_usd": 0.000346,
+    "prompt_tokens": 2838
+   }
+  },
+  "790b37bfd69109d66608f0acb414ce8c9c520aeb3bd7a5f03a0996d50a043550": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (report 2013-05-29): average ROP 19 m/hr (19 meter/hour). F-1-B (report 2013-08-30): average ROP 22.6 m/hr for the 2650-2763 m interval, with an earlier interval averaging 11.5 m/hr (2627-2650 m). F-1-B's reported 22.6 m/hr is higher than F-11-B's 19 m/hr.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "The average ROP values are stated directly in the activity comments for each well's 12 1/4\" hole drilling.}",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 247,
+    "cost_usd": 0.000381,
+    "prompt_tokens": 2578
+   }
+  },
+  "7944bbbe4673ed9d088545ceadf75116ed7af6a78a0df96fcdde0e0caeebf5c6": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: slip and cut on 1997-11-09 (ending 22:00), in the report dated 1997-11-10. Well 15/9-F-11-T2: slip and cut on 2013-04-27 (23:30 to 2013-04-28T00:00), in the report dated 2013-04-28; and on 2013-05-14 (00:00 to 04:00), in the report dated 2013-05-15.",
+    "cited_ids": [
+     "19A-19971110-SUM-SUM24HR",
+     "19A-19971110-ACT-05",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130515-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01"
+    ],
+    "rationale": "Activity and summary lines in these three reports mention slipping and cutting drill line; other reports do not.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 302,
+    "cost_usd": 0.030472,
+    "prompt_tokens": 13726
+   }
+  },
+  "7a7f0c5b8b19180c4df51dcdb71e1fbfdb982d0c77b720e3019d9983c1a240c6": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-031",
+   "response": {
+    "answer": "",
+    "cited_ids": [],
+    "rationale": "The evidence lines record the equipment failure and repair activities but contain no cost field, and the ABSENT-cost record confirms no cost data exists in the report.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 80,
+    "cost_usd": 0.000446,
+    "prompt_tokens": 4056
+   }
+  },
+  "7e0e2265befafef37d88a49d9618b674d5816f4a7586260fe1bd761bf39e695b": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-009",
+   "response": {
+    "answer": "Drilling (proprietaryCode drilling -- drill, state ok) from 1403 m to 1484 m MD, from 2013-11-10T19:00:00 to 2013-11-10T23:45:00 (the 19:00 record in the 2013-11-11 report), with 4000 liter/min, 235 bar, 80-120 rpm, 12-25 kNm, ROP 27-29 m/hr, WOB 2-10 ton, ECD 1,420 sg, max gas 0,05 %. Depth reached: 1484 m MD.",
+    "cited_ids": [
+     "F15D-20131111-ACT-02"
+    ],
+    "rationale": "ACT-02 covers the 19:00 to 23:45 interval (dTimEnd 2013-11-10T23:45:00) and gives drilling to md 1484 m.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 283,
+    "cost_usd": 0.00985,
+    "prompt_tokens": 3510
+   }
+  },
+  "7e21f4f2a4bb6a75152c1f0fdf450c3d833cb20da1c0bbc891b8cbed0ac9e17d": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14) the rig was skidded from F-4; for F-1 (2007-12-02) the rig was skidded from F-9.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "The F-12 skid activity states it was skidded from F-4 to F-12, and the F-1 toolbox talk entry states the rig was skidded from F-9 to F-1.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 162,
+    "cost_usd": 0.000525,
+    "prompt_tokens": 4443
+   }
+  },
+  "808cf191f6cc1666274ae9c8caadb245fb39d6a38af15aef196d871482871c5c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (report 2013-05-29): average ROP 19 m/hr (19 meter/hour) while drilling 12 1/4\" hole from 2627 m to 2787 m MD. F-1-B (report 2013-08-30): average ROP 22.6 m/hr while drilling 12 1/4\" hole from 2650 m to 2763 m MD; the 2627-2650 m interval averaged 11.5 m/hr. F-1-B's average ROP was about 3.6 m/hr higher than F-11-B's.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-03",
+     "F1B-20130830-ACT-02"
+    ],
+    "rationale": "Both reports state an explicit average ROP for their 12 1/4\" drilling intervals, so the comparison is directly supported.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 288,
+    "cost_usd": 0.000402,
+    "prompt_tokens": 2578
+   }
+  },
+  "809785fea525e2430a248f614ed294f156dcd047fb08e183f64c93fda9a369df": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "F-11-T2 (sidetrack F-11 A kick-off): 50% cement/formation in returns verified at 2586 m MD. F-1-B: no 50% formation-in-returns confirmation found in the evidence. F-1 and F-15-D: none found. For F-1-A/F-1-C in the F-1 series: 50% formation obtained at 1364 m MD (report 2014-02-22, kick-off/drill-out context, not a sidetrack kick-off).",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07",
+     "F1B-20130830-ACT-02",
+     "F1B-20140222-ACT-13",
+     "F1B-20130830-SUM-SUM24HR"
+    ],
+    "rationale": "Only F-11-T2's kick-off line explicitly records 50% formation in returns at a kick-off depth (2586 m MD); other lines lack this confirmation, and the F-1 1364 m entry is a drill-out, not a kick-off.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 327,
+    "cost_usd": 0.002579,
+    "prompt_tokens": 24158
+   }
+  },
+  "81e00c1245fa3604a0a4d457ba5bd10e32345cdef6ef946a167e2687c8ed6fd7": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-014",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F1B-20130924-FLUID-01"
+    ],
+    "rationale": "The fluid record for the NaCl brine sampled from the active pit lists density=1.03 g/cm3, sampled at 2013-09-23T10:30:00.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 106,
+    "cost_usd": 0.000151,
+    "prompt_tokens": 983
+   }
+  },
+  "842acda539f259bd51b9177dcbee415b8b0469b467786931a5418539f59a726c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-030",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-personnel"
+    ],
+    "rationale": "The evidence has no personnel field for this report, so personnel on board cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 68,
+    "cost_usd": 0.013372,
+    "prompt_tokens": 6346
+   }
+  },
+  "844e8fe31cb1a3a608a848f22003b26fe04324fae3ddbd09fb8f2984eca35eb3": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-011",
+   "response": {
+    "answer": "Seabed was tagged at 144.3 m MD with 5 MT WOB.",
+    "cited_ids": [
+     "F1-20071202-ACT-07"
+    ],
+    "rationale": "Part (1) seabed tag depth is 144.3 m MD and part (2) WOB used was 5 MT, both stated in activity line F1-20071202-ACT-07.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 126,
+    "cost_usd": 0.00054,
+    "prompt_tokens": 4769
+   }
+  },
+  "8511d85d7d04b914956bf41b6b87873460ae10a4df0bff4e5bd4b0bdaad77453": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "Part 1: The BOP was landed onto the surface riser and the NT2 connector made up on two days: 2013-06-27 (report 15/9-F-11-B dated 2013-06-28; ACT-08, from 2013-06-27T18:00:00 to 2013-06-28T00:00:00) and 2013-12-13 (report 15/9-F-15-D dated 2013-12-14; ACT-16, from 2013-12-13T19:15:00 to 2013-12-13T23:45:00). Part 2: On 2013-06-27 the annular BOP was pressure tested on stump to 20 / 345 bar but no test could be obtained (ACT-01, 00:00-02:00), and after the annular element was replaced it was pressure tested to 30 / 345 bar for 5 / 10 minutes, test ok (ACT-07, ending 2013-06-27T18:00:00). On 2013-12-13 the BOP was pressure tested on stump to 20 / 345 bar for 5 / 10 minutes (ACT-01, ending 03:00) and again to 20 / 345 bar for 5 / 10 minutes during Multibowl seal testing (ACT-11, ending 14:30).",
+    "cited_ids": [
+     "F11B-20130628-ACT-08",
+     "F11B-20130628-ACT-01",
+     "F11B-20130628-ACT-07",
+     "F15D-20131214-ACT-16",
+     "F15D-20131214-ACT-01",
+     "F15D-20131214-ACT-11"
+    ],
+    "rationale": "Part 1 (days) comes from ACT-08 and ACT-16, whose actual timestamps fall on the day before the report dates; Part 2 (BOP pressure tests) comes from ACT-01, ACT-07 and ACT-11.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 592,
+    "cost_usd": 0.052016,
+    "prompt_tokens": 23048
+   }
+  },
+  "85fe72745e5fecb7b2f15e7929b835f31d5edb06a346c2411496ab7826b1f4ff": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended by labour disputes (industrial action / OFS strike) in two reports: 1997-08-29 (suspension from 1997-08-28T00:00 to about 1997-08-28T12:00, with the rig circulating at 330 LPM, 15 BAR, then R/U wireline side entry sub and engaging a wet connector by 14:30) and 1997-10-05 (suspension from 1997-10-04T00:00 to 1997-10-04T17:00, with the rig laying out the diverter running tool and spider, then tripping open-ended 5\" DP to the top of the shearram). During the 1997-08-29 suspension the rig was circulating and then doing wireline logging preparation; during the 1997-10-05 suspension it was laying out the diverter running tool and spider before resuming the trip.",
+    "cited_ids": [
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19970829-ACT-03",
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03",
+     "19A-19971005-ACT-04",
+     "19A-19971005-SUM-SUM24HR"
+    ],
+    "rationale": "Part (1): the labour-dispute suspensions appear in the 1997-08-29 and 1997-10-05 reports; Part (2): the rig activities during each suspension are taken from the activity lines of those reports, with the 1997-11-10 report not mentioning any industrial action.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 514,
+    "cost_usd": 0.000777,
+    "prompt_tokens": 5203
+   }
+  },
+  "8908393f24df59e7d953c23defe4e1a9fc79de678fb3d35c9600f894b56a452b": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14) the rig was skidded from F-4; for F-1 (2007-12-02) the evidence says the rig was skidded from F-9 to F-1.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "Activity lines state the skid origins (F-4 to F-12 and F-9 to F-1), but the F-1 origin appears only in a toolbox talk comment, not as a completed skid record.",
+    "status": "partial"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 177,
+    "cost_usd": 0.000533,
+    "prompt_tokens": 4443
+   }
+  },
+  "8976c6026e7d31079f84ee8474a42a84f22b4727627eca8d747dc607b81b2c98": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-026",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F12-20080115-SUM-SUM24HR",
+     "ABSENT-supervisor"
+    ],
+    "rationale": "The evidence contains no supervisor field; the only company names (Mærsk Contractors, StatoilHydro) are not named supervisors.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 103,
+    "cost_usd": 0.000593,
+    "prompt_tokens": 5413
+   }
+  },
+  "8d69affd4ca5e48d44caa2f120e6d383c07198aeecb8495cee56578e0911cc8e": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (report 1997-11-10, activity ended 1997-11-09T22:00:00). Well 15/9-F-11-T2: 2013-04-27 (report 2013-04-28, activity ended 2013-04-28T00:00:00 at 2013-04-27T23:30:00 start) and 2013-05-14 (report 2013-05-15, activity 2013-05-14T04:00:00).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "Slip and cut drill line entries appear in the 19A 1997-11-10 report and in the F-11-T2 2013-04-28 and 2013-05-15 reports.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 335,
+    "cost_usd": 0.001491,
+    "prompt_tokens": 13231
+   }
+  },
+  "8d6a9aec8c30e507209608bd7dc600329654eb2042441b38aedefaabf36428e4": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "F-11-T2 (sidetrack F-11 A): 50% cement/formation in returns verified at 2586 m MD (kick-off to F-11 A). F-1 (sidetrack F-1 A): no 50% formation confirmation during kick-off in the evidence. F-1-B: no 50% formation confirmation during kick-off in the evidence. F-15-D: no 50% formation confirmation during kick-off in the evidence. Note: the F-1 A/F-1-B 50% formation references at 2620 m and 1364 m are not kick-off confirmations for F-1-B.",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07"
+    ],
+    "rationale": "Only the F-11-T2 kick-off line states 50% formation in returns confirmed (at 2586 m MD); the other sidetracks lack such a kick-off confirmation in the evidence.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 300,
+    "cost_usd": 0.002566,
+    "prompt_tokens": 24158
+   }
+  },
+  "9057e84b898a152e94001a6fbf42c2719e4ec54c08323c201931160e2d0c7873": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14), the rig was skidded from F-4. For F-1 (2007-12-02), the rig was skidded from F-9.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "The F-12 report states the rig skidded from F-4 to F-12, and the F-1 report's toolbox talk line states it was skidded from F-9 to F-1.",
+    "status": "partial"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 159,
+    "cost_usd": 0.000524,
+    "prompt_tokens": 4443
+   }
+  },
+  "9420525a4ca6cb80fef7b4bad46f0de293fae3fd235794f16f63e577d4e5d07c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Part 1: Operations were suspended by labour disputes on two report dates: 1997-08-29 (industrial action) and 1997-10-05 (OFS strike). Part 2: On 1997-08-29, the suspension covered 1997-08-28T00:00 to 1997-08-28T12:00, and the rig was circulating at 330 LPM, 15 BAR at 2168 m. On 1997-10-05, the suspension covered 1997-10-04T00:00 to 1997-10-04T17:00 at md 0 m; the records give no rig activity beyond the suspension itself. Laying out the diverter running tool and spider followed from 1997-10-04T17:00 to 19:00 and was not part of the suspension.",
+    "cited_ids": [
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03"
+    ],
+    "rationale": "Part 1: the activity comments on 1997-08-29 and 1997-10-05 cite industrial action or an OFS strike; part 2: the rig circulated on 08-28 and recorded no specific activity during the 10-04 suspension.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 411,
+    "cost_usd": 0.016242,
+    "prompt_tokens": 6066
+   }
+  },
+  "94f79e27bdf27d4861d26482aed24474e4b8728346d8e805a170155defb1a7e7": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-007",
+   "response": {
+    "answer": "85 m MD (the 36\" hole opener BHA was run in hole to 85 m MD)",
+    "cited_ids": [
+     "F12-20070614-SUM-SUM24HR"
+    ],
+    "rationale": "The 24-hour summary states the 36\" hole opener BHA was RIH to 85 m MD.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 111,
+    "cost_usd": 0.00032,
+    "prompt_tokens": 2645
+   }
+  },
+  "98ca458ea2b5d0da1bca607226745d1e15cf1160f2c21369adb0da635885ae4d": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "Part (1): Landed BOP onto surface riser and made up NT2 connector on 2013-06-28 (report 15/9-F-11-B, activity ended 2013-06-28T00:00:00 with BOP moved to well center, landed onto riser, NT2 connector made up) and on 2013-12-14 (report 15/9-F-15-D, activity ended 2013-12-13T23:45:00 with BOP landed onto riser and NT2 connector made up). Part (2): On 2013-06-28 the annular preventer was pressure tested to 30 / 345 bar for 5 / 10 minutes (ok) on the rig (earlier on stump the test was not obtained); on 2013-12-14 the BOP was tested to 20 / 345 bar for 5 / 10 minutes (on stump, and again during the Multibowl test period on 2013-12-13).",
+    "cited_ids": [
+     "F11B-20130628-ACT-07",
+     "F11B-20130628-ACT-08",
+     "F15D-20131214-ACT-11",
+     "F15D-20131214-ACT-16",
+     "F15D-20131214-ACT-01",
+     "F15D-20131214-SUM-SUM24HR",
+     "F11B-20130628-FCST-FORECAST24HR"
+    ],
+    "rationale": "Part (1) is answered from the 2013-06-28 and 2013-12-14 reports where the BOP was landed and NT2 connector made up; part (2) is answered from the BOP pressure test entries on those same days, which show the annular test at 30/345 bar on 2013-06-28 and the BOP test at 20/345 bar on 2013-12-14.",
+    "status": "answered"
+   },
+   "role": "primary_retry",
+   "usage": {
+    "completion_tokens": 540,
+    "cost_usd": 0.002493,
+    "prompt_tokens": 22227
+   }
+  },
+  "9939fede2084cf2ad896f5f4fd308d078d055fba25ba6ede7a26425f2835be82": {
+   "finish_reason": "length",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "__unparsed__": "{\"status\":\"answered\",\"answer\":\"Operations were suspended by labour disputes (industrial action / OFS strike) on report dates 1997-08-29 and 1997-10-05. On 1997-08-29 (period 1997-08-28 00:00 to 1997-08-29 00:00) the rig was circulating at 330 LPM, 15 bar (ACT-01 at 1997-08-28T00:00:00 until 06:00, and ACT-02 at 06:00 until 12:00); the rig was also R/U wireline side entry sub and RIH with wet connector until 14:30, then RIH with logging tools on drill pipe to 3640 m (until 21:30) and circulating to condition mud (until 1997-08-29T00:00:00). On 1997-10-05 (period 1997-10-04 00:00 to 1997-10-05 00:00) the rig was suspended from 00:00 to 17:00 on 1997-10-04 (ACT-01 and ACT-02), then laid out the diverter running tool and spider (to 19:00), RIH with open-ended 5\\\" DP to 102 m, displaced riser and lines to OBM, opened the shearram, pulled the hang-off tool, circulated bott"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.00072,
+    "prompt_tokens": 5203
+   }
+  },
+  "9b3c8f6249b59625378fa045385f24c29fe8d83a39b39d4f379b9d4cbd8fbfbf": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-028",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so AFE versus actual cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 75,
+    "cost_usd": 0.00024,
+    "prompt_tokens": 2030
+   }
+  },
+  "9b5fdecc93c49dc0ccd620b2df459ee05f6f6ec04d71f0cf757e688de48ad928": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (activity ending 1997-11-09T22:00:00 in report 1997-11-10; also noted in 1997-11-10 summary). Well 15/9-F-11-T2: 2013-04-28 report (activity 'Slipped and cut drill line' ending 2013-04-28T00:00:00, i.e., 2013-04-27T23:30:00 start) and 2013-05-15 report (activity 'Performed slip & cut of drill line' ending 2013-05-14T04:00:00).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "Slip-and-cut entries appear in the 19-A 1997-11-10 report and in the F-11-T2 2013-04-28 and 2013-05-15 reports, with timestamps given as recorded.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 359,
+    "cost_usd": 0.001503,
+    "prompt_tokens": 13231
+   }
+  },
+  "9dfb9bd16b0f5e989b1fd1f5fe65b4071421be75b977b4e5c7e7041e678d5494": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-008",
+   "response": {
+    "answer": "1.36 g/cm3",
+    "cited_ids": [
+     "F12-20070808-FLUID-01"
+    ],
+    "rationale": "The FLUID-01 record for the active pit HPWBM sample at 2007-08-07T22:00:00 (within the 2007-08-08 report window) gives density 1.36 g/cm3.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 116,
+    "cost_usd": 0.000182,
+    "prompt_tokens": 1236
+   }
+  },
+  "9f7955a164f755c1714675e4d3db23ac99281754123899773b1b604225d74162": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "F-11-B (report 2015-10-28): no wireline tractor problem is reported; the tractor was used for RIH and the tractor software froze at 13:00-14:35 on 2015-10-27 while RIH from 2800 m to 3570 m, restarted OK at 15:05 (md 3570 m). F-15-D (report 2015-08-10): lost communication with the tractor at 3592 m on 2015-08-09 (~13:10); troubleshooting at 14:00 found it was not possible to activate the tractor, and the decision was made to POOH.",
+    "cited_ids": [
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14"
+    ],
+    "rationale": "The F-11-B tractor software freeze was logged and cleared, while the F-15-D tractor communication loss and activation failure led to POOH.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 314,
+    "cost_usd": 0.000876,
+    "prompt_tokens": 7186
+   }
+  },
+  "9f82a124ea4a928976ff326740254a1f6546e79d94ec4201c7940a26725111b4": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-032",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "ABSENT-mud_logging"
+    ],
+    "rationale": "The evidence has gas readings but no mud logging company or engineer field; ABSENT-mud_logging confirms none exists.",
+    "status": "abstain"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 83,
+    "cost_usd": 0.00535,
+    "prompt_tokens": 2260
+   }
+  },
+  "a02b15788daa23da9c5fd07519287b5e008d3634019e21772a29a7fb5116ad21": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-030",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1B-20130924-STATUS-REPORTNO"
+    ],
+    "rationale": "The evidence explicitly states that no personnel field exists in any record, so the number of people on board cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 85,
+    "cost_usd": 0.00067,
+    "prompt_tokens": 6274
+   }
+  },
+  "a2c4b9be766c68400addcafdf0f99bfb50464558da6800ca4cee52cc3b268b34": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-026",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F12-20080115-ABSENT-supervisor"
+    ],
+    "rationale": "The evidence explicitly states that no supervisor field exists in any of the records, so the drilling supervisor cannot be identified.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 88,
+    "cost_usd": 0.000575,
+    "prompt_tokens": 5313
+   }
+  },
+  "a86e2f79d9d281b51b91f097e5975f3fa81f31034e4a1186b105b95878c865a9": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-032",
+   "response": {
+    "answer": "",
+    "cited_ids": [],
+    "rationale": "The evidence contains gas readings but no mud logging company or engineer name; the only service company listed (Western Atlas) is for a wireline logging run, not the gas readings.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 84,
+    "cost_usd": 0.000273,
+    "prompt_tokens": 2307
+   }
+  },
+  "a8d70e3b074ea460c8f9213e3715f275590895d443a2810b8f19c55dfc5090ba": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "F-11-T2 (sidetrack F-11 A): 50% cement/formation in returns verified at 2586 m MD during kick-off; F-1 and F-1-B: no 50% formation confirmation during kick-off in the evidence (F-1 kick-off started at 2602 m MD; F-1 A/F-1-B kick-off from 2617 m MD); F-15-D: no 50% formation confirmation during kick-off in the evidence (1380 m MD only in drilling context, not kick-off). Only F-11-T2 is supported.",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07"
+    ],
+    "rationale": "Only the F-11-T2 kick-off line explicitly records 50% formation in returns (at 2586 m MD), while the other sidetracks lack such a statement in the evidence.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 281,
+    "cost_usd": 0.002556,
+    "prompt_tokens": 24158
+   }
+  },
+  "abec266dd1358a2a20a133144960a031b5cba7b0a362442caf4761d38f250e1b": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "Per the 24h summaries: report 15/9-F-15-D (2016-10-19) cut and pulled production riser and skidded rig to F-14; report 15/9-F-12 (2016-10-21) cut and pulled riser and skidded rig to well F-11 B; report 15/9-F-11-B (2016-10-22) pulled riser on F-11 B; report 15/9-F-1-C (2016-10-22) skidded to well F-1 C, cut and pulled production riser at 134.9 m, and prepared to skid to F-7. Order: F-15-D, then F-14, then F-12, then F-11 B, then F-1 C (forecast next: F-7, then F-9 A).",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-07",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "The 24h summaries and forecasts of each report name the wells and skid moves in sequence from F-15 D through F-14, F-12, F-11 B to F-1 C.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 444,
+    "cost_usd": 0.001496,
+    "prompt_tokens": 12736
+   }
+  },
+  "aca0dda06cb3f3b0b28c563201f67473dfb40b842f7bc627d989a50409fab8ce": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "F-11-B (report 2015-10-28): the toolstring stopped at 2800 m during gravity RIH (PU weight 3850 lbs), so the tractor had to be started and switched to tractor mode (2015-10-27 12:30-13:00). While tractoring from 2800 m to 3570 m the tractor software froze (ending 2015-10-27T14:35). It was restarted OK by 2015-10-27T15:05, and RIH continued with the tractor to 4530 m. F-15-D (report 2015-08-10): during RIH with BHA #2 the toolstring stopped at 3565 m. With the tractor activated from 3565 m to 3592 m, communication with the tractor was lost (2015-08-09 12:55-13:10). Troubleshooting found it was not possible to activate the tractor, so the decision was to POOH. Separately, the add-on drum came out of position during POOH and damaged the cable (not a tractor fault).",
+    "cited_ids": [
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F11B-20151028-ACT-16",
+     "F15D-20150810-ACT-12",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14",
+     "F15D-20150810-ACT-15"
+    ],
+    "rationale": "Tractor events are taken directly from the activity lines of both reports.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 489,
+    "cost_usd": 0.020376,
+    "prompt_tokens": 7743
+   }
+  },
+  "af0896d34a9692f8fe2490b95fa8bc9b1b83dfdedb60458d3dda54b2327329b9": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended by labour disputes on two report dates. (1) 1997-08-29 (industrial action): the suspension is recorded from 1997-08-28T00:00 to 1997-08-28T12:00, and the rig was circulating at 330 LPM, 15 BAR at 2168 m. (2) 1997-10-05 (OFS strike): the suspension is recorded from 1997-10-04T00:00 to 1997-10-04T17:00, at md 0 m. The evidence gives no rig activity for that period beyond the suspension itself. Afterwards, laying out the diverter running tool and spider began at 17:00. The 1997-11-10 report has no labour-dispute suspension.",
+    "cited_ids": [
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03"
+    ],
+    "rationale": "Part 1: suspensions appear in the 1997-08-29 and 1997-10-05 reports. Part 2: the rig was circulating during the August suspension, and the October lines record only the strike suspension, with no other rig activity.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 417,
+    "cost_usd": 0.016134,
+    "prompt_tokens": 5982
+   }
+  },
+  "b3d40fe1b7376b47ec69ba4bf2a381d04b5ffe2f746a154a1acb7d2fb8587a67": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations on well 15/9-19-A were suspended due to labour disputes (industrial action / OFS strike) on report dates 1997-08-29 and 1997-10-05. During the 1997-08-29 suspension the rig was circulating at 330 LPM, 15 BAR and then circulating to condition mud after continued RIH with logging tools on drill pipe (to 3640 m); during the 1997-10-05 suspension (2024-10-04 00:00 to 06:00 and 06:00 to 17:00) the rig was idle with the operation suspended, and then laying out the diverter running tool and spider and running in open-ended 5\" DP to the top of the shearram.",
+    "cited_ids": [
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19970829-ACT-05",
+     "19A-19971005-SUM-SUM24HR",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03",
+     "19A-19971005-ACT-04"
+    ],
+    "rationale": "Part (1): suspensions due to industrial/OFS action appear in the 1997-08-29 and 1997-10-05 reports; part (2): the rig activities during those suspensions are taken from the corresponding activity lines.",
+    "status": "answered"
+   },
+   "role": "primary_retry",
+   "usage": {
+    "completion_tokens": 448,
+    "cost_usd": 0.000744,
+    "prompt_tokens": 5203
+   }
+  },
+  "b4cdd2b62513355b7b0eaefa805b194972741e05eca8e899a6bceba9cca2044f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14 report), the rig was skidded from F-4. For F-1 (2007-12-02 report), the rig was skidded from F-9.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "The F-12 skid activity states 'Skidded rig from F-4 to F-12' and the F-1 toolbox talk states 'skidding rig from F-9 to F-1', though the F-1 line is a toolbox-talk comment rather than an explicit skid record.",
+    "status": "partial"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 196,
+    "cost_usd": 0.000542,
+    "prompt_tokens": 4443
+   }
+  },
+  "b4f8e0d1edeec5832396698bee2bec4c4614e59a7987ef7dfb3b3895489d8aac": {
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "Order of moves: F-15-D (riser cut and pulled, then skidded to F-14, per 2016-10-19 report) -> F-14 (forecast: cut and pull riser, then skid to F-12) -> F-12 (riser cut and pulled, installed hatches, skidded to F-11 B, per 2016-10-21 report) -> F-11 B (pull riser; the 2016-10-22 report shows risers cut and pulled on 2016-10-21) -> F-1 C (rig skidded to F-1 C, riser cut and pulled, prepared to skid to F-7, per 2016-10-22 report). Next planned: F-7, then F-9 A.",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-05",
+     "F1C-20161022-ACT-02",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "The summaries and forecasts chain the moves F-15-D to F-14 to F-12 to F-11 B to F-1 C; F-14 work is only forecast, not reported, in the evidence.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 459,
+    "cost_usd": 0.030174,
+    "prompt_tokens": 12792
+   }
+  },
+  "b51d27d2496ca5bacdefbb836b87cb5ed33553f8652fc9588bf972379c21de10": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-004",
+   "response": {
+    "answer": "1.03 g/cm3",
+    "cited_ids": [
+     "F11B-20130628-FLUID-01"
+    ],
+    "rationale": "Record FLUID-01 is the NaCl brine sampled at the flowline with timestamp 2013-06-27T18:00:00, which the window note identifies as 18:00 on 2013-06-28, and gives density 1.03 g/cm3.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 134,
+    "cost_usd": 0.000188,
+    "prompt_tokens": 1211
+   }
+  },
+  "b5ae9f0c6785bffc5e08040079a92f0e2288ffc138282a81d6f8b90049962013": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-012",
+   "response": {
+    "answer": "18.73 in",
+    "cited_ids": [
+     "F1-20130730-CASING-01",
+     "F1-20130730-CASING-02",
+     "F1-20130730-CASING-03",
+     "F1-20130730-CASING-04"
+    ],
+    "rationale": "All four 20\" N-80 casing records for the 2013-07-30 report list id=18.73 in.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 119,
+    "cost_usd": 0.000235,
+    "prompt_tokens": 1757
+   }
+  },
+  "bab61d6bf7213847b49a782929c054f993f38ba8211e98f027b4171c7c7a4edd": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-025",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1C-20140326-ABSENT-cost"
+    ],
+    "rationale": "The evidence states no cost field exists in any record, so the daily spread cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 77,
+    "cost_usd": 0.000219,
+    "prompt_tokens": 1810
+   }
+  },
+  "bb0bcb4da5af576f8f782361bfdc39b6e50ae811f98ffd9641d345833540b954": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-025",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1C-20140326-SUM-SUM24HR",
+     "F1C-20140326-ACT-05",
+     "ABSENT-cost"
+    ],
+    "rationale": "The evidence contains no cost or spread cost field; the only related record explicitly notes that no cost field exists in any report.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 109,
+    "cost_usd": 0.000235,
+    "prompt_tokens": 1809
+   }
+  },
+  "bfb9a711b3e71c23f9f66f100e1de417e342bd54c9fc066e71f2ceb60ff6bb07": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "For F-15-D (report 2015-08-10): lost communication with the tractor during RIH at 3592 m (ACT-13, 2015-08-09T12:55:00 to 13:10:00); troubleshooting found it was not possible to activate the tractor, so the decision was made to POOH (ACT-14). For F-11-B (report 2015-10-28): the tractor software froze while RIH from 2800 m to 3570 m (ACT-14, 2015-10-27T13:00:00 to 14:35:00), and was restarted OK at 15:05 (ACT-15). Also, tool stopped at 2800 m and the tractor had to be started (ACT-12/13).",
+    "cited_ids": [
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14",
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15"
+    ],
+    "rationale": "Tractor-related problems are stated directly in the activity comments for both runs, with the F-15-D issue leading to POOH and the F-11-B issue being a software freeze that was resolved.",
+    "status": "partial"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 394,
+    "cost_usd": 0.000916,
+    "prompt_tokens": 7186
+   }
+  },
+  "bfe04651701af213994f701d2bc2a5926c0f5355680699500237b3b467e560ef": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended due to labour disputes on two report dates. (1) Report date 1997-08-29 (industrial action): from 1997-08-28T00:00:00 to 1997-08-28T12:00:00 the rig continued circulating at 330 LPM and 15 BAR at 2168 m MD. (2) Report date 1997-10-05 (OFS strike): from 1997-10-04T00:00:00 to 1997-10-04T17:00:00 the activity records show only the suspension (md 0 m), with no rig activity described.",
+    "cited_ids": [
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02"
+    ],
+    "rationale": "Part 1: the report dates are 1997-08-29 and 1997-10-05; Part 2: the rig was circulating during the first suspension and no activity was recorded during the second, which only notes the strike suspension.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 327,
+    "cost_usd": 0.013862,
+    "prompt_tokens": 5296
+   }
+  },
+  "c130417aacdac3611479f0b79c615cad2cd57651ce7165b34a75f4f6c557e0de": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-030",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1B-20130924-STATUS-DISTDRILL"
+    ],
+    "rationale": "The evidence explicitly states no personnel field exists in any record, so the headcount cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 83,
+    "cost_usd": 0.000669,
+    "prompt_tokens": 6275
+   }
+  },
+  "c35a12e4a35ba527b6bb0d4411094ce6c409dbb873b361517c9a8e839655b812": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-023",
+   "response": {
+    "answer": "For F-12 (2007-06-14), the rig was skidded from F-4. For F-1 (2007-12-02), the rig was skidded from F-9.",
+    "cited_ids": [
+     "F12-20070614-ACT-03",
+     "F1-20071202-ACT-01"
+    ],
+    "rationale": "The F-12 skid log states the rig moved from F-4 to F-12, and the F-1 toolbox talk log states the rig was skidded from F-9 to F-1, but the lines do not explicitly name the start of the 36\" sections, so this is answered from the skid activities only.",
+    "status": "partial"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 195,
+    "cost_usd": 0.000542,
+    "prompt_tokens": 4443
+   }
+  },
+  "c63912da401a38c554ae8ebef39eb2b15884fc02bc5af3243f08408d56d587d6": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-009",
+   "response": {
+    "answer": "Drilling (drill) from 1403 m to 1484 m MD, with 4000 liter/min flow, 235 bar, 80-120 rpm, 12-25 kNm, ROP 27-29 m/hr, WOB 2-10 ton, ECD 1,420 sg, max gas 0,05 %; depth reached 1484 m MD.",
+    "cited_ids": [
+     "F15D-20131111-ACT-02"
+    ],
+    "rationale": "ACT-02 is the activity record for 19:00 to 23:45 on 2013-11-11, stating drilling from 1403 m to 1484 m MD.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 212,
+    "cost_usd": 0.000413,
+    "prompt_tokens": 3070
+   }
+  },
+  "c778be520d573893668d7d07b38e63c6ff70eeddfbd7718b2a033d65d780c3db": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-032",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "19A-19970829-GAS-01",
+     "19A-19970829-GAS-02",
+     "ABSENT-mud_logging"
+    ],
+    "rationale": "The gas records give readings and depths but no mud logging service company or engineer name, and the evidence explicitly reports no mud logging field exists.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 112,
+    "cost_usd": 0.000274,
+    "prompt_tokens": 2181
+   }
+  },
+  "cb9966b065314bce170d64f7ac4b00b64005b437c6c64912e505e0d44bf8be40": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-012",
+   "response": {
+    "answer": "18.73 in",
+    "cited_ids": [
+     "F1-20130730-CASING-01",
+     "F1-20130730-CASING-02",
+     "F1-20130730-CASING-03",
+     "F1-20130730-CASING-04"
+    ],
+    "rationale": "All casing records for the 20\" N-80 string list id=18.73 in.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 110,
+    "cost_usd": 0.000231,
+    "prompt_tokens": 1757
+   }
+  },
+  "cfb88469bd6e0b638ad905b9f42fbdd6ad197b5f5e47e61ec60d028ac9f315c2": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended on two report dates. (1) 1997-08-29 (period 28-29 Aug): suspended due to industrial action; the rig continued circulating at 330 LPM, 15 BAR (00:00-12:00 on 1997-08-28), then ran wireline side entry sub and wet connector, RIH with logging tools on drill pipe, and the pipe stuck with the logging tools at 4123M, after which the wireline was pulled out. (2) 1997-10-05 (period 4-5 Oct): operation suspended due to OFS strike from 1997-10-04T00:00 to 1997-10-04T17:00; afterwards the rig laid out the diverter running tool and spider, RIH with open-ended 5\" DP, displaced the riser to OBM, circulated bottoms up and POOH.",
+    "cited_ids": [
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-SUM-SUM24HR"
+    ],
+    "rationale": "Part 1: report dates 1997-08-29 and 1997-10-05 cite industrial action/OFS strike; part 2: the rig was circulating in August and in October was idle on the strike until 17:00, then resumed riser displacement and tripping.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 468,
+    "cost_usd": 0.015286,
+    "prompt_tokens": 5303
+   }
+  },
+  "d296d12afb06078e0bb17fe1ac8c81604c83653af2b54ed33adb7f75bec7d75f": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended by labour disputes (industrial action / OFS strike) in two reports: 1997-08-29 and 1997-10-05. On 1997-08-29 (period 1997-08-28 00:00 to 1997-08-29 00:00), the rig was circulating at 330 LPM, 15 BAR at 2168 m, after the wireline side entry sub and wet connector were rigged up and tested OK, and it then ran logging tools on drill pipe to 3640 m and circulated to condition mud. On 1997-10-05 (period 1997-10-04 00:00 to 1997-10-05 00:00), the rig was suspended from 00:00 to 17:00 on 1997-10-04 with no activity noted other than the OFS strike suspension, then laid out the diverter running tool and spider, ran open-ended 5 inch drill pipe to the top of the shearram, displaced riser and choke/kill lines to OBM, pulled the hang-off tool, circulated bottoms up, and tripped out to 2575 m.",
+    "cited_ids": [
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19970829-ACT-03",
+     "19A-19970829-ACT-04",
+     "19A-19970829-ACT-05",
+     "19A-19971005-SUM-SUM24HR",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03",
+     "19A-19971005-ACT-04",
+     "19A-19971005-ACT-05",
+     "19A-19971005-ACT-06",
+     "19A-19971005-ACT-07",
+     "19A-19971005-ACT-08"
+    ],
+    "rationale": "Part (1) is answered by the 1997-08-29 and 1997-10-05 reports citing industrial action or OFS strike, and part (2) by the activity lines describing the rig's work during those suspensions.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 641,
+    "cost_usd": 0.000841,
+    "prompt_tokens": 5203
+   }
+  },
+  "d2a4271e2a12bc39c44e6d91d0797e410e05c5bbf6688ab144ebf1a30ce27a30": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (ACT-05, drilling line slipped and cut, end 2022 hrs). Well 15/9-F-11-T2: 2013-04-27 (ACT-12, slipped and cut drill line, end 2013-04-28 00:00) and 2013-05-14 (ACT-01, performed slip & cut of drill line, end 2013-05-14 04:00).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130515-ACT-01"
+    ],
+    "rationale": "Activity lines for each well explicitly record the slip and cut of the drilling line, with their report dates and timestamps.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 248,
+    "cost_usd": 0.001447,
+    "prompt_tokens": 13231
+   }
+  },
+  "d30e89cf78a55d7861c57b08f0852e872250b337b3ea6bfcb2d514b0f6a6ddef": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "answer": "The rig moved in this order: 15/9-F-15-D (report 2016-10-19, skidded to F-14 after cutting and pulling production riser) → F-14 → F-12 (forecast on the F-15-D report, cut and pull production riser at F-12) → F-12 report 2016-10-21 (skidded rig to well F-11 B after cutting and pulling riser) → F-11 B (riser pulled on F-11 B) → F-1 C (report 2016-10-22, skidded to well F-1 C, pulled production riser there, and prepared to skid to F-7) → F-7 (next planned, with F-9 A after).",
+    "cited_ids": [
+     "F15D-20161019-SUM-SUM24HR",
+     "F15D-20161019-FCST-FORECAST24HR",
+     "F12-20161021-SUM-SUM24HR",
+     "F12-20161021-FCST-FORECAST24HR",
+     "F11B-20161022-ACT-01",
+     "F1C-20161022-SUM-SUM24HR",
+     "F1C-20161022-FCST-FORECAST24HR"
+    ],
+    "rationale": "Each report's 24-hour summary and forecast name the well the rig skidded to and the next planned well, giving the sequence F-15-D, F-14, F-12, F-11 B, F-1 C.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 432,
+    "cost_usd": 0.00149,
+    "prompt_tokens": 12736
+   }
+  },
+  "d34f575b677551f8dcc214435a48b93703bfd2a9d8319b579179c37f7c980fcd": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-013",
+   "response": {
+    "answer": "The end depth was 2763 m MD, reached at 2013-08-30T00:00:00 (midnight, the end of the 2013-08-29 to 2013-08-30 reporting period). The activity was drilling (drilling -- drill, state ok, success): drilling and orienting the 12 1/4\" hole from 2650 m to 2763 m, with average ROP 22.6 m/hr, while bleeding in LCM premix to maintain particle concentration.",
+    "cited_ids": [
+     "F1B-20130830-ACT-03",
+     "F1B-20130830-STATUS-MD"
+    ],
+    "rationale": "Part 1 (end depth): ACT-03 gives md=2763 m at dTimEnd 2013-08-30T00:00:00, matching the status md; part 2 (activity): ACT-03 describes drilling and orienting the 12 1/4\" hole with LCM premix bleed-in.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 307,
+    "cost_usd": 0.01065,
+    "prompt_tokens": 3790
+   }
+  },
+  "d477785c30b4f1a3e127d9d4c5dd7cd0a6876de6428df26f6a72f0e352167a86": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-006",
+   "response": {
+    "answer": "1.4 g/cm3 (density of the Enviromul Yellow reserve pit sample, timestamped 2013-04-09T21:00:00, which falls within the 2013-04-10 report)",
+    "cited_ids": [
+     "F11T2-20130410-FLUID-01"
+    ],
+    "rationale": "The fluid record lists density=1.4 g/cm3 for the Enviromul Yellow sample from the reserve pit, and its window note ties the 21:00 timestamp to the 2013-04-10 report.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 177,
+    "cost_usd": 0.000205,
+    "prompt_tokens": 1167
+   }
+  },
+  "d7ef864d661795e408fdd1b78dc14da86419b75f92c0c54e8457521e9299d140": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-013",
+   "response": {
+    "answer": "Measured depth (md) at midnight on 2013-08-30 was 2763 m MD; the activity being performed was drilling and orienting the 12 1/4\" hole (drilling -- drill, state ok, success), with average ROP 22.6 m/hr, WOB 2-6 tonne, 3500 l/min at 215-220 bar, 80 rpm, and ECD 1.32 SG, while bleeding in LCM premix to maintain particle concentration.",
+    "cited_ids": [
+     "F1B-20130830-ACT-03",
+     "F1B-20130830-STATUS-MD",
+     "F1B-20130830-SUM-SUM24HR"
+    ],
+    "rationale": "Part (1) end depth is 2763 m MD from ACT-03 (dTimEnd 2013-08-30T00:00:00) and STATUS-MD; part (2) the activity is drilling/orienting the 12 1/4\" hole per ACT-03 and the 24h summary.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 325,
+    "cost_usd": 0.000497,
+    "prompt_tokens": 3347
+   }
+  },
+  "d7fe44e4c591207e49d9a174b3f9432c5fbdaf1b739751458169ace2637df577": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-017",
+   "response": {
+    "__unparsed__": "{\"status\":\"answered\",\"answer\":\"The rig's moves, as recorded in the summaries and forecasts, were: 15/9-F-15-D (cut and pulled production riser, then skidded rig to F-14, per 2016-10-19 report) -> 15/9-F-14 (cut and pull riser, then skid rig to F-12 per forecast) -> 15/9-F-12 (cut and pulled riser, skidded rig to well F-11 B, per 2016-10-21 report) -> 15/9-F-11-B (riser pulling completed, moved on per the 2016-10-22 F-11 B report, which lacks a summary) -> 15/9-F-1-C (skidded to F-1 C, cut production riser at 134.9 m and pulled it, per 2016-10-22 report); next planned moves are F-7 and then F-9 A.\",\"cited_ids\":[\"F15D-20161019-SUM-SUM24HR\",\"F15D-20161019-FCST-FORECAST24HR\",\"F12-20161021-SUM-SUM24HR\",\"F12-20161021-FCST-FORECAST24HR\",\"F11B-20161022-ACT-07\",\"F1C-20161022-SUM-SUM24HR\",\"F1C"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.001474,
+    "prompt_tokens": 12736
+   }
+  },
+  "d84425b8aa71ec0e7fe6141b00f290482ac0060428efef421bdec20e2b0d4a48": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-024",
+   "response": {
+    "answer": "F-11-B (2013-05-29) reported an average ROP of 19 m/hr while drilling 12 1/4\" hole from 2627 m to 2787 m MD. F-1-B (2013-08-30) reported an average ROP of 22.6 m/hr for the 2650 m to 2763 m interval, and 11.5 m/hr for the 2627 m to 2650 m interval. F-1-B's average was therefore about 3.6 m/hr higher than F-11-B's over the comparable drilling.",
+    "cited_ids": [
+     "F11B-20130529-ACT-02",
+     "F1B-20130830-ACT-02",
+     "F1B-20130830-ACT-03"
+    ],
+    "rationale": "The ROP values are stated explicitly in the activity comments for both reports' 12 1/4\" drilling intervals.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 277,
+    "cost_usd": 0.000396,
+    "prompt_tokens": 2578
+   }
+  },
+  "db1175f0e51c7c1e82b09807278fd63eb743779d530136b2c08d74cb9f655863": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-006",
+   "response": {
+    "answer": "1.4 g/cm3 (density of the Enviromul Yellow reserve pit sample, timestamped 2013-04-09T21:00:00, which belongs to the 2013-04-10 report)",
+    "cited_ids": [
+     "F11T2-20130410-FLUID-01"
+    ],
+    "rationale": "The fluid record for the Enviromul Yellow reserve pit sample lists density=1.4 g/cm3 at the 21:00 timestamp within the 2013-04-10 report window.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 171,
+    "cost_usd": 0.000202,
+    "prompt_tokens": 1167
+   }
+  },
+  "dd04d13827c31e5a975ed0cef6177d1466f3acab65a40fc5e16e22e3826285c6": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-025",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1C-20140326-ABSENT-cost"
+    ],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so the daily spread cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 81,
+    "cost_usd": 0.000221,
+    "prompt_tokens": 1810
+   }
+  },
+  "e1666017a2a6c43fc727766ff0bf1978eaefb048f1b899393524d2c75cc44435": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-031",
+   "response": {
+    "answer": "",
+    "cited_ids": [],
+    "rationale": "The evidence states no cost field exists in any record, so the cost of replacement parts cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 62,
+    "cost_usd": 0.000437,
+    "prompt_tokens": 4056
+   }
+  },
+  "e4e856acd0825772f70fd2bbb42c4498acc6cfcb0766050b1f2cad52465c6c86": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-005",
+   "response": {
+    "answer": "Observed 30 tons overpull when attempting to lay down a single 5 1/2\" DP joint before the wireline Gyro survey; the string was then pulled free and worked over the interval 237 m to 244 m.",
+    "cited_ids": [
+     "F11T2-20130324-SUM-SUM24HR",
+     "F11T2-20130324-ACT-03"
+    ],
+    "rationale": "ACT-03 states the L/D attempt was followed by 30 tons overpull, pulling free, and working the string from 237 m to 244 m, consistent with the summary's overpull observation.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 195,
+    "cost_usd": 0.000503,
+    "prompt_tokens": 4050
+   }
+  },
+  "e56f7dde01ec4eb710436fc0a92fae9b166f9b32d28731aa551a4bd8dd701094": {
+   "finish_reason": "length",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "__unparsed__": "{\"status\":\"partial\",\"answer\":\"Part 1: The BOP was landed onto the surface riser and the NT2 connector made up on 2013-06-28 (F-11 B, activity F11B-20130628-ACT-08, operations 2013-06-27 18:00 onward) and on 2013-12-14 (F-15 D, activity F15D-20131214-ACT-16, operations 2013-12-13 19:15 to 23:45). Part 2: On 2013-06-27 the annular preventer was pressure tested to 30 / 345 bar for 5 / 10 minutes (F11B-20130628-ACT-07, before landing); on 2013-12-13 the BOP was tested to 20 / 345 bar for 5 / 10 minutes on the stump (F15D-20131214-ACT-01) and again during multibowl testing (F15D-20131214-ACT-11), with no BOP pressure test recorded after landing on the surface riser in the evidence.\",\"cited_ids\":[\"F11B-20130628-ACT-08\",\"F11B-20130628-ACT-07\",\"F15D-20131214-ACT-16\",\"F15D-20131214-ACT-01\",\"F15D-20131214-ACT-11\"],\"rationale\":"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.002423,
+    "prompt_tokens": 22227
+   }
+  },
+  "e5ea895c0292ecce45af96584b5736915952601143a47f2820d5e898c1b3a38c": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-sonnet-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "50% formation/cement in returns was confirmed at: F-1 at 2620 m MD (2013-08-23, kick-off to F-1A); F-1-B at 1364 m MD (2014-02-21T14:30, per the activity comment); F-11-T2 at 2586 m MD (2013-05-14, kick-off to F-11 A); F-15-D at 1380 m (2013-11-10, 50% return of formation).",
+    "cited_ids": [
+     "F1-20130824-ACT-03",
+     "F1B-20140222-ACT-13",
+     "F11T2-20130515-ACT-07",
+     "F15D-20131111-ACT-01"
+    ],
+    "rationale": "Each depth is stated in the cited activity comments: 2620 m in F1-20130824-ACT-03 and 1364 m in F1B-20140222-ACT-13, both quoted there, plus 2586 m and 1380 m.",
+    "status": "answered"
+   },
+   "role": "escalation",
+   "usage": {
+    "completion_tokens": 302,
+    "cost_usd": 0.051532,
+    "prompt_tokens": 24256
+   }
+  },
+  "e84a95bd1a6a178254510b50d5b7a91c7313be25eebf44bf412c4fe6cacdd7ac": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-022",
+   "response": {
+    "answer": "Well 15/9-19-A: 1997-11-09 (drilling line slipped and cut, reported in the 1997-11-10 report). Well 15/9-F-11-T2: 2013-04-27 (slip and cut drill line, reported in the 2013-04-28 report) and 2013-05-14 (slip & cut of drill line, reported in the 2013-05-15 report).",
+    "cited_ids": [
+     "19A-19971110-ACT-05",
+     "19A-19971110-SUM-SUM24HR",
+     "F11T2-20130428-ACT-12",
+     "F11T2-20130428-SUM-SUM24HR",
+     "F11T2-20130515-ACT-01",
+     "F11T2-20130515-SUM-SUM24HR"
+    ],
+    "rationale": "Each report's activity or summary lines explicitly record the slip and cut of the drilling line, with the activity timestamps giving the operational day.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 299,
+    "cost_usd": 0.001473,
+    "prompt_tokens": 13231
+   }
+  },
+  "ee79b26d529bf525e1522e953f2e8ff760f753beb2e0b5825e6324ef280cc3db": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-028",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F11T2-20130515-ABSENT-cost"
+    ],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so AFE versus actual cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 84,
+    "cost_usd": 0.000245,
+    "prompt_tokens": 2029
+   }
+  },
+  "f0fb63aed30149f45cbe88908dc1f7182a7aecd00521f57b9d9885b6393af0a0": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-030",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F1B-20130924-STATUS-REPORTNO",
+     "ABSENT-personnel"
+    ],
+    "rationale": "The evidence explicitly states that no personnel field exists in any record, so the headcount cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 93,
+    "cost_usd": 0.000674,
+    "prompt_tokens": 6275
+   }
+  },
+  "f10679bc103524d86f777ff5311b0b6aed48a73ac9b8cac9a5aa3cc06d8c2914": {
+   "finish_reason": "length",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "__unparsed__": "{\"status\":\"answered\",\"answer\":\"Operations were suspended by labour disputes (industrial action / OFS strike) on report dates 1997-08-29 and 1997-10-05. On 1997-08-29 (period 1997-08-28 00:00 to 1997-08-29 00:00) the rig was circulating at 330 LPM, 15 bar (activities 19A-19970829-ACT-01 and ACT-02) after the suspension, with the earlier 24h summary noting operations suspended due to industrial action while continuing RIH with logging tools on drill pipe. On 1997-10-05 (period 1997-10-04 00:00 to 1997-10-05 00:00) the operation was suspended due to OFS strike from 00:00 to 17:00 (ACT-01, ACT-02), then the rig laid out the diverter running tool and spider (ACT-03), RIH with open-ended 5\\\" DP to top of Shearram (ACT-04), displaced riser and kill/choke lines to OBM (ACT-05), and opened the Shearram and pulled the hang-off tool (ACT-06 to ACT-08 for circulating and POOH to 2575 m).\",\"cited_ids\":[\"19A-19970829-"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 400,
+    "cost_usd": 0.00072,
+    "prompt_tokens": 5203
+   }
+  },
+  "f4fa1adfafe30d7c49befe947c0dd9f1eb4db581c7d7821c5332fb9a9a06f929": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-018",
+   "response": {
+    "answer": "Operations were suspended by labour disputes (industrial action / OFS strike) on report dates 1997-08-29 and 1997-10-05. On 1997-08-29 the rig was circulating at 330 LPM, 15 bar (activity 2168 m, 1997-08-28 00:00 to 12:00), then rigging up wireline and running in hole with logging tools on drill pipe to 3640 m, before circulating to condition mud. On 1997-10-05 the rig was laying out the diverter running tool and spider, running open-ended 5 inch DP to the top of the shearram, displacing riser and choke/kill lines to OBM, screwing into the hang-off tool and circulating bottoms up at 2636 m, then slugging pipe and pulling out of hole to 2575 m.",
+    "cited_ids": [
+     "19A-19970829-SUM-SUM24HR",
+     "19A-19970829-ACT-01",
+     "19A-19970829-ACT-02",
+     "19A-19970829-ACT-03",
+     "19A-19970829-ACT-04",
+     "19A-19970829-ACT-05",
+     "19A-19971005-SUM-SUM24HR",
+     "19A-19971005-ACT-01",
+     "19A-19971005-ACT-02",
+     "19A-19971005-ACT-03",
+     "19A-19971005-ACT-04",
+     "19A-19971005-ACT-05",
+     "19A-19971005-ACT-06",
+     "19A-19971005-ACT-07",
+     "19A-19971005-ACT-08"
+    ],
+    "rationale": "Part (1): suspension dates are 1997-08-29 and 1997-10-05 per the 'OPERATIONS SUSPENDED DUE TO INDUSTRIAL ACTION' and 'OFS STRIKE' comments; part (2): the rig activities during each suspension are listed from the corresponding activity lines for those reports.",
+    "status": "answered"
+   },
+   "role": "primary_run2_retry",
+   "usage": {
+    "completion_tokens": 604,
+    "cost_usd": 0.000822,
+    "prompt_tokens": 5203
+   }
+  },
+  "f799b78f8eb1b7826ee3e09942e8f6713a84834bf1a2e7e2c735eec79db2c008": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "For F-15-D (2015-08-10): lost communication with the tractor at 3592 m (MD) during RIH, and troubleshooting found it was not possible to activate the tractor, so the run was aborted and POOH. For F-11-B (2015-10-28): no wireline tractor problem is reported in the evidence beyond the tractor being used for RIH; the only tractor-related items are the software freezing at ~3570 m (2015-10-27 13:00-14:35) and being restarted OK at 15:05, and the tractor being switched to tractor mode at 2800 m when the tool stopped.",
+    "cited_ids": [
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14"
+    ],
+    "rationale": "F-15-D lines explicitly report tractor communication loss and failed activation; F-11-B lines report a tractor software freeze that was resolved, which the answer states as the only reported tractor problem.",
+    "status": "partial"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 371,
+    "cost_usd": 0.000904,
+    "prompt_tokens": 7186
+   }
+  },
+  "f7a9e6d9585254b46eabf1745aa6e5d8c1d10818f028d20b49166d2fa5ab5f38": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-019",
+   "response": {
+    "answer": "F-11-T2 (later F-11 A): 50% cement/formation in returns verified at 2586 m MD during kick-off; F-1 (later F-1 A): no 50% formation depth stated in the kick-off lines (F1-20130824-ACT-03 notes 50% formation at 2620 m MD, the last F-1 report); F-1-B: no 50% formation depth stated for kick-off; F-15-D: 50% return of formation at 1380 m (drilling 1373-1403 m, not a kick-off line).",
+    "cited_ids": [
+     "F11T2-20130515-ACT-07",
+     "F1-20130824-ACT-03",
+     "F15D-20131111-ACT-01"
+    ],
+    "rationale": "Only the F-11-T2 kick-off line explicitly confirms 50% formation in returns at a kick-off depth (2586 m MD); the F-1 line gives 2620 m, which is a drilling line rather than the kick-off, and F-15-D's 1380 m is in ordinary drilling, not a kick-off.",
+    "status": "answered"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 348,
+    "cost_usd": 0.00259,
+    "prompt_tokens": 24158
+   }
+  },
+  "f7d76d070ce606fd35fef3240bace115bbdd2090c15daf674bda1663e721c4ea": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "For F-15-D (2015-08-10): lost communication with the tractor while RIH (activated at 3565 m to 3592 m, around 2015-08-09T13:10), and troubleshooting found it not possible to activate the tractor, leading to POOH. For F-11-B (2015-10-28): the tractor software froze during RIH from 2800 m to 3570 m (around 2015-10-27T14:35) and was restarted OK; the tractor also stopped at 2800 m requiring a switch to tractor mode. No tractor problem is reported for the F-11-B logging pass itself beyond these events.",
+    "cited_ids": [
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15",
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14"
+    ],
+    "rationale": "Tractor-related events are recorded in the activity lines for both reports, with timestamps taken from those lines.",
+    "status": "partial"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 344,
+    "cost_usd": 0.000891,
+    "prompt_tokens": 7186
+   }
+  },
+  "f9a76f748c8fa03e441e6f50949a593edb058065c518e386e5733653ee8ac809": {
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-001",
+   "response": {
+    "answer": "2178 m (mMD)",
+    "cited_ids": [
+     "19A-19800101-STATUS-MDKICKOFF"
+    ],
+    "rationale": "The status line for the 1980-01-01 report gives mdKickoff=2178 m, which is the kick-off depth in mMD.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 101,
+    "cost_usd": 0.000189,
+    "prompt_tokens": 1381
+   }
+  },
+  "f9da8341fa3e476e508665f11137499c030b0ea7bad722fbcd8cb17dc3e4d849": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-007",
+   "response": {
+    "answer": "85 m MD",
+    "cited_ids": [
+     "F12-20070614-SUM-SUM24HR"
+    ],
+    "rationale": "The 24-hour summary states the 36\" hole opener BHA was RIH to 85 m MD.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 85,
+    "cost_usd": 0.000307,
+    "prompt_tokens": 2645
+   }
+  },
+  "fc5b4433a5af73821013423e2694bee99d8acc335316a3ebee909baf99de9b63": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-028",
+   "response": {
+    "answer": "",
+    "cited_ids": [
+     "F11T2-20130515-ABSENT-cost"
+    ],
+    "rationale": "The evidence explicitly states no cost field exists in any record, so AFE versus actual cost cannot be determined.",
+    "status": "abstain"
+   },
+   "role": "primary",
+   "usage": {
+    "completion_tokens": 84,
+    "cost_usd": 0.000245,
+    "prompt_tokens": 2029
+   }
+  },
+  "fd6365cff390a73d5f850f5c7c2e78ce8b80eda3e8299a6216f0fa136513c2c8": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-020",
+   "response": {
+    "answer": "Part 1: The BOP was landed onto the surface riser and the NT2 connector made up on 2013-06-27 (report 15/9-F-11-B, activity ended 2013-06-28T00:00:00 at 2013-06-27T18:00:00 timestamp) and on 2013-12-13 (report 15/9-F-15-D, activity ended 2013-12-13T23:45:00). Part 2: On 2013-06-27 the annular preventer was pressure tested to 30 / 345 bar for 5 / 10 minutes (test ok) after replacement, and an earlier stump test of the annular to 20 / 345 bar could not be obtained; on 2013-12-13 the BOP was tested on stump to 20 / 345 bar for 5 / 10 minutes and again to 20 / 345 bar for 5 / 10 minutes during Multibowl seal testing.",
+    "cited_ids": [
+     "F11B-20130628-ACT-07",
+     "F11B-20130628-ACT-08",
+     "F11B-20130628-ACT-01",
+     "F15D-20131214-ACT-01",
+     "F15D-20131214-ACT-11",
+     "F15D-20131214-ACT-16"
+    ],
+    "rationale": "Part 1 (landing BOP and making up NT2 connector) is answered from the 2013-06-27 and 2013-12-13 activity lines; Part 2 (BOP pressure tests on those days) is answered from the annular test on 2013-06-27 and the stump/Multibowl tests on 2013-12-13.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 507,
+    "cost_usd": 0.002476,
+    "prompt_tokens": 22227
+   }
+  },
+  "fd7367b1ce7577861d0423dcafec61f9aae8c4e530c78a47974ca32b4c0ddb52": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-010",
+   "response": {
+    "answer": "1.32 g/cm3",
+    "cited_ids": [
+     "F15D-20131214-FLUID-01"
+    ],
+    "rationale": "The fluid record sampled from the active pit at 2013-12-13T21:00:00, within the 2013-12-14 report window, gives density 1.32 g/cm3 for Enviromul Yellow.",
+    "status": "answered"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 119,
+    "cost_usd": 0.000176,
+    "prompt_tokens": 1161
+   }
+  },
+  "ffdc72bd145d07e67bdc1673435cf87ffda644ec362c461c6019da9e450af124": {
+   "finish_reason": "stop",
+   "model": "anthropic/claude-haiku-5.5",
+   "question_id": "T2-021",
+   "response": {
+    "answer": "For F-15-D (report 2015-08-10): lost communication with the tractor during RIH at 3592 m (2015-08-09 ~13:10), and troubleshooting found it was not possible to activate the tractor, so the BHA was POOH. For F-11-B (report 2015-10-28): no wireline tractor problem is reported in the evidence; the only tractor-related events are the tractor being switched to tractor mode at 2800 m (2015-10-27 ~13:00) and the tractor software freezing at 3570 m (2015-10-27 ~14:35), which was restarted OK at 15:05.",
+    "cited_ids": [
+     "F15D-20150810-ACT-13",
+     "F15D-20150810-ACT-14",
+     "F11B-20151028-ACT-12",
+     "F11B-20151028-ACT-13",
+     "F11B-20151028-ACT-14",
+     "F11B-20151028-ACT-15"
+    ],
+    "rationale": "F-15-D has a clear tractor communication loss and failed activation; F-11-B shows only a tractor software freeze that was resolved, with no wireline tractor failure reported as a problem.}",
+    "status": "partial"
+   },
+   "role": "primary_run2",
+   "usage": {
+    "completion_tokens": 374,
+    "cost_usd": 0.000906,
+    "prompt_tokens": 7186
+   }
+  }
+ }
+}

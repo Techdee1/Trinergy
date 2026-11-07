@@ -154,6 +154,55 @@ def find_validator() -> Path | None:
     return cand if cand.is_file() else None
 
 
+def check_format(path: Path | None = None, expected_ids: list[str] | None = None) -> dict:
+    """Minimal built-in check of predictions.csv, mirroring the organiser's rules: required columns, no duplicate or unknown
+    question ids, every expected id present, confidence blank or within [0, 1]. Used only when the organiser's
+    validate_submission.py is not on disk; it does NOT replace it."""
+    path = Path(path or config.PREDICTIONS_PATH)
+    errors: list[str] = []
+    warnings: list[str] = []
+    if not path.is_file():
+        return {"valid": False, "errors": ["predictions.csv not found"], "warnings": [], "rows": 0}
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        cols, rows = list(reader.fieldnames or []), list(reader)
+    required = ("question_id", "answer", "evidence", "confidence")
+    errors += [f"missing column {c}" for c in required if c not in cols]
+    extra = [c for c in cols if c not in required + ("notes",)]
+    if extra:
+        warnings.append("unexpected columns (ignored in scoring): " + ", ".join(extra))
+    ids = [(r.get("question_id") or "").strip() for r in rows]
+    errors += [f"duplicate question_id {i}" for i in sorted({i for i in ids if ids.count(i) > 1})]
+    expected = expected_ids if expected_ids is not None else template_order()
+    errors += [f"unknown question_id {i}" for i in ids if i and i not in expected]
+    missing = [i for i in expected if i not in ids]
+    if missing:
+        warnings.append(f"{len(missing)} of {len(expected)} questions have no row; they will score zero")
+    for n, r in enumerate(rows, 2):
+        c = (r.get("confidence") or "").strip()
+        if c:
+            try:
+                if not 0 <= float(c) <= 1:
+                    errors.append(f"line {n}: confidence must be between 0 and 1")
+            except ValueError:
+                errors.append(f"line {n}: invalid confidence")
+    if not rows:
+        errors.append("no data rows")
+    return {"valid": not errors, "errors": errors, "warnings": warnings, "rows": len(rows)}
+
+
+def validate_predictions(submission_dir: Path | None = None) -> dict:
+    """Validate predictions.csv with the organiser's script when it is on disk, else with the built-in check, and say which.
+    Returns {"validator", "valid", "errors", "warnings", "rows"}."""
+    rep = run_validator(submission_dir)
+    if rep is not None:
+        return {"validator": "organiser validate_submission.py", "valid": rep["valid"],
+                "errors": rep["structure"]["errors"] + rep["csv"]["errors"], "warnings": rep["csv"]["warnings"],
+                "rows": rep["csv"]["rows"]}
+    c = check_format(Path(submission_dir) / "predictions.csv" if submission_dir else None)
+    return {"validator": "built-in format check (the organiser's validate_submission.py was not found next to the data)", **c}
+
+
 def run_validator(submission_dir: Path | None = None) -> dict | None:
     """Run the organiser's validate_submission() on the submission folder. None if it is not on disk."""
     vp = find_validator()

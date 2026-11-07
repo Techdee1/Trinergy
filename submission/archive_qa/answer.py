@@ -22,7 +22,7 @@ import pandas as pd
 
 from . import config
 from .context import Context, build_context, dump_context
-from .llm import LLM
+from .llm import LLM, CacheMiss
 from .prompts import SYSTEM_PROMPT
 from .repair import repair_citations
 from .route import RouteResult, route_question
@@ -395,6 +395,18 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
         question_id, question, status, answer_text, [c for c in cited if c in ctx.ids], rationale,
         conf, notes, route.mode, list(route.candidate_files), reply.model, result.ok, result.failures, False,
         {i: ctx.absent[i] for i in absent_cited}, "", calls, cost, disagree)
+
+
+def uncached_questions(questions: pd.DataFrame, records: pd.DataFrame, reports: list[Report], llm: LLM) -> list[str]:
+    """Ids of the questions that CANNOT be answered from the cache (an offline replay raises CacheMiss). It runs the real
+    pipeline, so it can never drift from how cache keys are built; early abstentions need no cache entry."""
+    missing = []
+    for q in questions.itertuples(index=False):
+        try:
+            answer_question(q.question_id, q.question_text, records, reports, llm, dump=False)
+        except CacheMiss:
+            missing.append(q.question_id)
+    return missing
 
 
 def answer_all(questions: pd.DataFrame, records: pd.DataFrame, reports: list[Report], llm: LLM,

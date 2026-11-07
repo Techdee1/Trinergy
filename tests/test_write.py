@@ -63,3 +63,52 @@ def test_answers_json_round_trip(tmp_path, located):
     p = save_answers_json([placeholder("T2-002"), placeholder("T2-001")], located, tmp_path / "a.json")
     data = json.loads(p.read_text())
     assert [d["question_id"] for d in data] == ["T2-001", "T2-002"] and "evidence" in data[0]
+
+
+# ---- built-in fallback validator ------------------------------------------------------------------------------------
+
+
+from submission.archive_qa.write import check_format, validate_predictions  # noqa: E402
+
+
+def write_csv(path, rows, cols=("question_id", "answer", "evidence", "confidence", "notes")):
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(cols)
+        w.writerows(rows)
+    return path
+
+
+IDS = [f"T2-{i:03d}" for i in range(1, 4)]
+
+
+def test_built_in_check_accepts_a_good_file_and_flags_the_organiser_rules(tmp_path):
+    good = write_csv(tmp_path / "ok.csv", [[i, "a", "e", "0.9", "n"] for i in IDS])
+    assert check_format(good, IDS) == {"valid": True, "errors": [], "warnings": [], "rows": 3}
+    assert check_format(write_csv(tmp_path / "blank.csv", [[i, "a", "e", "", ""] for i in IDS]), IDS)["valid"]   # blank confidence ok
+    assert not check_format(tmp_path / "missing.csv", IDS)["valid"]
+    r = check_format(write_csv(tmp_path / "dup.csv", [[IDS[0], "a", "e", "0.9", ""], [IDS[0], "a", "e", "0.9", ""]]), IDS)
+    assert not r["valid"] and any("duplicate" in e for e in r["errors"]) and r["warnings"]
+    assert any("unknown question_id" in e for e in check_format(write_csv(tmp_path / "u.csv", [["T9-999", "a", "e", "0.5", ""]]), IDS)["errors"])
+    assert any("between 0 and 1" in e for e in check_format(write_csv(tmp_path / "c.csv", [[IDS[0], "a", "e", "1.5", ""]]), IDS)["errors"])
+    assert any("invalid confidence" in e for e in check_format(write_csv(tmp_path / "n.csv", [[IDS[0], "a", "e", "high", ""]]), IDS)["errors"])
+    assert any("missing column" in e for e in check_format(write_csv(tmp_path / "m.csv", [[IDS[0], "a", "0.5"]], cols=("question_id", "answer", "confidence")), IDS)["errors"])
+    assert not check_format(write_csv(tmp_path / "e.csv", []), IDS)["valid"]
+
+
+def test_validate_predictions_falls_back_and_says_so(tmp_path, monkeypatch):
+    from submission.archive_qa import write as W
+    monkeypatch.setattr(W, "run_validator", lambda submission_dir=None: None)               # organiser validator not on disk
+    monkeypatch.setattr(W, "template_order", lambda: IDS)
+    write_csv(tmp_path / "predictions.csv", [[i, "a", "e", "0.9", ""] for i in IDS])
+    rep = validate_predictions(tmp_path)
+    assert rep["valid"] and rep["rows"] == 3 and rep["validator"].startswith("built-in format check")
+    assert "organiser" in rep["validator"] and "not found" in rep["validator"]               # it says what was NOT run
+
+
+def test_validate_predictions_uses_the_organiser_validator_when_present(monkeypatch, tmp_path):
+    from submission.archive_qa import write as W
+    fake = {"structure": {"valid": True, "errors": []}, "csv": {"valid": True, "errors": [], "warnings": ["w"], "rows": 32}, "valid": True}
+    monkeypatch.setattr(W, "run_validator", lambda submission_dir=None: fake)
+    rep = validate_predictions(tmp_path)
+    assert rep == {"validator": "organiser validate_submission.py", "valid": True, "errors": [], "warnings": ["w"], "rows": 32}

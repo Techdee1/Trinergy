@@ -38,20 +38,36 @@ def test_archive_qa_never_reads_the_key_files():
 @pytest.mark.skipif(os.environ.get("CHECK_CACHE") != "1", reason="set CHECK_CACHE=1 to check the committed cache")
 @needs_data
 def test_all_32_questions_are_in_the_cache(located):
-    cache = Cache(config.LLM_CACHE_PATH)
-    models = cache.meta.get("models", {})
-    assert models.get("primary"), "cache has no recorded model names"
-    reports = discover_reports(config.XML_DIR)
-    missing = []
-    for q in load_questions().itertuples(index=False):
-        r = route_question(q.question_text, reports)
-        if r.early_abstain:
-            continue  # answered without an LLM call
-        ctx = build_context(q.question_id, q.question_text, r, located)
-        key = cache_key(SYSTEM_PROMPT, ctx.text, q.question_text, "", models["primary"], cache.meta["settings"])
-        if cache.get(key) is None:
-            missing.append(q.question_id)
+    """Offline replay of every question against the committed cache: no CacheMiss, no live call. (It replays through the
+    real pipeline instead of re-deriving cache keys, which had drifted and gave a false alarm.)"""
+    from submission.archive_qa.answer import uncached_questions
+    from submission.archive_qa.llm import LLM
+
+    llm = LLM.from_env(live=False)
+    assert llm.cache.entries and llm.cache.meta.get("models", {}).get("primary"), "no cache / no recorded model names"
+    missing = uncached_questions(load_questions(), located, discover_reports(config.XML_DIR), llm)
     assert not missing, f"not in cache: {missing}"
+    assert llm.live_calls == 0
+
+
+@needs_data
+def test_the_cache_coverage_check_detects_a_missing_entry(tmp_path, located):
+    """The check above is only worth having if it can fail: populate a cache with FakeLLM, then remove one entry."""
+    from submission.archive_qa.answer import answer_all, uncached_questions
+    from submission.archive_qa.llm import LLM, FakeLLM, LLMConfig
+    from tests.test_answer import good
+
+    reports = discover_reports(config.XML_DIR)
+    qs = load_questions()
+    qs = qs[qs.question_id.isin(["T2-016", "T2-027", "T2-024"])]               # single, early-abstain, multi
+    live = LLM(LLMConfig(primary="m1", escalation="m2", live=True, concurrency=1), FakeLLM(lambda s, u, m: good()),
+               Cache(tmp_path / "c.json"), tmp_path / "l.csv")
+    answer_all(qs, located, reports, live, dump=False)
+    offline = LLM(LLMConfig(primary="m1", escalation="m2", live=False), None, Cache(tmp_path / "c.json"), tmp_path / "l2.csv")
+    assert uncached_questions(qs, located, reports, offline) == []              # complete cache (early abstain needs none)
+    victim = next(k for k, e in offline.cache.entries.items() if e["question_id"] == "T2-016")
+    del offline.cache.entries[victim]
+    assert uncached_questions(qs, located, reports, offline) == ["T2-016"]
 
 
 # ---- the committed cache must be committable and offline misses must be loud ------------------------------
