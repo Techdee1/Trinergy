@@ -51,7 +51,8 @@ def test_abstain_citing_anything_is_normalised_so_no_escalation(tmp_path, qtext,
     assert a.cited_ids == ["ABSENT-cost"] and list(a.absent) == ["ABSENT-cost"]
     assert not any("escalated" in n or "VERIFIER FAILED" in n for n in a.notes)
     ev = build_evidence(a, located)
-    assert ev.startswith("ABSENT-cost:") and "SUM24HR" not in ev and "INVENTED" not in ev
+    assert ev.startswith("15_9_F_1_C_2014_03_26.pdf: all sections checked, no cost field")
+    assert "SUM24HR" not in ev and "INVENTED" not in ev and "ABSENT" not in ev
     assert "Searched 1 report(s) and" in a.rationale
 
 
@@ -85,17 +86,17 @@ def test_single_report_keeps_400_and_multi_modes_start_at_1500(tmp_path, qtext, 
     for qid in ("T2-016", "T2-024", "T2-020"):       # single_report, multi_report, archive_wide
         a, fake, _ = go(tmp_path / qid, lambda s, u, m: good(), qid, qtext, reports, located)
         seen[qid] = (a.mode, [c["max_tokens"] for c in fake.calls[:2]])
-    assert seen == {"T2-016": ("single_report", [400, 400]), "T2-024": ("multi_report", [1500, 1500]),
-                    "T2-020": ("archive_wide", [1500, 1500])}
+    assert seen == {"T2-016": ("single_report", [400, 400]), "T2-024": ("multi_report", [3000, 3000]),
+                    "T2-020": ("archive_wide", [3000, 3000])}
 
 
 @needs_data
-def test_multi_truncated_at_the_retry_cap_is_not_retried_again(tmp_path, qtext, reports, located):
+def test_multi_truncated_at_its_start_cap_is_not_retried_again(tmp_path, qtext, reports, located):
     def script(system, user, model, max_tokens):
         return TRUNC if model == "m1" else good()
 
     a, fake, _ = go(tmp_path, script, "T2-024", qtext, reports, located)
-    assert [(c["model"], c["max_tokens"]) for c in fake.calls] == [("m1", 1500), ("m1", 1500), ("m2", 1500)]
+    assert [(c["model"], c["max_tokens"]) for c in fake.calls] == [("m1", 3000), ("m1", 3000), ("m2", 1500)]
     assert not any("retried" in n for n in a.notes) and any("escalated to m2" in n for n in a.notes)
 
 
@@ -113,5 +114,5 @@ def test_start_cap_keys_are_separate_cache_entries(tmp_path, qtext, reports, loc
     _, fake, llm = go(tmp_path, lambda s, u, m: good(), "T2-024", qtext, reports, located)
     primaries = [e for e in llm.cache.entries.values() if e["role"] != "escalation"]
     assert sorted(e["role"] for e in primaries) == ["primary", "primary_run2"]        # run 1 and run 2, each its own entry
-    assert [c["max_tokens"] for c in fake.calls[:2]] == [1500, 1500]
-    assert A.start_cap(llm, "single_report") is None and A.start_cap(llm, "multi_report") == 1500
+    assert [c["max_tokens"] for c in fake.calls[:2]] == [3000, 3000]
+    assert A.start_cap(llm, "single_report") is None and A.start_cap(llm, "multi_report") == 3000

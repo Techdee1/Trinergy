@@ -220,7 +220,7 @@ def test_no_escalation_when_the_verifier_passes(tmp_path, qtext, reports, locate
     assert models == ["m1", "m1"] and a.verified
     p = {"status": "partial", "answer": "Only the density: 1.03 g/cm3.", "cited_ids": [FLUID], "rationale": "no more"}
     a, models, _ = run(tmp_path / "p", lambda s, u, m: p, "T2-016", qtext["T2-016"], reports, located)
-    assert models == ["m1", "m1"] and a.status == "partial"                      # partial is never an escalation trigger
+    assert models == ["m1", "m1", "m2"] and a.status == "partial"                # a final partial IS escalated, once (see test_partial)
 
 
 @needs_data
@@ -344,8 +344,12 @@ def test_mud_logging_gets_an_absent_record_and_wireline_does_not_count(qtext, re
     c = build_context("T2-032", q, route_question(q, reports), located)
     line = next(l for l in c.text.splitlines() if l.startswith("[ABSENT-mud_logging]"))
     assert "no mud logging field exists" in line and c.absent["ABSENT-mud_logging"]["kind"] == "mud_logging"
-    wl = [l for l in c.text.splitlines() if "serviceCompany" in l]
-    assert wl and all("[ABSENT" not in l and "mud" not in l.lower().split("servicecompany")[1][:40] for l in wl)  # wireline stays wireline
+    wl = [l for l in c.text.splitlines() if "serviceCompany" in l and not l.startswith("[ABSENT")]
+    assert wl and all("mud" not in l.lower().split("servicecompany")[1][:40] for l in wl)   # the logging run stays a logging run
+    # ... and the ABSENT record says it was considered and rejected, and why
+    assert "Considered and rejected" in line and "Western Atlas" in line and "not a mud-logging service" in line
+    near = c.absent["ABSENT-mud_logging"]["near"]
+    assert near[0]["id"].endswith("LOG-01") and "Western Atlas" in near[0]["what"]
 
 
 @needs_data

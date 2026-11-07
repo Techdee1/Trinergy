@@ -128,7 +128,7 @@ def test_abstention_cites_only_absent_records(tmp_path, qtext, located, reports)
     a = A.answer_question("T2-025", qtext["T2-025"], located, reports, llm, dump=False)
     assert a.status == "abstain" and a.verified and a.confidence == 0.85 and a.cited_ids == ["ABSENT-cost"]
     ev = build_evidence(a, located)
-    assert "ABSENT-cost" in ev and "no cost field exists" in ev and "15_9_F_1_C_2014_03_26.xml" in ev
+    assert "15_9_F_1_C_2014_03_26.pdf: all sections checked, no cost field" in ev and "ABSENT" not in ev
     assert "FLUID" not in ev and "ACT-" not in ev
 
 

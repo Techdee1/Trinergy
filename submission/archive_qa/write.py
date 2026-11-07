@@ -10,6 +10,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -30,26 +31,54 @@ def record_evidence(row: pd.Series) -> str:
     return xml
 
 
-def absent_evidence(rid: str, meta: dict) -> str:
-    files = [f + ".xml" for f in meta["files"]]
-    shown = ", ".join(files[:3]) + (f" (+{len(files) - 3} more)" if len(files) > 3 else "")
-    return (f"{rid}: searched {meta['reports']} report(s), {meta['records']} record(s) [{shown}]; "
-            f"no {meta['kind'].replace('_', ' ')} field exists")
+def _files_text(stems: list[str], limit: int = 3) -> list[str]:
+    shown = stems[:limit]
+    return shown + ([f"(+{len(stems) - limit} more report(s))"] if len(stems) > limit else [])
+
+
+def absent_evidence(rid: str, meta: dict) -> list[str]:
+    """What was searched for a field the archive does not have: the files, and anything considered and rejected."""
+    kind = meta["kind"].replace("_", " ")
+    out = [f"{f}.pdf: all sections checked, no {kind} field" if not f.startswith("(") else f
+           for f in _files_text(meta["files"])]
+    if meta.get("near"):
+        out.append("considered and rejected: " + "; ".join(f"{n['what']} ({n['reason']})" for n in meta["near"]))
+    return out
 
 
 def build_evidence(ans: Answer, records: pd.DataFrame) -> str:
+    """Citations built only from records in the store. Per report: its PDF page references first (one per file+page,
+    sections merged), then its XML record ids. Abstentions name the files searched."""
     if ans.early_abstain:
         return ans.evidence_extra
-    parts: list[str] = []
-    valid = [c for c in ans.cited_ids if c in set(records["record_id"])]  # unknown IDs are dropped, never cited
+    known = set(records["record_id"])
+    valid = [c for c in ans.cited_ids if c in known]                 # unknown IDs are dropped, never cited
     rows = records[records["record_id"].isin(valid)].sort_values(["well", "report_date", "record_id"])
-    parts += [record_evidence(r) for _, r in rows.iterrows()]
-    parts += [absent_evidence(rid, meta) for rid, meta in sorted(ans.absent.items())]
+    parts: list[str] = []
+    for _, grp in rows.groupby("source_file", sort=False):
+        pages: dict[tuple[str, int], list[str]] = {}
+        for _, r in grp.iterrows():
+            if pd.notna(r.get("pdf_page")) and isinstance(r.get("pdf_file"), str):
+                secs = pages.setdefault((r["pdf_file"], int(r["pdf_page"])), [])
+                if isinstance(r.get("pdf_section"), str) and r["pdf_section"] and r["pdf_section"] not in secs:
+                    secs.append(r["pdf_section"])
+        parts += [f"{f} p.{pg}" + (f" ({', '.join(secs)})" if secs else "") for (f, pg), secs in pages.items()]
+        parts += [f"{r['source_file']} {r['record_id']}" for _, r in grp.iterrows()]
+    for rid, meta in sorted(ans.absent.items()):
+        parts += absent_evidence(rid, meta)
     if not parts:  # abstention with nothing to cite: say what was searched
-        files = [c + ".xml" for c in ans.candidates]
-        parts.append(f"Searched {len(files)} routed report(s) ({', '.join(files[:4])}"
-                     f"{'...' if len(files) > 4 else ''}); no record matches the question")
+        parts += [f"{c}.pdf: all sections checked, no matching record" for c in ans.candidates[:3]]
+        if len(ans.candidates) > 3:
+            parts.append(f"(+{len(ans.candidates) - 3} more report(s))")
     return "; ".join(dict.fromkeys(parts))
+
+
+def prediction_note(ans: Answer) -> str:
+    """The `notes` cell of predictions.csv: the short rationale only. Internal flags (retries, escalation, disagreement,
+    verifier text) stay in answers.json and the review pack."""
+    text = ans.rationale or ""
+    text = re.sub(r"^EARLY ABSTAIN:\s*", "", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def answer_notes(ans: Answer) -> str:
@@ -88,7 +117,7 @@ def write_predictions(answers: list[Answer], records: pd.DataFrame, path: Path |
             if a is None:
                 continue
             w.writerow({"question_id": qid, "answer": a.answer, "evidence": build_evidence(a, records),
-                        "confidence": f"{a.confidence:.2f}", "notes": answer_notes(a)})
+                        "confidence": f"{a.confidence:.2f}", "notes": prediction_note(a)})
     return path
 
 

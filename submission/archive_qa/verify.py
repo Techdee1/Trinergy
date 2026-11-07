@@ -28,13 +28,15 @@ from datetime import date, timedelta
 import pandas as pd
 
 from .context import NARRATIVE, Context
+from .match import match_score, norm_text, question_tokens
+from .parse import ROW_SECTIONS
 from .context import _words as content_words
 from .route import find_dates, topic_sections
 from .wells import find_wells
 
 STATUSES = ("answered", "partial", "abstain")
 _ID_RX = re.compile(r"\[?\b(?:[A-Z0-9]{2,6}-\d{8}-[A-Z0-9_]+(?:-\d+)?|ABSENT-[A-Za-z_]+)\b\]?")
-_NUM_RX = re.compile(r"(?<![\w.])-?\d[\d,]*(?:\.\d+)?|(?<![\w.])-?\.\d+")
+_NUM_RX = re.compile(r"(?<![\w.])-?\d+(?:,\d+)*(?:\.\d+)?|(?<![\w.])-?\.\d+")
 _LIST_MARKER = re.compile(r"(?:^|[\n;])\s*\(?(\d{1,2})[.)]\s")
 
 # unit classes: a number followed by a unit is compared with the unit(s) of the record that holds it
@@ -54,8 +56,10 @@ _UNIT_AFTER = re.compile(r"^\s*(m/h|g/cm3|g/cm³|mmd|mtvd|dega|degc|°c|lbm/ft|m
 
 _DATETIME_RX = re.compile(r"\d{4}-\d{2}-\d{2}(?:[T ]\d{1,2}:\d{2}(?::\d{2})?)?")
 _TIME_RX = re.compile(r"(?<![\d:])\d{1,2}:\d{2}(?::\d{2})?(?![\d:])")
-# an item start (text start, newline, ';', ':' or the end of a sentence) followed by "(1)" or "1." / "1)"
-_ENUM_RX = re.compile(r"(?:^|[\n;:.])\s*(?:\(\s*(\d{1,2})\s*\)|(\d{1,2})[.)])(?=\s)")
+# an item start (text start, newline, ';', ':' or the end of a sentence) followed by "(1)", "1." / "1)", or the
+# worded forms "Part (1):", "Part 1:", "Step 2:"
+_ENUM_RX = re.compile(r"(?:^|[\n;:.])\s*(?:(?:part|step)\s+(?:\(\s*(\d{1,2})\s*\)|(\d{1,2}))(?=\s*:)"
+                      r"|\(\s*(\d{1,2})\s*\)(?=\s)|(\d{1,2})[.)](?=\s))", re.IGNORECASE)
 
 
 def mask_temporal(text: str) -> tuple[str, list[str]]:
@@ -73,11 +77,30 @@ def mask_temporal(text: str) -> tuple[str, list[str]]:
 def enumerator_spans(text: str) -> list[tuple[int, int]]:
     """Spans of list enumerators "(1)" / "1." at item starts. They count only as a run 1, 2, ..., k (a lone "(7)"
     is a number like any other), so a wrong value cannot hide as an enumerator."""
-    found = [(int(m.group(1) or m.group(2)), m.span(1) if m.group(1) else m.span(2)) for m in _ENUM_RX.finditer(text)]
+    found = []
+    for m in _ENUM_RX.finditer(text):
+        g = next(i for i in (1, 2, 3, 4) if m.group(i))
+        found.append((int(m.group(g)), m.span(g)))
     nums = sorted(n for n, _ in found)
     if not found or nums != list(range(1, len(nums) + 1)):
         return []
     return [sp for _, sp in found]
+
+
+def short_id_rx(ids) -> re.Pattern | None:
+    """Short forms of the record ids in the context ("F1C-20161022-ACT-13" -> "ACT-13", "...-SUM-SUM24HR" ->
+    "SUM-SUM24HR"). Models write these in prose; they are labels, not numbers. Only ids that exist in the context
+    count, so "ACT-13" is NOT ignored when no such record is in the context."""
+    shorts = sorted({m.group(1) for i in ids if (m := re.fullmatch(r"[A-Z0-9]+-\d{8}-([A-Za-z][A-Za-z0-9_-]*)", i))},
+                    key=len, reverse=True)
+    if not shorts:
+        return None
+    return re.compile(r"(?<![\w-])(?:" + "|".join(re.escape(x) for x in shorts) + r")(?![\w-])", re.IGNORECASE)
+
+
+# generic short-id shape (section codes from parse.py), for comparing runs where there is no context at hand
+_CODES = {c for _, c in ROW_SECTIONS.values()} | {"STATUS", "WELL", "HDR", "SUM", "FCST"}
+GENERIC_SHORT_ID_RX = re.compile(r"(?<![\w-])(?:" + "|".join(sorted(_CODES)) + r")-[A-Z0-9_]+(?:-\d+)?(?![\w-])")
 
 
 def _cited_blob(rows: pd.DataFrame, question: str, window: bool = True) -> str:
@@ -133,8 +156,12 @@ class VerifyResult:
 
 
 def _candidates(token: str) -> list[float]:
-    """Numeric readings of a token: '1,25' -> 1.25 and 125; '4,094' -> 4094."""
-    t = token.strip()
+    """Numeric readings of a token, strictly:
+      "144,3" / "0,05" / "1234,567"  decimal comma only -> 144.3 / 0.05 / 1234.567 (never 1443)
+      "1,420" / "12,345"             ambiguous: either 1.420 or 1420 (thousands) is accepted
+      "1,234,567" / "1,234.5"        thousands separators only
+    """
+    t = token.strip().rstrip(",")
     out: list[float] = []
 
     def add(s: str) -> None:
@@ -143,11 +170,13 @@ def _candidates(token: str) -> list[float]:
         except ValueError:
             pass
 
-    if re.fullmatch(r"-?\d{1,3}(,\d{3})+(\.\d+)?", t):
-        add(t.replace(",", ""))
-    elif re.fullmatch(r"-?\d+,\d{1,2}", t):
-        add(t.replace(",", "."))
-        add(t.replace(",", ""))
+    if re.fullmatch(r"-?\d{1,3}(,\d{3}){2,}(\.\d+)?", t) or re.fullmatch(r"-?\d{1,3},\d{3}\.\d+", t):
+        add(t.replace(",", ""))                       # thousands separators
+    elif re.fullmatch(r"-?\d{1,3},\d{3}", t):
+        add(t.replace(",", ""))                       # 1,420 -> 1420 ...
+        add(t.replace(",", "."))                      # ... or 1.420
+    elif re.fullmatch(r"-?\d*,\d+", t):
+        add(t.replace(",", "."))                      # decimal comma only
     else:
         add(t.replace(",", ""))
     return out
@@ -358,7 +387,11 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             for v, u in _row_units(r).items():
                 units.setdefault(v, set()).update(u)
         allowed |= {round(c, 6) for _t, cs in numbers_in(question) for c in cs}  # numbers echoed from the question
-        stripped, temporal = mask_temporal(_ID_RX.sub(" ", answer))   # dates/times are checked as whole tokens below
+        stripped = _ID_RX.sub(" ", answer)
+        sid = short_id_rx(context.ids)
+        if sid:
+            stripped = sid.sub(lambda m: " " * len(m.group(0)), stripped)   # "ACT-13" is a label, not the number 13
+        stripped, temporal = mask_temporal(stripped)                       # dates/times are checked as whole tokens below
         blob = _cited_blob(rows, question)
         line_blob = _cited_blob(rows, question, window=False)
         bad_temporal = sorted({tok for tok in temporal if not temporal_supported(tok, blob, line_blob)})
@@ -389,6 +422,10 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             f.append("numbers in the answer not found in the cited records: "
                      f"{sorted(set(bad))}. A sum, difference or mean is accepted only if the answer says it is "
                      "derived and both operands are cited records and are stated in the answer or rationale.")
+    if status in ("answered", "partial"):
+        for well, ids in claimed_missing_but_present(answer, question, context, records):
+            f.append(f"you say nothing was found for {well}, but evidence line(s) {ids[:4]} for that well match the "
+                     "question's numbers/terms. Re-read them and answer from them.")
     if status == "answered":
         parts, missing = unaddressed_parts(question, answer, parsed.get("rationale") if isinstance(parsed.get("rationale"), str) else "")
         if missing:
@@ -398,6 +435,37 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
     flags = [f"you abstained, but the evidence contains line(s) matching the question's well, date and field: "
              f"{flagged}. Re-read them and answer from them if they contain the requested value."] if flagged else []
     return VerifyResult(not f, f, flags, flagged)
+
+
+# ------------------------------------------------------------------ "not found" for a well that has a match
+
+_NEGATIVE = re.compile(
+    r"\b(?:no\b[^.;:]{0,60}?\b(?:found|confirm\w*|record\w*|report\w*|evidence|mention\w*|line|lines|entry|entries|data|information)"
+    r"|not (?:found|confirmed|reported|recorded|stated|mentioned|present|available|given|identified)"
+    r"|none\b|nothing\b|no (?:such )?record|could not find|cannot find|unable to find|not in the evidence)", re.IGNORECASE)
+
+
+def claimed_missing_but_present(answer: str, question: str, context: Context, records: pd.DataFrame) -> list[tuple[str, list[str]]]:
+    """For each well the question names: if the answer says nothing was found for it, but a record of that well in the
+    context matches the question's distinctive tokens, return (well, matching ids). Such an answer should be re-read."""
+    qt = question_tokens(question)
+    named = {m.well for m in find_wells(question)}
+    if not qt or not named:
+        return []
+    mentions = [m for m in find_wells(answer) if m.well in named]
+    hits: list[tuple[str, list[str]]] = []
+    for i, m in enumerate(mentions):
+        end = mentions[i + 1].start if i + 1 < len(mentions) else len(answer)
+        stop = re.search(r"[.;]\s", answer[m.end:end])
+        segment = answer[m.end:m.end + stop.start()] if stop else answer[m.end:end]
+        if not _NEGATIVE.search(segment) or any(h[0] == m.well for h in hits):
+            continue
+        sub = records[(records["well"] == m.well) & records["record_id"].isin(context.ids)]
+        ids = [r["record_id"] for _, r in sub.sort_values("record_id").iterrows()
+               if match_score(r["text"].split(" | ", 3)[-1] if isinstance(r["text"], str) else "", qt) > 0]
+        if ids:
+            hits.append((m.well, ids))
+    return hits
 
 
 # ------------------------------------------------------------------ confidence

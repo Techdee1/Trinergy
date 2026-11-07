@@ -185,7 +185,7 @@ def test_abstain_gets_the_absent_record_added_in_code(tmp_path, qtext, reports, 
     assert "Searched 1 report(s) and" in a.rationale and "no cost field exists" in a.rationale
     assert "The report has no cost line." in a.rationale       # the model's own rationale is kept
     ev = build_evidence(a, located)
-    assert "ABSENT-cost" in ev and "no cost field exists" in ev and "15_9_F_1_C_2014_03_26.xml" in ev
+    assert "15_9_F_1_C_2014_03_26.pdf: all sections checked, no cost field" in ev and "ABSENT" not in ev
     assert "Searched 1 report(s)" in answer_notes(a)
     assert len(fake.calls) == 2                                 # no escalation, no extra call
 

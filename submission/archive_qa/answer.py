@@ -24,6 +24,7 @@ from . import config
 from .context import Context, build_context, dump_context
 from .llm import LLM
 from .prompts import SYSTEM_PROMPT
+from .repair import repair_citations
 from .route import RouteResult, route_question
 from .verify import (_ID_RX, _NUM_RX, STATUSES, _candidates, confidence, enumerator_spans, mask_temporal,
                      split_parts, verify)
@@ -127,6 +128,9 @@ def abstain_text(rationale: str, absent: dict[str, dict]) -> str:
     for meta in absent.values():
         parts.append(f"No {meta['kind'].replace('_', ' ')} field exists (searched {meta['reports']} report(s), "
                      f"{meta['records']} record(s)).")
+        if meta.get("near"):
+            parts.append("Considered and rejected: " + "; ".join(
+                f"{n['what']} ({n['reason']})" for n in meta["near"]) + ".")
     if rationale.strip():
         parts.append(rationale.strip())
     return " ".join(parts)
@@ -181,6 +185,14 @@ def disagreement_text(a: dict, b: dict, question: str) -> str:
             f"only in run 1: {sorted(ka - kb)}; only in run 2: {sorted(kb - ka)}")
 
 
+def partial_feedback(parsed: dict) -> str:
+    ans = (parsed or {}).get("answer") if isinstance((parsed or {}).get("answer"), str) else ""
+    return ("PARTIAL: your previous answer was marked partial (it addressed only part of the question): "
+            f"{ans[:800]!r}. Re-read every evidence line. If the evidence supports an answer to the missing part(s), give a "
+            "complete answer citing those lines; if some part is truly absent from the evidence, keep status \"partial\" "
+            "and state exactly what is missing.")
+
+
 def arbitration_feedback(a: dict, b: dict, question: str) -> str:
     def block(name, p):
         ans = ((p or {}).get("answer") or "")[:1200] if isinstance((p or {}).get("answer"), str) else ""
@@ -221,9 +233,9 @@ MULTI_MODES = ("multi_report", "archive_wide")
 
 
 def start_cap(llm: LLM, mode: str) -> int | None:
-    """Primary calls on multi-report / archive-wide questions start at LLM_RETRY_MAX_TOKENS (their answers list
-    several records and were truncated at 400); single-report questions keep LLM_MAX_TOKENS."""
-    return llm.cfg.retry_max_tokens if mode in MULTI_MODES else None
+    """Primary calls on multi-report / archive-wide questions use LLM_MULTI_MAX_TOKENS (their answers list several
+    records and were truncated at 400); single-report questions keep LLM_MAX_TOKENS."""
+    return llm.cfg.multi_max_tokens if mode in MULTI_MODES else None
 
 
 def _ask_with_retry(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, run: str,
@@ -292,6 +304,7 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
     # escalation model as arbiter: a verified arbiter answer is committed; otherwise run 1 is kept with a REVIEW note.
     # If run 1 already needed the escalation, that Sonnet call is the arbiter (never a second call).
     disagree = False
+    big_used = escalated
     if second is not None and runs_differ(first.parsed, second.parsed, question):
         diff = disagreement_text(first.parsed, second.parsed, question)
         if escalated:
@@ -303,6 +316,7 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
         else:
             arb = _ask(llm, ctx, q_llm, question_id, escalation, "escalation",
                        feedback=arbitration_feedback(first.parsed, second.parsed, question))
+            big_used = True
             calls, cost = calls + 1, cost + arb.cost_usd
             arb_result = verify(arb.parsed, ctx, records, question)
             if arb_result.ok:
@@ -312,6 +326,20 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
                 disagree = True
                 notes.append(f"REVIEW: runs disagree ({diff}); the arbiter answer ({escalation}) failed verification "
                              f"({'; '.join(arb_result.failures)[:200]}), kept run 1")
+
+    # Partial policy: a final partial answer is escalated ONCE (never when a big-model call was already made). The
+    # escalated answer is kept if it verifies, whatever status it has; the status is never forced.
+    if isinstance(reply.parsed, dict) and reply.parsed.get("status") == "partial" and not big_used:
+        part = _ask(llm, ctx, q_llm, question_id, escalation, "escalation", feedback=partial_feedback(reply.parsed))
+        calls, cost = calls + 1, cost + part.cost_usd
+        part_result = verify(part.parsed, ctx, records, question)
+        if part_result.ok:
+            st = part.parsed.get("status") if isinstance(part.parsed, dict) else "?"
+            notes.append(f"partial answer: escalated to {escalation}; its verified answer is committed (status {st})")
+            reply, result = part, part_result
+        else:
+            notes.append(f"partial answer: escalated to {escalation} but its answer failed verification "
+                         f"({'; '.join(part_result.failures)[:160]}); kept the partial answer")
 
     p = reply.parsed if isinstance(reply.parsed, dict) else {}
     status = p.get("status") if p.get("status") in STATUSES else "abstain"
@@ -333,6 +361,15 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
     answer_text = p.get("answer") if isinstance(p.get("answer"), str) and p.get("answer").strip() else (
         abstain_text(str(p.get("rationale") or ""), {i: ctx.absent[i] for i in absent_cited}) if status == "abstain"
         else "(the model returned no usable answer)")
+    if status in ("answered", "partial") and real:
+        new_cited, repair_notes = repair_citations(cited, answer_text, rationale, ctx, records, mode=route.mode, status=status)
+        if new_cited != cited:
+            check = verify({**p, "cited_ids": new_cited}, ctx, records, question)
+            if check.ok or not result.ok:         # never trade a verified answer for an unverified one
+                cited, notes = new_cited, notes + repair_notes
+                real = [c for c in cited if c in ctx.ids and c not in ctx.absent]
+            else:
+                notes.append("citation repair skipped: the repaired citations did not verify")
     conf = confidence(status, len(real), route.mode, result.ok, absent_cited=bool(absent_cited), truncated=ctx.truncated)
     if not result.ok:
         notes.append("VERIFIER FAILED: " + " | ".join(result.failures))

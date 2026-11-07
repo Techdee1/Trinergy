@@ -99,6 +99,7 @@ class LLMConfig:
     reasoning: str | None = config.LLM_PRIMARY_REASONING_DEFAULT              # primary model (LLM_REASONING)
     escalation_max_tokens: int = config.LLM_ESCALATION_MAX_TOKENS_DEFAULT
     retry_max_tokens: int = config.LLM_RETRY_MAX_TOKENS_DEFAULT              # primary retry after truncation / bad JSON
+    multi_max_tokens: int = config.LLM_MULTI_MAX_TOKENS_DEFAULT              # primary calls for multi_report / archive_wide
     escalation_reasoning: str | None = config.LLM_ESCALATION_REASONING_DEFAULT
     provider: tuple[str, ...] = (config.LLM_PROVIDER_DEFAULT,)               # provider.order pin; () = no pin
     temperature: float = 0.0
@@ -128,7 +129,7 @@ class LLMConfig:
         return {"mode": "live" if self.live else "offline", "key_present": bool(self.api_key),
                 "primary": self.primary, "escalation": self.escalation, "fast": self.fast,
                 "max_tokens": self.max_tokens, "reasoning": self.reasoning,
-                "retry_max_tokens": self.retry_max_tokens,
+                "retry_max_tokens": self.retry_max_tokens, "multi_max_tokens": self.multi_max_tokens,
                 "escalation_max_tokens": self.escalation_max_tokens, "escalation_reasoning": self.escalation_reasoning,
                 "provider": list(self.provider), "budget_usd": self.budget_usd, "concurrency": self.concurrency}
 
@@ -164,6 +165,8 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
                                        config.LLM_ESCALATION_MAX_TOKENS_DEFAULT)),
         retry_max_tokens=int(pick("LLM_RETRY_MAX_TOKENS", (rec.get("retry") or {}).get("max_tokens"),
                                   config.LLM_RETRY_MAX_TOKENS_DEFAULT)),
+        multi_max_tokens=int(pick("LLM_MULTI_MAX_TOKENS", (rec.get("multi") or {}).get("max_tokens"),
+                                  config.LLM_MULTI_MAX_TOKENS_DEFAULT)),
         escalation_reasoning=pick("LLM_ESCALATION_REASONING", rec_e.get("reasoning"),
                                   config.LLM_ESCALATION_REASONING_DEFAULT),
         provider=provider,
@@ -174,7 +177,7 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
         price_out_per_1m=float(v) if (v := _env("LLM_PRICE_OUT_PER_1M", dotenv)) else None,
     )
     for name, n in (("LLM_MAX_TOKENS", cfg.max_tokens), ("LLM_ESCALATION_MAX_TOKENS", cfg.escalation_max_tokens),
-                    ("LLM_RETRY_MAX_TOKENS", cfg.retry_max_tokens)):
+                    ("LLM_RETRY_MAX_TOKENS", cfg.retry_max_tokens), ("LLM_MULTI_MAX_TOKENS", cfg.multi_max_tokens)):
         if n < 1:
             raise ValueError(f"{name} must be a positive integer, got {n}")
     for name, val in (("LLM_REASONING", cfg.reasoning), ("LLM_ESCALATION_REASONING", cfg.escalation_reasoning)):
@@ -427,7 +430,8 @@ class LLM:
                                               ("fast", self.cfg.fast)) if v},
                 "settings": {"primary": self.cfg.role_settings("primary"),
                              "escalation": self.cfg.role_settings("escalation"),
-                             "retry": {"max_tokens": self.cfg.retry_max_tokens}},
+                             "retry": {"max_tokens": self.cfg.retry_max_tokens},
+                             "multi": {"max_tokens": self.cfg.multi_max_tokens}},
                 "prompt_sha": prompt_sha(system)}
         self.cache.put(key, {"response": parsed, "model": model, "usage": usage, "question_id": question_id,
                              "role": role, "finish_reason": raw.finish_reason}, meta)

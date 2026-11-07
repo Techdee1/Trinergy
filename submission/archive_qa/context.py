@@ -24,6 +24,7 @@ from pathlib import Path
 import pandas as pd
 
 from . import config
+from .match import QTokens, match_score, question_tokens
 from .route import RouteResult
 from .store import has_field
 
@@ -48,6 +49,7 @@ class Context:
     truncated: bool = False
     notes: list[str] = field(default_factory=list)          # what was truncated, for the debug dump
     n_lines: int = 0
+    bodies: dict[str, str] = field(default_factory=dict)    # record id -> its key fields (no date suffix), for repair
 
     @property
     def est_tokens(self) -> int:
@@ -149,6 +151,8 @@ def _score(q_words: set[str], line: str) -> int:
 
 
 FIELD_STYLE = {"status", "wellbore"}
+FORCE_PER_WELL = 8        # recall: records per named well that match the question's tokens
+FORCE_ALL = 12            # recall when no well is named (archive-wide)
 
 
 def rid_in_sections(pool: pd.DataFrame, rid: str, sections: set[str]) -> bool:
@@ -163,15 +167,84 @@ def absent_topics(route: RouteResult, cand: pd.DataFrame) -> list[str]:
     return [s for s in route.sections if s in ABSENT_KINDS and not has_field(cand, s)]
 
 
+_NEAR_RX = {"weather": r"weather|\bwind\b|sea state|swell|\bwaves?\b",
+            "personnel": r"personnel|\bpob\b|\bcrew\b|people on board",
+            "cost": r"\bcosts?\b|\bafe\b|price|invoice"}
+_NEAR_REASON = {"weather": "a remark mentioning weather as a cause or condition; no weather or sea-state observation",
+                "personnel": "a narrative mention; no headcount",
+                "cost": "a narrative mention; no cost figure"}
+
+
+def near_misses(kind: str, cand: pd.DataFrame) -> list[dict]:
+    """Records that look related to a field the archive does not have, with the reason they are rejected, so the
+    abstention can say what was considered (e.g. a logging-tool run by a service company is not mud logging)."""
+    out: list[dict] = []
+
+    def add(rid: str, what: str, reason: str) -> None:
+        out.append({"id": rid, "what": re.sub(r"\s+", " ", what)[:90], "reason": reason})
+
+    if kind == "mud_logging":
+        for _, r in cand[cand["section"] == "log"].sort_values("record_id").iterrows():
+            co = (_attrs(r).get("serviceCompany") or {}).get("value")
+            if co:
+                add(r["record_id"], f"serviceCompany={co}; tool={r['value']}",
+                    "company of a downhole logging-tool run; not a mud-logging service")
+        gas = cand[cand["section"] == "gas"].sort_values("record_id")
+        if len(gas):
+            add(gas.iloc[0]["record_id"], f"{len(gas)} gas reading(s)",
+                "the gas readings name no company or engineer who recorded them")
+    elif kind == "supervisor":
+        sub = cand[(cand["section"] == "wellbore") & cand["field"].isin(["operator", "drillContractor"])]
+        for _, r in sub.sort_values("record_id").iterrows():
+            add(r["record_id"], f"{r['field']}={r['value']}", "a company, not a named supervisor")
+    elif kind in _NEAR_RX:
+        sub = cand[cand["section"].isin(["activity", "summary_24h", "forecast_24h", "equip_failure"])]
+        for _, r in sub.sort_values("record_id").iterrows():
+            body = str(r["value"]) if isinstance(r["value"], str) else ""
+            if re.search(_NEAR_RX[kind], body, re.IGNORECASE):
+                add(r["record_id"], body, _NEAR_REASON[kind])
+    return out[:3]
+
+
+def near_text(near: list[dict]) -> str:
+    return "; ".join(f"{n['id']}: {n['what']} ({n['reason']})" for n in near)
+
+
 def _absent_record(kind: str, cand: pd.DataFrame) -> tuple[str, str, dict]:
     stems = sorted({f[:-4] for f in cand["source_file"].unique()})
     dates = sorted(cand["report_date"].unique())
     when = dates[0] if len(dates) == 1 else f"{len(dates)} reports"
     rid = f"ABSENT-{kind}"
     n_rep, n_rec = len(stems), len(cand)
+    near = near_misses(kind, cand)
+    rejected = f" Considered and rejected: {near_text(near)}." if near else ""
     line = (f"[{rid}] absent | Searched {n_rep} report(s) and {n_rec} record(s): no {kind.replace('_', ' ')} field exists "
-            f"in any of them | report {when} | at -")
-    return rid, line, {"kind": kind, "reports": n_rep, "records": n_rec, "files": stems}
+            f"in any of them.{rejected} | report {when} | at -")
+    meta = {"kind": kind, "reports": n_rep, "records": n_rec, "files": stems}
+    if near:
+        meta["near"] = near
+    return rid, line, meta
+
+
+def _body(row) -> str:
+    """The record's key fields, without the well / report-date prefix of its `text` line."""
+    t = row["text"]
+    return t.split(" | ", 3)[-1] if isinstance(t, str) else ""
+
+
+def recall(cand: pd.DataFrame, route: RouteResult, qt: QTokens) -> dict[str, int]:
+    """Records (every section, including plug/abandon activity rows) of the reports routed for each NAMED well that
+    match the question's distinctive tokens; without named wells, over all routed reports. rid -> score."""
+    if not qt:
+        return {}
+    named = [w for w in route.wells if w in set(cand["well"])]
+    groups = [(cand[cand["well"] == w], FORCE_PER_WELL) for w in named] or [(cand, FORCE_ALL)]
+    forced: dict[str, int] = {}
+    for sub, k in groups:
+        scored = [(match_score(_body(r), qt), r["record_id"]) for _, r in sub[sub["section"].isin(SECTION_ORDER)].iterrows()]
+        for sc, rid in sorted((x for x in scored if x[0] > 0), key=lambda t: (-t[0], t[1]))[:k]:
+            forced[rid] = max(sc, forced.get(rid, 0))
+    return forced
 
 
 def build_context(question_id: str, question: str, route: RouteResult, records: pd.DataFrame,
@@ -190,26 +263,37 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
             wanted.add("status")
     else:
         wanted = set(NARRATIVE) | set(topics)
-    sections = [s for s in SECTION_ORDER if s in wanted]
-    pool = cand[cand["section"].isin(sections)]
+    pool = cand[cand["section"].isin([s for s in SECTION_ORDER if s in wanted])]
 
     # --- choose records (cap only matters for multi/archive_wide)
-    chosen: set[str] = set(pool["record_id"])
     lines: dict[str, str] = {r["record_id"]: format_line(r, notes) for _, r in pool.iterrows()}
     # keyword scoring looks at the record's own fields only (not the report date / timestamp suffix)
     bodies = {rid: ln.split("] ", 1)[1].rsplit(" | report ", 1)[0] for rid, ln in lines.items()}
+    forced: dict[str, int] = {}
     if route.mode != "single_report":
         # many reports: bulky field-style sections only when they share a keyword with the question
         q_words0 = _words(question)
         lines = {rid: ln for rid, ln in lines.items()
                  if not rid_in_sections(pool, rid, FIELD_STYLE) or _score(q_words0, bodies[rid]) > 0}
-        chosen = set(lines)
+        # recall: records matching the question's distinctive tokens (numbers with units, content words) are forced in
+        # for every named well, from every record type, however the archive spells them ("50 %" = "50%")
+        forced = recall(cand, route, question_tokens(question))
+        extra = cand[cand["record_id"].isin(forced) & ~cand["record_id"].isin(lines)]
+        for _, r in extra.iterrows():
+            lines[r["record_id"]] = format_line(r, notes)
+            bodies[r["record_id"]] = lines[r["record_id"]].split("] ", 1)[1].rsplit(" | report ", 1)[0]
+        if forced:
+            notes.append(f"RECALL: {len(forced)} record(s) matching the question's tokens forced in "
+                         f"({len(extra)} beyond the normal selection)")
+        pool = pd.concat([pool, extra]) if len(extra) else pool
+    sections = [s for s in SECTION_ORDER if s in set(pool["section"]) | wanted]
+    chosen: set[str] = set(lines)
     truncated = False
     budget_chars = token_cap * CHARS_PER_TOKEN - 200 * cand["source_file"].nunique()  # room for headers
     if route.mode != "single_report" and sum(len(v) + 1 for v in lines.values()) > budget_chars:
         q_words = _words(question)
         order = {rid: i for i, rid in enumerate(pool.sort_values(["source_file", "record_id"])["record_id"])}  # row-order independent
-        ranked = sorted(lines, key=lambda rid: (-_score(q_words, bodies[rid]), order[rid]))
+        ranked = sorted(lines, key=lambda rid: (rid not in forced, -forced.get(rid, 0), -_score(q_words, bodies[rid]), order[rid]))
         used, chosen = 0, set()
         for rid in ranked:
             cost = len(lines[rid]) + 1
@@ -220,7 +304,7 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
         dropped = len(lines) - len(chosen)
         truncated = True
         notes.append(f"TRUNCATED: kept {len(chosen)} of {len(lines)} candidate records "
-                     f"(cap ~{token_cap} tokens), ranked by keyword overlap; dropped {dropped}")
+                     f"(cap ~{token_cap} tokens), forced matches first, then keyword overlap; dropped {dropped}")
 
     # --- render in a fixed order: report, section, record
     out: list[str] = []
@@ -251,7 +335,8 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
         ids.add(rid)
         absent[rid] = meta
 
-    return Context(question_id, "\n".join(out), frozenset(ids), absent, truncated, notes, len(out))
+    return Context(question_id, "\n".join(out), frozenset(ids), absent, truncated, notes, len(out),
+                   {rid: bodies[rid] for rid in ids if rid in bodies})
 
 
 def dump_context(ctx: Context, route: RouteResult, question: str, directory: Path | None = None) -> Path | None:
