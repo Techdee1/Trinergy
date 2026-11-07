@@ -63,6 +63,10 @@ def test_llm_cache_is_not_gitignored():
 
     if shutil.which("git") is None:
         pytest.skip("git not available")
+    inside = subprocess.run(["git", "rev-parse", "--is-inside-work-tree"], cwd=config.REPO_ROOT,
+                            capture_output=True, text=True)
+    if inside.returncode != 0 or inside.stdout.strip() != "true":
+        pytest.skip("project is not inside a git work tree (e.g. an exported copy)")
     rel = "submission/indexes/llm_cache.json"
     r = subprocess.run(["git", "check-ignore", "-q", rel], cwd=config.REPO_ROOT)
     assert r.returncode == 1, f"{rel} is gitignored (check-ignore exit {r.returncode}); reviewers need it committed"

@@ -38,6 +38,7 @@ LLM_MODEL_PRIMARY_DEFAULT = "anthropic/claude-haiku-5.5"
 LLM_MODEL_ESCALATION_DEFAULT = "anthropic/claude-sonnet-5.5"
 LLM_PRIMARY_MAX_TOKENS_DEFAULT = 400          # LLM_MAX_TOKENS
 LLM_ESCALATION_MAX_TOKENS_DEFAULT = 1500      # LLM_ESCALATION_MAX_TOKENS
+LLM_RETRY_MAX_TOKENS_DEFAULT = 1500           # LLM_RETRY_MAX_TOKENS: one primary-model retry after a truncated/invalid reply
 LLM_PRIMARY_REASONING_DEFAULT = "none"        # LLM_REASONING  (Haiku accepts "none")
 LLM_ESCALATION_REASONING_DEFAULT = "minimal"  # LLM_ESCALATION_REASONING (Sonnet/Opus reasoning is mandatory: "none" is HTTP 400)
 LLM_PROVIDER_DEFAULT = "Anthropic"            # LLM_PROVIDER: comma list pinned via provider.order; "" = no pin

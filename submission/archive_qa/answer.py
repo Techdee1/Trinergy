@@ -160,8 +160,26 @@ def question_for_llm(question: str) -> str:
     return f"{question}\nThis question has {len(parts)} parts: {listing} Address every part and name each part in the rationale."
 
 
-def _ask(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, feedback: str = "", run: str = ""):
-    return llm.ask(SYSTEM_PROMPT, ctx.text, question, model, feedback=feedback, question_id=qid, role=role, run=run)
+def _ask(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, feedback: str = "", run: str = "",
+         max_tokens: int | None = None):
+    return llm.ask(SYSTEM_PROMPT, ctx.text, question, model, feedback=feedback, question_id=qid, role=role, run=run,
+                   max_tokens=max_tokens)
+
+
+def _ask_with_retry(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, run: str,
+                    notes: list[str], label: str):
+    """Primary-model call; if the reply was truncated (finish_reason length) or is not valid JSON, retry the SAME
+    model once with the larger LLM_RETRY_MAX_TOKENS cap before anything escalates. The retry is its own cache entry
+    (the cap is part of the key). Returns (final reply, calls made, cost)."""
+    reply = _ask(llm, ctx, question, qid, model, role, run=run)
+    calls, cost = 1, reply.cost_usd
+    if reply.truncated_or_invalid:
+        why = "truncated (finish_reason=length)" if reply.finish_reason in ("length", "max_tokens") else "not valid JSON"
+        cap = llm.cfg.retry_max_tokens
+        notes.append(f"{label} reply {why}; retried {model} once with max_tokens {cap}")
+        reply = _ask(llm, ctx, question, qid, model, f"{role}_retry", run=run, max_tokens=cap)
+        calls, cost = calls + 1, cost + reply.cost_usd
+    return reply, calls, cost
 
 
 def answer_question(question_id: str, question: str, records: pd.DataFrame, reports: list[Report],
@@ -179,13 +197,13 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
 
     q_llm = question_for_llm(question)
     notes: list[str] = []
-    first = _ask(llm, ctx, q_llm, question_id, primary, "primary")
-    calls, cost = 1, first.cost_usd
-    # second independent run of the same request (own cache entry): disagreement flag, never the committed answer
+    first, calls, cost = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary", "", notes, "run 1")
+    # second independent run of the same request (own cache entry): disagreement flag, never the committed answer.
+    # It gets the same truncation retry, and the flag compares the FINAL parsed runs, so a retry alone never fires it.
     second = None
     try:
-        second = _ask(llm, ctx, q_llm, question_id, primary, "primary_run2", run="2")
-        calls, cost = calls + 1, cost + second.cost_usd
+        second, c2, k2 = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary_run2", "2", notes, "run 2")
+        calls, cost = calls + c2, cost + k2
     except RuntimeError as e:
         if type(e).__name__ in ("CacheMiss", "BudgetExceeded"):
             raise
@@ -209,6 +227,17 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
     status = p.get("status") if p.get("status") in STATUSES else "abstain"
     cited = [c for c in (p.get("cited_ids") or []) if isinstance(c, str)] if isinstance(p.get("cited_ids"), list) else []
     cited = [c for c in dict.fromkeys(cited)]
+    rationale = str(p.get("rationale") or "")
+    if status == "abstain":
+        # In code, not via the prompt: an abstention on a topic the archive has no field for cites that ABSENT record,
+        # so the evidence column says what was searched. The "Searched N report(s)..." text goes into the rationale.
+        for rid, meta in ctx.absent.items():
+            if rid not in cited:
+                cited.append(rid)
+            sentence = (f"Searched {meta['reports']} report(s) and {meta['records']} record(s): "
+                        f"no {meta['kind'].replace('_', ' ')} field exists.")
+            if sentence not in rationale:
+                rationale = f"{rationale} {sentence}".strip()
     real = [c for c in cited if c in ctx.ids and c not in ctx.absent]
     absent_cited = [c for c in cited if c in ctx.absent]
     answer_text = p.get("answer") if isinstance(p.get("answer"), str) and p.get("answer").strip() else (
@@ -228,7 +257,7 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
         notes.append("router used D+1 fallback")
     notes.append(f"model={reply.model}")
     return Answer(
-        question_id, question, status, answer_text, [c for c in cited if c in ctx.ids], str(p.get("rationale") or ""),
+        question_id, question, status, answer_text, [c for c in cited if c in ctx.ids], rationale,
         conf, notes, route.mode, list(route.candidate_files), reply.model, result.ok, result.failures, False,
         {i: ctx.absent[i] for i in absent_cited}, "", calls, cost, disagree)
 

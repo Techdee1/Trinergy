@@ -98,6 +98,7 @@ class LLMConfig:
     max_tokens: int = config.LLM_PRIMARY_MAX_TOKENS_DEFAULT                    # primary model (LLM_MAX_TOKENS)
     reasoning: str | None = config.LLM_PRIMARY_REASONING_DEFAULT              # primary model (LLM_REASONING)
     escalation_max_tokens: int = config.LLM_ESCALATION_MAX_TOKENS_DEFAULT
+    retry_max_tokens: int = config.LLM_RETRY_MAX_TOKENS_DEFAULT              # primary retry after truncation / bad JSON
     escalation_reasoning: str | None = config.LLM_ESCALATION_REASONING_DEFAULT
     provider: tuple[str, ...] = (config.LLM_PROVIDER_DEFAULT,)               # provider.order pin; () = no pin
     temperature: float = 0.0
@@ -127,6 +128,7 @@ class LLMConfig:
         return {"mode": "live" if self.live else "offline", "key_present": bool(self.api_key),
                 "primary": self.primary, "escalation": self.escalation, "fast": self.fast,
                 "max_tokens": self.max_tokens, "reasoning": self.reasoning,
+                "retry_max_tokens": self.retry_max_tokens,
                 "escalation_max_tokens": self.escalation_max_tokens, "escalation_reasoning": self.escalation_reasoning,
                 "provider": list(self.provider), "budget_usd": self.budget_usd, "concurrency": self.concurrency}
 
@@ -160,6 +162,8 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
         reasoning=pick("LLM_REASONING", rec_p.get("reasoning"), config.LLM_PRIMARY_REASONING_DEFAULT),
         escalation_max_tokens=int(pick("LLM_ESCALATION_MAX_TOKENS", rec_e.get("max_tokens"),
                                        config.LLM_ESCALATION_MAX_TOKENS_DEFAULT)),
+        retry_max_tokens=int(pick("LLM_RETRY_MAX_TOKENS", (rec.get("retry") or {}).get("max_tokens"),
+                                  config.LLM_RETRY_MAX_TOKENS_DEFAULT)),
         escalation_reasoning=pick("LLM_ESCALATION_REASONING", rec_e.get("reasoning"),
                                   config.LLM_ESCALATION_REASONING_DEFAULT),
         provider=provider,
@@ -169,7 +173,8 @@ def load_config(live: bool = False, dotenv_path: Path | None = None) -> LLMConfi
         price_in_per_1m=float(v) if (v := _env("LLM_PRICE_IN_PER_1M", dotenv)) else None,
         price_out_per_1m=float(v) if (v := _env("LLM_PRICE_OUT_PER_1M", dotenv)) else None,
     )
-    for name, n in (("LLM_MAX_TOKENS", cfg.max_tokens), ("LLM_ESCALATION_MAX_TOKENS", cfg.escalation_max_tokens)):
+    for name, n in (("LLM_MAX_TOKENS", cfg.max_tokens), ("LLM_ESCALATION_MAX_TOKENS", cfg.escalation_max_tokens),
+                    ("LLM_RETRY_MAX_TOKENS", cfg.retry_max_tokens)):
         if n < 1:
             raise ValueError(f"{name} must be a positive integer, got {n}")
     for name, val in (("LLM_REASONING", cfg.reasoning), ("LLM_ESCALATION_REASONING", cfg.escalation_reasoning)):
@@ -191,6 +196,7 @@ class RawResponse:
     prompt_tokens: int = 0
     completion_tokens: int = 0
     cost_usd: float | None = None
+    finish_reason: str | None = None   # "length" = the reply hit max_tokens
 
 
 class Backend(Protocol):
@@ -241,6 +247,7 @@ class OpenRouterBackend:
             raise RuntimeError(f"OpenRouter error: {msg}")
         usage = data.get("usage") or {}
         return RawResponse(
+            finish_reason=data["choices"][0].get("finish_reason"),
             text=(data["choices"][0]["message"].get("content") or ""),
             prompt_tokens=int(usage.get("prompt_tokens") or 0),
             completion_tokens=int(usage.get("completion_tokens") or 0),
@@ -259,6 +266,11 @@ class OpenRouterBackend:
         raise RuntimeError(f"OpenRouter still failing after {self.max_attempts} attempts: {last}")
 
 
+def _takes_max_tokens(fn: Callable) -> bool:
+    import inspect
+    return len(inspect.signature(fn).parameters) >= 4
+
+
 class FakeLLM:
     """Test double. `script` is a dict {substring-of-user-message: reply} or a callable
     (system, user, model) -> reply, where a reply is a dict (JSON-encoded) or a str."""
@@ -270,14 +282,18 @@ class FakeLLM:
     def chat(self, system, user, model, max_tokens, temperature=0.0, reasoning=None, provider=None) -> RawResponse:
         self.calls.append({"system": system, "user": user, "model": model, "max_tokens": max_tokens,
                            "reasoning": reasoning, "provider": provider, "temperature": temperature})
+        finish = "stop"
         if callable(self.script):
-            reply = self.script(system, user, model)
+            reply = self.script(system, user, model, max_tokens) if _takes_max_tokens(self.script) \
+                else self.script(system, user, model)
         else:
             reply = next((v for k, v in self.script.items() if k in user), None)
             if reply is None:
                 reply = {"status": "abstain", "answer": "fake", "cited_ids": [], "rationale": "fake"}
+        if isinstance(reply, tuple):  # (reply, finish_reason), e.g. ('{"status": "ans', "length")
+            reply, finish = reply
         text = reply if isinstance(reply, str) else json.dumps(reply)
-        return RawResponse(text, *self.tokens, cost_usd=self.cost)
+        return RawResponse(text, *self.tokens, cost_usd=self.cost, finish_reason=finish)
 
 
 # ------------------------------------------------------------------ cache
@@ -345,6 +361,13 @@ class Reply:
     completion_tokens: int
     cost_usd: float
     cache_hit: bool
+    finish_reason: str | None = None
+
+    @property
+    def truncated_or_invalid(self) -> bool:
+        """The reply hit max_tokens, or is not valid JSON (a truncated JSON object never parses)."""
+        return self.finish_reason in ("length", "max_tokens") or (
+            isinstance(self.parsed, dict) and "__unparsed__" in self.parsed)
 
 
 class LLM:
@@ -368,9 +391,12 @@ class LLM:
         return cls(cfg, backend)
 
     def ask(self, system: str, context: str, question: str, model: str, *, feedback: str = "",
-            question_id: str = "", role: str = "primary", run: str = "") -> Reply:
-        """`role` ("primary" | "escalation") picks the settings; `run` ("2") gives a repeat call its own cache entry."""
+            question_id: str = "", role: str = "primary", run: str = "", max_tokens: int | None = None) -> Reply:
+        """`role` ("escalation", else primary settings) picks the settings; `run` ("2") gives a repeat call its own
+        cache entry. `max_tokens` overrides the role's cap (the truncation retry); it is part of the key."""
         rs = self.cfg.role_settings("escalation" if role == "escalation" else "primary")
+        if max_tokens:
+            rs = {**rs, "max_tokens": max_tokens}
         key = cache_key(system, context, question, feedback, model, {**rs, "prompt_sha": prompt_sha(system)}, run)
         hit = self.cache.get(key)
         if hit is not None:
@@ -379,7 +405,7 @@ class LLM:
                 self.cache_hits += 1
             self._ledger(question_id, role, model, 0, 0, 0.0, True)
             return Reply(hit["response"], hit["model"], u.get("prompt_tokens", 0),
-                         u.get("completion_tokens", 0), u.get("cost_usd", 0.0), True)
+                         u.get("completion_tokens", 0), u.get("cost_usd", 0.0), True, hit.get("finish_reason"))
         if self.backend is None:
             raise CacheMiss(
                 f"No cached LLM answer for question {question_id or '?'} (role={role}, model={model}). "
@@ -400,15 +426,16 @@ class LLM:
         meta = {"models": {k: v for k, v in (("primary", self.cfg.primary), ("escalation", self.cfg.escalation),
                                               ("fast", self.cfg.fast)) if v},
                 "settings": {"primary": self.cfg.role_settings("primary"),
-                             "escalation": self.cfg.role_settings("escalation")},
+                             "escalation": self.cfg.role_settings("escalation"),
+                             "retry": {"max_tokens": self.cfg.retry_max_tokens}},
                 "prompt_sha": prompt_sha(system)}
         self.cache.put(key, {"response": parsed, "model": model, "usage": usage, "question_id": question_id,
-                             "role": role}, meta)
+                             "role": role, "finish_reason": raw.finish_reason}, meta)
         with self._lock:
             self.spent += cost
             self.live_calls += 1
         self._ledger(question_id, role, model, raw.prompt_tokens, raw.completion_tokens, cost, False)
-        return Reply(parsed, model, raw.prompt_tokens, raw.completion_tokens, cost, False)
+        return Reply(parsed, model, raw.prompt_tokens, raw.completion_tokens, cost, False, raw.finish_reason)
 
     def _ledger(self, qid, role, model, p_tok, c_tok, cost, hit) -> None:
         try:
