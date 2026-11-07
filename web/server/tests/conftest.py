@@ -1,0 +1,97 @@
+"""Shared fixtures. Tests never see a developer's key unless a test asks for it explicitly (`real_key_env`)."""
+
+from __future__ import annotations
+
+import hashlib
+import os
+import re
+from pathlib import Path
+
+import pytest
+
+from submission.archive_qa import config, llm as qllm
+from submission.archive_qa.llm import FakeLLM
+from web.server.app import create_app
+from web.server.engine import Engine
+from web.server.settings import Settings
+
+REAL_KEY = qllm.find_key()          # (name, value) as the notebook would find it; captured BEFORE the isolation below
+
+FROZEN = [config.LLM_CACHE_PATH, config.PREDICTIONS_PATH, config.ANSWERS_PATH, config.COST_SUMMARY_PATH]
+
+
+def sha(p: Path) -> str:
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest() if Path(p).exists() else "missing"
+
+
+def frozen_hashes() -> dict[str, str]:
+    return {p.name: sha(p) for p in FROZEN}
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _isolate_env():
+    mp = pytest.MonkeyPatch()
+    for n in qllm.KEY_ENV_NAMES:
+        mp.delenv(n, raising=False)
+    mp.setattr(qllm, "env_files", lambda: [])
+    yield
+    mp.undo()
+
+
+@pytest.fixture
+def real_key_env():
+    """Put the real key (if any) in the environment for the duration of one test; returns True when there is one."""
+    name, val = REAL_KEY
+    if not val:
+        yield False
+        return
+    os.environ[name] = val
+    try:
+        yield True
+    finally:
+        os.environ.pop(name, None)
+
+
+def make_settings(tmp: Path, **kw) -> Settings:
+    base = dict(runtime_dir=tmp, rate_per_min=1000, rate_per_day=100000, warm_on_start=False, ask_timeout_s=60.0)
+    base.update(kw)
+    return Settings(**base)
+
+
+def scripted_backend() -> FakeLLM:
+    """A model double: cites the operator record when it is in the evidence and answers 'Statoil', else abstains."""
+    def script(system, user, model, max_tokens=None):
+        m = re.search(r"\[([A-Z0-9]+-\d{8}-WELL-OPERATOR)\]", user)
+        if m:
+            return {"status": "answered", "answer": "Statoil", "cited_ids": [m.group(1)], "rationale": "operator field"}
+        return {"status": "abstain", "answer": "", "cited_ids": [], "rationale": "nothing in the evidence answers this"}
+    return FakeLLM(script, tokens=(120, 30), cost=0.001)
+
+
+@pytest.fixture(scope="module")
+def engine(tmp_path_factory):
+    e = Engine(make_settings(tmp_path_factory.mktemp("rt")))
+    assert not e.key_present
+    yield e
+    e.close()
+
+
+@pytest.fixture(scope="module")
+def client(engine):
+    from fastapi.testclient import TestClient
+    with TestClient(create_app(engine=engine)) as c:
+        yield c
+
+
+@pytest.fixture(scope="module")
+def fake_engine(tmp_path_factory):
+    e = Engine(make_settings(tmp_path_factory.mktemp("rtfake")), backend=scripted_backend())
+    yield e
+    e.close()
+
+
+@pytest.fixture(scope="module")
+def fake_client(fake_engine):
+    from fastapi.testclient import TestClient
+    with TestClient(create_app(engine=fake_engine)) as c:
+        yield c

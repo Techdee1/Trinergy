@@ -1,0 +1,5 @@
+# Extra packages for the local API (web/server). The submission's own requirements.txt is untouched.
+# Everything else (pandas, pymupdf, requests, pydantic via fastapi, pytest, httpx) is already in the nape env.
+fastapi==0.162.2
+uvicorn==0.54.0
+httpx==0.28.1      # FastAPI TestClient
