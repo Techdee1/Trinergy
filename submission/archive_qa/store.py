@@ -9,6 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from . import config
+from .discrepancy import discrepancy_notes
 from .locate import locate_all, locate_stats
 from .parse import RECORD_COLUMNS, ParseStats, parse_all, print_counts
 
@@ -29,6 +30,13 @@ def build_store(
     if verbose:
         print()
         locate_stats(df)
+    notes = discrepancy_notes(df, pdf_dir)                     # XML-vs-PDF disagreements, derived from the PDF text
+    df = pd.concat([df, notes], ignore_index=True)
+    if df["record_id"].duplicated().any():
+        raise ValueError("duplicate record_ids after adding discrepancy notes")
+    if verbose and len(notes):
+        print(f"\nXML-vs-PDF discrepancy NOTE records: {len(notes)} "
+              f"({', '.join(f'{k}: {v}' for k, v in notes['field'].value_counts().items())})")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     df[RECORD_COLUMNS].to_parquet(out_path, index=False)
     if verbose:

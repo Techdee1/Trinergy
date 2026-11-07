@@ -74,15 +74,20 @@ field in the archive; the router does not abstain on topic, a later step decides
 ## LLM settings (only needed to regenerate the answer cache)
 
 The notebook replays `indexes/llm_cache.json` offline, so reviewers need none of this. To regenerate it
-(`LIVE = True`), set in `.env` or the environment (the API key goes in `OpenRouter_Key`, never in code):
+(`LIVE = True`), set in `.env` or the environment (the API key goes in `OpenRouter_Key`, never in code). All values
+below are the defaults in `archive_qa/config.py`; see `.env.example`.
 
 | variable | meaning | default |
 |---|---|---|
-| `LLM_MODEL_PRIMARY`, `LLM_MODEL_ESCALATION`, `LLM_MODEL_FAST` | OpenRouter model ids | required (fast optional) |
-| `LLM_MAX_TOKENS` | max output tokens per call | 1500 |
-| `LLM_REASONING` | reasoning effort (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); sent only when set | unset |
+| `LLM_MODEL_PRIMARY`, `LLM_MODEL_ESCALATION`, `LLM_MODEL_FAST` | OpenRouter model ids | `anthropic/claude-haiku-5.5`, `anthropic/claude-sonnet-5.5`, unset |
+| `LLM_MAX_TOKENS` | max output tokens, primary call on a `single_report` question | 400 |
+| `LLM_MULTI_MAX_TOKENS` | max output tokens, primary call on a `multi_report` / `archive_wide` question | 3000 |
+| `LLM_RETRY_MAX_TOKENS` | cap for the single primary retry after a truncated (`finish_reason=length`) or invalid-JSON reply | 1500 |
+| `LLM_ESCALATION_MAX_TOKENS` | max output tokens for escalation and arbiter calls | 1500 |
+| `LLM_REASONING`, `LLM_ESCALATION_REASONING` | reasoning effort (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); sent only when set | `none`, `minimal` |
+| `LLM_PROVIDER` | provider pin (`provider.order`, no fallbacks, `require_parameters` off); empty = no pin | `Anthropic` |
 | `LLM_BUDGET_USD` | spend guard per run | 3.00 |
-| `LLM_CONCURRENCY` | parallel questions | 4 |
+| `LLM_CONCURRENCY` | parallel questions | 8 |
 
-Model names, `max_tokens` and `reasoning` are recorded in the cache's `_meta`, so an offline replay rebuilds the
-same cache keys without any of these variables.
+Model names, the token caps (`max_tokens`, `multi`, `retry`, `escalation`), `reasoning` and the provider pin are recorded
+in the cache's `_meta`, so an offline replay rebuilds the same cache keys without any of these variables.

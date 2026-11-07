@@ -17,6 +17,7 @@ import pandas as pd
 
 from . import config
 from .answer import Answer
+from .xmlonly import xml_only_evidence, xml_only_paths
 
 COLUMNS = ["question_id", "answer", "evidence", "confidence", "notes"]
 
@@ -57,13 +58,20 @@ def build_evidence(ans: Answer, records: pd.DataFrame) -> str:
     parts: list[str] = []
     for _, grp in rows.groupby("source_file", sort=False):
         pages: dict[tuple[str, int], list[str]] = {}
+        xml_refs: list[str] = []
+        only: list[str] = []
         for _, r in grp.iterrows():
+            xo = xml_only_paths(r, ans.question, ans.answer)
+            if xo:                                   # the value is not printed in the PDF: cite the XML, no page
+                only += xml_only_evidence(r, xo)
+                continue
+            xml_refs.append(f"{r['source_file']} {r['record_id']}")
             if pd.notna(r.get("pdf_page")) and isinstance(r.get("pdf_file"), str):
                 secs = pages.setdefault((r["pdf_file"], int(r["pdf_page"])), [])
                 if isinstance(r.get("pdf_section"), str) and r["pdf_section"] and r["pdf_section"] not in secs:
                     secs.append(r["pdf_section"])
         parts += [f"{f} p.{pg}" + (f" ({', '.join(secs)})" if secs else "") for (f, pg), secs in pages.items()]
-        parts += [f"{r['source_file']} {r['record_id']}" for _, r in grp.iterrows()]
+        parts += xml_refs + only
     for rid, meta in sorted(ans.absent.items()):
         parts += absent_evidence(rid, meta)
     if not parts:  # abstention with nothing to cite: say what was searched

@@ -288,7 +288,7 @@ def alternating(first, second, arbiter=None):
 def test_disagreeing_runs_are_flagged_and_run_one_is_committed(tmp_path, qtext, reports, located):
     other = good(answer="The NaCl brine density was 1.05 g/cm3.", rationale="r")
     a, models, _ = run(tmp_path, alternating(good(), other), "T2-016", qtext["T2-016"], reports, located)
-    assert models == ["m1", "m1", "m2"]                            # the disagreement is arbitrated once by m2 ...
+    assert models == ["m1", "m1", "m2", "m2"]                      # the disagreement is arbitrated by m2 (+1 retry) ...
     assert a.disagree and a.needs_review and any(n.startswith("REVIEW: runs disagree") for n in a.notes)
     assert "1.03" in a.answer and "1.05" not in a.answer           # ... which did not verify, so run 1 is kept
     assert "REVIEW: runs disagree" in answer_notes(a)

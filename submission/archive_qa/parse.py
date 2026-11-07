@@ -108,18 +108,23 @@ def to_number(text: str) -> int | float | None:
     return int(x) if re.fullmatch(r"-?\d+", text.strip()) else x
 
 
-def _leaves(elem: ET.Element, prefix: str = "") -> list[tuple[str, str, str | None, str | None]]:
-    """Flatten an element to (path, text, uom, datum). Repeated paths get #2, #3 ..."""
+def _leaves(elem: ET.Element, prefix: str = "", seen: Counter | None = None) -> list[tuple[str, str, str | None, str | None]]:
+    """Flatten an element to (path, text, uom, datum). Repeated paths get #2, #3 ...
+
+    With `seen` (a Counter) the count is shared with nested blocks, so two sibling blocks such as <nozzle> ... <nozzle>
+    keep both ("nozzle/numNozzle", "nozzle/numNozzle#2") instead of the second overwriting the first. Table rows use
+    this. Without it (header / status / wellbore fields, where every leaf becomes its own record and make_id numbers the
+    duplicates) the counting stays per block, which keeps those record ids unchanged."""
     out: list[tuple[str, str, str | None, str | None]] = []
-    seen: Counter = Counter()
+    local = Counter() if seen is None else seen
     for child in elem:
         tag = child.tag.replace(NS, "")
         path = prefix + tag
         if len(child):
-            out.extend(_leaves(child, path + "/"))
+            out.extend(_leaves(child, path + "/", seen))
             continue
-        seen[path] += 1
-        key = path if seen[path] == 1 else f"{path}#{seen[path]}"
+        local[path] += 1
+        key = path if local[path] == 1 else f"{path}#{local[path]}"
         out.append((key, (child.text or "").strip(), child.get("uom"), child.get("datum")))
     return out
 
@@ -208,7 +213,7 @@ def _alias_record(ctx: _Ctx, elem: ET.Element, tag: str) -> None:
 
 def _row_record(ctx: _Ctx, elem: ET.Element, tag: str) -> None:
     section, code = ROW_SECTIONS.get(tag, (tag.lower(), tag.upper()[:6]))
-    leaves = _leaves(elem)
+    leaves = _leaves(elem, seen=Counter())
     main = ROW_MAIN_FIELD.get(tag) or (leaves[0][0] if leaves else "")
     attrs: dict[str, dict] = {}
     main_value, main_unit, main_missing = None, None, True

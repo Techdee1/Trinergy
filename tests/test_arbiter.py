@@ -74,11 +74,11 @@ def test_arbiter_answer_that_verifies_is_committed(tmp_path, qtext, reports, loc
 @needs_data
 def test_arbiter_answer_that_fails_verification_keeps_run_one_with_a_review_note(tmp_path, qtext, reports, located):
     a, fake, _ = go(tmp_path, by_model([good(), OTHER], ARBITER_BAD), "T2-016", qtext, reports, located)
-    assert [c["model"] for c in fake.calls] == ["m1", "m1", "m2"]
+    assert [c["model"] for c in fake.calls] == ["m1", "m1", "m2", "m2"]                # arbiter + ONE retry, never a third
     assert a.answer == good()["answer"] and a.model == "m1"                           # run 1, unchanged
     assert a.disagree and a.needs_review and a.verified                               # run 1 itself verified
     note = next(n for n in a.notes if n.startswith("REVIEW: runs disagree"))
-    assert "failed verification" in note and "kept run 1" in note and "only in run 2" in note
+    assert "failed verification twice" in note and "kept run 1" in note and "only in run 2" in note
 
 
 @needs_data
@@ -131,3 +131,34 @@ def test_arbitration_replays_offline_from_the_cache(tmp_path, qtext, reports, lo
     again = A.answer_question("T2-016", qtext["T2-016"], located, reports, offline, dump=False)
     assert (again.answer, again.model, again.disagree, again.notes) == (live.answer, live.model, live.disagree, live.notes)
     assert offline.live_calls == 0 and offline.cache_hits == 3
+
+
+# ---- arbiter retry: told what the verifier rejected, once --------------------------------------------------------
+
+
+@needs_data
+def test_a_failed_arbiter_is_retried_once_with_the_verifier_message_and_the_retry_is_committed(tmp_path, qtext, reports, located):
+    seq, m2 = iter([good(), OTHER]), {"n": 0}
+
+    def script(system, user, model):
+        if model == "m2":                       # the arbiter: bad the first time, good once it has been told why
+            m2["n"] += 1
+            return ARBITER_BAD if m2["n"] == 1 else ARBITER_OK
+        return next(seq)
+
+    a, fake, _ = go(tmp_path, script, "T2-016", qtext, reports, located)
+    assert [c["model"] for c in fake.calls] == ["m1", "m1", "m2", "m2"]
+    first_try, retry = fake.calls[2]["user"], fake.calls[3]["user"]
+    assert "ARBITRATION" in first_try and "Your previous arbitration answer failed these checks" not in first_try
+    assert "Your previous arbitration answer failed these checks" in retry and "9.99" in retry     # the verifier's message
+    assert a.verified and not a.disagree and a.model == "m2" and a.answer == ARBITER_OK["answer"]
+    assert any("retried" in n and "verifier's message" in n for n in a.notes)
+    assert any("arbitrated by m2 (second attempt)" in n for n in a.notes)
+
+
+@needs_data
+def test_the_arbiter_retry_is_not_repeated_and_a_verified_first_arbiter_needs_no_retry(tmp_path, qtext, reports, located):
+    a, fake, _ = go(tmp_path, by_model([good(), OTHER], ARBITER_OK), "T2-016", qtext, reports, located)
+    assert [c["model"] for c in fake.calls] == ["m1", "m1", "m2"] and not any("retried" in n for n in a.notes)
+    b, fake, _ = go(tmp_path / "b", by_model([good(), OTHER], ARBITER_BAD), "T2-016", qtext, reports, located)
+    assert [c["model"] for c in fake.calls].count("m2") == 2 and b.disagree

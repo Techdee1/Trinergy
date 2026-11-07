@@ -44,6 +44,7 @@ TOPICS: list[tuple[str, list[str]]] = [
     (r"logging|log run|wireline|tractor|perforat", ["log", "activity"]),
     (r"lithology|\bshows?\b|claystone|sandstone", ["lithology"]),
     (r"formation top|stratigraph", ["strat"]),
+    (r"tight[- ]well|\bhpht\b|high[- ]pressure[, ]+high[- ]temperature|days (?:ahead|behind)|ahead of schedule|behind schedule", ["status", "wellbore"]),
     (r"formation strength|kick-?off|leak.?off|\blot\b|\bfit\b|pressure test", ["status", "activity"]),
     (r"\bdepth\b|\btd\b|spud|water depth|report number|\brig\b|operator|contractor", ["status", "wellbore"]),
     (r"failure|failed|breakdown|replacement part|repair|trouble|problem", ["equip_failure", "activity"]),

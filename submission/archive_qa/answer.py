@@ -314,18 +314,31 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
                 disagree = True
                 notes.append(f"REVIEW: runs disagree ({diff})")
         else:
-            arb = _ask(llm, ctx, q_llm, question_id, escalation, "escalation",
-                       feedback=arbitration_feedback(first.parsed, second.parsed, question))
+            arb_fb = arbitration_feedback(first.parsed, second.parsed, question)
+            arb = _ask(llm, ctx, q_llm, question_id, escalation, "escalation", feedback=arb_fb)
             big_used = True
             calls, cost = calls + 1, cost + arb.cost_usd
             arb_result = verify(arb.parsed, ctx, records, question)
+            retried = False
+            if not arb_result.ok:
+                # one more Sonnet attempt, told what the verifier rejected, before falling back to run 1
+                retried = True
+                arb2 = _ask(llm, ctx, q_llm, question_id, escalation, "escalation",
+                            feedback=arb_fb + "\n\nYour previous arbitration answer failed these checks (fix every point):\n"
+                            + arb_result.message)
+                calls, cost = calls + 1, cost + arb2.cost_usd
+                arb2_result = verify(arb2.parsed, ctx, records, question)
+                notes.append(f"arbiter answer failed verification ({'; '.join(arb_result.failures)[:160]}); "
+                             f"retried {escalation} once with the verifier's message")
+                arb, arb_result = arb2, arb2_result
             if arb_result.ok:
                 reply, result = arb, arb_result
-                notes.append(f"runs disagreed ({diff}); arbitrated by {escalation}: its verified answer is committed")
+                notes.append(f"runs disagreed ({diff}); arbitrated by {escalation}"
+                             f"{' (second attempt)' if retried else ''}: its verified answer is committed")
             else:
                 disagree = True
-                notes.append(f"REVIEW: runs disagree ({diff}); the arbiter answer ({escalation}) failed verification "
-                             f"({'; '.join(arb_result.failures)[:200]}), kept run 1")
+                notes.append(f"REVIEW: runs disagree ({diff}); the arbiter answer ({escalation}) failed verification"
+                             f"{' twice' if retried else ''} ({'; '.join(arb_result.failures)[:200]}), kept run 1")
 
     # Partial policy: a final partial answer is escalated ONCE (never when a big-model call was already made). The
     # escalated answer is kept if it verifies, whatever status it has; the status is never forced.

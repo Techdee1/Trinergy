@@ -24,6 +24,7 @@ from pathlib import Path
 import pandas as pd
 
 from . import config
+from .discrepancy import NOTE_CONCEPTS, note_line
 from .match import QTokens, match_score, question_tokens
 from .route import RouteResult
 from .store import has_field
@@ -328,9 +329,17 @@ def build_context(question_id: str, question: str, route: RouteResult, records: 
                 if in_date_window(r["timestamp"], rdate, route.event_times, route.dates):
                     out.append(window_note(r["record_id"], r["timestamp"], rdate, first["period_start"], first["period_end"]))
 
+    # XML-vs-PDF discrepancy notes: shown only when the question mentions the field they concern
+    for _, r in cand[cand["section"] == "note"].sort_values("record_id").iterrows():
+        rx = NOTE_CONCEPTS.get(r["field"])
+        if rx and re.search(rx, question, re.IGNORECASE):
+            out.append(note_line(r))
+            ids.add(r["record_id"])
+            bodies[r["record_id"]] = r["value"]
+
     absent: dict[str, dict] = {}
     for kind in absent_kinds:
-        rid, line, meta = _absent_record(kind, cand)
+        rid, line, meta = _absent_record(kind, cand[cand["section"] != "note"])   # derived NOTE rows are not archive records
         out.append(line)
         ids.add(rid)
         absent[rid] = meta

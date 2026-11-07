@@ -69,3 +69,29 @@ Baker Hughes Inteq with an OnTrak tool.
 "15/9-19-A", "15/9-F-11 B", "15/9-F-11-T2", "F-11-B", "F-1" all occur; the XML uses "NO 15/9-F-1 C".
 Bare "F-1" means the main wellbore only. Questions name a well and date that are not in the archive
 (F-14 2013-06-10) and a date missing for a known well (F-15-D 2013-12-15 and 12-16).
+
+## XML vs PDF audit (verified independently, then handled in code)
+
+A teammate's comparison (`xml_vs_pdf_differences.md`) was re-checked from scratch with PyMuPDF and ElementTree before
+being relied on. Confirmed: (1) the PDF prints `Y` for Tight well and HPHT in all 32 reports while the XML says `0`;
+(2) the PDF "Days Ahead/Behind" field is blank in the 11 reports where the XML has `daysBehind` (it prints the 13
+`daysAhead` values exactly); (3) in `15_9_F_11_T2_2013_04_28` the PDF bit-run End mMD is 2574 while the XML
+`mdHoleStop` is 2577 (the XML is internally consistent: 30 m/h x 0.1 h = 3 m). For the bit row only the first three
+numbers (hours, start, end) map reliably to header columns, because the table drops empty cells.
+
+How the pipeline handles it:
+
+* **Derived discrepancy NOTE records.** At index time `discrepancy.py` compares the XML with the PDF text and stores a
+  `[NOTE-DISCREPANCY]` record for each disagreement (64 flag fields, 11 days-behind, 1 bit end depth; nothing is typed
+  per report). A NOTE is shown to the model only when the question mentions that field.
+* **XML-only evidence.** Values the PDF never prints (NPD numbers, rig code, wellhead elevation, hole-section start,
+  `fixedRig`, pre-spud date, `stateDetailActivity`, `phase`, `mudClass`, `presBopRating`, nC4, bit dull grading and
+  nozzles, survey/lithology/stratigraphy timestamps) are cited as `XML only: <field>; not printed in the PDF` with no page.
+* **Parser fix.** A bit with two `<nozzle>` blocks lost the first one (the second overwrote it); both are now kept.
+* **Not affected:** none of the 32 questions asks about tight well, HPHT, days ahead/behind, mud class, BOP rating, bit
+  dull grading or the header fields. The ones that touch the audit are the fluid samples with a clock time (the PDF
+  hides the D-1 date) and the failed-operation field (T2-021, T2-031).
+* **Locator.** Fluid pages are right for all 40 samples (the PDF always sorts samples by HH:MM); the locator ranks by
+  time of day and does not use the sample point, which is safe here because no report has two samples at the same HH:MM.
+  The "duplicated" Pore Pressure heading on page 2 of `15_9_F_1_C_2014_02_22` is garbled glyphs, not a second heading
+  line: the row resolves to page 2, but a section-level fallback would pick page 1.

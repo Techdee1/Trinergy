@@ -359,7 +359,8 @@ def locate_all(records: pd.DataFrame, pdf_dir: Path) -> pd.DataFrame:
 
 
 def locate_stats(records: pd.DataFrame, show_unlocated: bool = True) -> dict:
-    """Print/return the located share and the unlocated records grouped by section."""
+    """Print/return the located share and the unlocated records grouped by section (NOTE records are derived, not located)."""
+    records = records[records["section"] != "note"]
     m = records["pdf_match"].fillna("none")
     total = len(records)
     located = int(m.isin(["exact", "partial"]).sum())
