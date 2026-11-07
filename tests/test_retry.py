@@ -85,9 +85,11 @@ def test_genuinely_different_final_runs_still_disagree(tmp_path, qtext, reports,
         seen.append(max_tokens)
         if len(seen) == 1:
             return TRUNC
-        return good() if len(seen) == 2 else good(answer="The density was 1.03 g/cm3 and 345 bar.")
+        if len(seen) == 2:
+            return good()
+        return good(answer="The density was 1.03 g/cm3 and 345 bar.") if len(seen) == 3 else good(cited_ids=["NOPE-1"])
 
-    a, _, _ = go(tmp_path, script, "T2-016", qtext, reports, located)
+    a, _, _ = go(tmp_path, script, "T2-016", qtext, reports, located)    # 4th call = the arbiter, which fails verification
     assert a.disagree and any("runs disagree" in n for n in a.notes)
 
 

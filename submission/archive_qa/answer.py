@@ -25,7 +25,8 @@ from .context import Context, build_context, dump_context
 from .llm import LLM
 from .prompts import SYSTEM_PROMPT
 from .route import RouteResult, route_question
-from .verify import _ID_RX, STATUSES, confidence, numbers_in, split_parts, verify
+from .verify import (_ID_RX, _NUM_RX, STATUSES, _candidates, confidence, enumerator_spans, mask_temporal,
+                     split_parts, verify)
 from .wells import Report, parse_stem
 
 @dataclass
@@ -131,23 +132,62 @@ def abstain_text(rationale: str, absent: dict[str, dict]) -> str:
     return " ".join(parts)
 
 
-_ISO_TS = re.compile(r"\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}(?::\d{2})?)?")
+def _canon_time(tok: str) -> str:
+    h, rest = tok.split(":", 1)
+    t = h.zfill(2) + ":" + rest
+    return t[:-3] if re.fullmatch(r"\d\d:\d\d:00", t) else t
+
+
+def _tokens(text: str) -> set[str]:
+    """Numbers (not date/time digits, not list enumerators) and whole times stated in `text`."""
+    masked, temporal = mask_temporal(_ID_RX.sub(" ", text or ""))
+    skip = enumerator_spans(masked)
+    out = {f"t:{_canon_time(t.replace('T', ' ').split(' ')[-1] if '-' in t else t)}" for t in temporal
+           if ":" in t}                                       # times, also those inside a datetime
+    for m in _NUM_RX.finditer(masked):
+        cands = _candidates(m.group(0))
+        if cands and not any(a <= m.start() and m.end() <= b for a, b in skip):
+            out.add(f"n:{round(cands[0], 6):g}")
+    return out
+
+
+def key_tokens(answer: str, question: str = "") -> set[str]:
+    """What an answer states, for comparing two runs: its numbers and whole times, minus those that merely echo
+    the question (a run that repeats "36" from '36" hole opener' must not disagree with one that does not)."""
+    return _tokens(answer) - _tokens(question)
 
 
 def key_numbers(answer: str) -> set[float]:
-    """Numbers an answer states (IDs and dates/timestamps removed), for comparing two runs."""
-    text = _ISO_TS.sub(" ", _ID_RX.sub(" ", answer or ""))
-    return {round(c[0], 6) for _t, c in numbers_in(text) if c}
+    """Numbers an answer states (IDs and dates/times removed). Kept for callers that want plain floats."""
+    return {float(t[2:]) for t in _tokens(answer) if t.startswith("n:")}
 
 
-def runs_differ(a: dict, b: dict) -> bool:
-    """Do two parsed replies disagree on status or on the numbers they state?"""
+def runs_differ(a: dict, b: dict, question: str = "") -> bool:
+    """Do two parsed replies disagree on status or on the key numbers/times they state (question echoes excluded)?"""
     sa, sb = (a or {}).get("status"), (b or {}).get("status")
     if sa != sb:
         return True
     ta = (a or {}).get("answer") if isinstance((a or {}).get("answer"), str) else ""
     tb = (b or {}).get("answer") if isinstance((b or {}).get("answer"), str) else ""
-    return key_numbers(ta) != key_numbers(tb)
+    return key_tokens(ta, question) != key_tokens(tb, question)
+
+
+def disagreement_text(a: dict, b: dict, question: str) -> str:
+    """Short description of how two runs differ, for the notes and the arbiter."""
+    def get(p, k):
+        return (p or {}).get(k) if isinstance((p or {}).get(k), str) else ""
+    ka, kb = key_tokens(get(a, "answer"), question), key_tokens(get(b, "answer"), question)
+    return (f"run 1: {(a or {}).get('status')}, run 2: {(b or {}).get('status')}; "
+            f"only in run 1: {sorted(ka - kb)}; only in run 2: {sorted(kb - ka)}")
+
+
+def arbitration_feedback(a: dict, b: dict, question: str) -> str:
+    def block(name, p):
+        ans = ((p or {}).get("answer") or "")[:1200] if isinstance((p or {}).get("answer"), str) else ""
+        return f"{name}: status={(p or {}).get('status')}; answer={ans!r}"
+    return ("ARBITRATION: two independent runs of this question gave different answers (" + disagreement_text(a, b, question)
+            + "). Decide from the evidence lines only, cite the lines you use, and answer in the same JSON format.\n"
+            + block("Run A", a) + "\n" + block("Run B", b))
 
 
 def question_for_llm(question: str) -> str:
@@ -160,20 +200,42 @@ def question_for_llm(question: str) -> str:
     return f"{question}\nThis question has {len(parts)} parts: {listing} Address every part and name each part in the rationale."
 
 
+def normalise_reply(parsed, ctx: Context):
+    """Citations for an abstention are set in code, before verification: exactly the ABSENT-* ids present in the
+    context (none if there are none). Whatever the model cited on an abstain (real records, malformed or invented
+    ids) is dropped, since an abstention may cite only ABSENT-* records. Returns a copy; the cache is untouched."""
+    if isinstance(parsed, dict) and parsed.get("status") == "abstain":
+        return {**parsed, "cited_ids": sorted(ctx.absent)}
+    return parsed
+
+
 def _ask(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, feedback: str = "", run: str = "",
          max_tokens: int | None = None):
-    return llm.ask(SYSTEM_PROMPT, ctx.text, question, model, feedback=feedback, question_id=qid, role=role, run=run,
-                   max_tokens=max_tokens)
+    reply = llm.ask(SYSTEM_PROMPT, ctx.text, question, model, feedback=feedback, question_id=qid, role=role, run=run,
+                    max_tokens=max_tokens)
+    reply.parsed = normalise_reply(reply.parsed, ctx)
+    return reply
+
+
+MULTI_MODES = ("multi_report", "archive_wide")
+
+
+def start_cap(llm: LLM, mode: str) -> int | None:
+    """Primary calls on multi-report / archive-wide questions start at LLM_RETRY_MAX_TOKENS (their answers list
+    several records and were truncated at 400); single-report questions keep LLM_MAX_TOKENS."""
+    return llm.cfg.retry_max_tokens if mode in MULTI_MODES else None
 
 
 def _ask_with_retry(llm: LLM, ctx: Context, question: str, qid: str, model: str, role: str, run: str,
-                    notes: list[str], label: str):
+                    notes: list[str], label: str, cap: int | None = None):
     """Primary-model call; if the reply was truncated (finish_reason length) or is not valid JSON, retry the SAME
     model once with the larger LLM_RETRY_MAX_TOKENS cap before anything escalates. The retry is its own cache entry
     (the cap is part of the key). Returns (final reply, calls made, cost)."""
-    reply = _ask(llm, ctx, question, qid, model, role, run=run)
+    reply = _ask(llm, ctx, question, qid, model, role, run=run, max_tokens=cap)
     calls, cost = 1, reply.cost_usd
-    if reply.truncated_or_invalid:
+    # no retry when the call already ran at the retry cap: the same request would give the same reply, so the
+    # verifier (and then the escalation) handles it
+    if reply.truncated_or_invalid and (cap or llm.cfg.max_tokens) < llm.cfg.retry_max_tokens:
         why = "truncated (finish_reason=length)" if reply.finish_reason in ("length", "max_tokens") else "not valid JSON"
         cap = llm.cfg.retry_max_tokens
         notes.append(f"{label} reply {why}; retried {model} once with max_tokens {cap}")
@@ -197,12 +259,13 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
 
     q_llm = question_for_llm(question)
     notes: list[str] = []
-    first, calls, cost = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary", "", notes, "run 1")
+    cap = start_cap(llm, route.mode)
+    first, calls, cost = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary", "", notes, "run 1", cap)
     # second independent run of the same request (own cache entry): disagreement flag, never the committed answer.
     # It gets the same truncation retry, and the flag compares the FINAL parsed runs, so a retry alone never fires it.
     second = None
     try:
-        second, c2, k2 = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary_run2", "2", notes, "run 2")
+        second, c2, k2 = _ask_with_retry(llm, ctx, q_llm, question_id, primary, "primary_run2", "2", notes, "run 2", cap)
         calls, cost = calls + c2, cost + k2
     except RuntimeError as e:
         if type(e).__name__ in ("CacheMiss", "BudgetExceeded"):
@@ -210,10 +273,12 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
         notes.append(f"REVIEW: second run failed ({type(e).__name__}); disagreement not checked")
 
     reply, result = first, verify(first.parsed, ctx, records, question)
+    escalated = False
     if result.needs_escalation:  # the ONLY escalation triggers: verifier failure, or abstain with a matching line
         why = "verifier failed" if result.failures else "abstained although a matching evidence line exists"
         notes.append(f"first answer: {why} ({primary}); escalated to {escalation}")
         esc = _ask(llm, ctx, q_llm, question_id, escalation, "escalation", feedback=result.message)
+        escalated = True
         calls, cost = calls + 1, cost + esc.cost_usd
         esc_result = verify(esc.parsed, ctx, records, question)
         if esc_result.ok or not result.ok:       # use the escalated answer unless it is worse than the first one
@@ -222,6 +287,31 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
             notes.append("REVIEW: escalated answer failed verification; kept the first run")
         if result.flags and result.ok:
             notes.append(f"abstention confirmed by the escalation model despite matching line(s) {result.flagged_ids}")
+
+    # Disagreement between the two primary runs (question echoes excluded). When run 1 is clean, escalate ONCE to the
+    # escalation model as arbiter: a verified arbiter answer is committed; otherwise run 1 is kept with a REVIEW note.
+    # If run 1 already needed the escalation, that Sonnet call is the arbiter (never a second call).
+    disagree = False
+    if second is not None and runs_differ(first.parsed, second.parsed, question):
+        diff = disagreement_text(first.parsed, second.parsed, question)
+        if escalated:
+            if reply is not first and result.ok:
+                notes.append(f"runs disagreed ({diff}); resolved by the escalation answer, which verified")
+            else:
+                disagree = True
+                notes.append(f"REVIEW: runs disagree ({diff})")
+        else:
+            arb = _ask(llm, ctx, q_llm, question_id, escalation, "escalation",
+                       feedback=arbitration_feedback(first.parsed, second.parsed, question))
+            calls, cost = calls + 1, cost + arb.cost_usd
+            arb_result = verify(arb.parsed, ctx, records, question)
+            if arb_result.ok:
+                reply, result = arb, arb_result
+                notes.append(f"runs disagreed ({diff}); arbitrated by {escalation}: its verified answer is committed")
+            else:
+                disagree = True
+                notes.append(f"REVIEW: runs disagree ({diff}); the arbiter answer ({escalation}) failed verification "
+                             f"({'; '.join(arb_result.failures)[:200]}), kept run 1")
 
     p = reply.parsed if isinstance(reply.parsed, dict) else {}
     status = p.get("status") if p.get("status") in STATUSES else "abstain"
@@ -246,11 +336,6 @@ def answer_question(question_id: str, question: str, records: pd.DataFrame, repo
     conf = confidence(status, len(real), route.mode, result.ok, absent_cited=bool(absent_cited), truncated=ctx.truncated)
     if not result.ok:
         notes.append("VERIFIER FAILED: " + " | ".join(result.failures))
-    disagree = second is not None and runs_differ(first.parsed, second.parsed)
-    if disagree:
-        s2 = second.parsed if isinstance(second.parsed, dict) else {}
-        notes.append(f"REVIEW: runs disagree (run 1: {(first.parsed or {}).get('status')} {sorted(key_numbers((first.parsed or {}).get('answer', '')))}; "
-                     f"run 2: {s2.get('status')} {sorted(key_numbers(s2.get('answer', '') if isinstance(s2.get('answer'), str) else ''))})")
     if ctx.truncated:
         notes.append("context truncated (multi-report cap)")
     if "FALLBACK" in route.reason:

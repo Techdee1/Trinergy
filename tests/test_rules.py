@@ -277,18 +277,20 @@ def test_early_abstains_make_no_llm_call(tmp_path, qtext, reports, located):
 # ---- disagreement flag --------------------------------------------------------------------------------------------
 
 
-def alternating(first, second):
+def alternating(first, second, arbiter=None):
+    """m1 answers run 1 then run 2; m2 (the arbiter / escalation) answers `arbiter`, by default an unverifiable reply."""
     seq = iter([first, second])
-    return lambda s, u, m: next(seq)
+    bad = arbiter or good(cited_ids=["F1C-20140326-FLUID-77"])           # invented id -> never verifies
+    return lambda s, u, m: bad if m == "m2" else next(seq)
 
 
 @needs_data
 def test_disagreeing_runs_are_flagged_and_run_one_is_committed(tmp_path, qtext, reports, located):
     other = good(answer="The NaCl brine density was 1.05 g/cm3.", rationale="r")
     a, models, _ = run(tmp_path, alternating(good(), other), "T2-016", qtext["T2-016"], reports, located)
-    assert models == ["m1", "m1"]                                  # run 2 never triggers escalation
+    assert models == ["m1", "m1", "m2"]                            # the disagreement is arbitrated once by m2 ...
     assert a.disagree and a.needs_review and any(n.startswith("REVIEW: runs disagree") for n in a.notes)
-    assert "1.03" in a.answer and "1.05" not in a.answer           # committed answer = run 1
+    assert "1.03" in a.answer and "1.05" not in a.answer           # ... which did not verify, so run 1 is kept
     assert "REVIEW: runs disagree" in answer_notes(a)
 
 

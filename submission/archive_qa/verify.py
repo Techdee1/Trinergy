@@ -8,6 +8,11 @@ multi-part question must be addressed, and an abstention is flagged when the con
 the question's well, date and field. All failures are collected and sent back to the model as feedback; they
 are never silently fixed.
 
+Dates and times are whole tokens, not digits: an ISO date, an ISO datetime or an HH:MM[:SS] time in the answer
+passes only if the same token appears in a cited record (its line, its report date or report window) or in the
+question; "24:00" is accepted when "00:00" is cited. List enumerators "(1)", "(2)", "1." at the start of an item are
+ignored (only a run 1..k counts). Everything else numeric must appear in a cited record as before.
+
 Confidence is computed here, by rules, never by the model.
 """
 
@@ -43,6 +48,69 @@ _UNIT_CLASS = {
     "degc": "degc", "°c": "degc", "lbm/ft": "lbm/ft", "kg": "kg",
 }
 _UNIT_AFTER = re.compile(r"^\s*(m/h|g/cm3|g/cm³|mmd|mtvd|dega|degc|°c|lbm/ft|mpa\.s|[A-Za-z]{1,9}\.?|%|°|\"|'')", re.IGNORECASE)
+
+
+# ------------------------------------------------------------------ dates, times and enumerators
+
+_DATETIME_RX = re.compile(r"\d{4}-\d{2}-\d{2}(?:[T ]\d{1,2}:\d{2}(?::\d{2})?)?")
+_TIME_RX = re.compile(r"(?<![\d:])\d{1,2}:\d{2}(?::\d{2})?(?![\d:])")
+# an item start (text start, newline, ';', ':' or the end of a sentence) followed by "(1)" or "1." / "1)"
+_ENUM_RX = re.compile(r"(?:^|[\n;:.])\s*(?:\(\s*(\d{1,2})\s*\)|(\d{1,2})[.)])(?=\s)")
+
+
+def mask_temporal(text: str) -> tuple[str, list[str]]:
+    """Replace ISO dates / datetimes / HH:MM[:SS] times by spaces (same length, so positions survive) and return
+    the masked text with the tokens found, in order."""
+    tokens: list[str] = []
+
+    def take(m: re.Match) -> str:
+        tokens.append(m.group(0))
+        return " " * len(m.group(0))
+
+    return _TIME_RX.sub(take, _DATETIME_RX.sub(take, text)), tokens
+
+
+def enumerator_spans(text: str) -> list[tuple[int, int]]:
+    """Spans of list enumerators "(1)" / "1." at item starts. They count only as a run 1, 2, ..., k (a lone "(7)"
+    is a number like any other), so a wrong value cannot hide as an enumerator."""
+    found = [(int(m.group(1) or m.group(2)), m.span(1) if m.group(1) else m.span(2)) for m in _ENUM_RX.finditer(text)]
+    nums = sorted(n for n, _ in found)
+    if not found or nums != list(range(1, len(nums) + 1)):
+        return []
+    return [sp for _, sp in found]
+
+
+def _cited_blob(rows: pd.DataFrame, question: str, window: bool = True) -> str:
+    """Everything the cited records state, plus (window=True) their report dates/windows and the question text, with
+    datetimes written "YYYY-MM-DD HH:MM:SS" so that a token can be matched as a whole. window=False is the record's
+    own line only (used for the "24:00" rule: every report window starts at 00:00, so it must not count)."""
+    parts: list[str] = [question or ""] if window else []
+    cols = ("text", "value", "report_date", "period_start", "period_end") if window else ("text", "value")
+    for _, r in rows.iterrows():
+        parts += [r.get(k) for k in cols if isinstance(r.get(k), str)]
+        if isinstance(r.get("attrs"), str):
+            for e in json.loads(r["attrs"]).values():
+                parts += [str(e[k]) for k in ("value", "raw") if e.get(k) is not None]
+    return re.sub(r"(\d{4}-\d{2}-\d{2})T(\d)", r"\1 \2", "\n".join(parts))
+
+
+def temporal_supported(token: str, blob: str, midnight_blob: str | None = None) -> bool:
+    """Is this date / datetime / time (whole token) in the blob? A time written without seconds matches the same
+    time with seconds ("19:15" ~ "19:15:00"). "24:00" is accepted when "00:00" appears (in `midnight_blob`, the
+    cited lines only, if given)."""
+    t = token.replace("T", " ")
+    if "-" not in t:                                              # a time
+        h, rest = t.split(":", 1)
+        t = h.zfill(2) + ":" + rest
+        if re.fullmatch(r"24:00(?::00)?", t):
+            return re.search(r"(?<![\d:])00:00(?!\d)", blob if midnight_blob is None else midnight_blob) is not None
+        return re.search(r"(?<![\d:])" + re.escape(t) + r"(?!\d)", blob) is not None
+    if " " in t:                                                  # a datetime: pad a one-digit hour
+        d, tm = t.split(" ", 1)
+        h, rest = tm.split(":", 1)
+        t = f"{d} {h.zfill(2)}:{rest}"
+        return re.search(r"(?<![\d-])" + re.escape(t) + r"(?!\d)", blob) is not None
+    return re.search(r"(?<![\d-])" + re.escape(t) + r"(?!\d)", blob) is not None     # a date
 
 
 @dataclass
@@ -290,7 +358,11 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             for v, u in _row_units(r).items():
                 units.setdefault(v, set()).update(u)
         allowed |= {round(c, 6) for _t, cs in numbers_in(question) for c in cs}  # numbers echoed from the question
-        stripped = _ID_RX.sub(" ", answer)
+        stripped, temporal = mask_temporal(_ID_RX.sub(" ", answer))   # dates/times are checked as whole tokens below
+        blob = _cited_blob(rows, question)
+        line_blob = _cited_blob(rows, question, window=False)
+        bad_temporal = sorted({tok for tok in temporal if not temporal_supported(tok, blob, line_blob)})
+        enum_spans = enumerator_spans(stripped)
         rationale = parsed.get("rationale") if isinstance(parsed.get("rationale"), str) else ""
         derived_ok = says_derived(answer)       # the ANSWER must say it is derived (a rationale cue is not enough)
         stated = {round(c, 6) for _t, cs in numbers_in(_ID_RX.sub(" ", answer + " " + rationale)) for c in cs}
@@ -299,7 +371,7 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
         for m in _NUM_RX.finditer(stripped):
             tok = m.group(0)
             cands = _candidates(tok)
-            if not cands or tok in markers:
+            if not cands or tok in markers or any(a <= m.start() and m.end() <= b for a, b in enum_spans):
                 continue
             if not any(_supported(c, _decimals(tok), allowed, derived_ok, stated) for c in cands):
                 bad.append(tok)
@@ -310,6 +382,9 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             held = {x for c in cands for x in units.get(round(c, 6), set())}
             if cls and held and cls not in held and not (cls == "m" and "m/h" in held):
                 f.append(f"unit mismatch for {tok}: answer says '{u.group(1)}' but the cited record gives {sorted(held)}.")
+        if bad_temporal:
+            f.append(f"dates/times in the answer not found in the cited records: {bad_temporal}. A date or time must appear "
+                     "exactly (as the same date or time) in a cited record, in its report window, or in the question.")
         if bad:
             f.append("numbers in the answer not found in the cited records: "
                      f"{sorted(set(bad))}. A sum, difference or mean is accepted only if the answer says it is "

@@ -17,14 +17,19 @@ import pymupdf
 
 try:  # notebook: submission/ is on sys.path; CLI from the repo root: package is submission.archive_qa
     from archive_qa import config
+    from archive_qa.context import build_context
+    from archive_qa.route import discover_reports, route_question
     from archive_qa.write import load_answers_json
 except ImportError:
     from submission.archive_qa import config
+    from submission.archive_qa.context import build_context
+    from submission.archive_qa.route import discover_reports, route_question
     from submission.archive_qa.write import load_answers_json
 
 EVAL_DIR = Path(__file__).resolve().parent
 REVIEW_DIR = EVAL_DIR / "review"
 KEY_TEMPLATE = EVAL_DIR / "key_template.csv"
+ANSWERS_MD = EVAL_DIR / "answers_for_review.md"
 MAX_PAGES_PER_QUESTION = 4
 
 
@@ -114,14 +119,69 @@ Fill <code>submission/eval/key.csv</code> (copy of key_template.csv) from the PD
     return index
 
 
+def flags_for(a: dict) -> list[str]:
+    """Review flags of one answers.json row (derived from its notes and verifier result)."""
+    # the notes string ends with "rationale: <model text>"; flags come from the pipeline's own notes only, so words the
+    # model happens to use ("matching", "escalated to") in its rationale cannot raise a flag
+    notes = a.get("notes", "").split(" | rationale: ")[0]
+    flags = []
+    if "escalated to" in notes:
+        flags.append("ESCALATED")
+    if "retried" in notes:
+        flags.append("RETRY")
+    if "arbitrated by" in notes:
+        flags.append("ARBITRATED")
+    if "REVIEW: runs disagree" in notes:
+        flags.append("REVIEW: runs disagree")
+    if not a.get("verified") and not a.get("early_abstain"):
+        flags.append("VERIFIER FAILED")
+    if "matching" in notes:
+        flags.append("abstain-flag")
+    return flags
+
+
+def write_answers_md(records: pd.DataFrame, questions: pd.DataFrame, answers: list[dict] | None = None,
+                     reports: list | None = None, out_path: Path = ANSWERS_MD) -> Path:
+    """One section per question: question, status, confidence, flags, final answer, rationale and the EXACT context
+    lines the answer cites (rebuilt deterministically, i.e. what the model was shown). For humans checking answers."""
+    answers = answers if answers is not None else load_answers_json()
+    reports = reports if reports is not None else discover_reports(config.XML_DIR)
+    qtext = dict(zip(questions["question_id"], questions["question_text"]))
+    out = ["# Answers for review", "",
+           "Generated from `indexes/answers.json`. Cited lines are exactly the evidence lines the model was shown.", ""]
+    for a in sorted(answers, key=lambda x: x["question_id"]):
+        qid = a["question_id"]
+        flags = flags_for(a)
+        out += [f"## {qid}", "", f"**Question:** {qtext.get(qid, '')}", "",
+                f"**Status:** {a['status']} | **Confidence:** {a['confidence']:.2f} | **Mode:** {a['mode']} | "
+                f"**Flags:** {', '.join(flags) if flags else 'none'}", "",
+                "**Final answer:**", "", f"> {a['answer']}", "", f"**Rationale:** {a.get('rationale') or '(none)'}", ""]
+        if a.get("early_abstain"):
+            out += ["**Cited lines:** none (early abstain, no LLM call).", "", f"**Checked:** {a['evidence']}", ""]
+        else:
+            r = route_question(qtext[qid], reports)
+            lines = {ln.split("]")[0][1:]: ln for ln in build_context(qid, qtext[qid], r, records).text.splitlines()
+                     if ln.startswith("[")}
+            out += [f"**Cited lines ({len(a['cited_ids'])}):**", "", "```"]
+            out += [lines.get(cid, f"[{cid}] <not in the rebuilt context>") for cid in a["cited_ids"]] or ["(none)"]
+            out += ["```", ""]
+        if a.get("failures"):
+            out += ["**Verifier:** " + " | ".join(a["failures"]), ""]
+        out += [f"**Evidence column:** {a['evidence']}", ""]
+    out_path.write_text("\n".join(out), encoding="utf-8")
+    return out_path
+
+
 def main() -> None:
     try:
         from archive_qa import route, store
     except ImportError:
         from submission.archive_qa import route, store
 
-    idx = build_review(store.get_store(), route.load_questions())
-    print(f"Review pack: {idx}\nKey template: {KEY_TEMPLATE}")
+    records, questions = store.get_store(), route.load_questions()
+    idx = build_review(records, questions)
+    md = write_answers_md(records, questions)
+    print(f"Review pack: {idx}\nKey template: {KEY_TEMPLATE}\nAnswers for review: {md}")
 
 
 if __name__ == "__main__":
