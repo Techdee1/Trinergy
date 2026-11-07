@@ -1,8 +1,12 @@
 """Verifier and rule-based confidence.
 
 The model may only cite record IDs that were in its context, and every number it states must come from a
-cited record (or be the sum, difference or mean of two cited numbers). All failures are collected and
-sent back to the model as feedback; they are never silently fixed.
+cited record. A derived number (sum, difference or mean) is accepted only when the answer says it is derived
+AND both operands are cited records AND both operands are stated in the answer or rationale (benchmark finding:
+without these conditions wrong derived answers were accepted by coincidence). Further rules: every part of a
+multi-part question must be addressed, and an abstention is flagged when the context holds a line that matches
+the question's well, date and field. All failures are collected and sent back to the model as feedback; they
+are never silently fixed.
 
 Confidence is computed here, by rules, never by the model.
 """
@@ -14,10 +18,14 @@ import json
 import math
 import re
 from dataclasses import dataclass, field
+from datetime import date, timedelta
 
 import pandas as pd
 
-from .context import Context
+from .context import NARRATIVE, Context
+from .context import _words as content_words
+from .route import find_dates, topic_sections
+from .wells import find_wells
 
 STATUSES = ("answered", "partial", "abstain")
 _ID_RX = re.compile(r"\[?\b(?:[A-Z0-9]{2,6}-\d{8}-[A-Z0-9_]+(?:-\d+)?|ABSENT-[A-Za-z_]+)\b\]?")
@@ -39,12 +47,18 @@ _UNIT_AFTER = re.compile(r"^\s*(m/h|g/cm3|g/cm³|mmd|mtvd|dega|degc|°c|lbm/ft|m
 
 @dataclass
 class VerifyResult:
-    ok: bool
-    failures: list[str] = field(default_factory=list)
+    ok: bool                                                   # no hard failure
+    failures: list[str] = field(default_factory=list)          # hard: wrong IDs, numbers, units, structure, parts
+    flags: list[str] = field(default_factory=list)             # soft: abstained although a matching line exists
+    flagged_ids: list[str] = field(default_factory=list)       # the matching evidence lines behind that flag
+
+    @property
+    def needs_escalation(self) -> bool:
+        return bool(self.failures or self.flags)
 
     @property
     def message(self) -> str:
-        return "\n".join(f"- {f}" for f in self.failures)
+        return "\n".join(f"- {f}" for f in self.failures + self.flags)
 
 
 # ------------------------------------------------------------------ numbers
@@ -120,18 +134,121 @@ def _row_units(row: pd.Series) -> dict[float, set[str]]:
     return out
 
 
-def _supported(value: float, decimals: int, allowed: set[float]) -> bool:
+_DERIVED_CUE = re.compile(
+    r"\b(?:differ\w*|sum|total|combined|adding|added|mean|average|increas\w*|decreas\w*|deeper|shallower|"
+    r"calculated|computed|derived|subtract\w*|minus|plus)\b|\d\s*[+\u2212\u00d7]\s*\d|\d\s+[-\u2013]\s+\d", re.IGNORECASE)
+
+
+def says_derived(text: str) -> bool:
+    """Does the text say a number was computed (sum, difference, mean ...)? IDs and dates are removed first."""
+    return bool(_DERIVED_CUE.search(_ID_RX.sub(" ", text)))
+
+
+def _supported(value: float, decimals: int, allowed: set[float], derived_ok: bool = False,
+               stated: set[float] | None = None) -> bool:
+    """Direct match against the cited numbers; or, only when `derived_ok` (the answer says it is derived), the
+    sum, difference or mean of two cited operands that are both stated in the answer/rationale (`stated`)."""
     if round(value, 6) in allowed:
         return True
     tol = 0.5 * 10 ** (-decimals) + 1e-9
     nums = sorted(allowed)
     if any(abs(value - a) <= 1e-9 for a in nums):
         return True
-    for a, b in itertools.combinations(nums, 2):  # sum, difference, mean of two cited numbers
+    if not derived_ok:
+        return False
+    stated = stated or set()
+
+    def is_stated(x: float) -> bool:
+        return any(abs(x - t) <= 1e-9 for t in stated)
+
+    for a, b in itertools.combinations(nums, 2):
+        if not (is_stated(a) and is_stated(b)):
+            continue
         for d in (a + b, abs(a - b), (a + b) / 2):
             if abs(value - d) <= tol:
                 return True
     return False
+
+
+# ------------------------------------------------------------------ multi-part questions
+
+_Q_WORD = r"(?:what|which|who|whom|when|where|why|how|did|does|do|was|were|is|are|list|give|state|name)"
+_PART_AND = re.compile(rf",?\s+\b(?:and also|as well as|and)\b\s+(?={_Q_WORD}\b)", re.IGNORECASE)
+_PART_NUM = re.compile(r"\(\s*(?:\d{1,2}|[a-h])\s*\)\s*|(?<![\w.-])\d{1,2}\)\s+")
+_PART_QMARK = re.compile(r"\?\s+(?=[A-Z])")
+
+
+def split_parts(question: str) -> list[str]:
+    """Parts of a multi-part question: numbered parts "(1) ... (2) ...", several sentences ending in '?', or a
+    clause joined by "and" / "and also" / "as well as" that starts a new question ("... and what activity ...").
+    "casing and liner" is not a split: the word after "and" must open a clause."""
+    q = question.strip()
+    numbered = [p.strip(" ;,.") for p in _PART_NUM.split(q)]
+    if len([p for p in numbered if p]) >= 3 and len(_PART_NUM.findall(q)) >= 2:   # lead-in + at least two parts
+        return [p for p in numbered[1:] if p]
+    parts: list[str] = []
+    for sent in _PART_QMARK.split(q):
+        parts += [p.strip(" ?;,.") for p in _PART_AND.split(sent) if p.strip(" ?;,.")]
+    return parts if len(parts) >= 2 else [q]
+
+
+def _stem(w: str) -> str:
+    return w[:5]
+
+
+def unaddressed_parts(question: str, answer: str, rationale: str = "") -> tuple[list[str], list[str]]:
+    """(all parts, parts whose distinctive words appear nowhere in the answer or rationale)."""
+    parts = split_parts(question)
+    if len(parts) < 2:
+        return parts, []
+    drop = set()
+    for m in find_wells(question):
+        drop |= content_words(m.well)
+    words = [{_stem(w) for w in content_words(p) - drop if not w.isdigit()} for p in parts]
+    have = {_stem(w) for w in re.findall(r"[a-z0-9]+", (answer + " " + rationale).lower())}
+    missing = []
+    for i, part in enumerate(parts):
+        others = set().union(*(w for j, w in enumerate(words) if j != i))
+        unique = words[i] - others
+        if unique and not (unique & have):
+            missing.append(part)
+    return parts, missing
+
+
+# ------------------------------------------------------------------ abstain although the evidence is there
+
+
+def matching_evidence(parsed: dict, context: Context, records: pd.DataFrame, question: str) -> list[str]:
+    """IDs of context lines that match the question's well, date and field, for an abstain answer.
+
+    Well and report date (D, or D+1 when the router fell back) must match; the record's section must be one of
+    the question's topics, and the question's content words must overlap the record (>= 1 word, >= 2 for
+    narrative sections). If the question's topic is one the archive has no field for (an ABSENT-* record is in
+    the context), the abstention is legitimate and nothing is flagged."""
+    if not isinstance(parsed, dict) or parsed.get("status") != "abstain":
+        return []
+    wells = {m.well for m in find_wells(question)}
+    days = {d.iso for d in find_dates(question) if d.kind == "day"}
+    if not wells or not days:
+        return []
+    topics = set(topic_sections(question))
+    if topics & {meta.get("kind") for meta in context.absent.values()}:
+        return []
+    ok_days = days | {(date.fromisoformat(d) + timedelta(days=1)).isoformat() for d in days}
+    drop = set()
+    for w in wells:
+        drop |= content_words(w)
+    q_words = {w for w in content_words(question) if not w.isdigit()} - drop
+    real = [i for i in context.ids if i not in context.absent]
+    rows = records[records["record_id"].isin(real) & records["well"].isin(wells)
+                   & records["report_date"].isin(ok_days) & records["section"].isin(topics)]
+    hits = []
+    for _, r in rows.iterrows():
+        need = 2 if r["section"] in NARRATIVE else 1
+        body = " ".join(str(x) for x in (r["field"], r["value"], r["text"]) if isinstance(x, str))
+        if len(q_words & content_words(body)) >= need:
+            hits.append(r["record_id"])
+    return sorted(hits)
 
 
 # ------------------------------------------------------------------ verification
@@ -145,8 +262,9 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
     if status not in STATUSES:
         f.append(f"status must be one of {list(STATUSES)}, got {status!r}.")
     answer = parsed.get("answer")
-    if not isinstance(answer, str) or not answer.strip():
+    if not isinstance(answer, str) or (not answer.strip() and status != "abstain"):   # the prompt asks for "" on abstain
         f.append("answer must be a non-empty string.")
+    if not isinstance(answer, str):
         answer = ""
     cited = parsed.get("cited_ids")
     if not isinstance(cited, list) or not all(isinstance(c, str) for c in cited):
@@ -173,6 +291,9 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
                 units.setdefault(v, set()).update(u)
         allowed |= {round(c, 6) for _t, cs in numbers_in(question) for c in cs}  # numbers echoed from the question
         stripped = _ID_RX.sub(" ", answer)
+        rationale = parsed.get("rationale") if isinstance(parsed.get("rationale"), str) else ""
+        derived_ok = says_derived(answer)       # the ANSWER must say it is derived (a rationale cue is not enough)
+        stated = {round(c, 6) for _t, cs in numbers_in(_ID_RX.sub(" ", answer + " " + rationale)) for c in cs}
         markers = {m.group(1) for m in _LIST_MARKER.finditer(stripped)}
         bad: list[str] = []
         for m in _NUM_RX.finditer(stripped):
@@ -180,7 +301,7 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             cands = _candidates(tok)
             if not cands or tok in markers:
                 continue
-            if not any(_supported(c, _decimals(tok), allowed) for c in cands):
+            if not any(_supported(c, _decimals(tok), allowed, derived_ok, stated) for c in cands):
                 bad.append(tok)
                 continue
             # unit check: the unit written after the number vs the unit of the record holding that number
@@ -190,9 +311,18 @@ def verify(parsed: dict, context: Context, records: pd.DataFrame, question: str 
             if cls and held and cls not in held and not (cls == "m" and "m/h" in held):
                 f.append(f"unit mismatch for {tok}: answer says '{u.group(1)}' but the cited record gives {sorted(held)}.")
         if bad:
-            f.append("numbers in the answer not found in the cited records (and not a sum, difference or mean "
-                     f"of two cited numbers): {sorted(set(bad))}")
-    return VerifyResult(not f, f)
+            f.append("numbers in the answer not found in the cited records: "
+                     f"{sorted(set(bad))}. A sum, difference or mean is accepted only if the answer says it is "
+                     "derived and both operands are cited records and are stated in the answer or rationale.")
+    if status == "answered":
+        parts, missing = unaddressed_parts(question, answer, parsed.get("rationale") if isinstance(parsed.get("rationale"), str) else "")
+        if missing:
+            f.append(f"the question has {len(parts)} parts ({'; '.join(f'({i}) {p}' for i, p in enumerate(parts, 1))}) "
+                     f"but these are not addressed: {missing}. Answer every part, or use status 'partial'.")
+    flagged = matching_evidence(parsed, context, records, question)
+    flags = [f"you abstained, but the evidence contains line(s) matching the question's well, date and field: "
+             f"{flagged}. Re-read them and answer from them if they contain the requested value."] if flagged else []
+    return VerifyResult(not f, f, flags, flagged)
 
 
 # ------------------------------------------------------------------ confidence

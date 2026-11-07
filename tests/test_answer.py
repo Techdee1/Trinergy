@@ -52,10 +52,11 @@ def test_verifier_rejects_unsupported_number(located):
 @needs_data
 def test_verifier_accepts_supported_and_derived_numbers(located):
     assert verify(good(), ctx([FLUID]), located).ok
-    # md=4094 and presBopRating=345 are in the record: their sum, difference and mean are allowed
-    for ans in ("Total 4439 m.", "Difference 3749 m.", "Mean 2219.5 m."):
+    # md=4094 and presBopRating=345 are in the record: a sum, difference or mean is allowed only when the
+    # answer SAYS it is derived and both operands are stated (see test_derived_value_rules)
+    for ans in ("Total 4439 m (4094 + 345).", "Difference 3749 m (4094 - 345).", "Mean 2219.5 m of 4094 and 345."):
         assert verify(good(answer=ans), ctx([FLUID]), located).ok, ans
-    assert not verify(good(answer="Total 4440 m."), ctx([FLUID]), located).ok
+    assert not verify(good(answer="Total 4440 m (4094 + 345)."), ctx([FLUID]), located).ok
 
 
 @needs_data
@@ -98,7 +99,9 @@ def test_confidence_rules():
 def test_answered_with_evidence_format(tmp_path, qtext, located, reports):
     llm, fake = make(tmp_path, lambda s, u, m: good())
     a = A.answer_question("T2-016", qtext["T2-016"], located, reports, llm, dump=False)
-    assert (a.status, a.verified, a.confidence, a.llm_calls, len(fake.calls)) == ("answered", True, 0.95, 1, 1)
+    # run 1 + the independent run 2 (disagreement check); identical replies -> no escalation, no review flag
+    assert (a.status, a.verified, a.confidence, a.llm_calls, len(fake.calls)) == ("answered", True, 0.95, 2, 2)
+    assert not a.disagree and not any("REVIEW" in n for n in a.notes)
     ev = build_evidence(a, located)
     assert ev.endswith(f"15_9_F_1_C_2014_03_26.xml {FLUID}")
     assert ev.split(";")[0].startswith("15_9_F_1_C_2014_03_26.pdf p.") and "(Drilling Fluid)" in ev
@@ -139,8 +142,8 @@ def test_escalation_after_verifier_failure_passes_feedback(tmp_path, qtext, loca
 
     llm, fake = make(tmp_path, script)
     a = A.answer_question("T2-016", qtext["T2-016"], located, reports, llm, dump=False)
-    assert [c["model"] for c in fake.calls] == ["m1", "m2"]
-    assert a.verified and a.confidence == 0.95 and a.llm_calls == 2 and a.model == "m2"
+    assert [c["model"] for c in fake.calls] == ["m1", "m1", "m2"]
+    assert a.verified and a.confidence == 0.95 and a.llm_calls == 3 and a.model == "m2"
     assert any("escalated" in n for n in a.notes) and not any("VERIFIER FAILED" in n for n in a.notes)
 
 
@@ -149,7 +152,7 @@ def test_still_failing_keeps_answer_with_confidence_02(tmp_path, qtext, located,
     bad = good(answer="The density was 9.99 g/cm3.")
     llm, fake = make(tmp_path, lambda s, u, m: bad)
     a = A.answer_question("T2-016", qtext["T2-016"], located, reports, llm, dump=False)
-    assert len(fake.calls) == 2 and not a.verified and a.confidence == 0.2
+    assert len(fake.calls) == 3 and not a.verified and a.confidence == 0.2
     assert "9.99" in a.answer                                   # the answer is NOT silently changed
     assert any(n.startswith("VERIFIER FAILED:") and "9.99" in n for n in a.notes) and a.needs_review
 

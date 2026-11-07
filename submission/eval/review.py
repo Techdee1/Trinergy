@@ -59,7 +59,7 @@ def build_review(records: pd.DataFrame, questions: pd.DataFrame, answers: list[d
     idx = records.set_index("record_id", drop=False)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    queue = [a for a in answers if (not a["early_abstain"]) and (not a["verified"] or a["confidence"] < 0.6)]
+    queue = [a for a in answers if (not a["early_abstain"]) and (not a["verified"] or a["confidence"] < 0.6 or a.get("disagree"))]
     cards: list[str] = []
     for a in answers:
         qid = a["question_id"]
@@ -100,7 +100,7 @@ def build_review(records: pd.DataFrame, questions: pd.DataFrame, answers: list[d
 .st.answered{{background:#d5f5e3}} .st.partial{{background:#fdebd0}} .st.abstain{{background:#d6eaf8}}
 .cf{{font-size:12px;color:#555}} .q{{color:#444;font-style:italic}} .notes{{color:#666;font-size:12px}}
 .imgs{{display:flex;gap:1rem;flex-wrap:wrap}} img{{max-width:100%;border:1px solid #999}} figure{{margin:0;max-width:520px}}</style>
-<h1>Track 2 review pack</h1><p>{len(answers)} answers; {len(queue)} in the review queue (verifier failed or confidence &lt; 0.6).
+<h1>Track 2 review pack</h1><p>{len(answers)} answers; {len(queue)} in the review queue (verifier failed, confidence &lt; 0.6, or the two runs disagree).
 Fill <code>submission/eval/key.csv</code> (copy of key_template.csv) from the PDFs, then run
 <code>python -m submission.eval.evaluate</code>.</p><ul>{toc}</ul>{"".join(cards)}"""
     index = out_dir / "index.html"

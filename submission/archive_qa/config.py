@@ -33,6 +33,16 @@ LOGS_DIR = REPO_ROOT / "logs"                           # git-ignored
 COST_LEDGER_PATH = LOGS_DIR / "cost_ledger.csv"
 CONTEXT_DUMP_DIR = LOGS_DIR / "context_dumps"
 
+# ---- LLM defaults (tools/llm_bench/RECOMMENDATION.md). Environment / .env variables override them (see .env.example).
+LLM_MODEL_PRIMARY_DEFAULT = "anthropic/claude-haiku-5.5"
+LLM_MODEL_ESCALATION_DEFAULT = "anthropic/claude-sonnet-5.5"
+LLM_PRIMARY_MAX_TOKENS_DEFAULT = 400          # LLM_MAX_TOKENS
+LLM_ESCALATION_MAX_TOKENS_DEFAULT = 1500      # LLM_ESCALATION_MAX_TOKENS
+LLM_PRIMARY_REASONING_DEFAULT = "none"        # LLM_REASONING  (Haiku accepts "none")
+LLM_ESCALATION_REASONING_DEFAULT = "minimal"  # LLM_ESCALATION_REASONING (Sonnet/Opus reasoning is mandatory: "none" is HTTP 400)
+LLM_PROVIDER_DEFAULT = "Anthropic"            # LLM_PROVIDER: comma list pinned via provider.order; "" = no pin
+LLM_CONCURRENCY_DEFAULT = 8                   # LLM_CONCURRENCY
+
 MARKER = Path("metadata") / "document_manifest.csv"
 _EXTERNAL = Path("external") / "nape-aice-2026-hackathon" / "data" / "track_2"
 
