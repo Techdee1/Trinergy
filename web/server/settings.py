@@ -37,6 +37,7 @@ class Settings:
     max_question_chars: int = field(default_factory=lambda: _i("MAX_QUESTION_CHARS", 400))
     ask_timeout_s: float = field(default_factory=lambda: _f("ASK_TIMEOUT_S", 120.0))
     max_concurrent_asks: int = field(default_factory=lambda: _i("MAX_CONCURRENT_ASKS", 4))
+    trusted_proxy_hops: int = field(default_factory=lambda: max(1, _i("TRUSTED_PROXY_HOPS", 1)))
     trust_proxy: bool = field(default_factory=lambda: os.environ.get("TRUST_PROXY", "0") == "1")
     trajectory_min_stations: int = field(default_factory=lambda: _i("TRAJECTORY_MIN_STATIONS", 3))
     warm_on_start: bool = field(default_factory=lambda: os.environ.get("WARM_ON_START", "1") != "0")

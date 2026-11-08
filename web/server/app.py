@@ -20,6 +20,7 @@ from submission.archive_qa import config
 
 from . import archive_view, costs_view
 from .datapack import ATTRIBUTION
+from .clientid import client_identity, identity_mode
 from .engine import AskDisabled, Engine, clean_question
 from .guards import RateLimited, RateLimiter
 from .highlight import PageError
@@ -29,6 +30,20 @@ from .schemas import AskRequest, Health, QuestionDetail
 from .settings import VERSION, Settings
 
 log = logging.getLogger("web.server")
+
+
+API_CSP = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+# FastAPI's /docs (Swagger UI) and /redoc load their bundle from cdn.jsdelivr.net and use an inline bootstrap script/style
+DOCS_CSP = ("default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net "
+            "https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://fastapi.tiangolo.com; connect-src 'self'; "
+            "worker-src blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+
+
+def security_headers(path: str) -> dict[str, str]:
+    docs = path in ("/docs", "/redoc", "/docs/oauth2-redirect")
+    return {"Strict-Transport-Security": "max-age=31536000; includeSubDomains", "X-Content-Type-Options": "nosniff",
+            "X-Frame-Options": "DENY", "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Content-Security-Policy": DOCS_CSP if docs else API_CSP}
 
 
 def _err(status: int, code: str, message: str, **extra) -> HTTPException:
@@ -46,6 +61,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
         app.state.engine = eng
         app.state.pages = PageService(eng.pack, settings.runtime_dir)
         app.state.sem = asyncio.Semaphore(settings.max_concurrent_asks)
+        app.state.identity_sources = {}
         if settings.warm_on_start:
             threading.Thread(target=eng.warm, daemon=True, name="warm").start()
         yield
@@ -60,9 +76,11 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
                        allow_headers=["*"], expose_headers=["Retry-After"])
 
     @app.middleware("http")
-    async def attribution_header(request: Request, call_next):
+    async def common_headers(request: Request, call_next):
         resp = await call_next(request)
         resp.headers["X-Data-Attribution"] = ATTRIBUTION
+        for k, v in security_headers(request.url.path).items():
+            resp.headers.setdefault(k, v)
         return resp
 
     def eng(request: Request) -> Engine:
@@ -81,7 +99,9 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     @app.exception_handler(Exception)
     async def _unhandled(request: Request, exc: Exception):
         log.error("unhandled error on %s: %s", request.url.path, redact(f"{type(exc).__name__}: {exc}"))
-        return JSONResponse(status_code=500, content={"detail": {"code": "internal_error", "message": "Internal server error."}})
+        # ServerErrorMiddleware sits outside the app's middleware, so this response gets the common headers here
+        return JSONResponse(status_code=500, content={"detail": {"code": "internal_error", "message": "Internal server error."}},
+                            headers={"X-Data-Attribution": ATTRIBUTION, **security_headers(request.url.path)})
 
     # ------------------------------------------------------------------ health
     @app.get("/health", response_model=Health, tags=["meta"])
@@ -92,8 +112,24 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
                       details={"records": len(e.records), "reports": len(e.reports), "catalog_questions": len(e.catalog),
                                "warm_seconds": e.warm_seconds, "data_pack": {k: e.pack.manifest.get(k) for k in ("built", "records", "reports", "pages", "total_bytes")}, "provider_fallback_active": e.provider_fallback_active,
                                "server_budget_usd": e.s.server_budget_usd, "max_question_chars": e.s.max_question_chars,
-                               "rate_limit": {"per_minute": e.s.rate_per_min, "per_day": e.s.rate_per_day},
+                               "rate_limit": {"per_minute": e.s.rate_per_min, "per_day": e.s.rate_per_day,
+                                              "client_identity": {"mode": identity_mode(e.s.trust_proxy, e.s.trusted_proxy_hops),
+                                                                  "trust_proxy": e.s.trust_proxy, "trusted_proxy_hops": e.s.trusted_proxy_hops,
+                                                                  "sources_used_since_start": dict(request.app.state.identity_sources)}},
                                "key_configured": e.key_present})
+
+    @app.get("/whoami", tags=["meta"])
+    def whoami(request: Request):
+        """Diagnostic: the proxy headers exactly as this server sees them for THIS request, and which one the rate limiter would use.
+        It only echoes what the caller sent plus the proxy's own additions (the caller's own address and hop addresses); no secret."""
+        e = eng(request)
+        host = request.client.host if request.client else None
+        key, source = client_identity(request.headers, host, e.s.trust_proxy, e.s.trusted_proxy_hops)
+        h = request.headers
+        return {"mode": identity_mode(e.s.trust_proxy, e.s.trusted_proxy_hops), "identity_source": source, "bucket_key": key,
+                "seen": {"x-forwarded-for": h.get("x-forwarded-for"), "cf-connecting-ip": h.get("cf-connecting-ip"),
+                         "x-real-ip": h.get("x-real-ip"), "forwarded": h.get("forwarded"), "x-forwarded-proto": h.get("x-forwarded-proto"),
+                         "connection_address": host}}
 
     # ------------------------------------------------------------------ questions
     @app.get("/questions", tags=["questions"])
@@ -128,9 +164,9 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
         q = clean_question(body.question)
         if not q:
             raise _err(422, "question_empty", "The question is empty.")
-        key = request.client.host if request.client else "unknown"
-        if e.s.trust_proxy and request.headers.get("x-forwarded-for"):
-            key = request.headers["x-forwarded-for"].split(",")[0].strip()
+        key, source = client_identity(request.headers, request.client.host if request.client else None, e.s.trust_proxy, e.s.trusted_proxy_hops)
+        seen = request.app.state.identity_sources
+        seen[source] = seen.get(source, 0) + 1
         try:
             limiter.check(key)
         except RateLimited as r:

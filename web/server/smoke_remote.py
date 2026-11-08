@@ -462,6 +462,11 @@ def c9_rate(c: Client, state, args):
         return
     rnd = random.Random(time.time())
     x1, x2 = (f"203.0.113.{rnd.randint(1, 254)}", f"198.51.100.{rnd.randint(1, 254)}")     # TEST-NET addresses: documentation ranges, never real clients
+    who = c.request("GET", "/whoami", headers={"X-Forwarded-For": x1})          # diagnostic: what the server sees for a spoofed header
+    wj = who.json() if who.status == 200 else {}
+    seen = wj.get("seen", {})
+    who_txt = (f"/whoami with a spoofed X-Forwarded-For: source {wj.get('identity_source')}, XFF seen {seen.get('x-forwarded-for')!r}, "
+               f"CF-Connecting-IP {'present' if seen.get('cf-connecting-ip') else 'absent'}, spoof used as key: {wj.get('bucket_key') == x1}") if wj else "/whoami unavailable"
     n1 = 0
     last = None
     for _ in range(8):
@@ -474,17 +479,17 @@ def c9_rate(c: Client, state, args):
     r2 = c.request("POST", "/ask", {"question": VAGUE}, {"X-Forwarded-For": x2})
     c.ask_times.append(time.time())
     prior = len([t for t in c.ask_times[:-(n1 + 2)] if time.time() - t < 60])
-    if n1 >= 6 and r2.status == 200:
-        verdict = ("keyed by the client-supplied X-Forwarded-For: a fresh value gives a fresh 6-per-minute bucket (spoofable: TRUST_PROXY=1 takes the LEFTMOST entry, "
-                   "which the client controls)")
+    if n1 >= 6 and r2.status == 200 or wj.get("bucket_key") == x1:
+        verdict = ("SPOOFABLE: a fresh X-Forwarded-For value gives a fresh 6-per-minute bucket (the limiter keys on a client-controlled value)")
         status = "FAIL"
     elif r2.status == 429:
-        verdict = (f"one shared bucket: the header made no difference ({n1} of my requests passed after ~{prior} earlier asks in the minute, a different X-Forwarded-For was still refused). "
-                   "The code honours the header when TRUST_PROXY=1, so TRUST_PROXY is 0 on this deployment: every visitor shares the proxy's address and ONE global limit applies")
-        status = "FAIL"
+        verdict = (f"spoofed X-Forwarded-For ignored: {n1} of my probes passed (the minute already held ~{prior} of my earlier asks), a second spoof value was still refused, "
+                   f"so one client = one bucket")
+        status = "PASS"
     else:
         verdict = f"unclear: {n1} passed, then 429={last.status == 429}; second header status {r2.status}"
         status = "WARN"
+    verdict += "; " + who_txt
     row("9", "rate limit client identity", status, verdict)
     state["xff_verdict"] = verdict
     # 7 in a minute, no header, after the window has cleared
@@ -589,7 +594,19 @@ def c13_security(c: Client, state):
         plain.close()
     except OSError as e:
         notes.append(f"http:// not reachable ({type(e).__name__})")
-    row("13", "security basics", "FAIL" if (exposed or debug) else "PASS", "; ".join(n for n in notes if n) + ("; " + "; ".join(warns) if warns else ""))
+    docs_html = c.request("GET", "/docs")
+    csp = docs_html.headers.get("content-security-policy", "")
+    hosts = set(re.findall(r"https://([^/\"')\s]+)", docs_html.text))
+    blocked = [x for x in hosts if x not in csp]
+    missing_h = [k for k in want if k not in h]
+    if missing_h:
+        warns.append(f"MISSING required headers {missing_h}")
+    if docs_html.status != 200 or blocked:
+        warns.append(f"/docs would break: status {docs_html.status}, hosts not allowed by its CSP {blocked}")
+    if h.get("x-frame-options") != "DENY" or h.get("x-content-type-options") != "nosniff":
+        warns.append("X-Frame-Options/X-Content-Type-Options not DENY/nosniff")
+    notes.append(f"/docs CSP covers its {len(hosts)} external hosts" if not blocked else "")
+    row("13", "security basics", "FAIL" if (exposed or debug or missing_h or blocked or docs_html.status != 200 or h.get("x-frame-options") != "DENY") else "PASS", "; ".join(n for n in notes if n) + ("; " + "; ".join(warns) if warns else ""))
     state["headers"] = h
 
 

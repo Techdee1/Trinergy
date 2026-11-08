@@ -26,7 +26,8 @@ at run time** (see "Data pack"). Data: Equinor Volve dataset (also in `GET /heal
 | `MAX_QUESTION_CHARS` | `400` | longer questions are rejected with 422 before any work |
 | `ASK_TIMEOUT_S` | `120` | request timeout for `/ask` and `/ask/stream` |
 | `MAX_CONCURRENT_ASKS` | `4` | simultaneous questions in flight |
-| `TRUST_PROXY` | `0` | `1` = take the client IP from `X-Forwarded-For` (set only behind a trusted proxy) |
+| `TRUST_PROXY` | `0` | `1` = the server sits behind a proxy (Render/Cloudflare): the rate limiter keys on `CF-Connecting-IP`, else the `X-Forwarded-For` entry `TRUSTED_PROXY_HOPS` from the right, else the connection address. **The leftmost `X-Forwarded-For` entry is never used** (the client writes it). `0` = proxy headers are ignored. |
+| `TRUSTED_PROXY_HOPS` | `1` | how many proxies append to `X-Forwarded-For` (1 = the last entry is the client as seen by the first proxy) |
 | `TRAJECTORY_MIN_STATIONS` | `3` | wellbores with fewer usable survey stations are `skipped` |
 | `WARM_ON_START` | `1` | replay the 72 catalog questions in the background at start (≈10 s, offline, free) |
 
@@ -48,9 +49,13 @@ Every error body is `{"detail": {"code": "...", "message": "...", ...}}`.
 
 ## Endpoints
 
+### `GET /whoami`
+Diagnostic: the proxy headers (`X-Forwarded-For`, `CF-Connecting-IP`, …) exactly as the server sees them for this request, plus which one the rate limiter would key on
+(`identity_source`, `bucket_key`). It echoes only what the caller sent and the proxy added; no secret.
+
 ### `GET /health` → `Health`
 `{status, live_mode, models:{primary, escalation}, version, attribution:"Data: Equinor Volve dataset", budget_remaining_usd, details}`. `live_mode` = a key exists **and** budget remains.
-`details`: counts, `warm_seconds`, `provider_fallback_active`, limits, `key_configured` (boolean only).
+`details`: counts, `warm_seconds`, `provider_fallback_active`, limits (`rate_limit.client_identity`: the identity **mode**, hop count and how often each source was used since start, never an address), `key_configured` (boolean only).
 
 ### `GET /questions[?set=challenge|unseen]`
 `{count, sets:{challenge:32, unseen:40}, questions:[{id, set, question, status, confidence, flags, router_mode}]}`.
@@ -178,7 +183,10 @@ Shared by every endpoint. All of it is observed from the pipeline's real calls (
   unchanged after live asks; `logs/cost_ledger.csv` is not touched either (the server keeps its own ledger in `RUNTIME_CACHE_DIR`).
 * **Caches.** Read order: committed `llm_cache.json` → `data/generalisation_cache.json` (the unseen set's answers, read-only) → `RUNTIME_CACHE_DIR/llm_cache_runtime.json`; writes go to the last only.
 * **Secrets.** The key is read by the pipeline's own `llm.find_key`; every error message and log record is passed through a redactor that knows the key value and the `sk-or-…`/`Bearer …` shapes.
-* **Abuse.** Length cap, per-IP rate limit, concurrency cap, timeout, persisted spend cap, CORS allow-list.
+* **Abuse.** Length cap, per-IP rate limit (client identity as above), concurrency cap, timeout, persisted spend cap, CORS allow-list.
+* **Security headers on every response** (also errors, 429 and 500): `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
+  `Referrer-Policy: strict-origin-when-cross-origin`, `Content-Security-Policy` (`default-src 'none'; frame-ancestors 'none'` for the API; `/docs` and `/redoc` get a CSP that allows
+  exactly the hosts FastAPI's pages load from: cdn.jsdelivr.net, fonts.googleapis.com/gstatic, fastapi.tiangolo.com). Tests assert `/docs` still loads and SSE still streams.
 
 ## Data pack (`web/server/data/`, 7.5 MB, committed)
 
