@@ -1,0 +1,110 @@
+# Intelligent Well Archive: web app
+
+Team Trinergy, NAPE AICE 2026, Track 2. Built for Heirs Energies. Data: Equinor Volve dataset.
+A React + TypeScript app (Vite) over the tested backend in [../server](../server/API.md). Everything on screen comes from the real API. Fonts, icons and
+libraries are bundled, and the only run-time network calls go to the API.
+
+## Run
+
+```bash
+# 1. API (from the repo root)
+conda activate nape
+uvicorn web.server.app:app --port 8000
+
+# 2. App (from web/app)
+npm install
+npm run dev            # http://localhost:5173
+```
+
+`VITE_API_URL` sets the API base (default `http://localhost:8000`). Put it in `web/app/.env.local`, for example `VITE_API_URL=https://my-api.example.com`.
+
+**CORS:** the server only accepts origins listed in `ALLOWED_ORIGINS` (default `http://localhost:3000,http://localhost:5173`). Serve the built site from one of
+those, or add your host to `ALLOWED_ORIGINS` on the server. Opening `dist/index.html` straight from disk (`file://`) is blocked by the browser's CORS rules.
+
+## Build
+
+```bash
+npm run build          # type-checks, then writes web/app/dist (committed)
+npm run preview        # serves dist on http://localhost:4173 (add that origin to ALLOWED_ORIGINS, or use --port 5173)
+```
+
+`dist/` uses relative asset paths and hash routing (`#/mission/T2-017`), so it works from any static host or sub-path with no rewrite rules.
+
+## Verify
+
+```bash
+npx playwright install chromium     # once
+BASE=http://localhost:5173 node tests/shots.mjs
+```
+
+`tests/shots.mjs` runs against the live API. It renders every view in both themes at 1920x1080 and 1366x768, runs the replay for an answered, a
+multi-report, an archive-wide and an abstained question, reaches every Ask state, fails on any console error, and writes screenshots to `screenshots/`.
+Real states are hit for real (clarification, early abstain, answered, abstain, a real 429). Four states need server configuration we do not change
+(live mode off, budget reached, NOT EVALUATED, a server that is asleep), so they use mocked responses built from real payloads; those screenshots are named
+accordingly in the test output. The run asks about ten live questions on the free (no model call) or cached path, so mind the server's
+rate limit (6 a minute, 40 a day per IP).
+
+## Views
+
+| Route | What it is |
+|---|---|
+| `#/` | Overview: live counters, the four principles, entry to the replay |
+| `#/mission/:id` | Mission control: question picker and the 2D replay (3D slot behind a toggle) |
+| `#/questions` | Results board for all 72 questions, filter by set, mode, status |
+| `#/question/:id` | Answer view: answer, confidence rule, evidence lens (PDF page with highlight boxes), trace timeline |
+| `#/generalisation` | The 40 unseen questions by category, baseline vs current, with the honest caveat |
+| `#/impact` | Impact for Heirs: problem, use cases, deployment, roadmap, illustrative calculator |
+| `#/archive` | Timeline of the 32 reports by wellbore, record counts |
+| `#/cost` | Cost per question, model mix, cache, budget |
+| `#/ask` | Ask your own question with a live trace and designed error states |
+| `#/present` | Presenter mode (guided tour) |
+| `#/styleguide` | Design tokens and components |
+
+## Design system
+
+Tokens live in [src/styles/tokens.css](src/styles/tokens.css) (colour, type, 8 pt space, radius family, motion) with dark and light themes.
+Brand colours come from heirsenergies.com: site CSS `#FE0000` and `#E61100`, and Pillow extraction from the logo and favicon (dominant `#F80000`).
+Heirs red marks the primary action, the active selection and the playhead only. Status has its own colours, each with an icon and a label:
+verified = green, abstain = amber, router-selected = blue, flag = violet, context = neutral. Red never means failure. The Heirs logo is not used
+and this is not presented as an official Heirs product.
+
+## 3-minute demo script
+
+1. **Overview (30 s).** "Ask the archive. Get the evidence, or an honest 'not here'." Point at the live counters: 72 questions, 32 reports, 1,783 records,
+   all verified, about 2 cents a question. Name the four rules: code finds the facts, AI only phrases, a verifier checks, abstention is valid.
+2. **Date-window trap (40 s).** Press *Watch it work* on T2-016 (or step 2 of Presenter mode). A report dated D covers D-1 to D. Watch the question parse,
+   one report open, the verifier tick through, and the answer resolve with its confidence rule.
+3. **Abstention (40 s).** T2-032, "Western Atlas". The sweep passes over the opened report and finds nothing. The ABSENT result names what was searched and what
+   looked close but was rejected. Open the evidence lens: an elegant "nothing to show" state, not a made-up citation.
+4. **Multi-report (30 s).** T2-017. Four reports across four wells. The first draft cited a number the records did not support, the verifier flagged it (violet),
+   a larger model escalated. Show that the escalation is visible in the stepper.
+5. **Evidence (20 s).** Open any answer, then the evidence lens: the real PDF page, the highlight on the row, zoom. An XML-only record shows the "in the XML, not on the page" state.
+6. **Try your own (20 s).** Ask page: click a suggestion, or type. Show a vague question ("What happened?") and the three clickable examples.
+
+Closing line: cost page (Haiku does 80% of calls for 13% of cost) and the Generalisation caveat: tuned on these questions, independent test in progress.
+
+## Presenter mode
+
+Open from the rail (**Presenter mode**) or `#/present`. Type scale is enlarged, the rail is hidden, everything works offline.
+
+| Key | Action |
+|---|---|
+| `→` / `←` (or PageDown / PageUp) | next / previous step |
+| `1` to `5` | jump to a step |
+| `Space` | play / pause the replay |
+| `R` | replay from the start |
+| `S` | cycle speed 0.5x, 1x, 2x, 4x |
+| `,` / `.` | step the replay back / forward |
+| `H` | hide or show the cursor |
+| `Esc` | exit |
+
+The same replay keys (`Space`, `←`, `→`, `R`, `S`) work in Mission control.
+
+## Code map
+
+- [src/lib/adapter.ts](src/lib/adapter.ts): the shared data adapter (replay timeline, derived state, world with trajectories). The 2D replay and the 3D scene both use it.
+- [src/lib/useReplay.ts](src/lib/useReplay.ts): playback. Visible state is a pure function of the stage index.
+- [src/components/Replay2D.tsx](src/components/Replay2D.tsx): the lanes, stepper, now card and answer card.
+- [src/components/EvidenceLens.tsx](src/components/EvidenceLens.tsx), [TraceTimeline.tsx](src/components/TraceTimeline.tsx): evidence and trace.
+- [src/api/client.ts](src/api/client.ts): typed client including the `/ask/stream` SSE reader.
+- [3D_BRIEF.md](3D_BRIEF.md): brief for the 3D session. [src/three/MissionControl3D.tsx](src/three/MissionControl3D.tsx) is the slot.

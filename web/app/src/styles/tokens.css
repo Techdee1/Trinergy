@@ -1,0 +1,106 @@
+/* ───────────────────────────────────────────────────────────────
+   Design tokens. Palette source (extracted 2026-11-08):
+   - heirsenergies.com site CSS: #FE0000 (brand red, 7 uses), #E61100 (secondary red),
+     #53565A (neutral grey), #32373C / #313131 (dark neutrals)
+   - Pillow on H-Energies-Logo.png and the favicon: dominant colour #F80000 (quantised #FE0000), greys #D0D0D0
+   Everything else (warm near-black surfaces, status colours) is a deliberate neutral system.
+   Red is the brand/action colour only. It never means "failed".
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  /* type */
+  --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-20: 1.25rem;
+  --fs-24: 1.5rem; --fs-32: 2rem; --fs-48: 3rem; --fs-64: 4rem;
+  --lh-tight: 1.05; --lh-snug: 1.25; --lh-body: 1.5;
+  /* tracking is size-specific: tight when large, slightly open when small */
+  --tr-64: -0.035em; --tr-48: -0.03em; --tr-32: -0.022em; --tr-24: -0.016em; --tr-20: -0.01em;
+  --tr-16: -0.003em; --tr-14: 0; --tr-12: 0.01em; --tr-caps: 0.08em;
+
+  /* 8 pt space scale */
+  --s-0: 2px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 40px; --s-8: 48px; --s-9: 64px; --s-10: 80px; --s-11: 96px;
+
+  /* one radius family */
+  --r-1: 6px; --r-2: 10px; --r-3: 14px; --r-pill: 999px;
+
+  /* grid */
+  --gutter: 24px; --page-pad: 40px; --page-max: 1440px; --rail-w: 232px;
+
+  /* motion (150–400 ms, ease-out in) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 150ms; --t-med: 250ms; --t-slow: 400ms;
+  --replay-speed: 1;
+}
+
+:root, :root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0e0c0b;
+  --surface-1: #151311;      /* rail, cards */
+  --surface-2: #1c1917;      /* raised */
+  --surface-3: #25211e;      /* hover, inset */
+  --line: rgba(255, 244, 232, 0.09);
+  --line-strong: rgba(255, 244, 232, 0.18);
+  --text: #f5f0eb;
+  --text-2: #bdb4ac;
+  --text-3: #9a918a;
+
+  --brand: #fe0000;           /* accent fills, glows, rings (not small text) */
+  --brand-fill: #e61100;      /* filled buttons, white text 4.7:1 */
+  --brand-text: #ff4b3e;      /* red used as text/icon, 5.3:1 */
+  --brand-soft: rgba(254, 0, 0, 0.12);
+  --on-brand: #ffffff;
+
+  --ok: #4fd8a8;      --ok-soft: rgba(79, 216, 168, 0.12);       /* verified */
+  --abstain: #f2b544; --abstain-soft: rgba(242, 181, 68, 0.12);  /* abstain, limits, caution */
+  --route: #7db2ff;   --route-soft: rgba(125, 178, 255, 0.13);   /* router-selected */
+  --flag: #c9a2ff;    --flag-soft: rgba(201, 162, 255, 0.13);    /* verifier flag / needs review */
+  --ctx: #b9b0a8;     --ctx-soft: rgba(185, 176, 168, 0.10);     /* context records */
+
+  --elev-1: 0 1px 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.5);
+  --elev-2: 0 12px 32px rgba(0,0,0,0.55), 0 0 0 1px var(--line-strong);
+  --glass: rgba(21, 19, 17, 0.72);
+  --scrim: rgba(8, 6, 5, 0.62);
+  --grid-line: rgba(255, 244, 232, 0.05);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6f3f0;
+  --surface-1: #ffffff;
+  --surface-2: #fbf9f7;
+  --surface-3: #efebe7;
+  --line: rgba(40, 24, 10, 0.10);
+  --line-strong: rgba(40, 24, 10, 0.20);
+  --text: #1a1613;
+  --text-2: #5a524c;
+  --text-3: #6f665f;
+
+  --brand: #e00000;
+  --brand-fill: #c80000;
+  --brand-text: #c80000;
+  --brand-soft: rgba(200, 0, 0, 0.08);
+  --on-brand: #ffffff;
+
+  --ok: #0b7556;      --ok-soft: rgba(11, 117, 86, 0.09);
+  --abstain: #8f5200; --abstain-soft: rgba(176, 108, 0, 0.11);
+  --route: #1c5bc0;   --route-soft: rgba(28, 91, 192, 0.09);
+  --flag: #6a32b0;    --flag-soft: rgba(106, 50, 176, 0.09);
+  --ctx: #5a524c;     --ctx-soft: rgba(90, 82, 76, 0.08);
+
+  --elev-1: 0 1px 2px rgba(40, 24, 10, 0.06);
+  --elev-2: 0 12px 32px rgba(40, 24, 10, 0.14), 0 0 0 1px var(--line-strong);
+  --glass: rgba(255, 255, 255, 0.75);
+  --scrim: rgba(40, 30, 20, 0.35);
+  --grid-line: rgba(40, 24, 10, 0.05);
+}
+
+/* presenter mode scales every rem-based size */
+:root[data-presenter='on'] { font-size: 125%; --page-pad: 56px; }
+:root[data-presenter='on'][data-cursor='hide'] * { cursor: none !important; }
+
+@media (prefers-reduced-transparency: reduce) { :root { --glass: var(--surface-1); } }
+@media (prefers-contrast: more) {
+  :root { --line: var(--line-strong); --text-3: var(--text-2); }
+}
