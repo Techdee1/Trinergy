@@ -1,3 +1,5 @@
+> **Reviewer documentation:** [Reviewer guide](docs/REVIEWER_GUIDE.md) (quick start, notebook cell by cell, other questions, reproducibility) and [Architecture](docs/ARCHITECTURE.md) (design, diagrams, API, deployment).
+
 # Track 2 — Intelligent Well Archive
 
 ## Quick start

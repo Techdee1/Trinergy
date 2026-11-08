@@ -1,0 +1,6 @@
+"""Heirs palette, copied from web/app/src/styles/tokens.css (dark theme). The Heirs logo is not used."""
+BG = "#0e0c0b"; S1 = "#151311"; S2 = "#1c1917"; S3 = "#25211e"
+LINE = "#3a342f"; LINE2 = "#5a524c"
+TEXT = "#f5f0eb"; TEXT2 = "#bdb4ac"; TEXT3 = "#9a918a"
+BRAND = "#fe0000"; BRAND_FILL = "#e61100"; BRAND_TEXT = "#ff4b3e"
+OK = "#4fd8a8"; ABSTAIN = "#f2b544"; ROUTE = "#7db2ff"; FLAG = "#c9a2ff"; CTX = "#b9b0a8"
