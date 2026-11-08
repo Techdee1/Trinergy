@@ -30,6 +30,7 @@ export default function Mission() {
   const { id = 'T2-016' } = useParams()
   const nav = useNavigate()
   const [view, setView] = useState<'2d' | '3d'>('2d')
+  const [notice, setNotice] = useState<string | null>(null)
   const q = useAsync(() => api.question(id), [id])
   const arch = useAsync(() => api.archive(), [])
   const traj = useAsync(() => api.trajectories().catch(() => null), [])
@@ -48,14 +49,15 @@ export default function Mission() {
         </div>
         <div className="seg" role="group" aria-label="View" style={{ marginLeft: 'auto' }}>
           <button aria-pressed={view === '2d'} onClick={() => setView('2d')}><Rows3 {...ICON} size={14} />2D</button>
-          <button aria-pressed={view === '3d'} onClick={() => setView('3d')}><Box {...ICON} size={14} />3D</button>
+          <button aria-pressed={view === '3d'} onClick={() => { setNotice(null); setView('3d') }}><Box {...ICON} size={14} />3D</button>
         </div>
       </div>
+      {notice && <div className="callout route" role="status" style={{ marginBottom: 'var(--s-4)' }}><Box {...ICON} /><p className="t-14">{notice}</p></div>}
       {err ? <ErrorState title="Could not load this run" body={err.message} />
         : !q.data || !world ? <Loading lines={6} />
         : <>
           {view === '2d' ? <Replay2D tl={tl} world={world} r={r} />
-            : <Suspense fallback={<Loading />}><MissionControl3D timeline={tl} world={world} replay={r} /></Suspense>}
+            : <Suspense fallback={<Loading />}><MissionControl3D timeline={tl} world={world} replay={r} onFallback={m => { setNotice(m); setView('2d') }} /></Suspense>}
           <ReplayControls r={r} />
           <p className="t-12 faint kbd-hint"><span className="kbd">Space</span> play or pause <span className="kbd">←</span><span className="kbd">→</span> step <span className="kbd">R</span> replay <span className="kbd">S</span> speed</p>
         </>}

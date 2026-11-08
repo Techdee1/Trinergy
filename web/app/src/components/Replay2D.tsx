@@ -12,7 +12,7 @@ import { confidenceRule } from '../lib/trace'
 
 export type ReplayApi = ReturnType<typeof import('../lib/useReplay').useReplay>
 
-const KIND_ICON: Record<string, React.ReactNode> = {
+export const KIND_ICON: Record<string, React.ReactNode> = {
   parse: <ScanText {...ICON} size={16} />, route: <RouteIcon {...ICON} size={16} />, gate: <HelpCircle {...ICON} size={16} />, context: <FileText {...ICON} size={16} />,
   draft: <Cpu {...ICON} size={16} />, verify: <ShieldCheck {...ICON} size={16} />, second_pass: <RotateCw {...ICON} size={16} />, escalate: <ArrowUpRight {...ICON} size={16} />,
   arbitrate: <Scale {...ICON} size={16} />, answer: <MessageSquareQuote {...ICON} size={16} />,
@@ -153,7 +153,7 @@ export function Replay2D({ tl, world, r, live }: { tl: ReplayTimeline; world: Wo
   )
 }
 
-function AnswerResolve({ d }: { d: QuestionDetail }) {
+export function AnswerResolve({ d }: { d: QuestionDetail }) {
   const rule = confidenceRule(d)
   return (
     <div className="stack resolve">
@@ -164,7 +164,7 @@ function AnswerResolve({ d }: { d: QuestionDetail }) {
   )
 }
 
-function NowCard({ stage, v, total }: { stage: ReplayStage; v: ReturnType<typeof viewAt>; total: number }) {
+export function NowCard({ stage, v, total }: { stage: ReplayStage; v: ReturnType<typeof viewAt>; total: number }) {
   const p = stage.payload
   return (
     <div className="stack">

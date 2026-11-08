@@ -1,6 +1,6 @@
-import { lazy, Suspense, useEffect, useMemo } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, EyeOff, Keyboard, Sun, Moon, X } from 'lucide-react'
+import { Box, ChevronLeft, ChevronRight, EyeOff, Keyboard, Rows3, Sun, Moon, X } from 'lucide-react'
 import { api } from '../api/client'
 import { useAsync, useKey } from '../lib/hooks'
 import { buildWorld, timelineFromDetail } from '../lib/adapter'
@@ -12,6 +12,7 @@ import { ICON, Loading } from '../components/ui'
 import { FOOTER } from '../components/Shell'
 
 const Ask = lazy(() => import('./Ask'))
+const MissionControl3D = lazy(() => import('../three/MissionControl3D'))
 
 const STEPS = [
   { key: 'intro', label: 'Intro' },
@@ -21,7 +22,9 @@ const STEPS = [
   { key: 'try', label: 'Your question' },
 ] as const
 
-function Story({ id, title, note }: { id: string; title: string; note: string }) {
+function Story({ id, title, note, allow3d }: { id: string; title: string; note: string; allow3d?: boolean }) {
+  const [mode, setMode] = useState<'2d' | '3d'>('2d')
+  const [notice, setNotice] = useState<string | null>(null)
   const q = useAsync(() => api.question(id), [id])
   const arch = useAsync(() => api.archive(), [])
   const traj = useAsync(() => api.trajectories().catch(() => null), [])
@@ -38,7 +41,12 @@ function Story({ id, title, note }: { id: string; title: string; note: string })
   return (
     <div className="stack-5">
       <header className="tour-head"><div className="stack-2"><span className="eyebrow mono">{id}</span><h1 className="t-48">{title}</h1></div><p className="t-20 muted tour-note">{note}</p></header>
-      {!q.data || !world ? <Loading lines={5} /> : <><Replay2D tl={tl} world={world} r={r} /><ReplayControls r={r} /></>}
+      {allow3d && <div className="row-2" style={{ justifyContent: 'flex-end', marginTop: 'calc(-1 * var(--s-4))' }}>
+        {notice && <span className="t-12 faint">{notice}</span>}
+        <div className="seg" role="group" aria-label="View"><button aria-pressed={mode === '2d'} onClick={() => setMode('2d')}><Rows3 {...ICON} size={14} />2D</button><button aria-pressed={mode === '3d'} onClick={() => { setNotice(null); setMode('3d') }}><Box {...ICON} size={14} />3D</button></div></div>}
+      {!q.data || !world ? <Loading lines={5} /> : <>
+        {mode === '3d' ? <Suspense fallback={<Loading />}><MissionControl3D timeline={tl} world={world} replay={r} onFallback={m => { setNotice(m); setMode('2d') }} /></Suspense> : <Replay2D tl={tl} world={world} r={r} />}
+        <ReplayControls r={r} /></>}
     </div>
   )
 }
@@ -79,7 +87,7 @@ export default function Present() {
             <p className="t-14 faint row-2"><Keyboard {...ICON} size={16} /><span className="kbd">←</span><span className="kbd">→</span> change step <span className="kbd">Space</span> play or pause <span className="kbd">R</span> replay <span className="kbd">S</span> speed <span className="kbd">H</span> hide cursor</p>
           </section>
         )}
-        {(s.key === 'a' || s.key === 'b' || s.key === 'c') && <Story key={s.key} id={s.id} title={s.title} note={s.note} />}
+        {(s.key === 'a' || s.key === 'b' || s.key === 'c') && <Story key={s.key} id={s.id} title={s.title} note={s.note} allow3d={s.key === 'c'} />}
         {s.key === 'try' && <div className="tour-try"><Suspense fallback={<Loading />}><Ask /></Suspense></div>}
       </main>
       <div className="tour-foot">

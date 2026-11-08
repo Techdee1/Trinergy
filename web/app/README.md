@@ -100,6 +100,19 @@ Open from the rail (**Presenter mode**) or `#/present`. Type scale is enlarged, 
 
 The same replay keys (`Space`, `←`, `→`, `R`, `S`) work in Mission control.
 
+## 3D view (Mission control, and story (c) in Presenter mode)
+
+Behind the 2D/3D toggle; 2D is the default and the fallback (automatic on WebGL failure or sustained frame rate under 20 fps, with a quiet notice).
+Plain three.js, lazy-loaded (`src/three/`, about 141 kB gzip, nothing fetched). Verify with `node tests/shots3d.mjs` (needs the dev server on port 3000).
+
+- **Real:** well path shapes (minimum curvature from the survey stations in `/trajectories`), TVD values and the TVD scale, station MDs, the 6 reports
+  that carry their own survey stations (placed at that day's deepest station, solid sphere), every stage, record count, cited ID and ABSENT result (from the trace).
+- **Schematic:** the platform template ring and the 15/9-19 offset (absolute coordinates are not in the data), the dashed line from each wellhead
+  to its first surveyed station, the 1,500 m dashed line for 15/9-F-1 (no azimuth) and 15/9-F-12 (no survey), and the position of the 26 reports
+  with no depth in the data (flat ring, spread in date order along the path). The legend and the on-screen note say so.
+- Mouse: drag to orbit, scroll to zoom, right-drag to pan, hover a report or well, click a report to list its records in the side panel. *Reset view*
+  returns to the choreographed camera. The replay keys are the same as 2D.
+
 ## Code map
 
 - [src/lib/adapter.ts](src/lib/adapter.ts): the shared data adapter (replay timeline, derived state, world with trajectories). The 2D replay and the 3D scene both use it.
