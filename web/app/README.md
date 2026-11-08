@@ -125,7 +125,7 @@ Open from the rail (**Presenter mode**) or `#/present`. Type scale is enlarged, 
 | `H` | hide or show the cursor |
 | `Esc` | exit |
 
-The same replay keys (`Space`, `←`, `→`, `R`, `S`) work in Mission control.
+The same replay keys (`Space`, `←`, `→`, `R`, `S`) work in Mission control. In the 3D view `F` toggles Focus; `[` collapses the sidebar.
 
 ## 3D view (Mission control, and story (c) in Presenter mode)
 
@@ -137,6 +137,9 @@ Plain three.js, lazy-loaded (`src/three/`, about 141 kB gzip, nothing fetched). 
 - **Schematic:** the platform template ring and the 15/9-19 offset (absolute coordinates are not in the data), the dashed line from each wellhead
   to its first surveyed station, the 1,500 m dashed line for 15/9-F-1 (no azimuth) and 15/9-F-12 (no survey), and the position of the 26 reports
   with no depth in the data (flat ring, spread in date order along the path). The legend and the on-screen note say so.
+- **Focus** (`F`, or the button top right of the 3D view) gives the scene the full width and nearly the full height; the stage list and side panel
+  give way to a compact card (current stage, counts, answer and confidence). On by default below 1600 px wide; the choice is remembered.
+- The left sidebar collapses to icons with the button next to the logo, or `[`. Remembered across visits.
 - Mouse: drag to orbit, scroll to zoom, right-drag to pan, hover a report or well, click a report to list its records in the side panel. *Reset view*
   returns to the choreographed camera. The replay keys are the same as 2D.
 

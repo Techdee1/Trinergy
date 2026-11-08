@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { Compass, ListChecks, Orbit, Sparkles, Landmark, Archive as ArchiveIcon, Coins, MessageSquareText, Sun, Moon, Presentation, Server, Loader2 } from 'lucide-react'
+import { Compass, ListChecks, Orbit, Sparkles, Landmark, Archive as ArchiveIcon, Coins, MessageSquareText, Sun, Moon, Presentation, Server, Loader2, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { api, API_BASE, API_SOURCE } from '../api/client'
 import type { Health } from '../api/types'
 import { useUi } from '../lib/ui-state'
+import { useKey } from '../lib/hooks'
 import { Mark } from './Mark'
 import { ICON } from './ui'
 
@@ -24,9 +25,12 @@ const NAV = [
 ]
 
 export function Rail({ health }: { health: Health | null }) {
-  const { theme, toggleTheme, setPresenter } = useUi()
+  const { theme, toggleTheme, setPresenter, railCollapsed, toggleRail } = useUi()
   return (
     <nav className="rail" aria-label="Primary">
+      <button className="btn ghost iconbtn sm rail-toggle" onClick={toggleRail} aria-label={railCollapsed ? 'Expand the sidebar ([)' : 'Collapse the sidebar ([)'} title={railCollapsed ? 'Expand sidebar  [' : 'Collapse sidebar  ['}>
+        {railCollapsed ? <PanelLeftOpen {...ICON} size={16} /> : <PanelLeftClose {...ICON} size={16} />}
+      </button>
       <NavLink to="/" className="rail-brand" aria-label="Intelligent Well Archive, overview">
         <Mark />
         <span className="stack-0"><b>Well Archive</b><small>Team Trinergy</small></span>
@@ -34,20 +38,20 @@ export function Rail({ health }: { health: Health | null }) {
       <ul className="rail-nav">
         {NAV.map(n => (
           <li key={n.to}>
-            <NavLink to={n.to} end={n.end} className={({ isActive }) => 'rail-link' + (isActive ? ' active' : '')}>
+            <NavLink to={n.to} end={n.end} className={({ isActive }) => 'rail-link' + (isActive ? ' active' : '')} title={n.label} aria-label={n.label}>
               <n.icon {...ICON} size={18} /><span>{n.label}</span>
             </NavLink>
           </li>
         ))}
       </ul>
       <div className="rail-foot">
-        <NavLink to="/present" className="btn sm" onClick={() => setPresenter(true)} style={{ justifyContent: 'flex-start' }}>
-          <Presentation {...ICON} size={16} /> Presenter mode
+        <NavLink to="/present" className="btn sm rail-present" onClick={() => setPresenter(true)} title="Presenter mode" aria-label="Presenter mode">
+          <Presentation {...ICON} size={16} /> <span>Presenter mode</span>
         </NavLink>
         <div className="row between">
           <span className="rail-live" title={health ? (health.live_mode ? 'Uncached questions are sent to the model' : 'Cached answers only') : 'Checking server'}>
             <Server {...ICON} size={14} />
-            {health ? (health.live_mode ? 'Live mode on' : 'Cached answers only') : 'Checking…'}
+            <span>{health ? (health.live_mode ? 'Live mode on' : 'Cached answers only') : 'Checking…'}</span>
           </span>
           <button className="btn ghost iconbtn sm" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
             {theme === 'dark' ? <Sun {...ICON} /> : <Moon {...ICON} />}
@@ -109,11 +113,13 @@ export function Layout({ children }: { children: ReactNode }) {
   const tour = loc.pathname.startsWith('/present')
   const bare = loc.pathname.startsWith('/styleguide')
   const main = useRef<HTMLElement>(null)
+  const { railCollapsed, toggleRail } = useUi()
+  useKey(e => { if (e.key === '[') toggleRail() }, !tour)
   useEffect(() => { main.current?.scrollTo({ top: 0 }); window.scrollTo({ top: 0 }) }, [loc.pathname])
   return (
     <HealthCtx.Provider value={health}>
       <a href="#main" className="skip">Skip to content</a>
-      <div className={'app' + (tour ? ' tour' : '')}>
+      <div className={'app' + (tour ? ' tour' : '') + (railCollapsed && !tour ? ' rail-collapsed' : '')}>
         {!tour && <Rail health={health} />}
         <div className="app-main">
           <main id="main" ref={main} tabIndex={-1}>

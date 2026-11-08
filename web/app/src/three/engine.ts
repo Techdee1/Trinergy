@@ -342,8 +342,8 @@ export class Engine {
       if (cand) c.lerp(P.text, 0.45); else if (routed) c.lerp(P.bg, 0.72)
       tm?.color.copy(c); dm.color.copy(c); dm.opacity = (routed && !cand ? 0.3 : 0.7) * (w.dashedOnly ? 0.75 : 1)
     }
-    for (const l of this.labels) if (l.well) l.el.classList.toggle('l3-dim', routed && !view.candidates.has(l.well.name))
-    for (const l of this.labels) if (l.el.dataset.slot) l.el.classList.toggle('l3-dim', routed && !this.layout.slots.some(s => s.name === l.el.dataset.slot && s.wellbores.some(wb => view.candidates.has(wb))))
+    for (const l of this.labels) if (l.well) { l.el.classList.toggle('l3-dim', routed && !view.candidates.has(l.well.name)); l.el.classList.toggle('l3-hide', routed && !view.candidates.has(l.well.name) && view.candidates.size < this.layout.wells.length) }
+    for (const l of this.labels) if (l.el.dataset.slot) { const on = this.layout.slots.some(s => s.name === l.el.dataset.slot && s.wellbores.some(wb => view.candidates.has(wb))); l.el.classList.toggle('l3-dim', routed && !on); l.el.classList.toggle('l3-hide', routed && !on && view.candidates.size < this.layout.wells.length) }
     // selection ring on a picked node
     const p = this.picked ? this.layout.byStem.get(this.picked) : null
     this.selRing.visible = !!p; if (p) this.selRing.position.copy(p.pos)
@@ -407,19 +407,30 @@ export class Engine {
   private fitCam = new THREE.PerspectiveCamera()
   private corners = Array.from({ length: 8 }, () => new THREE.Vector3())
   /** Distance found by projecting the box corners with the real (offset) projection until they fill ~80% of the frame. */
+  private lastFit: { box: THREE.Box3; k: number } | null = null
+  private reserveRight = 0 // px on the right covered by the HUD; the projection is shifted so the scene centres in the free area
+  setReserveRight(px: number) {
+    if (px === this.reserveRight) return
+    this.reserveRight = px; this.applyOffset()
+    if (!this.userMoved && this.lastFit) this.fitBox(this.lastFit.box, this.lastFit.k, false, 700)
+    this.dirty = true
+  }
   private fitBox(box: THREE.Box3, k: number, instant: boolean, dur = 1600) {
+    this.lastFit = { box: box.clone(), k }
     const c = box.getCenter(new THREE.Vector3())
     const fc = this.fitCam; fc.copy(this.camera)
     const cs = this.corners; let i = 0
     for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) cs[i++].set(x, y, z)
     let dist = box.getSize(new THREE.Vector3()).length() * 1.2 + 400
-    const lim = { x: 0.92, yTop: 0.66, yBot: -0.86 } // NDC: keep clear of the question header (top) and legend (bottom)
+    const lim = { x: 0.9, yTop: 0.8, yBot: -0.78 } // NDC: keep clear of the tool buttons (top) and the legend (bottom)
+    const w = this.host.clientWidth || 1
+    const xR = this.reserveRight > 0 ? Math.max(0.2, 1 - (2 * (this.reserveRight + 16)) / w) : lim.x, xL = -lim.x
     for (let it = 0; it < 14; it++) {
       fc.position.copy(c).addScaledVector(DIR, dist); fc.lookAt(c); fc.updateMatrixWorld(); fc.updateProjectionMatrix()
       let worst = 0
       for (const p of cs) {
         this.v.copy(p).project(fc)
-        worst = Math.max(worst, Math.abs(this.v.x) / lim.x, this.v.y > 0 ? this.v.y / lim.yTop : this.v.y / lim.yBot)
+        worst = Math.max(worst, this.v.x > 0 ? this.v.x / xR : this.v.x / xL, this.v.y > 0 ? this.v.y / lim.yTop : this.v.y / lim.yBot)
       }
       dist *= Math.max(0.6, Math.min(1.8, 0.35 + 0.65 * worst))
       if (Math.abs(worst - 1) < 0.03) break
@@ -536,10 +547,14 @@ export class Engine {
   private resize() {
     const w = this.host.clientWidth, h = this.host.clientHeight; if (!w || !h) return
     this.renderer.setSize(w, h, false); this.camera.aspect = w / h; this.applyOffset(); this.dirty = true
+    // keep the choreographed framing when the stage changes size (focus toggle, rail collapse, window resize)
+    if (!this.userMoved && this.lastFit) this.fitBox(this.lastFit.box, this.lastFit.k, true)
   }
   private applyOffset() {
     const w = this.host.clientWidth, h = this.host.clientHeight; if (!w || !h) return
-    this.camera.setViewOffset(w, h + 160, 0, 0, w, h); this.camera.updateProjectionMatrix()
+    const px = this.reserveRight
+    if (px > 0 && px < w * 0.6) this.camera.setViewOffset(w + px, h, px, 0, w, h); else this.camera.clearViewOffset()
+    this.camera.updateProjectionMatrix()
   }
 
   dispose() {

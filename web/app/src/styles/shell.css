@@ -6,6 +6,7 @@
 .skip { position: absolute; left: var(--s-3); top: -48px; z-index: 100; background: var(--surface-3); padding: var(--s-2) var(--s-3); border-radius: var(--r-1); transition: top var(--t-fast); }
 .skip:focus { top: var(--s-3); }
 
+.rail { transition: padding var(--t-med) var(--ease-out); }
 .rail { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: var(--s-6); padding: var(--s-5) var(--s-3) var(--s-4); background: var(--surface-1); border-right: 1px solid var(--line); }
 .rail-brand { display: flex; align-items: center; gap: var(--s-3); padding: 0 var(--s-2); }
 .rail-brand b { font-size: var(--fs-14); font-weight: 650; letter-spacing: -0.01em; }
@@ -28,3 +29,24 @@
 .spin { animation: spin 1.1s linear infinite; color: var(--route); } @keyframes spin { to { transform: rotate(360deg); } }
 .state-card { display: grid; grid-template-columns: auto 1fr; gap: var(--s-4); color: var(--abstain); } .state-card h3, .state-card p { color: var(--text); } .state-card p { color: var(--text-2); }
 @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .rail { position: static; height: auto; flex-direction: row; flex-wrap: wrap; } .rail-nav { grid-auto-flow: column; } .rail-link span { display: none; } }
+
+/* collapsible rail */
+.app { transition: grid-template-columns var(--t-med) var(--ease-out); }
+.rail { position: sticky; }
+.rail-toggle { position: absolute; top: var(--s-5); right: var(--s-2); color: var(--text-3); }
+.rail-brand { padding-right: 36px; }
+.rail-present { justify-content: flex-start; }
+.app.rail-collapsed { grid-template-columns: 64px minmax(0, 1fr); }
+.app.rail-collapsed .rail { padding: var(--s-5) var(--s-2) var(--s-4); align-items: center; }
+.app.rail-collapsed .rail-brand { padding: 0; margin-top: 40px; }
+.app.rail-collapsed .rail-brand .stack-0,
+.app.rail-collapsed .rail-link span,
+.app.rail-collapsed .rail-present span,
+.app.rail-collapsed .rail-live span { display: none; }
+.app.rail-collapsed .rail-toggle { right: 50%; translate: 50% 0; }
+.app.rail-collapsed .rail-link { justify-content: center; padding: 0; width: 44px; }
+.app.rail-collapsed .rail-link.active::before { left: -10px; }
+.app.rail-collapsed .rail-present { width: 40px; padding: 0; justify-content: center; }
+.app.rail-collapsed .rail-foot { justify-items: center; }
+.app.rail-collapsed .rail-foot .row { flex-direction: column; gap: var(--s-2); }
+.app.tour, .app.tour.rail-collapsed { grid-template-columns: minmax(0, 1fr); }

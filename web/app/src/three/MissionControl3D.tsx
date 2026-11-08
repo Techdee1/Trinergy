@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, CheckCircle2, Circle, FileText, Info, LocateFixed, SearchX, Square, X, Route as RouteIcon, Sigma } from 'lucide-react'
+import { Check, CheckCircle2, Circle, FileText, Info, LocateFixed, Maximize2, Minimize2, SearchX, Square, X, Route as RouteIcon, Sigma } from 'lucide-react'
+import { useKey } from '../lib/hooks'
+import { ConfidenceBar } from '../components/AnswerPanel'
 import type { ReplayTimeline, World } from '../lib/adapter'
 import { recordToReport, viewAt } from '../lib/adapter'
 import { AnswerResolve, KIND_ICON, NowCard, type ReplayApi } from '../components/Replay2D'
@@ -22,6 +24,20 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
   const [hover, setHover] = useState<{ h: Hover; x: number; y: number } | null>(null)
   const [picked, setPicked] = useState<string | null>(null)
   const [moved, setMoved] = useState(false)
+  // Focus: the stage takes the full width and most of the height; stage pills and side panel give way to a compact HUD.
+  const [focus, setFocusState] = useState<boolean>(() => {
+    try { const v = localStorage.getItem('wa-3d-focus'); if (v) return v === '1' } catch { /* private mode */ }
+    return window.innerWidth < 1600
+  })
+  const setFocus = (f: boolean) => { setFocusState(f); try { localStorage.setItem('wa-3d-focus', f ? '1' : '0') } catch { /* ignore */ } }
+  useEffect(() => { if (focus) wrap.current?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) }, [focus])
+  useKey(e => { if (e.key.toLowerCase() === 'f') setFocus(!focus) })
+  // the HUD covers the right of the canvas in focus mode: tell the engine so the scene centres in the free area
+  useEffect(() => {
+    const el = host.current; if (!el) return
+    const upd = () => engine.current?.setReserveRight(focus && el.clientWidth >= 900 ? Math.min(360, el.clientWidth * 0.34) : 0)
+    upd(); const ro = new ResizeObserver(upd); ro.observe(el); return () => ro.disconnect()
+  }, [focus])
   const v = useMemo(() => viewAt(tl, r.idx), [tl, r.idx])
   const stage = tl.stages[r.idx]
   const rec2rep = useMemo(() => recordToReport(tl), [tl])
@@ -55,7 +71,7 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
   useEffect(() => {
     if (stage?.kind !== 'verify' || !engine.current || !wrap.current || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const key = tl.question + r.idx; if (flown.current === key) return; flown.current = key
-    const root = wrap.current, layer = root.querySelector<HTMLElement>('.fly-layer'), anchor = root.querySelector<HTMLElement>('.answer-anchor')
+    const root = wrap.current, layer = root.querySelector<HTMLElement>('.fly-layer'), anchor = [...root.querySelectorAll<HTMLElement>('.answer-anchor')].find(a => a.offsetParent !== null) ?? null
     if (!layer || !anchor || !host.current) return
     const base = root.getBoundingClientRect(), hb = host.current.getBoundingClientRect(), to = anchor.getBoundingClientRect()
     ;[...v.citedReports].slice(0, 16).forEach((stem, i) => {
@@ -80,22 +96,20 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
   void rec2rep
 
   return (
-    <div className="mc3-wrap" ref={wrap} style={{ ['--rs' as any]: r.speed }}>
+    <div className={'mc3-wrap' + (focus ? ' focus' : '')} ref={wrap} style={{ ['--rs' as any]: r.speed }}>
       <div className="fly-layer" aria-hidden="true" />
-      <ol className="stepper" aria-label="Pipeline stages">
+      {!focus && <ol className="stepper" aria-label="Pipeline stages">
         {tl.stages.map(s => {
           const same = tl.stages.filter(x => x.kind === s.kind)
           return <li key={s.index}><button className={'step ' + (s.index < r.idx ? 'done' : s.index === r.idx ? 'now' : 'todo')} onClick={() => r.goto(s.index)} aria-current={s.index === r.idx ? 'step' : undefined}>
             <span className="step-dot">{s.index < r.idx ? <Check {...ICON} size={12} /> : KIND_ICON[s.kind]}</span><span>{s.title}{same.length > 1 ? ` ${same.indexOf(s) + 1}` : ''}</span></button></li>
         })}
-      </ol>
-      <div className="mc">
+      </ol>}
+      <div className={'mc' + (focus ? ' mc3-focus' : '')}>
         <section className="card flush mc3" aria-label="3D view of the archive: wells and reports">
-          <div className="mc3-host" ref={host} />
-          <div className="mc3-overlay" ref={overlay} aria-hidden="true" />
-          <header className="mc3-q glass">
-            <p className="t-14 mc3-qtext">{tl.question}</p>
-            {v.parsed && v.router && <div className="chips parse on">
+          <header className="mc3-qbar">
+            <p className="mc3-qtext" title={tl.question}>{tl.question}</p>
+            {v.parsed && v.router && <div className="chips parse on mc3-chips">
               {v.router.wells_named.map((w, i) => <span key={w} className="chip pop" style={{ ['--i' as any]: i }}>well <b className="mono">{w}</b></span>)}
               {v.router.dates_named.map((w, i) => <span key={w} className="chip pop" style={{ ['--i' as any]: i + 2 }}>date <b className="num">{w}</b></span>)}
               {v.router.date_range && <span className="chip pop">range <b className="num">{v.router.date_range.join(' → ')}</b></span>}
@@ -103,8 +117,11 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
               {!v.router.wells_named.length && !v.router.dates_named.length && !v.router.date_range && <span className="chip pop">no well or date named</span>}
             </div>}
           </header>
+          <div className="mc3-body">
+          <div className="mc3-host" ref={host} />
+          <div className="mc3-overlay" ref={overlay} aria-hidden="true" />
           {secondary && <div className="mc3-banner badge flag" key={stage!.index}>{stage!.title}: {String(stage!.payload?.reason ?? '').slice(0, 120)}</div>}
-          {v.absent.length > 0 && r.idx >= 0 && <div className="mc3-absent callout abstain" key={'abs' + r.idx}><SearchX {...ICON} /><div className="t-12">
+          {!focus && v.absent.length > 0 && r.idx >= 0 && <div className="mc3-absent callout abstain" key={'abs' + r.idx}><SearchX {...ICON} /><div className="t-12">
             {v.absent.map(a => <p key={a.id}><b className="mono">{a.id}</b>: searched {a.reports_searched} report{a.reports_searched === 1 ? '' : 's'}, {a.records_searched} records. No “{a.kind}” field.</p>)}</div></div>}
           {hover && <div className="mc3-tip" style={{ transform: `translate(${hover.x + 14}px, ${hover.y + 14}px)` }} role="tooltip">
             {hover.h?.kind === 'node' ? <>
@@ -115,8 +132,28 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
             </> : hover.h?.kind === 'well' ? <><b className="mono">{hover.h.well.name}</b><span className="faint">Path from survey stations (approximate)</span></> : null}
           </div>}
           <div className="mc3-tools">
+            <button className="btn sm glass" onClick={() => setFocus(!focus)} aria-pressed={focus} title={focus ? 'Show the stage list and side panel (F)' : 'Give the 3D view the whole width (F)'}>{focus ? <Minimize2 {...ICON} size={14} /> : <Maximize2 {...ICON} size={14} />}{focus ? 'Show panel' : 'Focus'} <span className="kbd">F</span></button>
             <button className="btn sm glass" onClick={() => engine.current?.resetView(v)} disabled={!moved} title="Return to the choreographed camera"><LocateFixed {...ICON} size={14} />Reset view</button>
           </div>
+          {focus && <div className={'mc3-hud glass' + (v.answered && d?.status === 'abstain' ? ' abstain' : '')} aria-live="polite">
+            <div className="answer-anchor" />
+            {!stage ? <p className="t-14 muted">Press play to watch the search move through the archive.</p> : <>
+              <div className="row-2"><span className="step-dot now-dot">{KIND_ICON[stage.kind]}</span><b className="t-16">{stage.title}</b><span className="t-12 faint num" style={{ marginLeft: 'auto' }}>{r.idx + 1} / {tl.stages.length}</span></div>
+              {!(v.answered && d) && <p className="t-12 muted">{stage.plain}</p>}
+              {v.absent.map(a => <div key={a.id} className="agg absent"><span className="t-12"><b className="mono">{a.id}</b>: searched {a.reports_searched} report{a.reports_searched === 1 ? '' : 's'}, {a.records_searched} records. No “{a.kind}” field.</span></div>)}
+              <div className="chips">
+                {v.selected.size > 0 && <span className="badge route"><RouteIcon {...ICON} size={12} />{v.selected.size} of {total} reports</span>}
+                {v.contexts.length > 0 && <span className="badge ctx"><FileText {...ICON} size={12} />{v.contexts[v.contexts.length - 1].records.length} records</span>}
+                {v.citedIds.length > 0 && <span className="badge ok"><CheckCircle2 {...ICON} size={12} />{v.citedIds.length} cited</span>}
+                {v.verifies.length > 0 && !v.verifying && <VerifiedBadge ok={v.verifies[v.verifies.length - 1].ok} />}
+              </div>
+              {v.answered && d && <div className="stack-2">
+                <div className="row-2"><StatusBadge status={d.status} flags={d.flags} /><span className="t-24 num">{d.confidence.toFixed(2)}</span><div className="grow"><ConfidenceBar value={d.confidence} wide /></div></div>
+                <p className="t-14 mc3-hud-ans">{d.answer}</p>
+                <button className="btn sm" style={{ justifySelf: 'start' }} onClick={() => setFocus(false)}>Show the full answer and checks</button>
+              </div>}
+            </>}
+          </div>}
           <footer className="mc3-foot glass">
             <div className="legend3">
               <span className="lg"><Circle {...ICON} size={12} fill="currentColor" />At surveyed depth</span>
@@ -129,9 +166,10 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
             </div>
             <p className="t-12 faint"><Info {...ICON} size={12} style={{ display: 'inline', verticalAlign: '-1px' }} /> Schematic surface layout. Well paths from survey data (approximate). Node tint: older reports darker, newer lighter.</p>
           </footer>
+          </div>
         </section>
 
-        <aside className="mc-side">
+        {!focus && <aside className="mc-side">
           {pn ? (
             <div className="card now-card stack">
               <div className="row between"><div className="eyebrow">Report</div><button className="btn ghost iconbtn sm" aria-label="Close report" onClick={() => setPicked(null)}><X {...ICON} size={14} /></button></div>
@@ -155,7 +193,7 @@ export default function MissionControl3D({ timeline: tl, world, replay: r, onFal
             {v.answered && d ? <AnswerResolve d={d} /> : <div className="stack-2"><div className="skeleton" style={{ height: 14, width: '80%' }} /><div className="skeleton" style={{ height: 14, width: '55%' }} /></div>}
             {v.aggregates.length > 0 && <p className="t-12 faint row-2" style={{ marginTop: 8 }}><Sigma {...ICON} size={12} />{v.aggregates.length} computed aggregate{v.aggregates.length > 1 ? 's' : ''} in context</p>}
           </div>
-        </aside>
+        </aside>}
       </div>
     </div>
   )

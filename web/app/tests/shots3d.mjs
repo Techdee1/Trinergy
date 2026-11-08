@@ -9,7 +9,7 @@ const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-un
 const out = []; const fail = []
 async function open(theme, w, h, route) {
   const ctx = await b.newContext({ viewport: { width: w, height: h }, colorScheme: theme })
-  await ctx.addInitScript(t => localStorage.setItem('theme', t), theme)
+  await ctx.addInitScript(([t, f]) => { localStorage.setItem('theme', t); localStorage.setItem('wa-3d-focus', f) }, [theme, process.env.FOCUS ?? '0'])
   const p = await ctx.newPage(); p.errs = []
   p.on('console', m => { if (m.type() === 'error') p.errs.push(m.text()) }); p.on('pageerror', e => p.errs.push(String(e)))
   await p.goto(`${BASE}/#${route}`); await p.waitForSelector('.mc', { timeout: 90000 })
@@ -60,6 +60,20 @@ for (const [theme, w, h] of [['light', 1920, 1080], ['dark', 1366, 768], ['light
   const p = await open('dark', 1920, 1080, '/present?step=3')
   await p.getByRole('button', { name: '3D', exact: true }).click(); await p.waitForSelector('.mc3-canvas', { timeout: 30000 }); await p.waitForTimeout(7000)
   await p.screenshot({ path: 'screenshots/3d/presenter-c-3d-dark-1920.png' }); await close('presenter story c in 3D', p)
+}
+// 4b. focus mode + collapsed rail at a small laptop viewport (1280x600 ≈ 1920x1080 at 150% scaling)
+for (const [name, id] of Q) {
+  const ctx = await b.newContext({ viewport: { width: 1280, height: 600 }, colorScheme: 'dark' })
+  await ctx.addInitScript(() => { localStorage.setItem('theme', 'dark'); localStorage.setItem('wa-3d-focus', '1'); localStorage.setItem('rail', 'collapsed') })
+  const p = await ctx.newPage(); p.errs = []; p.on('pageerror', e => p.errs.push(String(e))); p.on('console', m => m.type() === 'error' && p.errs.push(m.text()))
+  await p.goto(`${BASE}/#/mission/${id}`); await p.waitForSelector('.mc', { timeout: 90000 })
+  await p.getByRole('button', { name: '3D', exact: true }).click(); await p.waitForSelector('.mc3-hud', { timeout: 30000 })
+  await p.keyboard.press('s'); await p.keyboard.press('s'); await p.waitForTimeout(4500)
+  await p.screenshot({ path: `screenshots/3d/${name}-focus-mid-dark-1280x600.png` })
+  await p.waitForSelector('.mc3-hud .mc3-hud-ans', { timeout: 60000 }); await p.waitForTimeout(1500)
+  await p.screenshot({ path: `screenshots/3d/${name}-focus-end-dark-1280x600.png` })
+  await p.keyboard.press('f'); await p.waitForSelector('.mc-side'); await p.keyboard.press('f'); await p.waitForSelector('.mc3-hud')
+  await close(`focus + collapsed rail ${name} 1280x600`, p)
 }
 // 5. frame rate during a 1x replay (render loop counts only frames drawn while something animates)
 const fps = {}

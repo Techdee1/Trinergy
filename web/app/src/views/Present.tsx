@@ -40,8 +40,10 @@ function Story({ id, title, note, allow3d }: { id: string; title: string; note: 
   })
   return (
     <div className="stack-5">
-      <header className="tour-head"><div className="stack-2"><span className="eyebrow mono">{id}</span><h1 className="t-48">{title}</h1></div><p className="t-20 muted tour-note">{note}</p></header>
-      {allow3d && <div className="row-2" style={{ justifyContent: 'flex-end', marginTop: 'calc(-1 * var(--s-4))' }}>
+      {mode === '3d'
+        ? <header className="row-2" style={{ alignItems: 'baseline' }}><span className="eyebrow mono">{id}</span><h1 className="t-24">{title}</h1></header>
+        : <header className="tour-head"><div className="stack-2"><span className="eyebrow mono">{id}</span><h1 className="t-48">{title}</h1></div><p className="t-20 muted tour-note">{note}</p></header>}
+      {allow3d && <div className="row-2" style={{ justifyContent: 'flex-end', marginTop: mode === '3d' ? 'calc(-1 * var(--s-8))' : 'calc(-1 * var(--s-4))' }}>
         {notice && <span className="t-12 faint">{notice}</span>}
         <div className="seg" role="group" aria-label="View"><button aria-pressed={mode === '2d'} onClick={() => setMode('2d')}><Rows3 {...ICON} size={14} />2D</button><button aria-pressed={mode === '3d'} onClick={() => { setNotice(null); setMode('3d') }}><Box {...ICON} size={14} />3D</button></div></div>}
       {!q.data || !world ? <Loading lines={5} /> : <>
