@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Compass, ListChecks, Orbit, Sparkles, Landmark, Archive as ArchiveIcon, Coins, MessageSquareText, Sun, Moon, Presentation, Server, Loader2 } from 'lucide-react'
-import { api, API_BASE } from '../api/client'
+import { api, API_BASE, API_SOURCE } from '../api/client'
 import type { Health } from '../api/types'
 import { useUi } from '../lib/ui-state'
 import { Mark } from './Mark'
@@ -58,7 +58,11 @@ export function Rail({ health }: { health: Health | null }) {
   )
 }
 
-export const Footer = () => <footer className="footer"><span>{FOOTER}</span></footer>
+const SOURCE_LABEL: Record<string, string> = { query: 'set by ?api=', 'config.js': 'set by config.js', build: 'build default', default: 'local default' }
+export const Footer = () => (
+  <footer className="footer"><div className="footer-in"><span>{FOOTER}</span>
+    <span className="api-tag" title={`API base URL (${SOURCE_LABEL[API_SOURCE]}). Change with ?api=<url> or dist/config.js.`}>API <span className="mono">{API_BASE.replace(/^https?:\/\//, '')}</span> · {SOURCE_LABEL[API_SOURCE]}</span></div></footer>
+)
 
 /** Blocks the app until the API answers; designed state for a sleeping free-tier server (up to ~1 minute). */
 function ServerGate({ children, onHealth }: { children: ReactNode; onHealth: (h: Health) => void }) {

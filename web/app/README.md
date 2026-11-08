@@ -4,37 +4,64 @@ Team Trinergy, NAPE AICE 2026, Track 2. Built for Heirs Energies. Data: Equinor 
 A React + TypeScript app (Vite) over the tested backend in [../server](../server/API.md). Everything on screen comes from the real API. Fonts, icons and
 libraries are bundled, and the only run-time network calls go to the API.
 
-## Run
+## Configuration: which API the app talks to
+
+The API base URL is resolved once at start-up, first match wins:
+
+| Order | Source | Use it for |
+|---|---|---|
+| 1 | `?api=<url>` in the address bar (before or after the `#`), e.g. `…/index.html?api=http://localhost:8000` | quick switching during a demo. Kept for the tab; `?api=default` clears it |
+| 2 | `dist/config.js`: `window.__WELL_ARCHIVE_CONFIG__ = { apiUrl: 'https://…' }` | pointing a built `dist/` at another backend without rebuilding |
+| 3 | `VITE_API_URL` at build time | `.env.production` (committed) sets `https://well-archive-api.onrender.com` for `npm run build` and Vercel; `.env.local` (git-ignored) for local overrides; see `.env.example` |
+| 4 | `http://localhost:8000` | dev server with no env file |
+
+The active URL and where it came from are shown in the footer (`API … · set by ?api=`). Only `http(s)` URLs are accepted.
+**All of these values are public** (they ship to every browser). Never put a key or token in them: the OpenRouter key lives only on the API server.
+`.env`, `.env.local` and `.env.*.local` are git-ignored.
+
+**CORS:** the API only accepts browser origins listed in its `ALLOWED_ORIGINS` (default `http://localhost:3000,http://localhost:5173`). Whatever origin serves the
+site must be in that list. Opening `dist/index.html` straight from disk (`file://`) is blocked by the browser, so always serve it over http.
+
+## Run: local demo
 
 ```bash
-# 1. API (from the repo root)
+# 1. API (repo root)
 conda activate nape
 uvicorn web.server.app:app --port 8000
 
-# 2. App (from web/app)
+# 2a. dev server (from web/app): uses http://localhost:8000 by default
 npm install
-npm run dev            # http://localhost:5173
+npm run dev                                   # http://localhost:5173
+
+# 2b. or the committed build, pointed at the local API
+npx vite preview --port 5173                  # serves dist/ (its build default is the hosted API)
+#    open http://localhost:5173/?api=http://localhost:8000
 ```
 
-`VITE_API_URL` sets the API base (default `http://localhost:8000`). Put it in `web/app/.env.local`, for example `VITE_API_URL=https://my-api.example.com`.
+`dist/` uses relative asset paths and hash routing (`#/mission/T2-017`), so any static server works, on any sub-path, with no rewrite rules.
 
-**CORS:** the server only accepts origins listed in `ALLOWED_ORIGINS` (default `http://localhost:3000,http://localhost:5173`). Serve the built site from one of
-those, or add your host to `ALLOWED_ORIGINS` on the server. Opening `dist/index.html` straight from disk (`file://`) is blocked by the browser's CORS rules.
+## Run: hosted
+
+1. **API on Render**: deployed from `web/server` (see `web/DEPLOY.md`), public URL `https://well-archive-api.onrender.com`.
+2. **Site on Vercel**: import the repo, root directory `web/app`, build command `npm run build`, output directory `dist`. Set the environment variable
+   `VITE_API_URL=https://well-archive-api.onrender.com` (already the default in `.env.production`, so this is optional unless the API moves).
+3. **Allow the site's origin on the API**: in the Render dashboard, set `ALLOWED_ORIGINS` on the API service to include the Vercel URL, for example
+   `ALLOWED_ORIGINS=https://well-archive.vercel.app,http://localhost:5173,http://localhost:3000` (exact origin: scheme and host, no trailing slash, no path),
+   then redeploy. Without this step the browser blocks every request and the site stays on "Waking the archive server".
+4. The free Render plan sleeps when idle: the first visit can take up to a minute, and the site shows a designed waiting state meanwhile.
 
 ## Build
 
 ```bash
-npm run build          # type-checks, then writes web/app/dist (committed)
-npm run preview        # serves dist on http://localhost:4173 (add that origin to ALLOWED_ORIGINS, or use --port 5173)
+npm run build          # type-checks, then writes web/app/dist (committed), using .env.production
 ```
-
-`dist/` uses relative asset paths and hash routing (`#/mission/T2-017`), so it works from any static host or sub-path with no rewrite rules.
 
 ## Verify
 
 ```bash
 npx playwright install chromium     # once
-BASE=http://localhost:5173 node tests/shots.mjs
+BASE='http://localhost:5173/?api=http://localhost:8000' node tests/shots.mjs   # dist build, local API
+node tests/shots3d.mjs                                                     # dev server on :3000 (npx vite --port 3000)
 ```
 
 `tests/shots.mjs` runs against the live API. It renders every view in both themes at 1920x1080 and 1366x768, runs the replay for an answered, a

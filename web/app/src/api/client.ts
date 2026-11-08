@@ -1,6 +1,9 @@
 import type * as T from './types'
 
-export const API_BASE: string = ((import.meta as any).env?.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || 'http://localhost:8000'
+import { API_CONFIG } from './config'
+
+export const API_BASE: string = API_CONFIG.url
+export const API_SOURCE = API_CONFIG.source
 
 export class ApiError extends Error {
   constructor(public status: number, public code: string, message: string, public retryAfter?: number, public body?: any) { super(message) }

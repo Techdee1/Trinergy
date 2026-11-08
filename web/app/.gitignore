@@ -1,3 +1,7 @@
 node_modules
 .vite
 test-results
+# local env files may hold machine-specific values; never commit them
+.env
+.env.local
+.env.*.local
