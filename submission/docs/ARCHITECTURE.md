@@ -1,6 +1,6 @@
 # Architecture: Intelligent Well Archive
 
-Team Trinergy, NAPE AICE 2026, Track 2. For reviewers: see [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md) to run it. Diagram sources (SVG) are in [../../docs/presentation/diagrams/](../../docs/presentation/diagrams/).
+Team Trinergy, NAPE AICE 2026, Track 2. For reviewers: see [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md) to run it. The diagrams are in [img/](img/).
 
 ## 1. The idea in four rules
 
@@ -75,7 +75,7 @@ A React and TypeScript app (`web/app/`, built with Vite, 3D with three.js) over 
 
 ![Deployment topology](img/deployment.png)
 
-The plan is the API on Render and the static site on Vercel (hosted addresses: TODO-URL). The repository deploys nothing by itself; see [../../web/DEPLOY.md](../../web/DEPLOY.md) and [../../web/render.yaml](../../web/render.yaml). The OpenRouter key lives only on the API host, is never returned or logged, and should carry its own credit limit. Offline fallback: the same API and the built dashboard run on a laptop, and the notebook needs no key.
+The plan is the API on Render and the static site on Vercel (no hosted address yet). The repository deploys nothing by itself; see [../../web/DEPLOY.md](../../web/DEPLOY.md) and [../../web/render.yaml](../../web/render.yaml). The OpenRouter key lives only on the API host, is never returned or logged, and should carry its own credit limit. Offline fallback: the same API and the built dashboard run on a laptop, and the notebook needs no key.
 
 ## 11. Design trade-offs
 

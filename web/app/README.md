@@ -143,27 +143,6 @@ Plain three.js, lazy-loaded (`src/three/`, about 141 kB gzip, nothing fetched). 
 - Mouse: drag to orbit, scroll to zoom, right-drag to pan, hover a report or well, click a report to list its records in the side panel. *Reset view*
   returns to the choreographed camera. The replay keys are the same as 2D.
 
-## Documentation
-
-Written for people who will use, present or photograph the dashboard. Every figure in them is read from the live API (`docs/facts.json`).
-
-| File | What it is |
-|---|---|
-| [docs/UI_Guide.pdf](docs/UI_Guide.pdf) | 20 pages: what the dashboard is, a view-by-view tour with numbered callouts, how to operate it (controls, shortcuts, every Ask state), how to read the trace, running it, design notes and the "truthful visuals" page. |
-| [docs/Screenshot_Guide.pdf](docs/Screenshot_Guide.pdf) | A slide-ready shot list: file name, view and state, steps to reproduce, caption and the slide each shot suits. Images are in [docs/shots/](docs/shots/) (clean and annotated, dark 1920x1080 and light 1366x768). Two hero images and a replay clip are in [docs/shots/hero/](docs/shots/hero/). |
-| [docs/UI_Demo_Plan.md](docs/UI_Demo_Plan.md) | The 3 minute 30 second dashboard part of the live demo (it follows the notebook run in `docs/presentation/Demo_Script.md`), a pre-demo checklist, an "if it fails" table and a 60-second version. |
-
-Regenerate everything (API on :8000, built app on :5173):
-
-```bash
-node docs/capture.mjs                  # all screenshots and docs/facts.json (use --only id,id or --variants dark)
-node docs/capture-hero.mjs final       # hero A and B, dark and light, 4K and 1080p
-FFMPEG=/path/to/ffmpeg node docs/capture-hero.mjs clip   # the T2-016 replay clip (MP4 needs ffmpeg with libx264)
-node docs/build-docs.mjs               # both PDFs
-```
-
-The scripts add callouts by injecting overlay markers in Playwright and change no application code. Two states cannot be reached on a normal server, so they are composed from real payloads and labelled so in the Screenshot Guide: the XML-only state and NOT EVALUATED.
-
 ## Code map
 
 - [src/lib/adapter.ts](src/lib/adapter.ts): the shared data adapter (replay timeline, derived state, world with trajectories). The 2D replay and the 3D scene both use it.

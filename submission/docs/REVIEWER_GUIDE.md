@@ -49,7 +49,7 @@ The notebook is `submission/solution.ipynb`. Numbers below are from the no-key c
 3. Run cell 2 and the cells below it.
 4. The output goes to `submission/predictions_<your file name>.csv`. It never overwrites the committed `predictions.csv` unless you set `OUTPUT_PATH` to that file on purpose (environment variable `NAPE_OUTPUT_PATH`). The notebook validates the output against the organiser's format.
 
-An example input file is [`docs/presentation/demo_questions.csv`](../../docs/presentation/demo_questions.csv).
+An example input file is [`submission/docs/demo_questions.csv`](demo_questions.csv).
 
 ## 4. How reproducibility works
 
@@ -174,7 +174,6 @@ submission/
 tests/                                          pipeline tests (345 pass, 1 skipped)
 web/server/                                     optional backend API (99 tests)
 web/app/                                        optional dashboard (React + TypeScript)
-docs/presentation/                              presentation pack (not needed to run the work)
 ```
 
 ## 12. Testing
@@ -204,4 +203,4 @@ A React and TypeScript dashboard and a FastAPI backend sit on top of the same pi
 - **What it is:** answer view with the PDF page and highlight boxes, a replay of the real trace, a 3D view, the 72-question board, generalisation, cost, and an Ask box.
 - **Code and guides:** backend in `web/server/` (API guide: [web/server/API.md](../../web/server/API.md)); dashboard in `web/app/` ([web/app/README.md](../../web/app/README.md)); deployment in [web/DEPLOY.md](../../web/DEPLOY.md).
 - **Run it locally:** `uvicorn web.server.app:app --port 8000` from the repository root, then in `web/app` run `npx vite preview --port 5173` and open `http://localhost:5173/?api=http://localhost:8000`.
-- **Hosted link:** TODO-URL (dashboard) and TODO-URL (API). Nothing is deployed by the repository itself.
+- **Hosted link:** none yet. The repository deploys nothing by itself; see [web/DEPLOY.md](../../web/DEPLOY.md) to deploy.
