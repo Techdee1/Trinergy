@@ -1,0 +1,19 @@
+{
+  "id": "19A-19800101-STATUS-TIGHTWELL",
+  "type": "status",
+  "text": "15/9-19-A | report 1980-01-01 | status | tightWell = 0",
+  "report": "15_9_19_A_1980_01_01",
+  "well": "15/9-19-A",
+  "report_date": "1980-01-01",
+  "evidence": {
+    "kind": "xml_only",
+    "label": "XML only: 15_9_19_A_1980_01_01.xml 19A-19800101-STATUS-TIGHTWELL",
+    "pdf_file": null,
+    "page": null,
+    "section": null,
+    "xml_file": "15_9_19_A_1980_01_01.xml",
+    "xml_only_paths": ["status/tightWell"],
+    "page_url": null,
+    "boxes_url": null
+  }
+}

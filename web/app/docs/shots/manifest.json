@@ -1,0 +1,1781 @@
+{
+  "generated": "2026-11-08T11:57:11.673Z",
+  "shots": {
+    "overview_hero": {
+      "variants": {
+        "dark": {
+          "clean": "overview_hero_dark_1920.png",
+          "annotated": "overview_hero_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The promise: evidence for every answer, or an honest \"not here\""
+            },
+            {
+              "n": 2,
+              "label": "Watch it work: opens the replay of one question"
+            },
+            {
+              "n": 3,
+              "label": "Live counters read from the API: questions, reports, records, verified answers, total cost"
+            },
+            {
+              "n": 4,
+              "label": "Navigation rail: one entry per view"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "overview_hero_light_1366.png",
+          "annotated": "overview_hero_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The promise: evidence for every answer, or an honest \"not here\""
+            },
+            {
+              "n": 2,
+              "label": "Watch it work: opens the replay of one question"
+            },
+            {
+              "n": 3,
+              "label": "Live counters read from the API: questions, reports, records, verified answers, total cost"
+            },
+            {
+              "n": 4,
+              "label": "Navigation rail: one entry per view"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "overview_hero",
+      "composed": false,
+      "mocked": null
+    },
+    "answer_t2016": {
+      "variants": {
+        "dark": {
+          "clean": "answer_t2016_dark_1920.png",
+          "annotated": "answer_t2016_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The question as asked"
+            },
+            {
+              "n": 2,
+              "label": "The answer, with its rationale and the evidence string"
+            },
+            {
+              "n": 3,
+              "label": "Status badges: answered, verified, router mode"
+            },
+            {
+              "n": 4,
+              "label": "Confidence and the plain-language rule behind it (set by code, never by the model)"
+            },
+            {
+              "n": 5,
+              "label": "Where the answer came from: stored model calls, live, or code only"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "answer_t2016_light_1366.png",
+          "annotated": "answer_t2016_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The question as asked"
+            },
+            {
+              "n": 2,
+              "label": "The answer, with its rationale and the evidence string"
+            },
+            {
+              "n": 3,
+              "label": "Status badges: answered, verified, router mode"
+            },
+            {
+              "n": 4,
+              "label": "Confidence and the plain-language rule behind it (set by code, never by the model)"
+            },
+            {
+              "n": 5,
+              "label": "Where the answer came from: stored model calls, live, or code only"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "answer_t2016",
+      "composed": false,
+      "mocked": null
+    },
+    "evidence_highlight_t2016": {
+      "variants": {
+        "dark": {
+          "clean": "evidence_highlight_t2016_dark_1920.png",
+          "annotated": "evidence_highlight_t2016_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The highlight: the row, value or heading that supports the answer"
+            },
+            {
+              "n": 2,
+              "label": "The original report page, rendered from the PDF in the archive"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "evidence_highlight_t2016_light_1366.png",
+          "annotated": "evidence_highlight_t2016_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The highlight: the row, value or heading that supports the answer"
+            },
+            {
+              "n": 2,
+              "label": "The original report page, rendered from the PDF in the archive"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "evidence_highlight_t2016",
+      "composed": false,
+      "mocked": null
+    },
+    "trace_t2017_verifier": {
+      "variants": {
+        "dark": {
+          "clean": "trace_t2017_verifier_dark_1920.png",
+          "annotated": "trace_t2017_verifier_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Every model call: role, model, provider-reported tokens, time, cost, cache or live"
+            },
+            {
+              "n": 2,
+              "label": "The verifier: code re-checks every claim against the cited records"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "trace_t2017_verifier_light_1366.png",
+          "annotated": "trace_t2017_verifier_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Every model call: role, model, provider-reported tokens, time, cost, cache or live"
+            },
+            {
+              "n": 2,
+              "label": "The verifier: code re-checks every claim against the cited records"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "trace_t2017_verifier",
+      "composed": false,
+      "mocked": null
+    },
+    "replay_t2016_3_verify": {
+      "variants": {
+        "dark": {
+          "clean": "replay_t2016_3_verify_dark_1920.png",
+          "annotated": "replay_t2016_3_verify_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Verifier checks ticking in"
+            },
+            {
+              "n": 2,
+              "label": "The cited report turns green"
+            },
+            {
+              "n": 3,
+              "label": "The answer card fills in: cited record and verified badge"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "replay_t2016_3_verify_light_1366.png",
+          "annotated": "replay_t2016_3_verify_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Verifier checks ticking in"
+            },
+            {
+              "n": 2,
+              "label": "The cited report turns green"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "replay_t2016_3_verify",
+      "composed": false,
+      "mocked": null
+    },
+    "overview_principles": {
+      "variants": {
+        "dark": {
+          "clean": "overview_principles_dark_1920.png",
+          "annotated": "overview_principles_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The four rules the system never breaks"
+            },
+            {
+              "n": 2,
+              "label": "The pipeline in six steps: question, router, evidence, draft, verifier, answer or abstain"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "overview_principles_light_1366.png",
+          "annotated": "overview_principles_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The four rules the system never breaks"
+            },
+            {
+              "n": 2,
+              "label": "The pipeline in six steps: question, router, evidence, draft, verifier, answer or abstain"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "overview_principles",
+      "composed": false,
+      "mocked": null
+    },
+    "questions_board": {
+      "variants": {
+        "dark": {
+          "clean": "questions_board_dark_1920.png",
+          "annotated": "questions_board_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Set filter: challenge (32) or unseen (40)"
+            },
+            {
+              "n": 2,
+              "label": "Search by question text or ID"
+            },
+            {
+              "n": 3,
+              "label": "Status: answered, abstained, partial or not evaluated"
+            },
+            {
+              "n": 4,
+              "label": "Confidence, set by code from a documented rule"
+            },
+            {
+              "n": 5,
+              "label": "Click any row to open the answer and its trace"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "questions_board_light_1366.png",
+          "annotated": "questions_board_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Set filter: challenge (32) or unseen (40)"
+            },
+            {
+              "n": 2,
+              "label": "Search by question text or ID"
+            },
+            {
+              "n": 3,
+              "label": "Status: answered, abstained, partial or not evaluated"
+            },
+            {
+              "n": 4,
+              "label": "Confidence, set by code from a documented rule"
+            },
+            {
+              "n": 5,
+              "label": "Click any row to open the answer and its trace"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "questions_board",
+      "composed": false,
+      "mocked": null
+    },
+    "evidence_xml_only": {
+      "variants": {
+        "dark": {
+          "clean": "evidence_xml_only_dark_1920.png",
+          "annotated": "evidence_xml_only_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The cited record, marked \"XML only\""
+            },
+            {
+              "n": 2,
+              "label": "The state label"
+            },
+            {
+              "n": 3,
+              "label": "The XML file, record ID and the exact value. The XML is authoritative"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "evidence_xml_only_light_1366.png",
+          "annotated": "evidence_xml_only_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The cited record, marked \"XML only\""
+            },
+            {
+              "n": 2,
+              "label": "The state label"
+            },
+            {
+              "n": 3,
+              "label": "The XML file, record ID and the exact value. The XML is authoritative"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "evidence_xml_only",
+      "composed": true,
+      "mocked": "xml_only"
+    },
+    "trace_t2017_router": {
+      "variants": {
+        "dark": {
+          "clean": "trace_t2017_router_dark_1920.png",
+          "annotated": "trace_t2017_router_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The router's own reason, verbatim"
+            },
+            {
+              "n": 2,
+              "label": "The reports it opened, and why each one"
+            },
+            {
+              "n": 3,
+              "label": "The evidence handed to the model: records, aggregates, ABSENT notes"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "trace_t2017_router_light_1366.png",
+          "annotated": "trace_t2017_router_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The router's own reason, verbatim"
+            },
+            {
+              "n": 2,
+              "label": "The reports it opened, and why each one"
+            },
+            {
+              "n": 3,
+              "label": "The evidence handed to the model: records, aggregates, ABSENT notes"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "trace_t2017_router",
+      "composed": false,
+      "mocked": null
+    },
+    "trace_t2017_escalation": {
+      "variants": {
+        "dark": {
+          "clean": "trace_t2017_escalation_dark_1920.png",
+          "annotated": "trace_t2017_escalation_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Why the larger model was called, in the pipeline's own words"
+            },
+            {
+              "n": 2,
+              "label": "Totals: calls, tokens, cost when generated, paid now"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "trace_t2017_escalation_light_1366.png",
+          "annotated": "trace_t2017_escalation_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Why the larger model was called, in the pipeline's own words"
+            },
+            {
+              "n": 2,
+              "label": "Totals: calls, tokens, cost when generated, paid now"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "trace_t2017_escalation",
+      "composed": false,
+      "mocked": null
+    },
+    "replay_t2016_1_route": {
+      "variants": {
+        "dark": {
+          "clean": "replay_t2016_1_route_dark_1920.png",
+          "annotated": "replay_t2016_1_route_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Pipeline stages. The current one is outlined"
+            },
+            {
+              "n": 2,
+              "label": "What code read from the question: well, date, topic"
+            },
+            {
+              "n": 3,
+              "label": "The report the router opened"
+            },
+            {
+              "n": 4,
+              "label": "One of the wells the router ruled out: dimmed and left closed. All the other dimmed lanes are the same"
+            },
+            {
+              "n": 5,
+              "label": "Plain-language description of this stage"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "replay_t2016_1_route_light_1366.png",
+          "annotated": "replay_t2016_1_route_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Pipeline stages. The current one is outlined"
+            },
+            {
+              "n": 2,
+              "label": "What code read from the question: well, date, topic"
+            },
+            {
+              "n": 3,
+              "label": "The report the router opened"
+            },
+            {
+              "n": 4,
+              "label": "One of the wells the router ruled out: dimmed and left closed. All the other dimmed lanes are the same"
+            },
+            {
+              "n": 5,
+              "label": "Plain-language description of this stage"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "replay_t2016_1_route",
+      "composed": false,
+      "mocked": null
+    },
+    "replay_t2016_2_context": {
+      "variants": {
+        "dark": {
+          "clean": "replay_t2016_2_context_dark_1920.png",
+          "annotated": "replay_t2016_2_context_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Records from this report are in the context"
+            },
+            {
+              "n": 2,
+              "label": "How many records, and how many aggregates or ABSENT notes"
+            },
+            {
+              "n": 3,
+              "label": "Legend: shape, colour and label for each status"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "replay_t2016_2_context_light_1366.png",
+          "annotated": "replay_t2016_2_context_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Records from this report are in the context"
+            },
+            {
+              "n": 2,
+              "label": "How many records, and how many aggregates or ABSENT notes"
+            },
+            {
+              "n": 3,
+              "label": "Legend: shape, colour and label for each status"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "replay_t2016_2_context",
+      "composed": false,
+      "mocked": null
+    },
+    "replay_t2016_4_resolve": {
+      "variants": {
+        "dark": {
+          "clean": "replay_t2016_4_resolve_dark_1920.png",
+          "annotated": "replay_t2016_4_resolve_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The answer, its status and cited record"
+            },
+            {
+              "n": 2,
+              "label": "Replay controls: previous, play or pause, next, replay, speed"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "replay_t2016_4_resolve_light_1366.png",
+          "annotated": "replay_t2016_4_resolve_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The answer, its status and cited record"
+            },
+            {
+              "n": 2,
+              "label": "Replay controls: previous, play or pause, next, replay, speed"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "replay_t2016_4_resolve",
+      "composed": false,
+      "mocked": null
+    },
+    "mission_2d_t2017": {
+      "variants": {
+        "dark": {
+          "clean": "mission_2d_t2017_dark_1920.png",
+          "annotated": "mission_2d_t2017_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Stages, including the escalation that follows the flag"
+            },
+            {
+              "n": 2,
+              "label": "Wells as lanes, reports as nodes in date order"
+            },
+            {
+              "n": 3,
+              "label": "Reports the router opened"
+            },
+            {
+              "n": 4,
+              "label": "Cited records collect here"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "mission_2d_t2017_light_1366.png",
+          "annotated": "mission_2d_t2017_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Stages, including the escalation that follows the flag"
+            },
+            {
+              "n": 2,
+              "label": "Wells as lanes, reports as nodes in date order"
+            },
+            {
+              "n": 3,
+              "label": "Reports the router opened"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "mission_2d_t2017",
+      "composed": false,
+      "mocked": null
+    },
+    "abstain_sweep_t2031": {
+      "variants": {
+        "dark": {
+          "clean": "abstain_sweep_t2031_dark_1920.png",
+          "annotated": "abstain_sweep_t2031_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The opened report, swept: nothing found"
+            },
+            {
+              "n": 2,
+              "label": "The ABSENT record: what was searched (1 report, 56 records) and the field that does not exist"
+            },
+            {
+              "n": 3,
+              "label": "One of the wells the router ruled out. The other dimmed lanes stay closed too"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "abstain_sweep_t2031_light_1366.png",
+          "annotated": "abstain_sweep_t2031_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The opened report, swept: nothing found"
+            },
+            {
+              "n": 2,
+              "label": "The ABSENT record: what was searched (1 report, 56 records) and the field that does not exist"
+            },
+            {
+              "n": 3,
+              "label": "One of the wells the router ruled out. The other dimmed lanes stay closed too"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "abstain_sweep_t2031",
+      "composed": false,
+      "mocked": null
+    },
+    "mission_3d_t2017": {
+      "variants": {
+        "dark": {
+          "clean": "mission_3d_t2017_dark_1920.png",
+          "annotated": "mission_3d_t2017_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The question and what code read from it"
+            },
+            {
+              "n": 2,
+              "label": "Focus (F) gives the scene the full width. Reset view returns the camera"
+            },
+            {
+              "n": 3,
+              "label": "The scene: wells in survey paths, reports as nodes, depth scale in metres"
+            },
+            {
+              "n": 4,
+              "label": "Legend, including solid nodes (at surveyed depth) and ring nodes (placed by date)"
+            },
+            {
+              "n": 5,
+              "label": "Plain-language description of the current stage"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "mission_3d_t2017_light_1366.png",
+          "annotated": "mission_3d_t2017_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The question and what code read from it"
+            },
+            {
+              "n": 2,
+              "label": "Focus (F) gives the scene the full width. Reset view returns the camera"
+            },
+            {
+              "n": 3,
+              "label": "The scene: wells in survey paths, reports as nodes, depth scale in metres"
+            },
+            {
+              "n": 4,
+              "label": "Legend, including solid nodes (at surveyed depth) and ring nodes (placed by date)"
+            },
+            {
+              "n": 5,
+              "label": "Plain-language description of the current stage"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "mission_3d_t2017",
+      "composed": false,
+      "mocked": null
+    },
+    "mission_3d_focus_t2017": {
+      "variants": {
+        "dark": {
+          "clean": "mission_3d_focus_t2017_dark_1920.png",
+          "annotated": "mission_3d_focus_t2017_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Compact card: stage, counts, answer and confidence"
+            },
+            {
+              "n": 2,
+              "label": "Show panel (F) and Reset view"
+            },
+            {
+              "n": 3,
+              "label": "The scene, centred in the free area"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "mission_3d_focus_t2017_light_1366.png",
+          "annotated": "mission_3d_focus_t2017_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Compact card: stage, counts, answer and confidence"
+            },
+            {
+              "n": 2,
+              "label": "Show panel (F) and Reset view"
+            },
+            {
+              "n": 3,
+              "label": "The scene, centred in the free area"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "mission_3d_focus_t2017",
+      "composed": false,
+      "mocked": null
+    },
+    "generalisation": {
+      "variants": {
+        "dark": {
+          "clean": "generalisation_dark_1920.png",
+          "annotated": "generalisation_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The honest caveat: tuned on these questions, independent test in progress"
+            },
+            {
+              "n": 2,
+              "label": "Mean score, current against baseline"
+            },
+            {
+              "n": 3,
+              "label": "One card per question category"
+            },
+            {
+              "n": 4,
+              "label": "All 40 questions. Each opens its answer view"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "generalisation_light_1366.png",
+          "annotated": "generalisation_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The honest caveat: tuned on these questions, independent test in progress"
+            },
+            {
+              "n": 2,
+              "label": "Mean score, current against baseline"
+            },
+            {
+              "n": 3,
+              "label": "One card per question category"
+            },
+            {
+              "n": 4,
+              "label": "All 40 questions. Each opens its answer view"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "generalisation",
+      "composed": false,
+      "mocked": null
+    },
+    "impact_calculator": {
+      "variants": {
+        "dark": {
+          "clean": "impact_calculator_dark_1920.png",
+          "annotated": "impact_calculator_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Three inputs: engineers, hours saved a week, cost an hour"
+            },
+            {
+              "n": 2,
+              "label": "The result, labelled \"Illustrative, not measured\""
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "impact_calculator_light_1366.png",
+          "annotated": "impact_calculator_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Three inputs: engineers, hours saved a week, cost an hour"
+            },
+            {
+              "n": 2,
+              "label": "The result, labelled \"Illustrative, not measured\""
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "impact_calculator",
+      "composed": false,
+      "mocked": null
+    },
+    "archive_timeline": {
+      "variants": {
+        "dark": {
+          "clean": "archive_timeline_dark_1920.png",
+          "annotated": "archive_timeline_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Timeline: one row per wellbore, one dot per report"
+            },
+            {
+              "n": 2,
+              "label": "The selected report: file, period covered, pages, records"
+            },
+            {
+              "n": 3,
+              "label": "Records by type"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "archive_timeline_light_1366.png",
+          "annotated": "archive_timeline_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Timeline: one row per wellbore, one dot per report"
+            },
+            {
+              "n": 2,
+              "label": "The selected report: file, period covered, pages, records"
+            },
+            {
+              "n": 3,
+              "label": "Records by type"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "archive_timeline",
+      "composed": false,
+      "mocked": null
+    },
+    "cost_view": {
+      "variants": {
+        "dark": {
+          "clean": "cost_view_dark_1920.png",
+          "annotated": "cost_view_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Model mix: share of calls, then share of cost"
+            },
+            {
+              "n": 2,
+              "label": "Each mark is one question, cheapest to dearest"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "cost_view_light_1366.png",
+          "annotated": "cost_view_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Model mix: share of calls, then share of cost"
+            },
+            {
+              "n": 2,
+              "label": "Each mark is one question, cheapest to dearest"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "cost_view",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_start": {
+      "variants": {
+        "dark": {
+          "clean": "ask_start_dark_1920.png",
+          "annotated": "ask_start_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Question box. Command or Control plus Enter sends it"
+            },
+            {
+              "n": 2,
+              "label": "Suggested questions: answered, multi-report, abstains, too vague"
+            },
+            {
+              "n": 3,
+              "label": "Ask"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_start_light_1366.png",
+          "annotated": "ask_start_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Question box. Command or Control plus Enter sends it"
+            },
+            {
+              "n": 2,
+              "label": "Suggested questions: answered, multi-report, abstains, too vague"
+            },
+            {
+              "n": 3,
+              "label": "Ask"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_start",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_answered": {
+      "variants": {
+        "dark": {
+          "clean": "ask_answered_dark_1920.png",
+          "annotated": "ask_answered_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The answer"
+            },
+            {
+              "n": 2,
+              "label": "Confidence and its rule"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_answered_light_1366.png",
+          "annotated": "ask_answered_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The answer"
+            },
+            {
+              "n": 2,
+              "label": "Confidence and its rule"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_answered",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_abstain": {
+      "variants": {
+        "dark": {
+          "clean": "ask_abstain_dark_1920.png",
+          "annotated": "ask_abstain_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The abstention, in amber, not red"
+            },
+            {
+              "n": 2,
+              "label": "Confidence for an abstention: 0.85 when an ABSENT record backs it"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_abstain_light_1366.png",
+          "annotated": "ask_abstain_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The abstention, in amber, not red"
+            },
+            {
+              "n": 2,
+              "label": "Confidence for an abstention: 0.85 when an ABSENT record backs it"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_abstain",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_clarification": {
+      "variants": {
+        "dark": {
+          "clean": "ask_clarification_dark_1920.png",
+          "annotated": "ask_clarification_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "No model was called"
+            },
+            {
+              "n": 2,
+              "label": "Three clickable examples, all answered and verified"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_clarification_light_1366.png",
+          "annotated": "ask_clarification_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "No model was called"
+            },
+            {
+              "n": 2,
+              "label": "Three clickable examples, all answered and verified"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_clarification",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_unknown_well": {
+      "variants": {
+        "dark": {
+          "clean": "ask_unknown_well_dark_1920.png",
+          "annotated": "ask_unknown_well_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The router found no such well or date, so it abstained at once"
+            },
+            {
+              "n": 2,
+              "label": "Confidence 0.90 for a report that does not exist"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_unknown_well_light_1366.png",
+          "annotated": "ask_unknown_well_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "The router found no such well or date, so it abstained at once"
+            },
+            {
+              "n": 2,
+              "label": "Confidence 0.90 for a report that does not exist"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_unknown_well",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_rate_limited": {
+      "variants": {
+        "dark": {
+          "clean": "ask_rate_limited_dark_1920.png",
+          "annotated": "ask_rate_limited_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "Countdown from the Retry-After header"
+            },
+            {
+              "n": 3,
+              "label": "Try again, disabled until the timer ends"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_rate_limited_light_1366.png",
+          "annotated": "ask_rate_limited_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "Countdown from the Retry-After header"
+            },
+            {
+              "n": 3,
+              "label": "Try again, disabled until the timer ends"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_rate_limited",
+      "composed": false,
+      "mocked": null
+    },
+    "ask_waking": {
+      "variants": {
+        "dark": {
+          "clean": "ask_waking_dark_1920.png",
+          "annotated": "ask_waking_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "What is happening"
+            },
+            {
+              "n": 2,
+              "label": "Plain explanation"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_waking_light_1366.png",
+          "annotated": "ask_waking_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "What is happening"
+            },
+            {
+              "n": 2,
+              "label": "Plain explanation"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_waking",
+      "composed": false,
+      "mocked": "waking"
+    },
+    "ask_live_off": {
+      "variants": {
+        "dark": {
+          "clean": "ask_live_off_dark_1920.png",
+          "annotated": "ask_live_off_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Banner: live mode is off"
+            },
+            {
+              "n": 2,
+              "label": "The same status in the rail"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_live_off_light_1366.png",
+          "annotated": "ask_live_off_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Banner: live mode is off"
+            },
+            {
+              "n": 2,
+              "label": "The same status in the rail"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_live_off",
+      "composed": false,
+      "mocked": "live_off"
+    },
+    "ask_budget": {
+      "variants": {
+        "dark": {
+          "clean": "ask_budget_dark_1920.png",
+          "annotated": "ask_budget_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "What it means and what still works"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_budget_light_1366.png",
+          "annotated": "ask_budget_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "What it means and what still works"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_budget",
+      "composed": false,
+      "mocked": "budget"
+    },
+    "ask_timeout": {
+      "variants": {
+        "dark": {
+          "clean": "ask_timeout_dark_1920.png",
+          "annotated": "ask_timeout_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "Try again"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_timeout_light_1366.png",
+          "annotated": "ask_timeout_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "State label"
+            },
+            {
+              "n": 2,
+              "label": "Try again"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_timeout",
+      "composed": false,
+      "mocked": "timeout"
+    },
+    "ask_not_evaluated": {
+      "variants": {
+        "dark": {
+          "clean": "ask_not_evaluated_dark_1920.png",
+          "annotated": "ask_not_evaluated_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "NOT EVALUATED"
+            },
+            {
+              "n": 2,
+              "label": "It will not be guessed"
+            },
+            {
+              "n": 3,
+              "label": "Confidence 0 and no evidence, because none was produced"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "ask_not_evaluated_light_1366.png",
+          "annotated": "ask_not_evaluated_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "NOT EVALUATED"
+            },
+            {
+              "n": 2,
+              "label": "It will not be guessed"
+            },
+            {
+              "n": 3,
+              "label": "Confidence 0 and no evidence, because none was produced"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "ask_not_evaluated",
+      "composed": true,
+      "mocked": "not_evaluated"
+    },
+    "presenter_intro": {
+      "variants": {
+        "dark": {
+          "clean": "presenter_intro_dark_1920.png",
+          "annotated": "presenter_intro_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Tour steps, hide cursor (H), exit (Esc)"
+            },
+            {
+              "n": 2,
+              "label": "The promise, large enough for a projector"
+            },
+            {
+              "n": 3,
+              "label": "Back and Next. Arrow keys also work"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "presenter_intro_light_1366.png",
+          "annotated": "presenter_intro_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Tour steps, hide cursor (H), exit (Esc)"
+            },
+            {
+              "n": 2,
+              "label": "The promise, large enough for a projector"
+            },
+            {
+              "n": 3,
+              "label": "Back and Next. Arrow keys also work"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "presenter_intro",
+      "composed": false,
+      "mocked": null
+    },
+    "presenter_story_a": {
+      "variants": {
+        "dark": {
+          "clean": "presenter_story_a_dark_1920.png",
+          "annotated": "presenter_story_a_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Current step of five"
+            },
+            {
+              "n": 2,
+              "label": "Story title and the note to read aloud"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "presenter_story_a_light_1366.png",
+          "annotated": "presenter_story_a_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Current step of five"
+            },
+            {
+              "n": 2,
+              "label": "Story title and the note to read aloud"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "presenter_story_a",
+      "composed": false,
+      "mocked": null
+    },
+    "presenter_story_c_3d": {
+      "variants": {
+        "dark": {
+          "clean": "presenter_story_c_3d_dark_1920.png",
+          "annotated": "presenter_story_c_3d_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "2D or 3D. 2D is the safe default"
+            },
+            {
+              "n": 2,
+              "label": "The scene and its stage card"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "presenter_story_c_3d_light_1366.png",
+          "annotated": "presenter_story_c_3d_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "2D or 3D. 2D is the safe default"
+            },
+            {
+              "n": 2,
+              "label": "The scene and its stage card"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "presenter_story_c_3d",
+      "composed": false,
+      "mocked": null
+    },
+    "style_sheet": {
+      "variants": {
+        "dark": {
+          "clean": "style_sheet_dark_1920.png",
+          "annotated": "style_sheet_dark_1920_annotated.png",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Theme switch: dark and light"
+            },
+            {
+              "n": 2,
+              "label": "Surfaces: layered steps of a warm near-black"
+            },
+            {
+              "n": 3,
+              "label": "Status colours. Each has an icon and a label"
+            }
+          ],
+          "errors": []
+        },
+        "light": {
+          "clean": "style_sheet_light_1366.png",
+          "annotated": "style_sheet_light_1366_annotated.png",
+          "width": 1366,
+          "height": 768,
+          "theme": "light",
+          "marks": [
+            {
+              "n": 1,
+              "label": "Theme switch: dark and light"
+            },
+            {
+              "n": 2,
+              "label": "Surfaces: layered steps of a warm near-black"
+            }
+          ],
+          "errors": []
+        }
+      },
+      "id": "style_sheet",
+      "composed": false,
+      "mocked": null
+    }
+  }
+}
