@@ -66,6 +66,17 @@ curl -s -X POST $U/ask -H 'content-type: application/json' \
 
 ## 5. Pre-presentation warm-up checklist
 
+Run the remote smoke test first (standard library only, no key needed on your side):
+
+```bash
+python web/server/smoke_remote.py https://well-archive-api.onrender.com --origin https://<your-frontend>.vercel.app
+```
+
+It checks latency (first request and warm), every GET endpoint and its shape, the 32 answers against `submission/predictions.csv`, page images, a cached and two new live questions
+(cost well under $0.01, capped at `--max-cost 0.03`), the clarification gate, SSE streaming, CORS for the origins you pass, input guards and key hygiene, and prints a PASS/FAIL table
+(exit code 1 on any FAIL). `--no-live` makes no model call at all. **`--rate-limit-test` additionally sends about 15 asks and uses part of the per-IP daily allowance: do not run it
+right before presenting.**
+
 The day before
 - [ ] Deploy the final `main`; run the four curl checks above; open `/docs`.
 - [ ] From the real frontend URL, ask one cached and one new question (this proves CORS and the key). Note `budget_remaining_usd` before and after.

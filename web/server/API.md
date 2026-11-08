@@ -207,6 +207,8 @@ run the web tests in their own pytest invocation (as documented), not in the sam
 
 ## Tests
 
+`web/server/smoke_remote.py <base-url>` is the black-box check of a *deployed* server (see `web/DEPLOY.md`); the pytest suite below tests the code.
+
 `python -m pytest web/server/tests -q` (needs only the repo: also passes in a clean clone with no `external/` folder; `test_pack.py` proves no raw path is opened and, where the organiser data
 exists, that the pack equals its sources). No network unless a key is configured: only `test_offscript.py` calls a model, and only when a key is found
 (it prints the 20-question table and writes it to `RUNTIME_CACHE_DIR/offscript/table.md`; reruns replay from that cache for free). All other tests use
